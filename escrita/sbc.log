@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.8.3)  26 NOV 2026 20:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.8.3)  26 NOV 2026 20:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -501,14 +501,10 @@ Underfull \hbox (badness 1286) in paragraph at lines 63--64
 fol-lowed, such as Laya
  []
 
-
-Underfull \vbox (badness 1092) has occurred while \output is active []
-
- [2]
+[2]
 LaTeX Font Info:    Trying to load font information for T1+phv on input line 77
 .
-
-(/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/t1phv.fd
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 ) [3]
 <../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png, id=121, 1766.
@@ -536,9 +532,10 @@ type png)
 Package pdftex.def Info: ../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen
 .png  used on input line 168.
 (pdftex.def)             Requested size: 341.43437pt x 100.41916pt.
- [5 <../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png> <../base_
-de_conhecimento/img/turnos_mtcsd_acc_f1.png> <../base_de_conhecimento/img/turno
-s_mtcsd_confusao_qwen.png>]
+
+[5 <../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png> <../base_d
+e_conhecimento/img/turnos_mtcsd_acc_f1.png> <../base_de_conhecimento/img/turnos
+_mtcsd_confusao_qwen.png>]
 <../base_de_conhecimento/img/tom-20261123.png, id=146, 1766.6pt x 662.475pt>
 File: ../base_de_conhecimento/img/tom-20261123.png Graphic file (type png)
 <use ../base_de_conhecimento/img/tom-20261123.png>
@@ -609,7 +606,7 @@ Package rerunfilecheck Info: File `sbc.out' has not changed.
 Here is how much of TeX's memory you used:
  13569 strings out of 467525
  216032 string characters out of 5418983
- 646158 words of memory out of 5000000
+ 646251 words of memory out of 5000000
  42243 multiletter control sequences out of 15000+600000
  674951 words of font info for 103 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -626,7 +623,7 @@ ive/2026/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/202
 st/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/
 times/utmri8a.pfb>
-Output written on sbc.pdf (11 pages, 882673 bytes).
+Output written on sbc.pdf (11 pages, 882882 bytes).
 PDF statistics:
  274 PDF objects out of 1000 (max. 8388607)
  214 compressed objects within 3 object streams
