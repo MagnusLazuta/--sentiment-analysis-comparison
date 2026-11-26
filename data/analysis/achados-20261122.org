@@ -1,0 +1,2959 @@
+#+TITLE: Achados detalhados do experimento
+#+AUTHOR: Rayan Raddatz de Matos, Eduardo Magnus Lazuta
+#+DATE: 2026-11-22
+#+LANGUAGE: pt
+#+OPTIONS: toc:2 num:t ^:nil
+
+Documento de trabalho com os achados, números e exemplos válidos para o
+estado atual do estudo, para ser resumido depois no artigo. Fontes
+(todas em =experimento/results/= e =experimento/analysis/=):
+- rodada principal =20261117-181106-838446= (=eval/metrics.csv=,
+  =eval/predictions.csv=): MUStARD++, MT-CSD e Filatova;
+- Sarcasm_NLP com a pergunta sobre "nuclear power": rodada
+  =20261121-220717-839516=, itens "#nuc". A tabela usada em todo o
+  documento é =20261121-220717-839516/merged/eval/predictions.csv= (e
+  =metrics.csv=), montada por =analysis/merge_target.py=: rodada
+  principal com as linhas do Sarcasm_NLP trocadas pelas "#nuc"; as
+  métricas das outras bases são idênticas às da rodada principal. O
+  NanoJev não foi rodado de novo e não tem linhas do Sarcasm_NLP.
+  Números do Sarcasm_NLP recalculados em =analysis/recalc_snlp.R= e
+  =recalc_snlp2.R= (saída =recalc_snlp-20261121.txt=); a comparação
+  com a pergunta antiga ("the topic") vem de
+  =20261121-220717-839516/eval/target.csv= (=target_dados.py=,
+  =target.R= -> =target-20261121.txt=);
+- ablação do contexto =20261118-094702-838561= (=eval/ablation.csv=,
+  gerado por =analysis/ablacao_dados.py=; análise em =ablacao.R=),
+  MUStARD++ e MT-CSD;
+- experimentos complementares (só o /post/ como contexto, sem o
+  comentário de cima, descrições das opções trocadas):
+  =20261121-172919-839457/eval/followup.csv= (=followup_dados.py=,
+  =followup.R= -> =followup-20261121.txt=); para o Sarcasm_NLP, a
+  versão com "nuclear power" =20261121-220717-839516/eval/followup_nuc.csv=;
+- análise de sensibilidade da pergunta do Sarcasm_NLP (duas perguntas
+  alternativas sobre o "assunto nuclear", com e sem a regra das
+  manchetes): =20261122-010436-839569/eval/issue.csv= (=issue_dados.py=,
+  =issue.R= -> =issue-20261122.txt=); não substitui a pergunta
+  principal;
+- diagnóstico primeiro /token/ x palavra inteira:
+  =analysis/diag-firsttoken-20261121.txt= (=diag_firsttoken_sum.py=);
+- intervalos por /thread/ do MT-CSD: =analysis/revisao.R= ->
+  =revisao-20261121.txt=; análises complementares (acurácia por classe,
+  taxonomia de erros, conferência) em scripts
+  próprios (semente 5).
+
+Convenções:
+- Salvo indicação, ordem de opções v1 (negativo, neutro, positivo); o
+  twitter-roberta não usa /prompt/ (variante =none=) e o DeBERTa-NLI
+  só tem v1 (uma hipótese por rótulo, sem lista de opções).
+  v2 = positivo, neutro, negativo; v3 = neutro, positivo, negativo.
+- Sarcasm_NLP: sempre a pergunta "How does the author of the tweet
+  feel about nuclear power?", salvo quando se diz que é outra.
+- Acurácias em %, com IC de 95% por /bootstrap/ entre colchetes quando
+  indicado: por item (1.000 reamostragens, semente 5) no MUStARD++, no
+  Sarcasm_NLP e no Filatova; por /thread/ (13 /threads/, 2.000
+  reamostragens, semente 5) no MT-CSD. p = McNemar exato, pareado item
+  a item. "*" = IC de 95% sem o zero (ou p < 0,05); "n.s." = não
+  significativo.
+- k0 = sem contexto; k1 = só o turno anterior; kK = a conversa inteira
+  disponível; "oldest" = só o /post/ que abre a /thread/ (MT-CSD).
+- "Seis modelos" = todos menos o NanoJev (controle negativo).
+- "Coorte K >= 4" = itens com pelo menos quatro turnos de contexto,
+  avaliados com k = 0, 1, 2, 3 e 4 turnos (sempre os mesmos itens).
+- Afirmações apoiadas numa única análise, sem conferência independente,
+  vêm com "os dados sugerem".
+- Nos exemplos, "sem ctx" e "com ctx" listam as respostas de
+  twitter-roberta / DeBERTa-NLI / Qwen3.5-4B / Mistral-7B / Kev-4B /
+  Laya, nessa ordem (neg, neu, pos).
+
+* Resumo dos achados
+
+Salvo indicação, os números deste resumo são da ordem de opções v1,
+sem contexto e em itens não irônicos; no Sarcasm_NLP, sempre com a
+pergunta sobre "nuclear power"; no MT-CSD, intervalos e testes usam
+/bootstrap/ por /thread/ (13 /threads/). Os tamanhos de amostra e os
+testes de cada número estão nas seções seguintes. "Os dados sugerem"
+marca afirmações apoiadas numa única análise, sem conferência
+independente.
+
+** Em uma página
+
+- *Nenhum modelo domina em T1.* O melhor muda com a base: Mistral-7B
+  (58,1) e Qwen3.5-4B (57,9) no MUStARD++, Kev-4B no MT-CSD (71,3) e no
+  Sarcasm_NLP (76,2), Kev-4B (93,9) e Qwen3.5-4B (93,8) empatados no
+  Filatova. Votar ou promediar as probabilidades dos seis não supera o
+  melhor modelo de cada base.
+- *Kev-4B e Qwen3.5-4B: mesma base, diferença no neutro.* Em 74% das
+  discordâncias, o Qwen3.5-4B escolhe um polo e o Kev-4B diz "neutro";
+  o Kev-4B vence quando o gold é neutro (717 contra 144 itens) e o
+  Qwen3.5-4B quando é polar (923 contra 411; N = 9.202). Entre os 15
+  pares de modelos, é o par com o maior kappa de acerto (0,467).
+- *Em média, o contexto não ajuda.* Dos 24 pares modelo x base x
+  condição, há um ganho significativo (Qwen3.5-4B no MT-CSD com o turno
+  anterior, +5,4 [2,3; 8,6]) e cinco perdas, a maior do DeBERTa-NLI no
+  MT-CSD com a conversa inteira (-25,0 [-34,4; -16,4]). O turno anterior
+  é melhor ou igual à conversa inteira.
+- *O ganho do Qwen3.5-4B com o turno anterior vem do neutro.* As
+  respostas "neutro" dele sobem de 29,4% para 35,1% (gold 58,6%); nos
+  comentários curtos e sem menção ao alvo, ganha 14,1 pontos [7,5;
+  19,7]. Com a conversa inteira, é o único que ganha nas inversões de
+  postura (+15,5 [12,9; 17,2]).
+- *Todos copiam a própria leitura do comentário de cima.* O peso de
+  cópia vai de 0,20 (Qwen3.5-4B) a 0,62 (twitter-roberta); a razão
+  sinal / cópia ordena o efeito do turno anterior (Qwen3.5-4B 0,72
+  ganha; os quatro com razão <= 0,13 perdem ou ficam iguais).
+- *O contexto atribui o alvo.* No MT-CSD, o DeBERTa-NLI perde 37,4
+  pontos nos comentários que não nomeiam o alvo e ganha 0,7 nos que
+  nomeiam; só o /post/ que abre a /thread/ já lhe custa 24,7.
+- *Mais contexto não leva ao neutro.* No MT-CSD, a fração de "neutro"
+  cai em 5 de 6 modelos e a de "negativo" sobe em 5 de 6; o "viés
+  negativo do contexto" é transferência do tom da /thread/.
+- *Na ironia, ninguém supera a maioria* nos irônicos do MUStARD++ (100%
+  negativos) e do Sarcasm_NLP (86,8%). Kev-4B (18,0) e Laya (20,6) são
+  os piores no MUStARD++, porque respondem "neutro" em 67,6% e 65,4%
+  dos irônicos.
+- *No MUStARD++, o ranking de T3 acompanha a disposição a dizer
+  "negativo":* a ordem dos seis nos irônicos é a do acerto nos
+  negativos de T1 (Spearman = 1,0). No Sarcasm_NLP, comparando só
+  negativos, a ironia separa dois grupos (Qwen3.5-4B, Mistral-7B e
+  Kev-4B perdem de 2,3 a 9,2 pontos; DeBERTa-NLI, twitter-roberta e
+  Laya, de 28,9 a 39,6).
+- *O "ganho na ironia com contexto" não é específico da ironia:*
+  DeBERTa-NLI (+5,7), Kev-4B (+6,3) e Laya (+4,7) ganham nos irônicos
+  do MUStARD++, mas passam a dizer "negativo" também nos não irônicos
+  neutros ou positivos (+10,1, +3,0 e +9,5); a perda do Mistral-7B em
+  v1 (-7,0) é da ordem (v2 +6,2, v3 +6,0).
+- *O Mistral-7B tem forte viés pela primeira opção:* muda de resposta
+  em 36,5% dos itens só com a ordem, responde +26,7 pontos mais
+  "negativo" quando "negative" vem primeiro, e acerta 50,7 / 23,6 /
+  10,6% dos irônicos do MUStARD++ em v1 / v2 / v3.
+- *Não há viés positivo geral.* Há viés positivo na ironia (leitura
+  literal), na SpaceX (P("a favor" | nenhuma postura) do Qwen3.5-4B:
+  38,5 contra 9,4 na Tesla) e por ordem das opções.
+- *O Sarcasm_NLP depende da pergunta:* trocá-la move a acurácia dos
+  LLMs em até 23 pontos, e nenhuma pergunta reproduz o gold. Os dados
+  sugerem que a metade irônica foi gerada ou reescrita por LLM ("right?"
+  em 20,6% dos irônicos e 1,1% dos não irônicos).
+- *Calibração:* o Kev-4B é o mais bem calibrado sem ironia (ECE médio
+  0,078) e o pior nos irônicos do MUStARD++ (0,538), onde a confiança
+  dele aponta o lado errado (nos 69 irônicos com confiança >= 0,9,
+  acerta 13,0%).
+
+** As perguntas do trabalho
+
+*O contexto ajuda?* Em média, não. Só o Qwen3.5-4B ganha (MT-CSD com o
+turno anterior, +5,4; em 11 de 13 /threads/ e nas três ordens), e o
+ganho vem sobretudo do neutro: as respostas "neutro" dele sobem de 29,4%
+para 35,1%, mais perto dos 58,6% do gold. Perdem o DeBERTa-NLI no
+MT-CSD (-25,0 com a conversa inteira), o Kev-4B no MT-CSD (-7,0) e o
+twitter-roberta no MUStARD++ (-10,2 com um turno, -13,2 com a conversa
+inteira). O mecanismo é de leitura do contexto como texto a julgar:
+cada modelo puxa o item para a própria leitura do comentário de cima,
+o contexto traz o nome do alvo que faltava no comentário (no NLI, a
+heurística de sobreposição lexical) e a resposta herda o tom da
+/thread/. Nos LLMs, o sinal do próprio item pesa quase tanto quanto a
+cópia (razão 0,72 no Qwen3.5-4B, 0,61 no Mistral-7B); no Qwen3.5-4B, o pai serve para mostrar que o
+comentário é fora do tema (comentários curtos e sem menção ao alvo:
++14,1 [7,5; 19,7]). Na coorte K >= 4, o primeiro turno é o que mais
+mexe; o DeBERTa-NLI no MT-CSD cai a cada turno acrescentado
+(dose-resposta: -22,6 [-31,8; -13,5] com quatro turnos). As médias escondem muita troca: com
+o primeiro turno, de 15,6% a 44,8% dos itens mudam de resposta.
+
+*O contexto ajuda na ironia?* Não de forma específica. Em acurácia
+bruta, nos 601 irônicos do MUStARD++, DeBERTa-NLI (+5,7), Kev-4B (+6,3)
+e Laya (+4,7) ganham, Mistral-7B (-7,0) e twitter-roberta (-13,5)
+perdem e o Qwen3.5-4B não muda (-1,2). Como todo irônico é negativo,
+o ganho acompanha a taxa de "negativo" nos não irônicos neutros ou
+positivos (r = 0,73 nas 26 configurações): o contexto deixa DeBERTa-NLI,
+Kev-4B e Laya mais negativos em tudo. Nenhum /System One/ tem
+diferença positiva significativa entre os dois grupos; só o Mistral-7B
+em v3 tem (+5,1 [1,7; 8,2]). Os mecanismos: DeBERTa-NLI, Laya e
+twitter-roberta herdam a valência do turno anterior (o DeBERTa-NLI
+corrige 62,9% dos irônicos errados depois de um turno negativo contra
+25,4% depois de um positivo); o Kev-4B desce um degrau na escala,
+qualquer que seja a valência do contexto; nos LLMs, uma pergunta no turno anterior
+transforma o sarcasmo em resposta cooperativa (Qwen3.5-4B 43,0 -> 34,5
+em v1, N = 200). A perda do Mistral-7B é da ordem v1 (v2 +6,2, v3
++6,0): o contexto enfraquece o viés de posição, e em v1 a primeira
+opção é "negativo".
+
+*O contexto muda as classes? Leva ao neutro?* Muda, mas não para o
+neutro. No MT-CSD, o contexto ajuda a classe "contra" (DeBERTa-NLI
++20,7, Mistral-7B +13,0, Qwen3.5-4B +10,6) e atrapalha a "nenhuma
+postura" (DeBERTa-NLI -54,3, Kev-4B -15,1, Mistral-7B -14,1, Laya
+-8,0); como os neutros são 59% da base, a perda domina a média. O
+Qwen3.5-4B é o único que não perde nos neutros (-2,6, n.s.). Só o
+twitter-roberta vai para o neutro nas duas bases (MT-CSD 39,0 -> 50,1;
+MUStARD++ 57,7 -> 68,1), além do Qwen3.5-4B no MUStARD++ (18,1 ->
+26,0). Parte desses efeitos por classe não se repete nas três ordens.
+
+*Os /System One/ são melhores?* Em acurácia bruta, o Kev-4B é o melhor
+fora do MUStARD++; o Laya não é o melhor em nenhuma base. O que os
+distingue é o neutro: ele funciona como abstenção quando falta palavra
+polar, e não como erro aleatório (quando o Kev-4B arrisca um polo sem
+palavra polar, acerta o sinal em 85%, n = 41). As descrições das
+opções explicam parte do viés, mas não tudo: sem descrições para
+ninguém, Kev-4B e Laya respondem "neutro" em 54,9% e 67,0% dos não
+irônicos do MUStARD++, contra 18,1% e 30,0% de Qwen3.5-4B e
+Mistral-7B. Na ironia do MUStARD++, são os piores. Com contexto,
+Kev-4B e Qwen3.5-4B, que partem da mesma base, reagem em sentidos
+opostos no MT-CSD (-7,0 contra +2,1), e o Kev-4B copia mais a leitura
+do comentário de cima (peso 0,48 contra 0,20). O Kev-4B foi treinado
+com bases de sentimento e de nota, então não é /zero-shot/ no mesmo
+sentido.
+
+*T1 explica T3? Há viés negativo?* Em acurácia bruta, sim: no
+MUStARD++, a ordem dos seis em T3 é exatamente a do acerto nos
+negativos de T1 (Spearman = 1,0); nas três bases juntas, 0,88 (18
+pares), e a relação vale em cada ordem (de 0,86 a 0,91). Dentro de
+cada base, fora do MUStARD++, a relação é fraca (Sarcasm_NLP 0,14,
+Filatova 0,58; N = 6 por base). O viés negativo forte é do
+DeBERTa-NLI (66,8% de "negativo" nos não irônicos do Sarcasm_NLP, com
+precisão de 37,3%), e é ele que faz o DeBERTa-NLI "melhorar" com a
+ironia (+9,8 no MUStARD++, +15,7 no Sarcasm_NLP). Comparando só
+negativos, a ironia custa por si: de 18,4 a 29,0 pontos para todos no
+MUStARD++; no Sarcasm_NLP, dois grupos (Qwen3.5-4B 2,3, Mistral-7B 4,9
+e Kev-4B 9,2 contra DeBERTa-NLI 28,9, twitter-roberta 33,8 e Laya
+39,6); no Filatova, nada.
+
+*Há viés positivo?* Não em geral: fora da ironia, o viés dominante é o
+negativo ou a polarização (DeBERTa-NLI +39,5 pontos de "negativo" sobre
+o gold no Sarcasm_NLP), e o excesso de "positivo" passa de 10 pontos só
+em quatro casos. Há viés positivo real em quatro lugares: na ironia,
+como leitura literal (dos irônicos de literal positivo do MUStARD++, o
+Qwen3.5-4B responde "positivo" em 65,0% e o DeBERTa-NLI em 59,6%); na
+SpaceX (MT-CSD), que mistura prior do alvo e tom das /threads/
+comemorativas; em neutros de tema ou forma positiva (falas de até 3
+palavras do MUStARD++: DeBERTa-NLI "positivo" em 43,5%); e por ordem
+das opções. O contexto em geral afasta do positivo; a exceção é o
+DeBERTa-NLI no MT-CSD (+19,2 [9,0; 30,4]).
+
+** Por família de modelo
+
+- *Classificador (twitter-roberta).* Não recebe /prompt/ nem o nome do
+  alvo, o que o torna um controle natural (acerta 48,1 e 47,8% dos
+  neutros que nomeiam e que não nomeiam o alvo). É neutralizador e o
+  que mais copia o comentário de cima (peso 0,62); com a conversa
+  inteira, a /thread/ passa a explicar 0,70 da variância de p(contra)
+  (0,04 sem contexto). É o mais prejudicado pelo contexto no MUStARD++
+  e cai na palavra positiva da ironia (-21,5 pontos de acerto nos
+  irônicos negativos do Sarcasm_NLP com palavras positivas).
+  Perde nas resenhas longas cortadas do Filatova (66,2 contra 89,2 nos
+  positivos).
+- *NLI (DeBERTa-NLI).* Polarizador: usa o neutro só no MT-CSD, onde a
+  hipótese é de postura (1,6% de respostas "neutro" no MUStARD++). O
+  fracasso no Sarcasm_NLP (41,0) vem do viés negativo (chama de
+  "negativo" 65,8% dos neutros). O rótulo sai da
+  premissa inteira (contexto + fala): copia a postura literal da
+  manchete em qualquer direção e fica mais confiante à medida que erra
+  mais (MT-CSD com a conversa inteira: confiança média de 69,7 para
+  81,2%, erros com confiança >= 0,9 de 5,3 para 30,9% dos itens).
+- *LLMs (Qwen3.5-4B, Mistral-7B).* Polarizam; os dados sugerem que julgam o
+  tema, e não a postura. O Qwen3.5-4B é o único que ganha com contexto, é estável à
+  ordem (84,7% de mesma resposta nas três ordens) e é o que mais lê o
+  literal positivo na ironia (43,4% de "positivo" nos irônicos do
+  MUStARD++); os dados sugerem que é também o único com detecção
+  parcial da ironia (massa dividida entre os polos em 19,7% contra
+  8,1%). O Mistral-7B é o mais instável à ordem (63,5%) e o mais
+  superconfiante (confiança média de 86,5% quando erra); as descrições
+  das opções o pioram onde o neutro domina (MT-CSD 60,5 -> 48,0). No
+  Sarcasm_NLP, o perfil dos dois depende da pergunta.
+- */System One/ (Kev-4B, Laya).* Neutralizadores, com o neutro como
+  abstenção. O Kev-4B tem a melhor acurácia bruta fora do MUStARD++,
+  a melhor calibração sem ironia e a confiança útil como filtro
+  (90,8% de acerto na metade mais confiante do Sarcasm_NLP), mas
+  desaba na ironia do MUStARD++ e perde com a conversa inteira no
+  MT-CSD. O Laya responde
+  "neutro" em 81,1% dos comentários do MT-CSD, e os dados sugerem que
+  esse viés não depende do texto.
+
+** O que a acurácia esconde
+
+- *Ordem das opções.* A ordem muda o perfil de classes sem mudar a
+  acurácia: o Laya no MT-CSD tem 61,6 / 62,1 / 61,3 (v1 / v2 / v3) e
+  recall de "contra" de 27,9 / 8,2 / 20,2; o Mistral-7B no Sarcasm_NLP
+  tem 71,1 / 71,1 / 72,0 e recall do negativo de 75,1 / 33,4 / 26,5.
+  Promediar as três ordens tira o viés de posição do Mistral-7B, mas
+  não sobe a acurácia (61,3% contra 69,7% em v1). Boa parte do "viés
+  negativo" do Mistral-7B em v1 é viés de posição.
+- *Colapsos por classe.* O DeBERTa-NLI acerta 0% dos neutros do
+  Filatova e 3,0% dos do MUStARD++ (55,3% de acurácia, mas F1 de 43,7);
+  o Qwen3.5-4B acerta 2,9% dos neutros do Filatova; o Laya, 18,2% dos
+  "a favor" no MT-CSD. Laya e Mistral-7B têm acurácias parecidas no
+  MT-CSD (61,6 e 60,5%) com recall de "nenhuma" de 88,1 contra 56,5.
+  No Filatova, a maioria já dá 85,8%, e as resenhas de 3 estrelas são
+  o pior caso para todos.
+- *Calibração.* A fração de erros confiantes depende de quanto cada
+  modelo chega a 0,9 de confiança (Laya em 13,4% dos itens, Mistral-7B
+  em 76,3%) e não serve para comparar modelos sem essa ressalva.
+
+** Problemas nas bases e na medição
+
+- *Sarcasm_NLP.* Os dados sugerem que o gold mede o sentimento
+  do autor sobre o assunto nuclear em sentido amplo, com manchetes como
+  neutras. Com "nuclear power", os LLMs acertam os neutros e erram os
+  negativos sobre armas; com a pergunta ampla, o contrário. A metade
+  irônica parece gerada por LLM (inferência nossa; "right?" em 20,6%
+  dos irônicos contra 1,1% dos não irônicos), então T3 nessa base mede em parte
+  o reconhecimento desse estilo.
+- *MUStARD++.* Os 601 irônicos têm gold negativo, então T3 mede também
+  a disposição a dizer "negativo". O gold foi anotado com vídeo e
+  áudio; os dados sugerem que cerca de 10% dos não irônicos não se
+  resolvem só com o texto.
+- *MT-CSD.* Só 13 /threads/, sem autores identificados; postura não é
+  sentimento; alvo e /thread/ estão confundidos (as cinco /threads/ da
+  SpaceX são as últimas). Os dados sugerem cerca de 2,3% de gold
+  errado.
+- *Filatova.* As 3 estrelas são em geral "positivas com ressalvas"; 60%
+  das irônicas têm 1 estrela, onde a ironia reforça uma crítica
+  explícita, e nas irônicas de 5 estrelas "acertar" é concordar com o
+  elogio fingido. Repesando pela distribuição de estrelas, o custo da
+  ironia vai a 9,8 a 19,6 pontos. Laya, DeBERTa-NLI e twitter-roberta
+  cortam resenhas longas.
+- *Medição conferida.* Pontuar a palavra inteira dá a mesma resposta
+  que o primeiro /token/ em 100% de 8.030 entradas por LLM; a
+  inferência é determinística (diferença máxima 0,000008); a massa
+  fora dos rótulos (alta no Mistral-7B: 68,9% das entradas do
+  Sarcasm_NLP abaixo de 0,9) não afeta as acurácias. O Laya perde
+  turnos de contexto em 5,6% das entradas (janela de 320 /tokens/).
+
+** Insights
+
+- Acurácia bruta sozinha engana na comparação entre modelos
+  /zero-shot/: acurácias parecidas escondem perfis de classe opostos;
+  ao lado dela, reportar o recall por classe e a distribuição das
+  respostas.
+- A ordem das opções é uma variável experimental: um modelo com viés
+  de posição pode parecer bom ou ruim numa classe só pela ordem.
+- Em /zero-shot/, o contexto tende a virar mais texto a julgar; ajuda
+  quem separa o sinal do item da leitura do contexto (razão sinal /
+  cópia alta). É uma ideia coerente com os resultados de T2, ainda sem
+  teste direto.
+- Quando todos os itens de um grupo têm a mesma classe, "acertar" esse
+  grupo mede a disposição à classe; é preciso comparar com a mudança
+  nos outros itens (diferença de diferenças).
+- O neutro é onde os modelos mais diferem: polarizadores e
+  neutralizadores têm erros opostos com acurácias parecidas.
+- A definição do gold pesa tanto quanto o modelo: a pergunta do
+  Sarcasm_NLP, as estrelas do Filatova e a emoção implícita do
+  MUStARD++ mudam o que "acerto" quer dizer.
+- Mesma base, adaptações diferentes: Kev-4B e Qwen3.5-4B erram nos
+  mesmos itens mais que qualquer outro par, mas diferem no uso do
+  neutro e reagem ao contexto em sentidos opostos.
+- A calibração não transfere para a ironia; ali a confiança pode
+  apontar o lado errado.
+
+** O que ainda está em aberto
+
+As perguntas estão em "Premissas, ideias e perguntas em aberto".
+Decisões para o artigo: qual pergunta fica valendo para o Sarcasm_NLP e
+se ele fica em T3 (Q1); como apresentar Kev-4B contra Qwen3.5-4B (Q2);
+reescrever as frases sobre ironia e contexto (Q3); incorporar a
+taxonomia qualitativa (Q4); fixar a definição dos neutros prejudicados
+pelo contexto (Q5); reportar a média das ordens ou o recall por classe
+(Q6). Experimentos não rodados: a causalidade da cópia do comentário
+de cima (Q7), o mascaramento do nome do alvo (Q8), a pergunta do turno
+anterior reescrita como afirmação (Q9), o modelo base sem /instruct/
+(Q10), os autores marcados no MT-CSD (Q11), o peso do título no
+Filatova (Q12) e o alvo trocado por "the company" na SpaceX (Q13).
+Falta ainda conferir o .bib e atualizar =resultados.zip=.
+
+* Premissas, ideias e perguntas em aberto
+
+Esta seção junta o que o estudo assume, as explicações ainda não
+testadas diretamente e o que falta decidir ou testar. As seções
+seguintes trazem os números.
+
+** Premissas (o que assumimos sem testar, ou testamos só em parte)
+
+/Tarefa e rótulos/
+- P1. Três classes bastam e os rótulos das bases podem ser levados a
+  elas: emoções do MUStARD++ -> sentimento (surpresa descartada como
+  gold, por ser ambígua); postura do MT-CSD (a favor / contra /
+  nenhuma) -> positivo / negativo / neutro; estrelas do Filatova (1-2 /
+  3 / 4-5). Ressalvas: as resenhas de 3 estrelas são em geral
+  "positivas com ressalvas" (seção "T3: ironia"), e postura não é
+  sentimento: os LLMs tendem a julgar o tema, e não a postura (seção
+  "Acurácia por classe, viés positivo e tipos de erro").
+- P2. O gold é a verdade. Não corrigimos nada. Uma leitura de um só
+  leitor, sem cegamento ao gold, sugere ruído de 1 a 2 % no Filatova,
+  cerca de 2 % no MT-CSD e cerca de 10 % no MUStARD++ não irônico,
+  contando as falas que só se resolvem com vídeo.
+- P3. No MUStARD++ irônico, o gold é a emoção implícita (pretendida), e
+  o "literal" é a emoção explícita. Todos os 601 irônicos têm gold
+  negativo, então T3 nessa base mede também a disposição a dizer
+  "negativo".
+- P4. Sarcasm_NLP: usamos o subconjunto em que os dois anotadores
+  concordaram (5.929 itens) e removemos /hashtags/ que revelam o
+  rótulo. Assumimos que é um corpus de /tweets/ reais; os dados sugerem
+  que a metade sarcástica foi em boa parte escrita ou reescrita por LLM
+  (inferência nossa, não confirmada na fonte).
+- P5. A pergunta do Sarcasm_NLP é "How does the author of the tweet
+  feel about nuclear power?". O gold mede o sentimento sobre o assunto
+  nuclear em sentido amplo, com manchetes como neutras; nenhuma das
+  perguntas testadas reproduz esse critério (seção "A pergunta do
+  Sarcasm_NLP", em "Bases, medição e limitações").
+
+/Entrada e pontuação/
+- P6. /Zero-shot/, um /prompt/ fixo por base; só a ordem das opções
+  varia (v1, v2, v3). A ordem v1 é a principal. A ordem muda muito o
+  Mistral-7B e, em menor grau, os demais modelos com /prompt/ (seção
+  "Ordem das opções", em "T1: texto isolado, /System One/, calibração e
+  ordem das opções").
+- P7. A resposta dos LLMs é a probabilidade do primeiro /token/ de cada
+  rótulo, renormalizada entre os três rótulos. Conferido: pontuar a
+  palavra inteira dá a mesma resposta em 100 % de 8.030 entradas por
+  modelo (Qwen3.5-4B e Mistral-7B).
+- P8. As probabilidades do NLI são o /softmax/, entre as três
+  hipóteses, dos /logits/ de implicação; a probabilidade de contradição
+  não é usada.
+- P9. Os /System One/ recebem descrições das opções e os LLMs não. A
+  troca (LLMs com as descrições, /System One/ só com as palavras dos
+  rótulos) mostrou que isso explica parte do viés neutro dos /System
+  One/, mas não as conclusões principais.
+- P10. Contexto = turnos anteriores em ordem cronológica; quando não
+  cabe, saem os mais antigos. O MT-CSD não identifica autores, então os
+  turnos aparecem por posição ("Post", "Reply 1"). Assumimos que o
+  modelo não precisa saber quem é quem; a herança da leitura do
+  comentário de cima e a atribuição do alvo pelo contexto (seção "T2: o
+  contexto ajuda?") sugerem que precisaria.
+- P11. Kev-4B e Qwen3.5-4B partem do mesmo modelo base; é a premissa da
+  comparação "mesma base, duas adaptações". Os dados são coerentes com
+  ela (entre os 15 pares de modelos, é o par com o maior kappa de
+  acerto e a maior correlação das margens de valência), mas é
+  informação de documentação, não verificada por nós.
+- P12. A inferência é determinística: confirmado (diferença máxima de
+  probabilidade 0,000008 entre cópias da mesma entrada).
+
+/Estatística/
+- P13. Itens são independentes no MUStARD++, no Sarcasm_NLP e no
+  Filatova (McNemar exato, /bootstrap/ por item). No MT-CSD não: usamos
+  /bootstrap/ por /thread/ (13 /threads/). Cenas do MUStARD++ não foram
+  tratadas como grupos.
+- P14. Não corrigimos para comparações múltiplas, salvo na taxonomia de
+  erros (Bonferroni). Muitos testes foram feitos; resultados isolados
+  com p perto de 0,05 devem ser lidos como sugestão.
+- P15. Acurácia bruta é a métrica principal: mede o uso real, sem
+  rótulos da base.
+
+Decidido: o estudo não usa correção de prior nem AUC; a comparação é pela acurácia bruta, F1 macro, recall por classe e calibração.
+
+** Ideias ainda não testadas diretamente
+
+- Em /zero-shot/, o contexto vira mais texto a julgar, e não uma pista
+  sobre o texto alvo; ajudaria só quem foi treinado para usá-lo.
+  Coerente com todos os resultados de T2, sem teste direto.
+- Cada modelo puxa o item para a sua própria leitura do comentário de
+  cima. Apoiada por regressão; falta o experimento causal (Q7).
+- Uma pergunta no turno anterior reenquadra a fala irônica como
+  resposta cooperativa, e por isso o Qwen3.5-4B perde nos irônicos com
+  um turno de contexto. Sugerida pelos números e pela leitura de casos;
+  falta o experimento (Q9).
+- Os dados sugerem que a ironia do Sarcasm_NLP é detectável pelo estilo
+  de texto gerado ("right?" em 20,6% dos irônicos contra 1,1% dos não
+  irônicos; começo com Oh, Wow, Great ou Because em 57,2 contra 5,5%);
+  T3 nessa base mediria em parte o reconhecimento desse estilo.
+
+Hipóteses testadas e refutadas:
+- "Mais contexto leva ao neutro": não como regra; só twitter-roberta e
+  Laya se diluem para o neutro.
+- "Os /System One/ ganham na ironia com contexto porque entendem a
+  ironia": ficam mais negativos em tudo, também nos não irônicos
+  neutros ou positivos.
+- "O gold irônico do Sarcasm_NLP segue outra regra": não; a perda dos
+  LLMs com "nuclear power" é a mesma nos negativos irônicos e não
+  irônicos, e a diferença entre as metades é de composição.
+
+** Perguntas em aberto
+
+/Decisões para o artigo/
+- Q1. Qual pergunta fica valendo para o Sarcasm_NLP? Nenhuma reproduz o
+  gold. Opções: (a) manter "nuclear power" (melhor para os LLMs nos não
+  irônicos, que é o T1); (b) usar o "assunto nuclear" com a regra das
+  manchetes (melhor no total para Qwen3.5-4B, Kev-4B e Laya, e mais
+  fiel à instrução dos anotadores); (c) reportar as perguntas como
+  análise de sensibilidade e não tirar conclusões de ranking dessa
+  base. E manter o Sarcasm_NLP em T3, dado que a metade sarcástica
+  parece gerada?
+- Q2. Como apresentar Kev-4B vs Qwen3.5-4B: "mesma base, preferências
+  diferentes pelo neutro" (nas discordâncias, o Qwen3.5-4B escolhe um
+  polo e o Kev-4B diz "neutro") em vez de "Kev-4B melhor em T1"?
+- Q3. Reescrever as frases sobre ironia e contexto: "o contexto ajuda
+  na ironia nos /System One/" vira "o contexto deixa os /System One/
+  mais negativos em tudo; nos irônicos isso vira acerto"; "o contexto
+  atrapalha os LLMs na ironia" vira "a perda do Mistral-7B é efeito da
+  ordem v1 (em v2 e v3 vira ganho); o Qwen3.5-4B perde sobretudo
+  quando o turno anterior é pergunta".
+- Q4. Incorporar a taxonomia qualitativa dos erros (um leitor, sem
+  cegamento) na análise de casos do artigo?
+- Q5. "36 comentários neutros" (análise de casos): fixar a definição; o
+  número depende de "pelo menos cinco" ou "pelo menos quatro" modelos.
+  Com pelo menos cinco certos sem contexto e pelo menos quatro errados
+  com a conversa inteira (v1), são 49 (seção "Exemplos", em T2).
+- Q6. Reportar a média das três ordens ou o recall por classe junto da
+  acurácia? A ordem muda o perfil de classes sem mudar a acurácia.
+
+/Experimentos não rodados/
+- Q7. A herança do comentário de cima é causal? Trocar o comentário de
+  cima por um de postura oposta (mesmo alvo); 324 itens do MT-CSD com
+  gold diferente do pai, k1.
+- Q8. Mascarar o nome do alvo no contexto (Tesla/SpaceX/Musk -> "the
+  company") elimina a queda do DeBERTa-NLI e do Kev-4B no MT-CSD? 785
+  itens com pai, condições oldest e kK.
+- Q9. Reescrever como afirmação a pergunta do turno anterior recupera
+  o Qwen3.5-4B nos irônicos do MUStARD++? Cerca de 200 irônicos, k1,
+  Qwen3.5-4B e Mistral-7B, v1-v3.
+- Q10. O comportamento do Kev-4B com contexto vem da adaptação ou já
+  está no modelo base? Qwen3.5-4B-Base (sem /instruct/) nos 785 itens
+  do MT-CSD e nos 601 irônicos, k0 / k1 / kK.
+- Q11. Marcar o autor de cada turno no MT-CSD muda a herança do
+  comentário de cima?
+- Q12. No Filatova, quanto da acurácia vem só do título?
+- Q13. O excesso de "a favor" nos neutros da SpaceX vem do nome do
+  alvo? Trocar o alvo por "the company", sem contexto; se o excesso
+  sumir, é o prior do alvo, e não o tom da /thread/.
+- Q14. O modelo sabe o que é o alvo? Em nenhum caso a pergunta descreve
+  o alvo: o modelo recebe só o nome ("Tesla", "SpaceX", "nuclear
+  power"). Muitos comentários falam de Elon Musk, e ligar Musk à Tesla
+  exige conhecimento prévio. Experimento: acrescentar uma descrição
+  curta do alvo à pergunta (ex.: "Tesla, the electric car company led
+  by Elon Musk") no MT-CSD, k0 e kK; se a perda com contexto diminuir
+  ou a acurácia sem contexto subir, parte do erro é desconhecimento do
+  alvo. Complementa Q8 (mascarar o nome) e Q13 ("the company").
+
+Respondida: os modelos não têm viés positivo geral; há viés positivo na
+ironia (leitura literal), na SpaceX (MT-CSD) e por ordem das opções
+(seção "Acurácia por classe, viés positivo e tipos de erro").
+
+/Pendências práticas/
+- Conferir as entradas do .bib; URL do repositório; trabalhos
+  relacionados (System1-Arena; /baselines/ publicados do MT-CSD).
+- =resultados.zip= está desatualizado (anterior ao Sarcasm_NLP com
+  "nuclear power" e à análise de sensibilidade da pergunta).
+- Nada foi /commitado/ (experimento e sbcorg não são repositórios git).
+
+* Métricas, testes e métodos: como funcionam
+
+Cores nas fórmulas: \textcolor{red}{vermelho} = o que se calcula;
+\textcolor{blue}{azul} = o que vem dos dados (contagens, probabilidades
+do modelo, rótulos); \textcolor{teal}{verde} = constantes que nós
+fixamos (número de reamostragens, semente, número de faixas).
+
+** Como cada modelo vira uma distribuição sobre três rótulos
+
+- *Classificador (twitter-roberta).* A última camada dá um /logit/
+  $\textcolor{blue}{z_c}$ por classe; o /softmax/ transforma em
+  probabilidades que somam 1:
+  \[ \textcolor{red}{p_c} = \frac{e^{\textcolor{blue}{z_c}}}{\sum_{k} e^{\textcolor{blue}{z_k}}} . \]
+- *NLI (DeBERTa-NLI).* Para cada rótulo $c$ montamos uma hipótese e o
+  modelo diz o quanto o texto (premissa) implica essa hipótese. Em
+  sentimento: "The speaker feels negative." (MUStARD++) ou "The author
+  feels negative about nuclear power." (com o alvo da base); no neutro,
+  "neither positive nor negative". Em postura (MT-CSD): "The author of
+  this comment is against Tesla.", "... is in favor of ...", "... takes
+  no position on ...". Pegamos o /logit/ de implicação de cada
+  hipótese, $\textcolor{blue}{e_c}$, e aplicamos o /softmax/ entre as
+  três. A probabilidade de contradição não é usada.
+- *LLMs (Qwen3.5-4B, Mistral-7B).* O modelo lê o /prompt/ e produz uma
+  distribuição sobre o próximo /token/. Para cada rótulo, tomamos o
+  primeiro /token/ de cada grafia (word, Word, " word", " Word"),
+  somamos as probabilidades desses /tokens/ (cada /token/ distinto uma
+  vez) e renormalizamos:
+  \[ \textcolor{red}{p_c} = \frac{\textcolor{blue}{m_c}}{\textcolor{blue}{m_{neg}}+\textcolor{blue}{m_{neu}}+\textcolor{blue}{m_{pos}}} . \]
+  A soma $\textcolor{blue}{m_{neg}}+\textcolor{blue}{m_{neu}}+\textcolor{blue}{m_{pos}}$
+  antes de renormalizar é a "massa nos rótulos"; massa baixa indica
+  probabilidade espalhada por outros /tokens/. Conferimos que pontuar a
+  palavra inteira (produto das probabilidades de todos os /tokens/ de
+  cada grafia) dá a mesma resposta em 100 % das 8.030 entradas
+  conferidas por modelo; isso afasta a dúvida sobre rótulos que dividem
+  o primeiro /token/ com outras palavras ("Favor" = "F" + "avor").
+- *System One (Kev-4B, Laya).* Recebem uma pergunta de múltipla escolha
+  (com descrições das opções) e devolvem uma probabilidade por opção,
+  que renormalizamos entre os três rótulos.
+- *Resposta do modelo.* É o rótulo de maior probabilidade
+  ($\arg\max_c p_c$). *Confiança* é essa probabilidade máxima. *Margem*
+  é a diferença entre a maior e a segunda maior.
+
+** Métricas de acerto
+
+- *Acurácia*: fração de itens em que a resposta é igual ao gold,
+  $\textcolor{red}{\mathrm{acc}} = \textcolor{blue}{\text{acertos}} / \textcolor{blue}{N}$.
+- *Maioria*: acurácia de responder sempre a classe mais frequente da
+  base; é o piso a superar.
+- *Matriz de confusão*: tabela gold x resposta; cada linha mostra para
+  onde vão os itens de uma classe.
+- *Precisão e recall (revocação) da classe $c$*: precisão = dos itens
+  que o modelo chamou de $c$, quantos são $c$; recall = dos itens que são
+  $c$, quantos o modelo chamou de $c$:
+  \[ \textcolor{red}{P_c} = \frac{\textcolor{blue}{TP_c}}{\textcolor{blue}{TP_c}+\textcolor{blue}{FP_c}}, \qquad \textcolor{red}{R_c} = \frac{\textcolor{blue}{TP_c}}{\textcolor{blue}{TP_c}+\textcolor{blue}{FN_c}} . \]
+  "Acerto nos negativos" é o recall do negativo.
+- *F1 macro*: média simples, entre as classes, da média harmônica de
+  precisão e recall; pune o modelo que ignora uma classe, mesmo que a
+  acurácia seja alta:
+  \[ \textcolor{red}{F1_c} = \frac{2\,\textcolor{blue}{P_c}\,\textcolor{blue}{R_c}}{\textcolor{blue}{P_c}+\textcolor{blue}{R_c}}, \qquad \textcolor{red}{F1_{macro}} = \tfrac{1}{3}\sum_c F1_c . \]
+- *Taxa de "negativo" / "neutro" / "positivo"*: fração das respostas
+  iguais a esse rótulo. A taxa menos a fração desse rótulo no gold é o
+  "excesso" sobre o gold e mostra o viés por classe.
+- *Inversão de polaridade*: erro entre negativo e positivo (sem passar
+  pelo neutro).
+- *Custo da ironia*: acerto nos negativos não irônicos menos acerto nos
+  negativos irônicos (mesma classe, para não misturar com o viés). Onde
+  dito, a versão por acurácia total (não irônicos menos irônicos).
+- *Mesma resposta nas três ordens*: fração de itens em que v1, v2 e v3
+  dão o mesmo rótulo (estabilidade à ordem das opções).
+- *Média das ordens*: a métrica calculada em v1, v2 e v3 e depois
+  promediada. Quando se combinam as probabilidades (média geométrica
+  das três ordens por item), isso é dito.
+
+** Calibração
+
+Um modelo é calibrado se, entre as respostas dadas com confiança 0,8,
+cerca de 80 % estão certas.
+- *ECE (erro de calibração esperado)*: divide as respostas em
+  $\textcolor{teal}{B = 15}$ faixas de confiança de mesma largura,
+  compara a acurácia de cada faixa com a confiança média dela e faz a
+  média ponderada pelo tamanho da faixa:
+  \[ \textcolor{red}{\mathrm{ECE}} = \sum_{b=1}^{\textcolor{teal}{15}} \frac{\textcolor{blue}{n_b}}{\textcolor{blue}{N}} \left| \textcolor{blue}{\mathrm{acc}_b} - \textcolor{blue}{\mathrm{conf}_b} \right| . \]
+  Zero é perfeito; valores altos indicam superconfiança (ou
+  subconfiança).
+- *Brier*: soma, nas três classes, do erro quadrático entre o vetor de
+  probabilidades e o vetor do gold (1 na classe certa, 0 nas outras),
+  média nos itens; vai de 0 a 2.
+- *Erros confiantes*: fração de TODOS os itens que são erros com
+  confiança $\geq$ 0,9 (não a fração dos erros). Separadamente,
+  "itens com confiança $\geq$ 0,9" é a fração de todos os itens com
+  essa confiança, certos ou errados.
+- *Escala de temperatura*: divide os /logits/ (ou log-probabilidades)
+  por $\textcolor{red}{T}$ antes do /softmax/; $T > 1$ achata a
+  distribuição (menos confiança), $T < 1$ aguça. Não muda a resposta,
+  só a confiança:
+  \[ \textcolor{red}{p_c(T)} = \frac{e^{\textcolor{blue}{z_c}/\textcolor{red}{T}}}{\sum_k e^{\textcolor{blue}{z_k}/\textcolor{red}{T}}} . \]
+  Ajustamos $T$ maximizando a verossimilhança do gold. Usada para ver
+  quanto da diferença de ECE entre Kev-4B e Qwen3.5-4B é só
+  temperatura.
+
+** Testes estatísticos e intervalos
+
+- *Intervalo de confiança por /bootstrap/ (percentil)*: sorteamos $N$
+  itens com reposição, recalculamos a métrica e repetimos
+  $\textcolor{teal}{B}$ vezes ($\textcolor{teal}{1.000}$ nas métricas
+  por base, $\textcolor{teal}{2.000}$ no /bootstrap/ por /thread/;
+  semente $\textcolor{teal}{5}$); o IC de
+  95 % vai do percentil 2,5 ao 97,5 das réplicas.
+- */Bootstrap/ pareado*: para comparar duas condições nos mesmos itens
+  (ex.: sem e com contexto), sorteamos os itens e calculamos a
+  diferença dentro de cada réplica; o IC é da diferença. É
+  significativo se o IC não contém 0.
+- */Bootstrap/ por /thread/ (por /cluster/)*: no MT-CSD os comentários
+  de uma mesma /thread/ não são independentes. Em vez de sortear itens,
+  sorteamos as 13 /threads/ com reposição e levamos todos os itens de
+  cada uma. O IC fica mais largo e honesto.
+- *McNemar exato*: compara duas condições nos mesmos itens olhando só
+  os itens que mudam. Seja $\textcolor{blue}{b}$ = certos só na
+  condição A e $\textcolor{blue}{c}$ = certos só na B. Se não houvesse
+  diferença, cada item que muda iria para A ou B com probabilidade 1/2;
+  o p-valor é o de um teste binomial bilateral de $b$ em $b+c$
+  tentativas:
+  \[ \textcolor{red}{p} = \min\Big(1,\; 2\cdot\Pr\big(X \leq \min(\textcolor{blue}{b},\textcolor{blue}{c})\big)\Big), \qquad X \sim \mathrm{Bin}(\textcolor{blue}{b}+\textcolor{blue}{c},\,\textcolor{teal}{1/2}) . \]
+- *Fisher exato*: compara duas proporções independentes (tabela 2x2)
+  sem aproximação; usado para grupos diferentes de itens.
+- *Wilson*: IC para uma proporção (ex.: 22 de 25 lidos), melhor que o
+  "p mais ou menos 2 erros padrão" com N pequeno.
+- *Bonferroni*: com $m$ testes, só considerar significativo p $<$
+  0,05/$m$, para controlar falsos positivos (usado na taxonomia de
+  erros).
+- *Diferença de diferenças*: efeito num grupo menos o efeito no outro
+  (ex.: ganho do contexto nos irônicos menos a mudança de "negativo"
+  nos não irônicos); isola o que é específico do grupo.
+- *Tirar um de cada vez (/leave-one-out/)*: recalcula o efeito sem uma
+  /thread/ por vez para ver se uma só sustenta o resultado.
+
+** Correlação, associação e regressão
+
+- *Spearman*: correlação de Pearson aplicada às posições (/ranks/);
+  mede se a ordem de um acompanha a do outro, sem exigir linearidade.
+  Com poucos pontos (6 modelos por base) é frágil.
+- *Kappa de Cohen*: concordância entre dois classificadores descontada
+  a concordância esperada por acaso:
+  $\textcolor{red}{\kappa} = (\textcolor{blue}{p_o} - \textcolor{blue}{p_e})/(1 - \textcolor{blue}{p_e})$.
+  "Estratificado" = calculado dentro de grupos (base x ironia x gold) e
+  combinado, para não confundir concordância com classes iguais.
+- *eta ao quadrado*: fração da variância de uma medida explicada por um
+  agrupamento (ex.: quanto de p(contra) se explica pela /thread/).
+- *Regressão logística*: modela a probabilidade de erro (ou de
+  "neutro") como função de características do texto; coeficientes
+  padronizados permitem comparar o peso de cada característica.
+- *Regressão da mudança de probabilidade*: a mudança de $p_c$ de k0
+  para k1 explicada pela leitura que o próprio modelo faz do comentário
+  de cima (sem contexto), pelo gold do comentário de cima, pelo gold do
+  item e por $p_c$ em k0; o coeficiente da leitura do comentário de
+  cima é o "peso de cópia", e o do gold do item, o "sinal do próprio
+  item".
+- *Agrupamento hierárquico*: junta modelos cujos vetores de erro são
+  parecidos.
+
+** Distâncias entre distribuições e geometria
+
+- *Distância de variação total (VT)*: metade da soma das diferenças
+  absolutas entre dois vetores de probabilidade; 0 = iguais, 1 =
+  disjuntos.
+- *Divergência KL*: quanto uma distribuição difere de outra em
+  "informação"; usada para ver se o Laya é uma versão achatada de outro
+  modelo.
+- *Entropia*: incerteza da distribuição; máxima no uniforme (1/3, 1/3,
+  1/3).
+- *Cosseno entre passos*: compara a direção de duas mudanças de
+  probabilidade (ex.: do turno 1 e dos turnos 2-4); negativo = uma
+  desfaz a outra.
+
+** Ferramentas de análise de texto
+
+- *VADER*: léxico de sentimento em inglês que dá um escore de -1 a 1 a
+  partir de palavras e pontuação. Usado só como medida auxiliar de
+  "quanto o texto tem de palavra polar", nunca como modelo avaliado.
+- *Regex*: padrões de texto (ex.: menção ao alvo no MT-CSD; aberturas
+  "Oh, ..." no Sarcasm_NLP).
+- *Leitura manual codificada*: um leitor classifica itens segundo um
+  livro de códigos (taxonomia de erros) ou julga tom e postura
+  (Sarcasm_NLP); sem cegamento, salvo onde dito.
+
+* T1: texto isolado, /System One/, calibração e ordem das opções
+
+Salvo indicação: itens não irônicos, sem contexto, ordem de opções v1
+(twitter-roberta sem /prompt/, DeBERTa-NLI só com v1); Sarcasm_NLP com
+a pergunta sobre "nuclear power"; NanoJev sem Sarcasm_NLP. No MT-CSD,
+intervalos e diferenças usam /bootstrap/ por /thread/; nas outras
+bases, McNemar exato e /bootstrap/ por item (1.000 reamostragens,
+semente 5).
+
+** T1: texto isolado
+
+*** Acurácia e F1 macro por base
+
+Acurácia [IC de 95%] / F1 macro, em %:
+
+| Modelo          | MUStARD++ (N = 570)      | MT-CSD (N = 848)         | Sarcasm_NLP (N = 3.361)  | Filatova (N = 817)       |
+|-----------------+--------------------------+--------------------------+--------------------------+--------------------------|
+| twitter-roberta | 50,7 [46,8; 54,7] / 50,9 | 52,5 [49,2; 56,0] / 50,4 | 70,3 [68,7; 71,9] / 63,4 | 81,6 [78,8; 84,3] / 59,6 |
+| DeBERTa-NLI     | 55,3 [50,9; 59,5] / 43,7 | 64,7 [61,7; 67,8] / 59,7 | 41,0 [39,4; 42,7] / 41,1 | 91,8 [89,8; 93,6] / 56,8 |
+| Qwen3.5-4B      | 57,9 [54,0; 62,1] / 54,8 | 55,3 [51,8; 58,5] / 55,1 | 70,9 [69,4; 72,4] / 67,8 | 93,8 [91,9; 95,5] / 61,6 |
+| Mistral-7B      | 58,1 [53,7; 62,3] / 55,9 | 60,5 [57,1; 63,7] / 58,4 | 71,1 [69,5; 72,5] / 66,5 | 91,6 [89,6; 93,4] / 67,1 |
+| Kev-4B          | 51,6 [47,7; 55,6] / 51,0 | 71,3 [68,2; 74,3] / 66,0 | 76,2 [74,7; 77,6] / 71,2 | 93,9 [92,2; 95,3] / 75,0 |
+| Laya            | 48,6 [44,6; 52,6] / 45,9 | 61,6 [58,1; 64,6] / 45,8 | 58,4 [56,8; 60,1] / 55,8 | 90,5 [88,4; 92,5] / 70,3 |
+| NanoJev         | 28,2 / 15,4              | 18,0 / 12,1              | --                       | 85,6 / 30,7              |
+| Maioria         | 42,5                     | 58,6                     | 61,7                     | 85,8                     |
+
+- Nenhum modelo domina. O melhor muda com a base: Mistral-7B e
+  Qwen3.5-4B no MUStARD++ (58,1 e 57,9); Kev-4B no MT-CSD (71,3) e no
+  Sarcasm_NLP (76,2); Kev-4B e Qwen3.5-4B empatados no Filatova (93,9 e
+  93,8).
+- MUStARD++: todos superam a maioria (42,5), mas ficam entre 48,6 e
+  58,1; é a base mais difícil em T1. Os IC de Mistral-7B e Qwen3.5-4B
+  se sobrepõem aos de twitter-roberta, DeBERTa-NLI e Kev-4B, mas não ao
+  do Laya.
+- MT-CSD: só Kev-4B (71,3) e DeBERTa-NLI (64,7) ficam claramente acima
+  da maioria (58,6); Laya (61,6) e Mistral-7B (60,5) ficam no limite;
+  Qwen3.5-4B (55,3) e twitter-roberta (52,5) ficam abaixo.
+- Sarcasm_NLP: Kev-4B (76,2), Mistral-7B (71,1), Qwen3.5-4B (70,9) e
+  twitter-roberta (70,3) superam a maioria (61,7); Laya (58,4) e
+  DeBERTa-NLI (41,0) ficam abaixo. O DeBERTa-NLI quase não usa o neutro
+  (7,5% das respostas) e chama de "negativo" 65,8% dos neutros. O
+  twitter-roberta, que não recebe a pergunta, é o único no seu domínio
+  de treino (/tweets/).
+- Filatova: todos acima de 90%, exceto o twitter-roberta (81,6), mas a
+  maioria já dá 85,8%. O F1 macro (de 56,8 a 75,0) mostra que quase
+  ninguém acerta os neutros (3 estrelas): no máximo 43,6% (Laya, N =
+  55 resenhas de 3 estrelas, todas as resenhas); o DeBERTa-NLI não
+  acerta nenhuma.
+- F1 macro contra acurácia: o DeBERTa-NLI tem 55,3% de acurácia no
+  MUStARD++ e só 43,7 de F1, porque quase nunca responde "neutro"
+  (1,6% das respostas); o Laya tem 61,6% no MT-CSD e o menor F1 (45,8),
+  porque responde "neutro" em 81,1% dos casos.
+
+*** Para onde vão os erros
+
+Distribuição das respostas dentro de cada classe do gold (% da linha,
+"neg / neu / pos"; no MT-CSD, contra / nenhuma postura / a favor).
+
+MUStARD++:
+| Modelo          | gold negativo      | gold neutro        | gold positivo      |
+|-----------------+--------------------+--------------------+--------------------|
+| twitter-roberta | 43,4 / 52,5 / 4,1  | 13,2 / 71,3 / 15,6 | 8,1 / 51,6 / 40,4  |
+| DeBERTa-NLI     | 85,1 / 0,8 / 14,0  | 52,7 / 3,0 / 44,3  | 34,2 / 1,2 / 64,6  |
+| Qwen3.5-4B      | 71,9 / 10,7 / 17,4 | 30,5 / 31,1 / 38,3 | 19,9 / 15,5 / 64,6 |
+| Mistral-7B      | 74,4 / 21,5 / 4,1  | 35,9 / 45,5 / 18,6 | 26,7 / 26,7 / 46,6 |
+| Kev-4B          | 42,6 / 55,0 / 2,5  | 10,8 / 82,0 / 7,2  | 5,0 / 61,5 / 33,5  |
+| Laya            | 43,0 / 53,3 / 3,7  | 10,8 / 82,6 / 6,6  | 12,4 / 65,8 / 21,7 |
+
+MT-CSD:
+| Modelo          | gold contra        | gold nenhuma       | gold a favor       |
+|-----------------+--------------------+--------------------+--------------------|
+| twitter-roberta | 71,2 / 20,7 / 8,2  | 43,1 / 47,9 / 9,1  | 23,8 / 35,0 / 41,3 |
+| DeBERTa-NLI     | 43,8 / 38,0 / 18,3 | 9,3 / 72,0 / 18,7  | 2,8 / 27,3 / 69,9  |
+| Qwen3.5-4B      | 76,4 / 11,1 / 12,5 | 37,6 / 42,1 / 20,3 | 17,5 / 11,9 / 70,6 |
+| Mistral-7B      | 62,5 / 22,1 / 15,4 | 18,3 / 56,5 / 25,2 | 11,9 / 16,8 / 71,3 |
+| Kev-4B          | 52,9 / 43,8 / 3,4  | 9,1 / 83,1 / 7,8   | 7,7 / 35,0 / 57,3  |
+| Laya            | 27,9 / 68,8 / 3,4  | 8,0 / 88,1 / 3,8   | 7,0 / 74,8 / 18,2  |
+
+Sarcasm_NLP:
+| Modelo          | gold negativo      | gold neutro        | gold positivo      |
+|-----------------+--------------------+--------------------+--------------------|
+| twitter-roberta | 71,6 / 19,4 / 8,9  | 20,5 / 73,3 / 6,1  | 19,7 / 30,3 / 50,0 |
+| DeBERTa-NLI     | 91,3 / 1,4 / 7,3   | 65,8 / 10,9 / 23,3 | 11,6 / 3,2 / 85,1  |
+| Qwen3.5-4B      | 60,5 / 34,2 / 5,2  | 15,6 / 72,8 / 11,6 | 5,1 / 8,6 / 86,2   |
+| Mistral-7B      | 75,1 / 23,8 / 1,1  | 24,3 / 73,4 / 2,3  | 19,2 / 32,7 / 48,1 |
+| Kev-4B          | 63,7 / 34,2 / 2,1  | 12,7 / 85,0 / 2,3  | 3,2 / 38,9 / 57,8  |
+| Laya            | 70,7 / 20,9 / 8,4  | 35,1 / 52,4 / 12,5 | 14,9 / 23,0 / 62,2 |
+
+Filatova: todos acertam de 75,3 a 95,1% dos negativos e de 84,7 a
+98,1% dos positivos; nos 35 neutros, DeBERTa-NLI acerta 0% (68,6% viram
+negativo), Qwen3.5-4B 2,9%, Mistral-7B 22,9%, twitter-roberta 34,3%,
+Kev-4B 40,0% e Laya 48,6%.
+
+A distribuição das respostas por base e a leitura dos dois perfis em
+relação ao neutro (polarizadores e neutralizadores) estão em "Recall
+por classe e distribuição das respostas", na seção "Acurácia por
+classe, viés positivo e tipos de erro".
+
+*** Subgrupos
+
+- MT-CSD por alvo (Tesla 532, SpaceX 316), padronizando pela mistura de
+  classes: Tesla fica acima de SpaceX para quase todos (Kev-4B 70,4
+  contra 66,7; DeBERTa-NLI 65,5 contra 59,2), exceto o twitter-roberta
+  (47,6 contra 56,8). Os dados sugerem que o nome do alvo funciona como
+  pista: os modelos que veem "Tesla" ou "SpaceX" na pergunta acertam
+  mais "contra" na Tesla e mais "a favor" na SpaceX (Mistral-7B, acerto
+  nos "contra": 70,7% na Tesla contra 29,3% na SpaceX, N = 167 / 41),
+  e o twitter-roberta, que não recebe o alvo, não mostra o efeito (ver
+  "Os modelos são mais positivos?").
+- MUStARD++ por série (BBT 336, FRIENDS 194, Silicon Valley 39):
+  padronizando pela classe, FRIENDS fica acima de BBT só para
+  Mistral-7B (65,6 contra 56,0) e Qwen3.5-4B (63,7 contra 55,7); os
+  dados sugerem que, controlando a classe, nem essa diferença é
+  significativa (Qwen3.5-4B p = 0,11; Mistral-7B p = 0,06).
+
+*** Votação entre modelos
+
+Maioria dos seis modelos (empates sorteados, semente 5) contra o
+melhor modelo de cada base:
+- MUStARD++ (N = 570): 59,1 contra 58,1 (Mistral-7B), p = 0,62;
+- MT-CSD (N = 848): 68,9 contra 71,3 (Kev-4B), p = 0,08;
+- Sarcasm_NLP (N = 3.361): 75,0 contra 76,2 (Kev-4B), p = 0,13;
+- Filatova (N = 817): 94,0 contra 93,9 (Kev-4B), p = 1.
+Votar não supera o melhor modelo; a média das probabilidades dos seis
+também não (MUStARD++ 60,5, p = 0,14; MT-CSD 69,5, p = 0,21;
+Sarcasm_NLP 76,3, p = 0,94; Filatova 93,8). O "oráculo" (algum modelo acerta) fica entre 86,7%
+(MUStARD++) e 97,7% (Filatova): os modelos se complementam, mas nenhuma
+regra simples de combinação aproveita isso.
+
+*** NanoJev (controle negativo)
+
+- Responde "positivo" em 98,5% das 15.876 entradas (MUStARD++, MT-CSD e
+  Filatova; três ordens, com e sem contexto). Por isso acerta 85,6% no
+  Filatova não irônico (85,8% são positivos) e 0% nos irônicos do
+  MUStARD++.
+- Fica abaixo da maioria em todas as bases; seu único /checkpoint/
+  público foi treinado em jogos. Com esse comportamento, tem ECE de
+  0,13 a 0,68 e nenhum erro com confiança >= 0,9 (confiança média de 57
+  a 73%).
+
+** Modelos /System One/
+
+*** Perfil geral
+
+- Kev-4B tem a maior acurácia e o maior F1 em T1 fora do MUStARD++
+  (MT-CSD 71,3 / 66,0; Sarcasm_NLP 76,2 / 71,2; Filatova 93,9 / 75,0);
+  no MUStARD++ fica 6,5 pontos atrás do Mistral-7B (51,6 contra 58,1).
+- Laya não é o melhor em nenhuma base (48,6; 61,6; 58,4; 90,5).
+- Os dois respondem "neutro" em 64,7% a 81,1% dos não irônicos do
+  MUStARD++ e do MT-CSD (os outros modelos: de 1,6% a 57,7%). Acertam
+  muitos neutros (Kev-4B: 82,0 / 83,1 / 85,0% no MUStARD++, no MT-CSD e
+  no Sarcasm_NLP; Laya: 82,6 / 88,1 / 52,4%) e poucos polarizados.
+- São os piores nos irônicos do MUStARD++ (Kev-4B 18,0%, Laya 20,6%,
+  N = 601), porque respondem "neutro" em 67,6% e 65,4% deles (ver "T3:
+  ironia").
+
+*** O neutro como abstenção
+
+O "neutro" dos /System One/ funciona como abstenção diante da falta de
+palavra polar, e não como erro aleatório.
+- Nos não irônicos com gold polar do MUStARD++, divididos pela força de
+  polaridade lexical (VADER |compound|: nenhuma < 0,05; fraca de 0,05 a
+  0,4; forte > 0,4; N = 153 / 122 / 128), a taxa de "neutro" cai com a
+  polaridade em todos, mas parte de níveis muito diferentes: Kev-4B 73 /
+  59 / 38%, Laya 72 / 60 / 41%, twitter-roberta 71 / 54 / 27%,
+  Mistral-7B 33 / 20 / 16%, Qwen3.5-4B 20 / 12 / 5%.
+- Quando arriscam um polo nos itens sem palavra polar, todos acertam o
+  sinal acima da maioria (61%; binomial): Qwen3.5-4B 72% (n = 123, p =
+  0,009), Mistral-7B 77% (n = 103, p = 8e-4) e Kev-4B 85% (n = 41, p =
+  0,001). O Kev-4B se abstém mais, mas não erra mais.
+- Texto curto também vira neutro, mesmo dentro da classe (ver "Tipos de
+  erro", na seção "Acurácia por classe, viés positivo e tipos de
+  erro").
+- Exceção: o Laya no MT-CSD responde cerca de 70% "neutro" em qualquer
+  nível de polaridade (os dados sugerem que o viés dele não depende do
+  texto).
+
+*** O efeito das descrições das opções
+
+Na rodada principal, só os /System One/ recebem uma descrição de cada
+opção (neutro: "neither positive nor negative, or purely factual"; no
+MT-CSD: "takes no position on Tesla, or is unrelated to it"); os LLMs
+recebem só os rótulos. Na rodada "trocada", os LLMs recebem as
+descrições e os /System One/ só os rótulos (mesmos 9.202 itens, sem
+contexto, v1; twitter-roberta e DeBERTa-NLI não mudam):
+
+| Base / grupo          | Modelo     | Acurácia orig -> troca | p       | "Neutro" orig -> troca | "Negativo" orig -> troca |
+|-----------------------+------------+------------------------+---------+------------------------+--------------------------|
+| MUStARD++ não irôn.   | Qwen3.5-4B | 57,9 -> 58,6           | 0,72    | 18,1 -> 30,0           | 45,1 -> 41,6             |
+| MUStARD++ não irôn.   | Mistral-7B | 58,1 -> 57,9           | 1       | 30,0 -> 41,1           | 49,6 -> 48,2             |
+| MUStARD++ não irôn.   | Kev-4B     | 51,6 -> 55,4           | 0,013   | 64,7 -> 54,9           | 22,6 -> 29,8             |
+| MUStARD++ não irôn.   | Laya       | 48,6 -> 46,0           | 0,096   | 65,4 -> 67,0           | 24,9 -> 24,7             |
+| MUStARD++ irônico     | Qwen3.5-4B | 42,9 -> 42,8           | 1       | 13,6 -> 24,8           | 42,9 -> 42,8             |
+| MUStARD++ irônico     | Mistral-7B | 50,7 -> 54,2           | 0,0065  | 29,6 -> 37,4           | 50,7 -> 54,2             |
+| MUStARD++ irônico     | Kev-4B     | 18,0 -> 24,6           | 4e-9    | 67,6 -> 57,4           | 18,0 -> 24,6             |
+| MUStARD++ irônico     | Laya       | 20,6 -> 19,8           | 0,61    | 65,4 -> 68,7           | 20,6 -> 19,8             |
+| MT-CSD                | Qwen3.5-4B | 55,3 -> 58,8 (s)       |         | 29,4 -> 34,3           | 43,8 -> 38,3             |
+| MT-CSD                | Mistral-7B | 60,5 -> 48,0 (s)       |         | 41,4 -> 35,7           | 28,1 -> 63,0             |
+| MT-CSD                | Kev-4B     | 71,3 -> 69,8           |         | 65,3 -> 75,2           | 19,6 -> 11,4             |
+| MT-CSD                | Laya       | 61,6 -> 61,9           |         | 81,1 -> 70,2           | 12,7 -> 16,6             |
+| Sarcasm_NLP não irôn. | Qwen3.5-4B | 70,9 -> 74,2           | 7e-9    | 55,2 -> 61,9           | 26,7 -> 24,6             |
+| Sarcasm_NLP não irôn. | Mistral-7B | 71,1 -> 62,9           | 5e-29   | 55,4 -> 43,2           | 37,6 -> 53,1             |
+| Sarcasm_NLP não irôn. | Kev-4B     | 76,2 -> 71,6           | 5e-12   | 66,1 -> 53,6           | 25,6 -> 36,8             |
+| Sarcasm_NLP não irôn. | Laya       | 58,4 -> 60,2           | 0,014   | 40,6 -> 51,3           | 42,6 -> 37,1             |
+| Sarcasm_NLP irônico   | Qwen3.5-4B | 57,7 -> 55,3           | 4e-4    | 28,2 -> 36,3           | 54,4 -> 50,3             |
+| Sarcasm_NLP irônico   | Mistral-7B | 68,3 -> 78,6           | 6e-37   | 29,5 -> 17,0           | 66,0 -> 82,2             |
+| Sarcasm_NLP irônico   | Kev-4B     | 54,8 -> 61,6           | 5e-24   | 35,4 -> 31,2           | 50,8 -> 58,6             |
+| Sarcasm_NLP irônico   | Laya       | 33,5 -> 34,7           | 0,11    | 36,6 -> 46,6           | 30,8 -> 30,9             |
+(MT-CSD: /bootstrap/ por /thread/; Qwen3.5-4B +3,5 [1,7; 5,3],
+Mistral-7B -12,5 [-20,8; -5,9], Kev-4B -1,5 e Laya +0,4 n.s.; (s) =
+IC sem o zero. No Filatova, nada muda mais que 3,4 pontos.)
+
+- A descrição do neutro aumenta as respostas "neutro" de quem a recebe:
+  os LLMs passam a responder mais "neutro" no MUStARD++ (Qwen3.5-4B 18
+  -> 30%, Mistral-7B 30 -> 41%); o Kev-4B, sem ela, responde menos (65
+  -> 55% no MUStARD++, 66 -> 54% no Sarcasm_NLP). No MT-CSD, onde a
+  descrição é de postura, o Kev-4B faz o contrário (65 -> 75% sem
+  descrição). O Mistral-7B é exceção no Sarcasm_NLP: com as descrições
+  responde menos "neutro" (55 -> 43%) e mais "negativo".
+- Mas o viés neutro dos /System One/ não vem só do /prompt/. Sem
+  descrições para ninguém, Kev-4B e Laya respondem "neutro" em 54,9% e
+  67,0% dos não irônicos do MUStARD++, contra 18,1% e 30,0% de
+  Qwen3.5-4B e Mistral-7B; no MT-CSD, 75,2% e 70,2% contra 29,4% e
+  41,4%. Com descrições para todos: 64,7% e 65,4% contra 30,0% e 41,1%
+  (MUStARD++).
+- O Laya quase não muda de acurácia com as descrições, mas a taxa de
+  "neutro" dele muda cerca de 11 pontos (MT-CSD 81 -> 70%; Sarcasm_NLP
+  41 -> 51%).
+- As descrições pioram o Mistral-7B onde o neutro domina: no MT-CSD
+  ele passa a responder "contra" em 63% dos comentários (era 28%),
+  acerta 91,8% dos "contra" e só 5,6% dos "a favor"; no Sarcasm_NLP não
+  irônico perde 8,2 pontos. Também fica mais sensível à ordem das
+  opções (ver "Ordem das opções").
+
+Comparação com a mesma informação (acurácia, sem contexto, v1;
+DeBERTa-NLI e twitter-roberta não recebem opções e não mudam: MUStARD++
+não irônico 55,3 e 50,7; irônico 65,1 e 25,0; MT-CSD 64,7 e 52,5;
+Sarcasm_NLP não irônico 41,0 e 70,3; irônico 56,7 e 38,0):
+
+| Base / grupo          | Descrições | Kev-4B | Laya | Qwen3.5-4B | Mistral-7B |
+|-----------------------+------------+--------+------+------------+------------|
+| MUStARD++ não irôn.   | ninguém    |   55,4 | 46,0 |       57,9 |       58,1 |
+| MUStARD++ não irôn.   | todos      |   51,6 | 48,6 |       58,6 |       57,9 |
+| MUStARD++ irônico     | ninguém    |   24,6 | 19,8 |       42,9 |       50,7 |
+| MUStARD++ irônico     | todos      |   18,0 | 20,6 |       42,8 |       54,2 |
+| MT-CSD                | ninguém    |   69,8 | 61,9 |       55,3 |       60,5 |
+| MT-CSD                | todos      |   71,3 | 61,6 |       58,8 |       48,0 |
+| Sarcasm_NLP não irôn. | ninguém    |   71,6 | 60,2 |       70,9 |       71,1 |
+| Sarcasm_NLP não irôn. | todos      |   76,2 | 58,4 |       74,2 |       62,9 |
+| Sarcasm_NLP irônico   | ninguém    |   61,6 | 34,7 |       57,7 |       68,3 |
+| Sarcasm_NLP irônico   | todos      |   54,8 | 33,5 |       55,3 |       78,6 |
+| Filatova não irôn.    | ninguém    |   94,6 | 89,8 |       93,8 |       91,6 |
+| Filatova não irôn.    | todos      |   93,9 | 90,5 |       93,0 |       88,2 |
+
+- O Kev-4B continua o melhor no MT-CSD nas duas configurações.
+- No Sarcasm_NLP não irônico, a liderança do Kev-4B depende da
+  descrição do neutro: sem descrições para ninguém, Kev-4B, Mistral-7B,
+  Qwen3.5-4B e twitter-roberta ficam entre 70,3 e 71,6; com descrições
+  para todos, Kev-4B (76,2) e Qwen3.5-4B (74,2) lideram.
+- No MUStARD++ não irônico, sem descrições, a distância do Kev-4B para
+  os LLMs cai de cerca de 6,5 para cerca de 2,6 pontos.
+- Nos irônicos do MUStARD++, Kev-4B e Laya seguem os piores nas duas
+  configurações (no máximo 24,6%).
+- As conclusões gerais (nenhuma família domina; viés neutro dos
+  /System One/; fraqueza deles na ironia do MUStARD++) se mantêm com a
+  mesma informação.
+
+*** Kev-4B e Qwen3.5-4B: mesma base, duas adaptações
+
+Os dois partem do Qwen3.5-4B-Base. O Qwen3.5-4B é pós-treinado para
+seguir instruções e responde pelo primeiro /token/. O Kev-4B congela a
+base e acrescenta um adaptador LoRA (posto 16, 33,8M parâmetros) e uma
+cabeça de decisão, com temperatura explícita (T = 2,41). Segundo o
+cartão do modelo, foi treinado em 30.540 registros, em quatro
+estágios, com a ordem das opções embaralhada; quatro das dez bases
+públicas são de sentimento ou nota (SST-5, Yelp, IMDB e resenhas da
+Amazon com estrelas, o domínio do Filatova). Por isso não é
+/zero-shot/ para sentimento no mesmo sentido dos LLMs. Os dois diferem
+em seis coisas ao mesmo tempo (pesos pós-treinados contra base
+congelada com LoRA; cabeça de decisão contra primeiro /token/; treino
+supervisionado com sentimento; descrições das opções; temperatura;
+ordem embaralhada), e só as descrições foram isoladas por experimento.
+
+| Grupo                 | N     | Qwen / Kev    | p       | "Neutro" Q / K | Concordância |
+|-----------------------+-------+---------------+---------+----------------+--------------|
+| MUStARD++ não irôn.   |   570 | 57,9 / 51,6   | 0,016   | 18 / 65        |         51,8 |
+| MT-CSD                |   848 | 55,3 / 71,3   | 2e-15   | 29 / 65        |         60,4 |
+| Sarcasm_NLP não irôn. | 3.361 | 70,9 / 76,2   | 8e-10   | 55 / 66        |         74,0 |
+| Filatova não irôn.    |   817 | 93,8 / 93,9   | 1       | 1 / 4          |         96,3 |
+| MUStARD++ irônico     |   601 | 42,9 / 18,0   | 5e-38   | 14 / 68        |         44,8 |
+| Sarcasm_NLP irônico   | 2.568 | 57,7 / 54,8   | 0,003   | 28 / 35        |         67,2 |
+| Filatova irônico      |   437 | 85,6 / 87,4   | 0,2     | 0 / 5          |         90,8 |
+(acurácia em %, McNemar exato; sem contexto, v1.)
+
+- Em acurácia bruta, nenhum domina: o Kev-4B vence onde o neutro
+  domina (MT-CSD +16,0; Sarcasm_NLP não irônico +5,3), o Qwen3.5-4B no
+  MUStARD++ (+6,3 nos não irônicos, +24,9 nos irônicos) e no Sarcasm_NLP
+  irônico (+2,9).
+- A diferença está no uso do neutro. Nas discordâncias, quando o gold é neutro
+  o Kev-4B acerta 717 e o Qwen3.5-4B 144; quando o gold é polar, o
+  Qwen3.5-4B acerta 923 e o Kev-4B 411 (N = 9.202 itens). Em 74% das
+  discordâncias, o Qwen3.5-4B escolhe um polo e o Kev-4B diz "neutro".
+- Os erros se agrupam pelo modelo base. Entre os 15 pares de modelos, o
+  par Kev-4B e Qwen3.5-4B tem o maior kappa de acerto (0,467; 0,436
+  estratificado por base, ironia e gold; N = 9.202) e a maior
+  correlação de Spearman das margens de valência em todas as bases (de
+  0,74 no Sarcasm_NLP a 0,93 no Filatova). Os dados sugerem que a
+  preferência pelo neutro decide quantos itens vão para cada classe e
+  a base, quais itens são difíceis.
+- Com contexto, os dois reagem em sentidos opostos (ver "Kev-4B e
+  Qwen3.5-4B no uso do contexto", na seção "T2: o contexto ajuda?").
+- Combinar os dois (média das probabilidades, Qwen3.5-4B com T = 2,41)
+  dá 69,1% contra 66,6% do Kev-4B e 65,9% do Qwen3.5-4B (N = 9.202; p =
+  5e-18 contra o Kev-4B). O ganho vem de evitar o pior caso de cada um;
+  só supera o melhor dos dois no Sarcasm_NLP (não irônico 77,5 contra
+  76,2, p = 0,006; irônico 59,4 contra 57,7, p = 0,04). Escolher o mais
+  confiante dos dois falha na ironia do MUStARD++ (22,6%).
+
+Exemplos:
+- Kev-4B neutro, Qwen3.5-4B certo (positivos do MUStARD++):
+  =mpp:1_1001_u= RAJ: "What else? Sell it on eBay as 'slightly used.'"
+  (sobre um iPod destruído).
+- Kev-4B certo (neutro), Qwen3.5-4B polariza (MT-CSD):
+  =mtcsd:Tesla:322= "Why would they be gleeful about it?" (Qwen3.5-4B:
+  contra).
+
+*** Laya
+
+- Não é o melhor em nenhuma base e tem o menor F1 do MT-CSD (45,8),
+  porque responde "neutro" em 81,1% dos comentários e acerta só 27,9%
+  dos "contra" e 18,2% dos "a favor".
+- Também tende ao rótulo listado primeiro, menos que o Mistral-7B (ver
+  "Ordem das opções").
+
+** Calibração e estabilidade
+
+*** ECE e erros confiantes
+
+ECE (15 faixas) nos não irônicos, sem contexto, v1:
+
+| Modelo          | MUStARD++ | MT-CSD | Sarcasm_NLP | Filatova | Média |
+|-----------------+-----------+--------+-------------+----------+-------|
+| twitter-roberta |     0,233 |  0,191 |       0,053 |    0,054 | 0,133 |
+| DeBERTa-NLI     |     0,332 |  0,100 |       0,371 |    0,065 | 0,217 |
+| Qwen3.5-4B      |     0,209 |  0,231 |       0,072 |    0,039 | 0,138 |
+| Mistral-7B      |     0,349 |  0,280 |       0,210 |    0,075 | 0,229 |
+| Kev-4B          |     0,211 |  0,028 |       0,027 |    0,045 | 0,078 |
+| Laya            |     0,237 |  0,105 |       0,113 |    0,088 | 0,136 |
+
+O ECE nos irônicos está em "Calibração nos irônicos", na seção "T3:
+ironia".
+
+Erros confiantes (fração de TODOS os itens não irônicos que são erros
+com confiança >= 0,9; MUStARD++ / MT-CSD / Sarcasm_NLP / Filatova, %):
+twitter-roberta 5,8 / 4,1 / 3,1 / 0,6; DeBERTa-NLI 25,8 / 5,3 / 19,3 /
+5,4; Qwen3.5-4B 9,8 / 11,0 / 3,5 / 3,1; Mistral-7B 28,8 / 18,9 / 17,4 /
+5,8; Kev-4B 4,2 / 1,5 / 0,6 / 1,0; Laya 3,2 / 1,2 / 3,9 / 0,4. Essa
+medida depende de quanto cada modelo chega a 0,9 de confiança: Laya em
+13,4% dos itens não irônicos, Kev-4B em 28,2%, Qwen3.5-4B em 42,9%,
+DeBERTa-NLI em 51,7%, Mistral-7B em 76,3% (N = 5.596 por modelo). Não
+serve para comparar modelos sem essa ressalva.
+
+Confiança média nos acertos / nos erros (sem contexto, todas as bases,
+N = 9.202 por modelo): twitter-roberta 76,5 / 70,6; DeBERTa-NLI 88,5 /
+78,0; Qwen3.5-4B 82,4 / 69,8; Mistral-7B 94,4 / 86,5; Kev-4B 78,0 /
+64,7; Laya 74,2 / 66,4.
+
+- Todos são superconfiantes em alguma base. O Mistral-7B é o pior caso:
+  confiança média de 86,5% quando erra, e de 17,4% a 28,8% dos itens
+  são erros confiantes fora do Filatova. No MUStARD++ não irônico
+  ninguém é bem calibrado (ECE de 0,209 a 0,349).
+- Com contexto, o DeBERTa-NLI fica mais confiante à medida que erra
+  mais (ver "Confiança e calibração com contexto", na seção "T2: o
+  contexto ajuda?").
+- O Kev-4B é o mais bem calibrado sem ironia (ECE médio 0,078; 0,028 no
+  MT-CSD e 0,027 no Sarcasm_NLP). O Laya não: o ECE médio dele (0,136)
+  é igual ao do twitter-roberta (0,133), e ele é o pior dos seis no
+  Filatova (0,088).
+- A calibração dos /System One/ não transfere para a ironia do
+  MUStARD++ (ver "Calibração nos irônicos").
+- Brier no MT-CSD sem contexto segue o mesmo padrão: Kev-4B 0,40,
+  DeBERTa-NLI 0,52, Laya 0,53, Qwen3.5-4B 0,64, twitter-roberta 0,64,
+  Mistral-7B 0,65.
+
+*** Temperatura
+
+A escala de temperatura muda só a confiança, nunca a resposta. ECE nos
+não irônicos (Qwen3.5-4B -> com a temperatura do Kev-4B, T = 2,41;
+Kev-4B como está -> sem a temperatura, T = 1); diferença Qwen3.5-4B
+com T = 2,41 menos Kev-4B, com IC por /bootstrap/ de itens:
+- MUStARD++ (N = 570): Qwen3.5-4B 0,209 -> 0,063; Kev-4B 0,211 ->
+  0,351; diferença -0,147 [-0,183; -0,092]. Aqui a vantagem do Kev-4B
+  é toda da temperatura: com ela, o Qwen3.5-4B fica melhor.
+- MT-CSD (N = 848): 0,231 -> 0,074; Kev-4B 0,028 -> 0,168; diferença
+  +0,047 [0,010; 0,073]. O Kev-4B continua melhor.
+- Sarcasm_NLP (N = 3.361): 0,072 -> 0,124 (a temperatura do Kev-4B
+  piora o Qwen3.5-4B); Kev-4B 0,027 -> 0,123; diferença +0,097 [0,077;
+  0,110].
+- Filatova (N = 817): 0,039 -> 0,038; Kev-4B 0,045 -> 0,040; empate.
+- Uma temperatura do Qwen3.5-4B ajustada no gold das outras três bases
+  (de 1,6 a 2,5) dá ECE médio de 0,099 nas quatro bases, contra 0,078
+  do Kev-4B como está. Leitura: a temperatura explica a vantagem de
+  calibração do Kev-4B no MUStARD++, mas não no MT-CSD nem no
+  Sarcasm_NLP.
+- A temperatura ideal (máxima verossimilhança do gold, por base) varia
+  muito: Mistral-7B de 3,4 a 6,2; DeBERTa-NLI de 2,0 a 5,0; Qwen3.5-4B
+  de 1,4 a 3,3. Uma temperatura ajustada nas outras três bases melhora
+  o Mistral-7B nas quatro (ex.: MT-CSD 0,280 -> 0,059), mas piora o
+  DeBERTa-NLI no MT-CSD (0,100 -> 0,178) e no Filatova (0,065 -> 0,179)
+  e o Qwen3.5-4B no Sarcasm_NLP (0,072 -> 0,134). Uma temperatura única
+  não transfere entre bases para todos os modelos.
+
+*** Confiança como filtro
+
+- Não irônicos (sem contexto, v1): ficando só com a metade mais
+  confiante, o Kev-4B acerta 90,8% no Sarcasm_NLP (N = 1.681). O
+  Mistral-7B tem confiança acima de 0,99 em 50,8% dos não irônicos do
+  Sarcasm_NLP.
+- Nos irônicos, a confiança chega a apontar para o lado errado (ver
+  "Calibração nos irônicos", na seção "T3: ironia").
+
+** Ordem das opções
+
+v1 = negativo, neutro, positivo; v2 = positivo, neutro, negativo; v3 =
+neutro, positivo, negativo. Só os quatro modelos com lista de opções.
+
+*** Estabilidade
+
+% de itens com a mesma resposta nas três ordens (todas as condições,
+com e sem contexto; N = 11.221 por modelo):
+
+| Modelo     | Geral | Filatova | MT-CSD | MUStARD++ | Sarcasm_NLP |
+|------------+-------+----------+--------+-----------+-------------|
+| Kev-4B     |  87,8 |     98,2 |   93,8 |      91,5 |        82,4 |
+| Qwen3.5-4B |  84,7 |     98,1 |   82,8 |      83,7 |        82,8 |
+| Laya       |  82,8 |     93,5 |   78,4 |      86,3 |        80,3 |
+| Mistral-7B |  63,5 |     90,7 |   70,9 |      53,1 |        59,8 |
+
+Acurácia por ordem (todas as entradas, v1 / v2 / v3): Kev-4B 63,5 /
+66,5 / 65,7; Qwen3.5-4B 63,6 / 66,1 / 65,9; Laya 51,3 / 50,2 / 50,1;
+Mistral-7B 66,7 / 57,8 / 54,7.
+
+- O Mistral-7B muda de resposta em 36,5% dos itens só com a ordem das
+  opções (46,9% no MUStARD++), e a acurácia geral dele cai 12 pontos de
+  v1 para v3. Para os outros três, a variação geral é de 1 a 3 pontos.
+- O Kev-4B, treinado com a ordem embaralhada, é o mais estável, mas não
+  no Sarcasm_NLP irônico (54,8% em v1, 67,6% em v2, N = 2.568). A
+  temperatura não explica a estabilidade, porque não muda a resposta.
+- Mistral-7B e Qwen3.5-4B usam o mesmo mecanismo de saída (primeiro
+  /token/) e têm estabilidades muito diferentes (63,5% contra 84,7%);
+  os dados sugerem que o viés de posição vem do treino, e não do
+  mecanismo.
+- As descrições das opções deixam o Mistral-7B ainda menos estável: sem
+  contexto, a mesma resposta nas três ordens cai de 63,8% para 41,9%
+  (N = 9.202; MT-CSD 70,4 -> 47,6%); Qwen3.5-4B, Kev-4B e Laya mudam
+  menos de 1 ponto no total.
+
+*** O viés pela primeira opção do Mistral-7B
+
+% de respostas "negativo" (sem contexto) em cada ordem; v1 lista
+"negative" primeiro, v2 e v3 por último:
+
+| Modelo     | Base / grupo          | v1   | v2   | v3   |
+|------------+-----------------------+------+------+------|
+| Mistral-7B | MUStARD++ não irôn.   | 49,6 | 28,8 | 14,2 |
+| Mistral-7B | MUStARD++ irônico     | 50,7 | 23,6 | 10,6 |
+| Mistral-7B | MT-CSD                | 28,1 | 14,7 | 20,4 |
+| Mistral-7B | Sarcasm_NLP não irôn. | 37,6 | 11,9 |  9,0 |
+| Mistral-7B | Sarcasm_NLP irônico   | 66,0 | 27,9 | 23,4 |
+| Qwen3.5-4B | MUStARD++ irônico     | 42,9 | 51,4 | 45,6 |
+| Qwen3.5-4B | Sarcasm_NLP irônico   | 54,4 | 69,7 | 63,7 |
+| Kev-4B     | MUStARD++ irônico     | 18,0 | 23,0 | 19,5 |
+| Kev-4B     | Sarcasm_NLP irônico   | 50,8 | 67,3 | 67,3 |
+| Laya       | Sarcasm_NLP não irôn. | 42,6 | 35,9 | 33,0 |
+| Laya       | Sarcasm_NLP irônico   | 30,8 | 23,2 | 21,6 |
+
+- O Mistral-7B tende a escolher o rótulo listado primeiro. Somando as
+  quatro bases (N = 9.202 por ordem), a taxa de um rótulo quando ele é
+  o primeiro da lista, menos a média nas outras duas ordens, é +26,7
+  pontos para "negativo", +18,3 para "neutro" e +1,6 para "positivo".
+  Em v3, que lista "neutral" primeiro, ele responde "neutro" em 71,4%
+  dos não irônicos e em 78,4% dos irônicos do MUStARD++ (contra 30,0% e
+  29,6% em v1). A forma visível disso: o /token/ mais provável é o nome
+  da primeira opção listada em 25,4% das entradas de v1 ("negative",
+  contra 2,7% e 2,6% nas outras ordens) e em 17,9% de v3 ("neutral").
+- A acurácia acompanha o viés: nos irônicos do MUStARD++ (todos
+  negativos, N = 601), 50,7% em v1, 23,6% em v2 e 10,6% em v3; no
+  Sarcasm_NLP irônico (N = 2.568), 68,3 / 37,0 / 32,9. Nos não
+  irônicos do Sarcasm_NLP, a acurácia quase não muda (71,1 / 71,1 /
+  72,0), mas o perfil de classes muda: o neutro troca de lugar com o
+  negativo (55,4 / 76,0 / 84,6% de respostas "neutro").
+- Boa parte do "viés negativo" do Mistral-7B em v1 é, portanto, viés
+  de posição; com outra ordem, ele fica perto do perfil dos
+  neutralizadores. O bom resultado dele nos irônicos do MUStARD++ é
+  efeito da ordem v1.
+- Média das três ordens (média das probabilidades), sem contexto: o
+  viés de posição some, mas a acurácia não sobe (61,3% contra 69,7% em
+  v1, N = 9.202; p = 4e-64). Nos irônicos do MUStARD++ vai a 23,6%
+  (contra 50,7% em v1, p = 1,5e-46), com 62,1% de "neutro". O ECE nos
+  não irônicos do Sarcasm_NLP melhora (0,210 -> 0,123).
+- O Laya mostra o mesmo efeito, menor: +6,4 pontos para "negativo",
+  +5,2 para "neutro" e +2,5 para "positivo" quando o rótulo é listado
+  primeiro.
+- Qwen3.5-4B e Kev-4B fazem o contrário: respondem mais "negativo"
+  quando ele vem por último (-7,8 e -8,8 pontos quando é o primeiro),
+  com variação de 5 a 17 pontos conforme o grupo.
+
+Exemplos (MUStARD++ irônico; dos 157 itens em que o Mistral-7B
+responde "negativo" em v1 e "neutro" em v2 e v3):
+- =mpp:1_7281_u= SHELDON: "Darn. If you weren't busy, I'd ask you to
+  join us." (depois de Raj: "I eat alone, I sleep alone, I cry alone,
+  so... Cool.").
+- =mpp:1_6504_u= SHELDON: "Oh, I see why you're confused. No, her news
+  sounded important, but what you're forgetting is, it was an
+  achievement in the field of biology. That's all about yucky, squishy
+  things."
+
+* T2: o contexto ajuda?
+
+Itens não irônicos com contexto: MUStARD++ (N = 570) e MT-CSD (N =
+848, 13 /threads/). O Sarcasm_NLP não tem condição com contexto e o
+Filatova não tem contexto. Condições: sem contexto (k = 0), só o turno
+anterior (k = 1) e a conversa inteira (k = K). Salvo indicação, ordem
+v1 (none para o twitter-roberta). No MUStARD++, p = McNemar exato,
+pareado item a item, e IC de 95% por /bootstrap/ por item. No MT-CSD,
+como os itens de uma /thread/ compartilham o contexto, intervalos e
+diferenças usam /bootstrap/ pareado por /thread/ (2.000
+reamostragens, semente 5); * = IC de 95% sem o zero. Fontes: rodada
+principal, ablação do contexto (=eval/ablation.csv=) e rodada de
+acompanhamento (=eval/followup.csv=, condições "oldest" e "noparent" e
+descrições trocadas).
+
+** Efeito médio por modelo e base
+
+MUStARD++ não irônico (N = 570), acurácia [IC 95%]:
+
+| Modelo          | k = 0             | k = 1             | k = K             | p (0 vs 1) | p (0 vs K) |
+|-----------------+-------------------+-------------------+-------------------+------------+------------|
+| twitter-roberta | 50,7 [46,3; 54,6] | 40,5 [36,5; 44,6] | 37,5 [33,5; 41,4] | 0,000015   | 2e-7       |
+| DeBERTa-NLI     | 55,3 [51,2; 59,5] | 52,5 [48,2; 56,7] | 50,9 [46,7; 54,9] | 0,089      | 0,015      |
+| Qwen3.5-4B      | 57,9 [54,0; 61,8] | 58,9 [54,7; 62,8] | 59,6 [55,8; 63,5] | 0,58       | 0,34       |
+| Mistral-7B      | 58,1 [53,9; 61,8] | 59,6 [55,6; 63,7] | 58,4 [54,4; 62,5] | 0,46       | 0,93       |
+| Kev-4B          | 51,6 [47,9; 55,4] | 51,9 [48,1; 56,3] | 54,4 [50,2; 58,6] | 0,91       | 0,16       |
+| Laya            | 48,6 [44,4; 52,6] | 48,6 [44,4; 52,5] | 46,5 [42,6; 50,7] | 1          | 0,35       |
+
+Nenhuma diferença entre k = 1 e k = K é significativa no MUStARD++ (p
+>= 0,15).
+
+MT-CSD (N = 848), acurácia e diferenças pareadas por /thread/:
+
+| Modelo          | k = 0 | k = 1 | k = K | 0 -> 1               | 0 -> K                 |
+|-----------------+-------+-------+-------+----------------------+------------------------|
+| twitter-roberta | 52,5  | 50,9  | 48,7  | -1,5 [-6,0; 3,0]     | -3,8 [-12,6; 4,9]      |
+| DeBERTa-NLI     | 64,7  | 61,0  | 39,7  | -3,8 [-8,6; 0,6]     | -25,0 [-34,4; -16,4] * |
+| Qwen3.5-4B      | 55,3  | 60,7  | 57,4  | +5,4 [2,3; 8,6] *    | +2,1 [-3,8; 7,3]       |
+| Mistral-7B      | 60,5  | 61,7  | 55,7  | +1,2 [-3,0; 4,5]     | -4,8 [-10,1; 0,2]      |
+| Kev-4B          | 71,3  | 69,5  | 64,4  | -1,9 [-6,3; 2,1]     | -7,0 [-12,0; -1,3] *   |
+| Laya            | 61,6  | 59,4  | 58,7  | -2,1 [-4,2; 0,0]     | -2,8 [-7,3; 1,8]       |
+
+- *Em média, o contexto não ajuda.* Dos 24 pares modelo x base x
+  condição, só um ganho é significativo: Qwen3.5-4B no MT-CSD com o
+  turno anterior (+5,4; ganha em 11 de 13 /threads/; também em v2,
+  +7,2, e v3, +5,9). Há cinco perdas significativas: twitter-roberta
+  no MUStARD++ (-10,2 com um turno; -13,2 com a conversa inteira),
+  DeBERTa-NLI no MUStARD++ (-4,4 com a conversa inteira) e, no MT-CSD
+  com a conversa inteira, DeBERTa-NLI (-25,0; perde em 12 de 13
+  /threads/) e Kev-4B (-7,0; 10 de 13 /threads/; v2 -8,1 e v3 -7,1,
+  ambas *). A perda de 4,8 do Mistral-7B no MT-CSD não é
+  significativa quando se considera o agrupamento por /thread/.
+- *O turno anterior é melhor ou igual à conversa inteira.* No MT-CSD,
+  o resto da conversa depois do comentário de cima (k = 1 -> k = K)
+  custa 21,2 [-29,1; -14,4] ao DeBERTa-NLI e 5,1 [-8,9; -0,4] ao Kev-4B
+  (significativo nas três ordens); ao Mistral-7B, 6,0 [-10,4; -1,4]
+  só em v1; ao Qwen3.5-4B, 3,3 (n.s.) em v1 e 6,0 * em v2.
+- *Por família:* o único que ganha é um LLM (Qwen3.5-4B); os que mais
+  perdem recebem a conversa e o texto alvo como uma entrada só
+  (DeBERTa-NLI no MT-CSD, twitter-roberta no MUStARD++); o Laya perde
+  pouco e o Kev-4B, moderadamente no MT-CSD.
+- *Com contexto, o ranking do MT-CSD muda:* Kev-4B 64,4 > Laya 58,7 >
+  Qwen3.5-4B 57,4 > Mistral-7B 55,7 > twitter-roberta 48,7 >
+  DeBERTa-NLI 39,7 (sem contexto, o DeBERTa-NLI era o segundo).
+- *As médias escondem muita troca:* com o primeiro turno, de 15,6%
+  (Kev-4B no MUStARD++) a 44,8% (twitter-roberta no MT-CSD) dos itens
+  mudam de resposta.
+- *O corte por tamanho não explica as quedas:* só 18 entradas do
+  DeBERTa-NLI e 13 do twitter-roberta perderam turnos; Qwen3.5-4B,
+  Mistral-7B e Kev-4B não perderam nenhum. O Laya (janela de 320
+  /tokens/ para o estado) perdeu turnos em 114 entradas (5,6%), mas os
+  dados sugerem que é seleção, e não efeito do corte: são /threads/
+  longas em que todos perdem, inclusive os que não cortam; sem elas, o
+  Laya vai de 58,7 para 59,9%.
+
+** Ablação: os mesmos itens com 0 a 4 turnos (coorte K >= 4)
+
+Itens com pelo menos quatro turnos de contexto, avaliados com k = 0 a
+4 (MT-CSD N = 456; MUStARD++ não irônico N = 293):
+
+| Base      | Modelo          | k=0  | k=1  | k=2  | k=4  |
+|-----------+-----------------+------+------+------+------|
+| MUStARD++ | twitter-roberta | 48,8 | 42,3 | 40,6 | 36,9 |
+| MUStARD++ | DeBERTa-NLI     | 51,9 | 49,1 | 48,5 | 48,1 |
+| MUStARD++ | Qwen3.5-4B      | 53,2 | 55,6 | 58,4 | 57,3 |
+| MUStARD++ | Mistral-7B      | 56,0 | 57,3 | 54,3 | 54,6 |
+| MUStARD++ | Kev-4B          | 52,6 | 52,9 | 52,6 | 54,6 |
+| MUStARD++ | Laya            | 48,8 | 48,1 | 46,4 | 48,8 |
+| MT-CSD    | twitter-roberta | 49,8 | 50,2 | 46,5 | 44,7 |
+| MT-CSD    | DeBERTa-NLI     | 68,6 | 68,0 | 61,2 | 46,1 |
+| MT-CSD    | Qwen3.5-4B      | 53,7 | 60,1 | 60,3 | 60,1 |
+| MT-CSD    | Mistral-7B      | 61,0 | 63,6 | 63,8 | 57,9 |
+| MT-CSD    | Kev-4B          | 72,8 | 71,5 | 71,5 | 66,9 |
+| MT-CSD    | Laya            | 63,8 | 60,1 | 60,3 | 59,4 |
+(k = 3: DeBERTa-NLI 54,6 e Kev-4B 68,0 no MT-CSD; os demais ficam
+entre k = 2 e k = 4.)
+
+- *DeBERTa-NLI no MT-CSD:* não muda com um turno e cai a cada turno
+  acrescentado (dose-resposta): -22,6 [-31,8; -13,5] * com quatro.
+- *Qwen3.5-4B no MT-CSD:* ganha com o primeiro turno (+6,4 [1,7;
+  10,4] *) e fica estável depois (k0 -> k4 +6,4 [1,4; 10,4] *).
+- *Kev-4B no MT-CSD:* cai aos poucos (-5,9 [-10,9; 0,7] com quatro
+  turnos, no limite da significância).
+- *Laya no MT-CSD:* perde com um turno (-3,7 [-6,7; -0,8] *) e oscila
+  depois.
+- *Mistral-7B no MT-CSD:* sobe com um ou dois turnos e volta a 57,9
+  com quatro (n.s.).
+- *twitter-roberta:* cai nas duas bases, mais no MUStARD++ (-11,9).
+- *MUStARD++, demais modelos:* variações abaixo de 5 pontos.
+
+Robustez às ordens de opções (coorte, diferença contra k = 0, k = 1 /
+k = 4):
+
+| Base      | Modelo     | v1          | v2          | v3          |
+|-----------+------------+-------------+-------------+-------------|
+| MT-CSD    | Qwen3.5-4B | +6,4 / +6,4 | +8,3 / +5,5 | +6,4 / +9,2 |
+| MT-CSD    | Kev-4B     | -1,3 / -5,9 | -2,9 / -6,4 | -2,2 / -4,4 |
+| MT-CSD    | Mistral-7B | +2,6 / -3,1 | +4,6 / -0,7 | +4,2 / +1,3 |
+| MT-CSD    | Laya       | -3,7 / -4,4 | -0,4 / -1,8 | -2,9 / -1,3 |
+| MUStARD++ | Qwen3.5-4B | +2,4 / +4,1 | +1,7 / +3,4 | -0,7 / +2,4 |
+| MUStARD++ | Mistral-7B | +1,4 / -1,4 | +0,3 / -1,4 | +1,7 / +1,0 |
+| MUStARD++ | Kev-4B     | +0,3 / +2,0 | -1,0 / +0,3 | +2,4 / +4,4 |
+| MUStARD++ | Laya       | -0,7 / 0,0  | -2,7 / -3,4 | 0,0 / -1,4  |
+
+- O ganho do Qwen3.5-4B e a perda do Kev-4B no MT-CSD se repetem nas
+  três ordens. O ganho do Mistral-7B com um turno também (+2,6 a
+  +4,6), mas a queda com quatro só aparece em v1.
+- No MUStARD++, os efeitos são pequenos e trocam de sinal conforme a
+  ordem: não há efeito consistente além do twitter-roberta.
+
+Viradas na coorte: % dos itens que passam de erro para acerto
+("ajudou") e de acerto para erro ("atrapalhou") ao acrescentar o turno
+k:
+
+| Base      | Modelo          | k=1         | k=2         | k=3         | k=4         |
+|-----------+-----------------+-------------+-------------+-------------+-------------|
+| MUStARD++ | twitter-roberta | 11,3 / 17,7 | 5,5 / 7,2   | 4,8 / 7,8   | 5,8 / 6,5   |
+| MUStARD++ | DeBERTa-NLI     | 5,1 / 7,8   | 4,1 / 4,8   | 4,1 / 3,4   | 1,0 / 2,0   |
+| MUStARD++ | Qwen3.5-4B      | 8,2 / 5,8   | 5,8 / 3,1   | 3,1 / 4,8   | 3,4 / 2,7   |
+| MUStARD++ | Mistral-7B      | 10,2 / 8,9  | 4,8 / 7,8   | 6,1 / 6,1   | 5,8 / 5,5   |
+| MUStARD++ | Kev-4B          | 7,2 / 6,8   | 5,5 / 5,8   | 5,1 / 3,4   | 4,1 / 3,8   |
+| MUStARD++ | Laya            | 8,2 / 8,9   | 5,1 / 6,8   | 7,2 / 7,8   | 6,8 / 3,8   |
+| MT-CSD    | twitter-roberta | 20,4 / 20,0 | 12,1 / 15,8 | 11,8 / 11,6 | 9,9 / 11,8  |
+| MT-CSD    | DeBERTa-NLI     | 9,9 / 10,5  | 6,1 / 12,9  | 6,1 / 12,7  | 4,2 / 12,7  |
+| MT-CSD    | Qwen3.5-4B      | 16,0 / 9,6  | 6,6 / 6,4   | 5,3 / 5,5   | 5,3 / 5,3   |
+| MT-CSD    | Mistral-7B      | 15,1 / 12,5 | 7,0 / 6,8   | 7,0 / 8,1   | 3,1 / 7,9   |
+| MT-CSD    | Kev-4B          | 9,9 / 11,2  | 7,2 / 7,2   | 3,9 / 7,5   | 4,6 / 5,7   |
+| MT-CSD    | Laya            | 8,1 / 11,8  | 8,6 / 8,3   | 7,9 / 6,4   | 4,8 / 7,2   |
+
+- Só com o primeiro turno, de 12,9% (DeBERTa-NLI no MUStARD++) a 40,4%
+  (twitter-roberta no MT-CSD) dos itens da coorte mudam de acerto. O
+  ganho médio de 6,4 do Qwen3.5-4B no MT-CSD é a soma de 16,0% de itens
+  consertados e 9,6% estragados.
+- O primeiro turno é o que mais mexe. Os dados sugerem que a
+  trajetória turno a turno é um tremor, e não uma deriva: os passos
+  seguintes são menores e em parte desfazem o primeiro (cosseno do
+  passo 1 com os passos 2 a 4 entre -0,10 e -0,21 em 15 de 18 casos
+  modelo x base). A exceção é o DeBERTa-NLI no MT-CSD, que deriva de
+  forma contínua: do segundo turno em diante, cada turno atrapalha de
+  12,7 a 12,9% dos itens e ajuda de 4,2 a 6,1%.
+
+** Composição do contexto no MT-CSD: o /post/, o comentário de cima, o resto
+
+785 itens com pelo menos dois turnos de contexto. Condições: k0, só o
+comentário de cima (k1), conversa inteira (kK), só o /post/ que abre a
+/thread/ (oldest) e a conversa inteira sem o comentário de cima
+(noparent).
+
+| Modelo          | k0   | k1   | kK   | oldest | noparent |
+|-----------------+------+------+------+--------+----------|
+| twitter-roberta | 51,2 | 50,1 | 47,6 | 54,6   | 51,3     |
+| DeBERTa-NLI     | 65,9 | 62,0 | 39,1 | 41,1   | 40,1     |
+| Qwen3.5-4B      | 55,2 | 60,5 | 56,9 | 54,8   | 56,3     |
+| Mistral-7B      | 60,1 | 61,9 | 55,4 | 60,9   | 57,1     |
+| Kev-4B          | 71,7 | 69,0 | 63,6 | 66,8   | 65,9     |
+| Laya            | 62,5 | 59,7 | 59,0 | 60,5   | 60,3     |
+
+Diferenças pareadas por /thread/:
+
+| Modelo          | k0 -> oldest           | k0 -> noparent         | noparent -> kK    |
+|-----------------+------------------------+------------------------+-------------------|
+| twitter-roberta | +3,4 [-5,2; 12,3]      | +0,1 [-8,2; 8,4]       | -3,7 [-6,2; -1,6] * |
+| DeBERTa-NLI     | -24,7 [-34,8; -17,1] * | -25,7 [-35,0; -17,6] * | -1,0 [-3,0; 0,9]  |
+| Qwen3.5-4B      | -0,4 [-7,1; 5,5]       | +1,1 [-5,1; 6,3]       | +0,6 [-1,2; 2,3]  |
+| Mistral-7B      | +0,8 [-8,5; 9,0]       | -3,1 [-9,3; 3,3]       | -1,7 [-4,6; 1,0]  |
+| Kev-4B          | -5,0 [-12,5; 1,7]      | -5,9 [-10,7; -0,2] *   | -2,3 [-5,8; 0,9]  |
+| Laya            | -2,0 [-5,1; 0,1]       | -2,3 [-6,5; 1,7]       | -1,3 [-3,3; 1,0]  |
+
+- *O que derruba o DeBERTa-NLI é o /post/ que abre a /thread/.* Só
+  com ele (uma manchete, ex.: "SpaceX giant rocket explodes minutes
+  after launch from Texas"), o DeBERTa-NLI já perde 24,7 pontos,
+  praticamente tudo o que perde com a conversa inteira (-26,8 neste
+  recorte); nos neutros, a queda só com o /post/ é de 51,6 pontos
+  [-60,3; -44,2]. Acrescentar o comentário de cima à conversa não muda
+  nada (-1,0).
+- *Os demais modelos não são derrubados pelo /post/:* com ele,
+  Qwen3.5-4B, Mistral-7B, Laya e twitter-roberta ficam iguais a sem
+  contexto; o Kev-4B cai 5,0 (n.s.). A perda do Kev-4B com a conversa
+  inteira vem do acúmulo de turnos (noparent -5,9 *; k1 -> kK -5,5 *
+  neste recorte), não de um turno específico.
+
+** Atribuição do alvo: o comentário nomeia o alvo?
+
+Menção ao alvo no texto do comentário, por expressão regular (Tesla:
+tesla, musk, elon, model s/x/y/3, cybertruck, semi, fsd, autopilot;
+SpaceX: spacex, starship, falcon, dragon, musk, elon, raptor, boca):
+572 comentários sem menção (69% neutros) e 276 com menção (38%
+neutros). Diferença k0 -> kK:
+
+| Modelo          | sem menção | com menção | sem - com (por /thread/) |
+|-----------------+------------+------------+--------------------------|
+| DeBERTa-NLI     | -37,4      | +0,7       | -38,1 [-49,6; -29,5] *   |
+| Kev-4B          | -11,9      | +3,3       | -15,1 [-26,2; -5,3] *    |
+| Mistral-7B      | -7,5       | +0,7       | -8,2 [-19,6; 3,6]        |
+| Qwen3.5-4B      | -0,5       | +7,6       | -8,1 [-18,0; 0,5]        |
+| Laya            | -2,6       | -3,3       | +0,6 [-7,0; 8,6]         |
+| twitter-roberta | -4,0       | -3,3       | -0,8 [-15,7; 11,5]       |
+
+- *O contexto só pesa no MT-CSD quando o comentário não nomeia o
+  alvo.* Só nos neutros, a diferença sem - com menção é de -60,2 no
+  DeBERTa-NLI e -15,4 no Kev-4B. Os dados sugerem que a do Kev-4B se
+  repete nas três ordens (-14,1 / -14,3 / -13,8 *).
+- *Mecanismo proposto:* o contexto traz o nome da empresa que faltava
+  no comentário, e o comentário passa a ser lido como "sobre a
+  Tesla/SpaceX". No NLI, a premissa é contexto + comentário e a
+  hipótese é "The author of this comment is against Tesla.": é a
+  heurística de sobreposição lexical (McCoy et al., 2019, HANS). A
+  mesma coisa já acontece sem contexto: nos neutros em k0, o
+  DeBERTa-NLI acerta 28,8% dos que nomeiam o alvo (N = 104) e 83,5%
+  dos que não nomeiam (N = 393); o Kev-4B, 64,4 contra 88,0; o
+  twitter-roberta, que não recebe o nome do alvo, 48,1 contra 47,8
+  (controle natural).
+- *O DeBERTa-NLI copia a postura literal da manchete, em qualquer
+  direção.* Nos neutros dos 785 itens com pai, a fração de respostas
+  "a favor" vai de 18,1% (k0) para 44,3% só com o /post/, e a de
+  "contra" de 8,6% para 34,0%; com a conversa inteira, 44,5% e 37,8%.
+  Os dados sugerem que, por /thread/, o sentido segue a manchete:
+  "Just a normal Tesla driver" leva os neutros sem menção a 100% de "a
+  favor" (N = 14), e "Fuck you and your little Tesla too." a 100% de
+  "contra".
+- *Ressalva:* a menção é observada, e não manipulada; o experimento
+  que mascara o nome do alvo no contexto (Tesla/SpaceX -> "the
+  company") não foi rodado.
+
+** Cópia do comentário de cima
+
+785 itens do MT-CSD cujo turno anterior também é item da base. O gold
+do item coincide com o do pai em 58,7% (pelas marginais, 44,6% por
+acaso). Concordância de cada modelo com a resposta que ele próprio dá
+ao comentário de cima sem contexto:
+
+| Modelo          | k0   | k1   | kK   | noparent | oldest |
+|-----------------+------+------+------+----------+--------|
+| twitter-roberta | 45,7 | 73,9 | 48,9 | 42,9     | 45,2   |
+| DeBERTa-NLI     | 52,6 | 68,8 | 38,3 | 31,5     | 32,9   |
+| Qwen3.5-4B      | 43,7 | 53,4 | 49,6 | 47,6     | 48,9   |
+| Mistral-7B      | 42,9 | 57,6 | 49,9 | 45,9     | 43,6   |
+| Kev-4B          | 58,0 | 71,8 | 63,9 | 56,9     | 56,1   |
+| Laya            | 71,8 | 76,8 | 71,3 | 69,6     | 72,9   |
+
+- *Todos copiam, mais quando o pai é o único contexto.* Mesmo o
+  Qwen3.5-4B concorda mais com a própria leitura do pai (43,7 ->
+  53,4); o que nele não cai é a acurácia.
+- *A cópia custa quando a postura muda ao longo da conversa.* Nos 324
+  itens com gold diferente do pai, mostrar só o pai piora todos menos
+  o Qwen3.5-4B: twitter-roberta -21,0 [-28,9; -13,9]; DeBERTa-NLI
+  -13,0 [-18,3; -7,8]; Kev-4B -9,9 [-18,1; -1,9]; Laya -6,8 [-12,5;
+  -1,9]; Mistral-7B -6,8 [-13,8; -1,8]; Qwen3.5-4B +0,6 (n.s.). Mesmo
+  com a conversa inteira, acrescentar o pai (noparent -> kK) piora
+  esses itens: Kev-4B -9,3 [-15,3; -2,9]; twitter-roberta -7,7;
+  Mistral-7B -6,5; DeBERTa-NLI -4,9; Laya -4,9 (todos *); Qwen3.5-4B
+  +1,9 (n.s.). Nos 461 itens com gold igual ao do pai, o pai ajuda
+  com k1: twitter-roberta +12,8 *, Qwen3.5-4B +8,7 *, Mistral-7B +7,8
+  *.
+- *Cada modelo puxa o item para a sua própria leitura do pai, e não
+  para o gold do pai.* Regressão da mudança de probabilidade k0 -> k1
+  (N = 785; o gold do pai não acrescenta nada, |b| <= 0,03):
+
+| Modelo          | cópia da leitura do pai | sinal do próprio item | sinal / cópia |
+|-----------------+-------------------------+-----------------------+---------------|
+| twitter-roberta | 0,62 [0,58; 0,67] *     | 0,005 (n.s.)          | 0,01          |
+| DeBERTa-NLI     | 0,52 [0,45; 0,57] *     | 0,07 *                | 0,13          |
+| Kev-4B          | 0,48 [0,40; 0,54] *     | 0,05 *                | 0,11          |
+| Laya            | 0,33 [0,30; 0,36] *     | 0,03 *                | 0,09          |
+| Mistral-7B      | 0,29 [0,24; 0,34] *     | 0,18 [0,13; 0,22] *   | 0,61          |
+| Qwen3.5-4B      | 0,20 [0,14; 0,26] *     | 0,14 [0,11; 0,17] *   | 0,72          |
+
+- A razão sinal / cópia ordena o efeito do turno anterior: Qwen3.5-4B
+  (0,72) ganha +5,4; Mistral-7B (0,61) +1,2; os quatro com razão <=
+  0,13 perdem ou ficam iguais.
+- *Direção da cópia por perfil.* Os dados sugerem que DeBERTa-NLI e
+  Mistral-7B copiam a polaridade do pai (pai polar, item neutro: -25,0
+  * e -15,0 *) e que Kev-4B e Laya copiam a neutralidade dele (pai
+  neutro, item polar: -11,3 * e -13,5 *). O twitter-roberta copia as
+  duas: com pai neutro e item polar, perde 27,1 [-35,1; -17,9], e suas
+  respostas "neutro" nesses itens vão de 27 para 61%.
+- *Exemplo.* =mtcsd:Tesla:121= (gold neutro), "Did you say
+  'monorail'?", depois do pai sarcástico "The Las Vegas Loop was a
+  complete success...". O twitter-roberta lê o pai como positivo e o
+  item vai de neutro para positivo; DeBERTa-NLI, Kev-4B e Mistral-7B
+  leem o pai como negativo e o item vai para negativo. Mesmo pai,
+  puxões opostos.
+- *Inversões.* Nos 71 itens cuja postura se inverte em relação à do
+  pai, só o Qwen3.5-4B acerta mais com a conversa inteira: +15,5
+  [12,9; 17,2] * (v2 62,0 -> 71,8; v3 64,8 -> 73,2); twitter-roberta
+  -31,0 *; Kev-4B -9,9 (n.s.).
+- *Ressalva:* a cópia é observada por regressão; o experimento causal
+  (trocar o pai por um de postura oposta) não foi rodado. O MT-CSD não
+  identifica autores (os turnos aparecem como "Post", "Reply 1", ...),
+  então o modelo não sabe se o comentário é de quem escreveu os
+  turnos anteriores.
+
+** Homogeneidade da /thread/
+
+Fração da variância de p(contra) explicada pela /thread/ (eta2), N =
+785 (o gold "contra" tem eta2 = 0,21 nesse recorte):
+
+| Modelo          | eta2 k0 | eta2 kK | Spearman p(contra) k0 vs kK |
+|-----------------+---------+---------+-----------------------------|
+| twitter-roberta | 0,04    | 0,70    | 0,19                        |
+| Kev-4B          | 0,14    | 0,44    | 0,56                        |
+| DeBERTa-NLI     | 0,14    | 0,38    | 0,40                        |
+| Mistral-7B      | 0,20    | 0,31    | 0,75                        |
+| Qwen3.5-4B      | 0,13    | 0,23    | 0,76                        |
+| Laya            | 0,09    | 0,20    | 0,54                        |
+
+- Com a conversa inteira, twitter-roberta, Kev-4B e DeBERTa-NLI
+  agrupam as respostas por /thread/ duas a três vezes mais que o gold;
+  o Qwen3.5-4B fica no nível do gold e mantém a ordem dos itens. O
+  agrupamento acompanha as perdas com kK.
+- *O efeito agregado não depende de uma /thread/ só* (tirando uma por
+  vez: DeBERTa-NLI kK de -28,6 a -22,7; Kev-4B kK de -9,0 a -5,0;
+  Qwen3.5-4B k1 de +4,5 a +6,2), *mas o sinal depende da /thread/.* Na
+  /thread/ da manchete sobre a qualidade de um Tesla de 140 mil
+  dólares (77% "contra"), cinco modelos ganham com kK (+6,4 a +12,8) e
+  o twitter-roberta perde 14,1. Nas /threads/ "Just a normal Tesla
+  driver" e "Fuck you and your little Tesla too." (91 a 100% neutros),
+  o DeBERTa-NLI perde 83,3 e 67,4 pontos. Entre as 13 /threads/, a
+  perda do DeBERTa-NLI acompanha a fração de neutros (Spearman -0,81,
+  p = 0,001).
+- Leitura: a conversa inteira ajuda quando a /thread/ tem postura
+  homogênea e igual à do /post/, e atrapalha quando o comentário não
+  segue o tom da /thread/.
+
+** Por que o turno anterior ajuda o Qwen3.5-4B
+
+O ganho do Qwen3.5-4B com k1 no MT-CSD (+5,4 *) vem sobretudo do
+neutro: as respostas "neutro" dele vão de 29,4% (k0) para 35,1% (k1),
+contra 58,6% no gold.
+
+*O pai mostra que o comentário é fora do tema.* Nos comentários curtos (até 21 palavras) e sem menção ao alvo
+(N = 333), k0 -> k1: Qwen3.5-4B +14,1 [7,5; 19,7] *; Mistral-7B +6,9
+[0,7; 11,5] *; Kev-4B -3,9 (n.s.); DeBERTa-NLI -12,6 [-17,9; -7,9] *.
+Nesses itens, as respostas "neutro" do Qwen3.5-4B vão de 32 para 47%.
+Ex.: =mtcsd:SpaceX:109= "Happy cake day!" ("a favor" -> neutro). O
+mesmo turno que faz o DeBERTa-NLI atribuir o alvo faz o Qwen3.5-4B
+concluir que o comentário não é sobre o alvo.
+
+** Contexto por classe: mais contexto leva ao neutro?
+
+Acurácia por classe, sem contexto -> conversa inteira (diferença).
+
+MT-CSD (N: 208 contra, 497 nenhuma, 143 a favor; * = IC por /thread/
+sem o zero):
+
+| Modelo          | Contra                 | Nenhuma                | A favor                |
+|-----------------+------------------------+------------------------+------------------------|
+| twitter-roberta | 71,2 -> 51,0 (-20,2)   | 47,9 -> 52,9 (+5,0)    | 41,3 -> 30,8 (-10,5)   |
+| DeBERTa-NLI     | 43,8 -> 64,4 (+20,7) * | 72,0 -> 17,7 (-54,3) * | 69,9 -> 80,4 (+10,5)   |
+| Qwen3.5-4B      | 76,4 -> 87,0 (+10,6) * | 42,1 -> 39,4 (-2,6)    | 70,6 -> 76,9 (+6,3) *  |
+| Mistral-7B      | 62,5 -> 75,5 (+13,0) * | 56,5 -> 42,5 (-14,1) * | 71,3 -> 72,7 (+1,4)    |
+| Kev-4B          | 52,9 -> 68,3 (+15,4)   | 83,1 -> 68,0 (-15,1) * | 57,3 -> 46,2 (-11,2) * |
+| Laya            | 27,9 -> 30,3 (+2,4)    | 88,1 -> 80,1 (-8,0) *  | 18,2 -> 25,9 (+7,7)    |
+
+MUStARD++ não irônico (N: 242 neg, 167 neu, 161 pos; p = McNemar):
+
+| Modelo          | Negativo                    | Neutro                     | Positivo                   |
+|-----------------+-----------------------------+----------------------------+----------------------------|
+| twitter-roberta | 43,4 -> 17,4 (-26,0; 5e-12) | 71,3 -> 73,7 (+2,4; 0,71)  | 40,4 -> 30,4 (-9,9; 0,04)  |
+| DeBERTa-NLI     | 85,1 -> 83,1 (-2,1; 0,55)   | 3,0 -> 1,2 (-1,8; 0,45)    | 64,6 -> 54,0 (-10,6; 0,019) |
+| Qwen3.5-4B      | 71,9 -> 71,9 (0; 1)         | 31,1 -> 41,9 (+10,8; 0,0014) | 64,6 -> 59,6 (-5,0; 0,15) |
+| Mistral-7B      | 74,4 -> 66,9 (-7,4; 0,0051) | 45,5 -> 49,1 (+3,6; 0,50)  | 46,6 -> 55,3 (+8,7; 0,044) |
+| Kev-4B          | 42,6 -> 52,5 (+9,9; 0,0032) | 82,0 -> 82,6 (+0,6; 1)     | 33,5 -> 28,0 (-5,6; 0,11)  |
+| Laya            | 43,0 -> 46,3 (+3,3; 0,38)   | 82,6 -> 74,3 (-8,4; 0,029) | 21,7 -> 18,0 (-3,7; 0,41)  |
+
+- *No MT-CSD, o contexto ajuda a classe "contra" e atrapalha a
+  "nenhuma postura".* Três modelos ganham com significância nos
+  "contra" (DeBERTa-NLI +20,7 [7,8; 31,5], Mistral-7B +13,0,
+  Qwen3.5-4B +10,6); o Kev-4B (+15,4 [-6,8; 28,3]) e a perda do
+  twitter-roberta (-20,2 [-44,1; 2,9]) variam demais entre /threads/
+  para serem significativos. Quatro perdem nos neutros (DeBERTa-NLI
+  -54,3, nas 13 /threads/; Kev-4B -15,1; Mistral-7B -14,1; Laya -8,0).
+  Como os neutros são 59% da base, a perda domina a média.
+- *O Qwen3.5-4B não perde nos neutros* (-2,6, n.s.) e ganha nos
+  "contra" e nos "a favor": por isso é o único com ganho médio. O
+  twitter-roberta também mantém os neutros, mas perde nas outras
+  classes.
+- *O DeBERTa-NLI é o caso extremo:* acerta 72,0% dos neutros sem
+  contexto e 17,7% com a conversa inteira. Na coorte K >= 4, a queda é
+  gradual (76,4 -> 71,5 -> 58,8 -> 49,3 -> 32,0, k = 0 a 4), enquanto
+  os "contra" sobem de 51,4 para 67,6.
+- *No MUStARD++, os efeitos são menores e mistos:* Kev-4B ganha nos
+  negativos, Qwen3.5-4B nos neutros, Mistral-7B troca negativos por
+  positivos, DeBERTa-NLI perde positivos, e o twitter-roberta perde
+  26,0 pontos nos negativos.
+- *Ordens de opções* (v2 / v3, mesmos testes). Só parte desses efeitos
+  por classe se repete nas três ordens. MT-CSD: o Kev-4B perde nos "a
+  favor" nas três (-10,5 a -11,9; em v3 o IC toca o zero) e nos neutros
+  (-13,9* a -16,3*); o Mistral-7B perde nos "a favor" só em v2 e v3
+  (-8,4* e -16,8*) e ganha mais nos "contra" (+26,4* e +26,9*).
+  MUStARD++: Qwen3.5-4B ganha nos neutros nas três (+10,8* / +14,4* /
+  +13,8*), mas em v2 e v3 perde nos negativos (-5,8*, -5,4*); Laya
+  perde nos neutros (-8,4* a -9,6*) e Kev-4B ganha nos negativos
+  (+7,0* a +9,9*) nas três; a troca de negativos por positivos do
+  Mistral-7B só vale em v1 (em v2 ele perde nos positivos, -11,2*, e
+  em v3 nos neutros, -13,8*).
+
+Distribuição das respostas, sem contexto -> conversa inteira (%):
+
+| Base      | Modelo          | Negativo     | Neutro       | Positivo     |
+|-----------+-----------------+--------------+--------------+--------------|
+| MT-CSD    | /ground truth/  | 24,5         | 58,6         | 16,9         |
+| MT-CSD    | twitter-roberta | 46,7 -> 39,4 | 39,0 -> 50,1 | 14,3 -> 10,5 |
+| MT-CSD    | DeBERTa-NLI     | 16,6 -> 39,9 | 56,1 -> 13,7 | 27,2 -> 46,5 |
+| MT-CSD    | Qwen3.5-4B      | 43,8 -> 49,4 | 29,4 -> 26,2 | 26,9 -> 24,4 |
+| MT-CSD    | Mistral-7B      | 28,1 -> 40,4 | 41,4 -> 30,9 | 30,5 -> 28,7 |
+| MT-CSD    | Kev-4B          | 19,6 -> 33,0 | 65,3 -> 53,9 | 15,1 -> 13,1 |
+| MT-CSD    | Laya            | 12,7 -> 16,6 | 81,1 -> 74,9 | 6,1 -> 8,5   |
+| MUStARD++ | /ground truth/  | 42,5         | 29,3         | 28,2         |
+| MUStARD++ | twitter-roberta | 24,6 -> 11,9 | 57,7 -> 68,1 | 17,7 -> 20,0 |
+| MUStARD++ | DeBERTa-NLI     | 61,2 -> 66,1 | 1,6 -> 0,7   | 37,2 -> 33,2 |
+| MUStARD++ | Qwen3.5-4B      | 45,1 -> 43,2 | 18,1 -> 26,0 | 36,8 -> 30,9 |
+| MUStARD++ | Mistral-7B      | 49,6 -> 40,9 | 30,0 -> 31,4 | 20,4 -> 27,7 |
+| MUStARD++ | Kev-4B          | 22,6 -> 28,6 | 64,7 -> 61,4 | 12,6 -> 10,0 |
+| MUStARD++ | Laya            | 24,9 -> 31,8 | 65,4 -> 59,8 | 9,6 -> 8,4   |
+
+- *Mais contexto não leva ao neutro; na maioria dos modelos, leva ao
+  negativo.* No MT-CSD, a fração de "neutro" cai em 5 de 6 modelos (de
+  3,2 a 42,4 pontos) e a de "negativo" sobe em 5 de 6 (de 3,9 a 23,3
+  pontos). No MUStARD++, "neutro" cai para Kev-4B, Laya e DeBERTa-NLI,
+  e "negativo" sobe para os mesmos três.
+- *O DeBERTa-NLI polariza nas duas direções no MT-CSD:* "neutro" de
+  56,1 para 13,7%, com "negativo" de 16,6 para 39,9% e "positivo" de
+  27,2 para 46,5%.
+- *Exceções que vão para o neutro:* o twitter-roberta, nas duas bases
+  (MT-CSD 39,0 -> 50,1; MUStARD++ 57,7 -> 68,1), treinado em /tweets/
+  isolados, para o qual uma entrada longa com falas de tons diferentes
+  tende a soar neutra; e o Qwen3.5-4B no MUStARD++ (18,1 -> 26,0), o
+  que melhora os neutros dele.
+- Os dados sugerem que, turno a turno, nenhum modelo vai para o neutro
+  além do que a geometria do /simplex/ daria por acaso; Laya e
+  twitter-roberta se diluem para o uniforme (entropia do Laya de 0,65
+  para 0,80), e o DeBERTa-NLI fica mais concentrado (0,63 -> 0,41).
+- *O "viés negativo do contexto" é transferência do tom da /thread/,
+  nos dois sentidos.* Nas três /threads/ comemorativas da SpaceX (ex.:
+  "SpaceX launches and lands 3 rockets in 36 hours."), com a conversa
+  inteira, o twitter-roberta chama de "positivo" de 50,0 a 58,3% dos
+  neutros, contra no máximo 1,6% nas outras dez. Como a maioria das
+  /threads/ é crítica, a média vai para o negativo.
+
+** Confiança e calibração com contexto
+
+ECE (15 faixas) e confiança média, sem contexto -> conversa inteira:
+
+| Modelo          | ECE MT-CSD     | ECE MUStARD++ não irôn. | Confiança MT-CSD |
+|-----------------+----------------+-------------------------+------------------|
+| twitter-roberta | 0,191 -> 0,159 | 0,233 -> 0,305          | 0,710 -> 0,646   |
+| DeBERTa-NLI     | 0,100 -> 0,414 | 0,332 -> 0,400          | 0,697 -> 0,812   |
+| Qwen3.5-4B      | 0,231 -> 0,257 | 0,209 -> 0,174          | 0,784 -> 0,829   |
+| Mistral-7B      | 0,280 -> 0,298 | 0,349 -> 0,339          | 0,872 -> 0,850   |
+| Kev-4B          | 0,028 -> 0,081 | 0,211 -> 0,164          | 0,726 -> 0,713   |
+| Laya            | 0,105 -> 0,055 | 0,237 -> 0,194          | 0,718 -> 0,621   |
+
+- *O DeBERTa-NLI fica mais confiante à medida que erra mais.* No
+  MT-CSD com a conversa inteira, a acurácia cai para 39,7%, a
+  confiança média sobe de 69,7 para 81,2%, e os erros com confiança
+  >= 0,9 vão de 5,3 para 30,9% dos itens. Na coorte K >= 4 (N = 456),
+  é uma dose-resposta: ECE de k = 0 a 4 = 0,116 / 0,156 / 0,193 / 0,279
+  / 0,368, com a confiança de 0,708 para 0,816 e a acurácia de 68,6
+  para 46,1%.
+- *Laya e twitter-roberta perdem confiança com contexto:* o Laya cai
+  9,7 pontos no MT-CSD (0,718 -> 0,621) e 6,0 no MUStARD++; na coorte,
+  0,710 -> 0,602. O ECE do Laya melhora (0,105 -> 0,055) porque a
+  confiança desce até a acurácia, e não porque acerte mais.
+- *O Kev-4B continua o mais bem calibrado no MT-CSD com contexto*
+  (0,081), mas o ECE triplica.
+- *Qwen3.5-4B e DeBERTa-NLI ficam mais confiantes tanto nos itens
+  que o contexto ajuda quanto nos que ele atrapalha* (k0 -> kK, MT-CSD:
+  Qwen3.5-4B +7,4 e +6,8 pontos de confiança; DeBERTa-NLI +15,8 e
+  +16,3).
+- *Quem muda com o contexto.* Os dados sugerem que LLMs e DeBERTa-NLI
+  mudam mais os itens em que estavam incertos (Spearman entre a margem
+  em k0 e o tamanho da mudança de -0,46 a -0,73), enquanto o
+  twitter-roberta muda mais os itens em que estava confiante (+0,12
+  com k1 e +0,24 com kK, p < 0,001), como se lesse um texto novo. A
+  perda do Kev-4B com kK está nos tercis de margem média e alta (-11,3
+  e -10,6; baixa +1,1; N = 848 em tercis): o contexto derruba itens em
+  que ele estava certo e confiante (87,6% de acerto no tercil alto).
+  Usar o contexto só quando a margem em k0 é baixa desfaz a maior parte
+  das perdas (os dados sugerem Kev-4B 72,1 contra 64,4), mas só supera
+  o sem contexto no Mistral-7B com k1 (+3,5 [0,7; 5,7]).
+
+** Kev-4B e Qwen3.5-4B no uso do contexto
+
+Os dois partem do mesmo modelo base e reagem ao contexto em sentidos
+opostos:
+
+| Base (k0 -> kK)    | Qwen3.5-4B       | Kev-4B             |
+|--------------------+------------------+--------------------|
+| MT-CSD (/thread/)  | +2,1 [-3,8; 7,3] | -7,0 [-12,0; -1,3] |
+| MUStARD++ irônicos | -1,2 (p = 0,56)  | +6,3 (p = 2e-4)    |
+
+- *Mesma base, reações opostas.* No MT-CSD, o Kev-4B perde 7,0 e o
+  Qwen3.5-4B não muda de forma significativa (+2,1); nos 601 irônicos
+  do MUStARD++, o Kev-4B ganha 6,3 e o Qwen3.5-4B não muda. Os dados
+  sugerem que a forma de usar o contexto vem da adaptação, e não da
+  base.
+- *O Kev-4B copia mais o pai* (peso 0,48 contra 0,20; razão sinal /
+  cópia 0,11 contra 0,72), *agrupa mais as respostas por /thread/*
+  (eta2 kK 0,44 contra 0,23) e *perde nos comentários que não nomeiam
+  o alvo* (-11,9 contra -0,5).
+- *Com contexto, se aproximam no MT-CSD* (64,4 e 57,4; McNemar por
+  item p = 0,00049): o Kev-4B perde 7,0 e o Qwen3.5-4B ganha 2,1. No
+  MUStARD++ não irônico, o Qwen3.5-4B segue à frente (59,6 contra 54,4;
+  p = 0,032).
+- *O que cada um ganha.* O ganho do Qwen3.5-4B com o turno anterior
+  vem sobretudo do neutro (29,4 -> 35,1% de respostas "neutro") e dos
+  comentários fora do tema; com a conversa inteira, ele ganha nas
+  inversões de postura (+15,5 *). A perda do Kev-4B se repete nas três
+  ordens.
+
+** Robustez às descrições das opções
+
+Na rodada principal, só Kev-4B e Laya recebem descrições das opções.
+Com as descrições trocadas (LLMs com descrições, System One sem):
+- MT-CSD, turno anterior: Qwen3.5-4B +5,5 [2,1; 9,5] * (igual ao
+  original, +5,4); Mistral-7B +3,5 [0,2; 8,0] *; Kev-4B -2,5 [-5,0;
+  -0,2] *; Laya -2,6 (n.s.).
+- MT-CSD, conversa inteira: Kev-4B -5,2 [-9,5; -1,1] *; Laya -3,7
+  [-6,6; -0,2] *; Qwen3.5-4B -0,5 (n.s.); Mistral-7B -3,2 (n.s.). Por
+  classe, a perda nos neutros se mantém (Kev-4B -12,7 *, Laya -6,2 *,
+  Mistral-7B -13,1 *, Qwen3.5-4B -5,4 n.s.), e os "contra" sobem para
+  Qwen3.5-4B (+11,5 *) e Mistral-7B (+4,8 *).
+- Coorte K >= 4 do MT-CSD, k0 a k4: Qwen3.5-4B 57,5 / 64,3 / 61,8 /
+  64,9 / 62,5; Kev-4B 71,9 / 68,6 / 71,5 / 69,1 / 68,2.
+- MUStARD++ não irônico: nenhuma mudança significativa.
+- Conclusão: os efeitos do contexto não dependem das descrições.
+
+** Sem efeito
+
+Os dados sugerem que não têm efeito: a sobreposição de palavras entre
+o texto e o contexto no MT-CSD (2 de 36 testes significativos, o
+esperado por acaso); o falante do turno anterior ser o mesmo ou outro
+no MUStARD++ (N 68 / 502; só o twitter-roberta muda, e perde nos dois
+casos); usar o contexto só quando ele aumenta a confiança (evita
+perdas, mas não traz ganho).
+
+** Exemplos
+
+*Contexto que atrapalha um neutro (MT-CSD).* =mtcsd:Tesla:181=
+(nenhuma postura). Contexto: "You'll be at fault if you rear end them
+tho" / "Not if I'm travelling backwards so they rear-end me too."
+Alvo: "Modern problems require modern solutions". Sem contexto, 5 de 6
+modelos acertam; com contexto, todos menos o Laya respondem "contra".
+No total, 49 neutros do MT-CSD foram acertados sem contexto por pelo
+menos 5 modelos e errados com a conversa inteira por pelo menos 4.
+
+*Contexto que ajuda um "contra" (MT-CSD).* =mtcsd:Tesla:77=: "My 20
+year old Honda civic has held up better than that car dang". Sem
+contexto, só o Laya acerta (o texto não cita a Tesla); depois de "This
+type of quality should not even exist on a 100+K car...", 5 de 6
+acertam. É o que o contexto deveria fazer: dizer qual é o alvo e qual
+é o tom quando o texto sozinho não diz. No total, 27 itens "contra"
+foram errados sem contexto por pelo menos 4 modelos e acertados com a
+conversa inteira por pelo menos 4.
+
+*O twitter-roberta indo para o neutro (MUStARD++, negativo).*
+=mpp:1_S09E02_002_u= LEONARD: "How am I supposed to sleep? I've been
+married less than 24 hours, and my wife isn't speaking to me." Os seis
+acertam sem contexto; com a pergunta anterior de Sheldon ("Why are you
+up?"), só o twitter-roberta muda, para neutro.
+
+* T3: ironia
+
+Dados: rodada principal para MUStARD++ e Filatova; Sarcasm_NLP com a
+pergunta sobre "nuclear power" (tabela =merged=). Salvo indicação,
+sem contexto, ordem v1 (twitter-roberta sem /prompt/, DeBERTa-NLI só
+v1). Os problemas da pergunta e do gold do Sarcasm_NLP, e a origem
+provavelmente gerada da metade irônica, estão nas seções "A pergunta
+do Sarcasm_NLP" e "A metade irônica do Sarcasm_NLP" (em "Bases,
+medição e limitações"); os números do Sarcasm_NLP abaixo devem ser
+lidos com essas ressalvas.
+
+** Acurácia sem e com ironia
+
+| Modelo          | MUStARD++ não irôn. -> irôn. | Sarcasm_NLP          | Filatova             |
+|-----------------+------------------------------+----------------------+----------------------|
+| twitter-roberta | 50,7 -> 25,0 (-25,7)         | 70,3 -> 38,0 (-32,3) | 81,6 -> 70,9 (-10,7) |
+| DeBERTa-NLI     | 55,3 -> 65,1 (+9,8)          | 41,0 -> 56,7 (+15,7) | 91,8 -> 87,6 (-4,2)  |
+| Qwen3.5-4B      | 57,9 -> 42,9 (-15,0)         | 70,9 -> 57,7 (-13,2) | 93,8 -> 85,6 (-8,2)  |
+| Mistral-7B      | 58,1 -> 50,7 (-7,4)          | 71,1 -> 68,3 (-2,8)  | 91,6 -> 86,0 (-5,6)  |
+| Kev-4B          | 51,6 -> 18,0 (-33,6)         | 76,2 -> 54,8 (-21,4) | 93,9 -> 87,4 (-6,5)  |
+| Laya            | 48,6 -> 20,6 (-28,0)         | 58,4 -> 33,5 (-24,9) | 90,5 -> 80,5 (-10,0) |
+| NanoJev         | 28,2 -> 0,0                  | não rodado           | 85,6 -> 29,3         |
+| Maioria         | 42,5 -> 100                  | 61,7 -> 86,8         | 85,8 -> 66,1         |
+
+N (não irônicos / irônicos): MUStARD++ 570 / 601; Sarcasm_NLP 3.361 /
+2.568; Filatova 817 / 437. IC de 95% dos irônicos: MUStARD++
+DeBERTa-NLI 65,1 [61,6; 68,7], Mistral-7B 50,7 [46,6; 54,7], Qwen3.5-4B
+42,9 [38,9; 46,9], twitter-roberta 25,0 [21,5; 28,6], Laya 20,6 [17,6;
+23,8], Kev-4B 18,0 [15,0; 21,3]. Sarcasm_NLP: Mistral-7B 68,3 [66,5;
+70,1], Qwen3.5-4B 57,7 [55,9; 59,7], DeBERTa-NLI 56,7 [54,8; 58,6],
+Kev-4B 54,8 [52,9; 56,6], twitter-roberta 38,0 [36,1; 40,0], Laya 33,5
+[31,7; 35,3].
+
+- *A ironia custa pouco nas resenhas* (Filatova: de 4,2 a 10,7
+  pontos), mas por composição: ver [[*Ironia nas resenhas (Filatova)]].
+- *No MUStARD++, os modelos que tendem ao neutro desabam:* Kev-4B
+  -33,6, Laya -28,0, twitter-roberta -25,7; os três ficam abaixo de
+  26%.
+- *O DeBERTa-NLI é o único que "melhora" com a ironia* (+9,8 no
+  MUStARD++, +15,7 no Sarcasm_NLP). É um artefato de base: os irônicos
+  são quase todos negativos (100% no MUStARD++, 86,8% no Sarcasm_NLP) e
+  ele responde "negativo" com muita frequência (seção
+  [[*Viés negativo: T1 explica T3?]]).
+- *F1 macro nos irônicos é baixo para todos* (MUStARD++: de 10,2 a
+  26,3; Sarcasm_NLP: de 25,1 a 43,9), porque quase todos os itens são de
+  uma classe.
+- *Ninguém supera a maioria nos irônicos do MUStARD++ e do
+  Sarcasm_NLP* (100% e 86,8%): responder sempre "negativo" seria melhor
+  que qualquer modelo.
+
+** Para onde vão os erros nos irônicos
+
+MUStARD++ (601 irônicos, todos negativos), % de respostas:
+| Modelo          | neg  | neu  | pos  |
+|-----------------+------+------+------|
+| twitter-roberta | 25,0 | 54,2 | 20,8 |
+| DeBERTa-NLI     | 65,1 |  1,0 | 33,9 |
+| Qwen3.5-4B      | 42,9 | 13,6 | 43,4 |
+| Mistral-7B      | 50,7 | 29,6 | 19,6 |
+| Kev-4B          | 18,0 | 67,6 | 14,5 |
+| Laya            | 20,6 | 65,4 | 14,0 |
+
+Sarcasm_NLP, irônicos negativos (N = 2.229), neg / neu / pos:
+twitter-roberta 37,9 / 17,6 / 44,5; DeBERTa-NLI 62,4 / 1,0 / 36,6;
+Qwen3.5-4B 58,2 / 24,9 / 16,9; Mistral-7B 70,2 / 25,6 / 4,2; Kev-4B
+54,5 / 31,8 / 13,7; Laya 31,0 / 35,2 / 33,8.
+
+- *Dois modos de errar a ironia:* ler o literal positivo (DeBERTa-NLI
+  33,9% e Qwen3.5-4B 43,4% de "positivo" no MUStARD++; twitter-roberta
+  44,5%, DeBERTa-NLI 36,6% e Laya 33,8% no Sarcasm_NLP) ou fugir para o
+  neutro (Kev-4B 67,6%, Laya 65,4%, twitter-roberta 54,2% no
+  MUStARD++). No Sarcasm_NLP, o neutro de Qwen3.5-4B e Mistral-7B nos
+  irônicos depende da pergunta (seção "A pergunta do Sarcasm_NLP").
+- *As inversões de polaridade (negativo <-> positivo) se concentram
+  nos irônicos.* Os irônicos são 59,9% dos itens polares do MUStARD++,
+  64,1% dos do Sarcasm_NLP e 34,8% dos do Filatova, mas respondem por
+  69,0 a 86,1%, 62,1 a 91,3% e 52,3 a 77,2% das inversões,
+  respectivamente (faixas entre os seis modelos). P(positivo |
+  negativo), irônico menos não irônico (/bootstrap/ por item):
+  MUStARD++ de +10,3 (Laya) a +26,1 (Qwen3.5-4B, [19,8; 32,3]);
+  Sarcasm_NLP de +3,1 (Mistral-7B) a +35,6 (twitter-roberta); Filatova
+  de -1,3 a +1,4 (n.s.; N = 81 / 289; a ironia vem com crítica
+  explícita). Fora da ironia, o viés positivo é pequeno (seção "Os
+  modelos são mais positivos?").
+- O Qwen3.5-4B responde "positivo" em 36,7% dos irônicos de literal
+  neutro do MUStARD++ (N = 248; outros modelos de 6,0 a 25,8%). Ex.:
+  =mpp:1_1466_u= "Maybe when I publish it, I'll include an inhaler."
+- Nos erros exclusivos dos /System One/ em irônicos, a leitura
+  qualitativa acha só "neutro" (ver "Tipos de erro", na seção
+  "Acurácia por classe, viés positivo e tipos de erro").
+
+** Leitura literal (MUStARD++)
+
+O MUStARD++ anota a emoção explícita (literal) além da implícita. Dos
+601 irônicos, 451 têm literal diferente do /ground truth/ negativo:
+203 com literal positivo e 248 com literal neutro (77 têm literal
+negativo e 73 não têm).
+
+| Modelo          | Segue o literal | Lit. positivo -> "positivo" | Lit. neutro -> "neutro" |
+|-----------------+-----------------+-----------------------------+-------------------------|
+| twitter-roberta | 57,0            | 45,8                        | 66,1                    |
+| DeBERTa-NLI     | 27,5            | 59,6                        | 1,2                     |
+| Qwen3.5-4B      | 40,8            | 65,0                        | 21,0                    |
+| Mistral-7B      | 34,1            | 33,0                        | 35,1                    |
+| Kev-4B          | 56,3            | 31,5                        | 76,6                    |
+| Laya            | 53,9            | 30,0                        | 73,4                    |
+| NanoJev         | 45,2            | 99,5                        | 0,8                     |
+
+- *A leitura literal depende do tipo de literal e do perfil do
+  modelo.* Quando a fala é literalmente positiva, os que polarizam caem
+  nela (Qwen3.5-4B 65,0%, DeBERTa-NLI 59,6%); quando é literalmente
+  neutra, os que tendem ao neutro caem (Kev-4B 76,6%, Laya 73,4%). O
+  número agregado do DeBERTa-NLI (27,5%) esconde que ele segue o
+  literal positivo em 60% dos casos; ele só "resiste" ao literal neutro
+  porque quase nunca responde neutro.
+- O Mistral-7B é o mais equilibrado (33,0% e 35,1%).
+- *A leitura literal positiva do Qwen3.5-4B depende da ordem:*
+  "positivo" em 43,4 / 30,1 / 35,3% dos irônicos (v1 / v2 / v3; média
+  36,3%, ainda a maior entre os modelos). Em v1, "positive" é a última
+  opção, e o Qwen3.5-4B tende à última.
+- *Mais confiantes quando seguem o literal do que quando acertam.*
+  Confiança média nos 451 irônicos de literal diferente, seguindo o
+  literal contra acertando (Mann-Whitney): Kev-4B 75,7 (N = 254) contra
+  65,0 (N = 69), p = 1e-7; twitter-roberta 77,7 (N = 257) contra 67,4
+  (N = 86), p = 4e-8; Qwen3.5-4B 77,4 contra 74,2 (p = 0,033). O
+  Mistral-7B é o oposto (84,9 seguindo o literal, 94,1 acertando; p =
+  6e-10).
+- Os dados sugerem que só o Qwen3.5-4B tem detecção parcial da ironia
+  nas probabilidades: massa dividida entre positivo e negativo (as
+  duas > 0,25) nos irônicos de literal positivo só aparece nele (19,7%
+  contra 8,1% nos positivos não irônicos, p = 0,002).
+
+Exemplos (em 50 irônicos de literal positivo, pelo menos 5 dos 6
+modelos responderam "positivo"):
+- =mpp:2_623_u= CHANDLER: "What do you know? Its a treat for the eyes
+  and the ears." (depois de "I think I can see your scalp!"). Os seis
+  respondem "positivo".
+- =mpp:3_S02E02_081_u= GILFOYLE: "But the fact that you're so sorry
+  makes it all better." Os seis: "positivo". Com o contexto (Dinesh:
+  "...is now offering us nothing?"), twitter-roberta e Mistral-7B passam
+  a acertar.
+- Nesses casos, o texto não tem marca de ironia além do exagero; quem
+  anotou viu a cena em vídeo, com o tom de voz.
+
+** Tipo de sarcasmo e marcas de ironia
+
+- *MUStARD++, por tipo* (os dados sugerem; Fisher): EMB (embutido, N
+  = 87), PRO (proposicional, N = 333), ILL (ilocucionário, N = 178).
+  Acurácia EMB / PRO / ILL: Mistral-7B 70,1 / 51,1 / 39,9 (p = 1e-4);
+  Qwen3.5-4B 50,6 / 45,0 / 34,3 (p = 0,017); Kev-4B 29,9 / 16,8 / 14,6
+  (p = 0,010); Laya 32,2 / 18,0 / 20,2 (p = 0,018). Não vem do literal:
+  EMB tem a maior fração de literal positivo (41%).
+- *Sarcasm_NLP, marcas fortes* ("Oh great/sure...", "what could
+  possibly go wrong"; 21,7% dos 2.229 irônicos negativos e 1,3% dos não
+  irônicos), acerto com a marca menos sem ela (Fisher): Qwen3.5-4B
+  +16,8, Mistral-7B +14,8, Kev-4B +12,3; twitter-roberta -12,4,
+  DeBERTa-NLI -11,2 (p < 1e-5), Laya -6,9 (p = 0,004).
+- *Palavras positivas* ("great", "wonderful", "perfect"...; 33,6% dos
+  irônicos negativos): twitter-roberta -21,5, DeBERTa-NLI -15,6, Laya
+  -10,4; Qwen3.5-4B +14,9, Mistral-7B +15,8, Kev-4B +10,3 (todos p <
+  1e-5).
+- *"!"* (39,6%) piora twitter-roberta (-18,3), DeBERTa-NLI (-13,8),
+  Kev-4B (-7,7) e Laya (-6,4) (p <= 0,001); Qwen3.5-4B e Mistral-7B não
+  mudam de forma significativa.
+- A divisão é a mesma do custo da ironia nos negativos (seção
+  [[*O custo da ironia]]): LLMs e Kev-4B reconhecem as marcas; Laya,
+  DeBERTa-NLI e twitter-roberta caem na palavra positiva. Como a metade
+  irônica do Sarcasm_NLP parece gerada por LLM, isso pode ser
+  reconhecimento de estilo.
+
+** Ironia nas resenhas (Filatova)
+
+- *Dentro da mesma estrela, a ironia só custa nas 5 estrelas.* 1
+  estrela, não irônica / irônica (N = 64 / 262): Qwen3.5-4B 96,9 /
+  96,2, Kev-4B 96,9 / 95,8, DeBERTa-NLI 96,9 / 95,8, Mistral-7B 96,9 /
+  96,9 (Laya 85,1 e twitter-roberta 78,6 nas irônicas). 5 estrelas (N =
+  605 / 114): Qwen3.5-4B 99,0 / 74,6, Kev-4B 98,3 / 81,6, DeBERTa-NLI
+  97,4 / 86,8, Mistral-7B 97,5 / 76,3, Laya 95,4 / 78,9,
+  twitter-roberta 85,3 / 65,8.
+- *O custo baixo vem de onde a ironia está:* 60% das irônicas têm 1
+  estrela, onde a ironia reforça uma crítica explícita. Repesando as
+  irônicas pela distribuição de estrelas das não irônicas, o custo vai
+  a 9,8 a 19,6 pontos (Qwen3.5-4B 19,6 [13,0; 26,4]).
+- *Nas irônicas de 5 estrelas, "acertar" é concordar com a nota.*
+  Numa leitura de 25 delas, cerca de 10 são elogio fingido a obras
+  desprezadas e cerca de 12 brincadeiras com produtos-piada; os seis
+  modelos dizem "positivo" juntos em 50 das 114. O Qwen3.5-4B responde
+  "negativo" em 25% delas e é penalizado justamente por ler a ironia.
+  Ex.: "OMG, so great I mean, I always wanted my crotch and my hands to
+  have more in common, now they do!" (5 estrelas): os seis responderam
+  "positivo" e foram contados como acerto.
+- Irônicas negativas com corpo lexicalmente positivo (VADER > 0,5, N =
+  134): os dados sugerem que, com crítica explícita (N = 82), os LLMs
+  acertam 98 a 99% e o twitter-roberta 72%; sem ela (N = 20), os LLMs
+  75 a 85% e o twitter-roberta 35%.
+- 3 estrelas (20 irônicas): de 0% (DeBERTa-NLI) a 45%
+  (twitter-roberta). Ex.: =fil:11_4_R3JUIEGFUTUWMI= "Great Product,
+  Poor Packaging: I purchased this product 4.47 Billion Years ago and
+  when I opened it today, it was half empty." (3 estrelas): 5 de 6
+  responderam "negativo".
+
+** Viés negativo: T1 explica T3?
+
+*** Quanto cada modelo responde "negativo" e quanto acerta nos negativos
+
+T1 = não irônicos, T3 = irônicos; sem contexto, v1. "Resp. neg" = %
+de respostas "negativo" nos não irônicos; "Precisão" = % dessas
+respostas que estão certas; "Neg. T1" e "Neg. T3" = acerto nos itens
+de gold negativo. N negativos não irônicos / irônicos: MUStARD++ 242 /
+601; Sarcasm_NLP 917 / 2.229; Filatova 81 / 289. Negativos no gold dos
+não irônicos: MUStARD++ 42,5%, Sarcasm_NLP 27,3%, Filatova 9,9%.
+
+| Modelo                    | Resp. neg | Precisão | Neg. T1 | Neg. T3 | Queda |
+|---------------------------+-----------+----------+---------+---------+-------|
+| MUStARD++ twitter-roberta |      24,6 |     75,0 |    43,4 |    25,0 |  18,4 |
+| MUStARD++ DeBERTa-NLI     |      61,2 |     59,0 |    85,1 |    65,1 |  20,1 |
+| MUStARD++ Qwen3.5-4B      |      45,1 |     67,7 |    71,9 |    42,9 |  29,0 |
+| MUStARD++ Mistral-7B      |      49,6 |     63,6 |    74,4 |    50,7 |  23,6 |
+| MUStARD++ Kev-4B          |      22,6 |     79,8 |    42,6 |    18,0 |  24,6 |
+| MUStARD++ Laya            |      24,9 |     73,2 |    43,0 |    20,6 |  22,3 |
+|---------------------------+-----------+----------+---------+---------+-------|
+| Sarcasm_NLP twitter-rob.  |      34,4 |     56,8 |    71,6 |    37,9 |  33,8 |
+| Sarcasm_NLP DeBERTa-NLI   |      66,8 |     37,3 |    91,3 |    62,4 |  28,9 |
+| Sarcasm_NLP Qwen3.5-4B    |      26,7 |     61,9 |    60,5 |    58,2 |   2,3 |
+| Sarcasm_NLP Mistral-7B    |      37,6 |     54,5 |    75,1 |    70,2 |   4,9 |
+| Sarcasm_NLP Kev-4B        |      25,6 |     68,0 |    63,7 |    54,5 |   9,2 |
+| Sarcasm_NLP Laya          |      42,6 |     45,3 |    70,7 |    31,0 |  39,6 |
+|---------------------------+-----------+----------+---------+---------+-------|
+| Filatova twitter-roberta  |      10,8 |     69,3 |    75,3 |    75,8 |  -0,5 |
+| Filatova DeBERTa-NLI      |      15,4 |     60,3 |    93,8 |    94,8 |  -1,0 |
+| Filatova Qwen3.5-4B       |      13,1 |     72,0 |    95,1 |    95,8 |  -0,8 |
+| Filatova Mistral-7B       |      12,9 |     72,4 |    93,8 |    95,5 |  -1,7 |
+| Filatova Kev-4B           |      11,8 |     79,2 |    93,8 |    94,8 |  -1,0 |
+| Filatova Laya             |      10,9 |     75,3 |    82,7 |    84,1 |  -1,4 |
+
+- *Quem responde muito "negativo":* DeBERTa-NLI em todas as bases
+  (66,8% dos não irônicos do Sarcasm_NLP, onde só 27,3% são negativos;
+  precisão 37,3%) e Laya no Sarcasm_NLP (42,6%). Kev-4B, Laya e
+  twitter-roberta respondem "negativo" *menos* do que o gold no
+  MUStARD++ (de 22,6 a 24,9%), com precisão alta (de 73,2 a 79,8%):
+  quando dizem "negativo", acertam, mas dizem pouco. No Sarcasm_NLP, a
+  taxa de "negativo" dos LLMs depende da pergunta (seção "A pergunta do
+  Sarcasm_NLP").
+- *Exemplo:* =snlp:4748= "Living with nuclear power plants at your
+  border - EURACTIV" (manchete, gold neutro): DeBERTa-NLI, Qwen3.5-4B,
+  Mistral-7B e Laya respondem "negativo"; Kev-4B e twitter-roberta,
+  "neutro". Em 1.113 dos 2.074 neutros não irônicos do Sarcasm_NLP, o
+  DeBERTa-NLI diz "negativo" e o Kev-4B "neutro". O tema é negativo,
+  mas o autor não expressa sentimento.
+
+*** A correlação entre T1 e T3
+
+- *Em acurácia bruta, a relação é forte.* No MUStARD++, a ordem dos
+  seis modelos em T3 é exatamente a do acerto nos negativos de T1
+  (Spearman = 1,0): DeBERTa-NLI, Mistral-7B e Qwen3.5-4B acertam mais
+  irônicos porque já acertavam mais negativos; Kev-4B, Laya e
+  twitter-roberta (de 42,6 a 43,4 em T1) ficam com 18,0 a 25,0 em T3.
+  Nas três bases juntas (18 pares modelo x base), Spearman entre o
+  acerto nos negativos de T1 e a acurácia em T3 = 0,88; com o acerto
+  nos negativos irônicos, 0,91. Dentro de cada base, porém: MUStARD++
+  1,00, Sarcasm_NLP 0,14, Filatova 0,58 (N = 6 por base).
+- *Vale nas três ordens:* 0,86 em v1 (15 pares: cinco modelos com
+  /prompt/ de opções x três bases), 0,90 em v2 e 0,91 em v3 (12 pares
+  cada: os quatro modelos que têm v2 e v3); 0,92 juntando tudo (39
+  combinações).
+
+*** O custo da ironia
+
+- *Comparando só itens negativos, a ironia custa por si:*
+  - MUStARD++: todos perdem de 18,4 a 29,0 pontos. A perda é parecida
+    entre os modelos; o que muda é o ponto de partida.
+  - Sarcasm_NLP: dois grupos. Qwen3.5-4B (2,3), Mistral-7B (4,9) e
+    Kev-4B (9,2) perdem pouco; DeBERTa-NLI (28,9), twitter-roberta
+    (33,8) e Laya (39,6) perdem muito. A divisão se mantém com a
+    pergunta ampla sobre o assunto nuclear (Qwen3.5-4B 10,9, Mistral-7B
+    3,2, Kev-4B 12,8 contra DeBERTa-NLI 24,4 e Laya 38,7).
+  - Filatova: ninguém perde (de -0,5 a -1,7: os negativos irônicos são
+    até um pouco mais fáceis), porque a maioria das irônicas negativas
+    tem crítica explícita.
+- *O custo quase não muda com a ordem.* Queda nos negativos (v1 / v2 /
+  v3): MUStARD++ Qwen3.5-4B 29,0 / 26,3 / 27,1; Sarcasm_NLP Qwen3.5-4B
+  2,3 / 2,6 / 2,8, Kev-4B 9,2 / 8,6 / 8,8, Laya 39,6 / 37,8 / 36,8.
+  Exceção: Mistral-7B (MUStARD++ 23,6 / 30,5 / 17,5; Sarcasm_NLP 4,9 /
+  2,8 / 0,8). O viés de posição move T1 e T3 juntos.
+
+*** O viés negativo do Mistral-7B depende da ordem das opções
+
+A taxa de "negativo" de cada modelo em cada ordem, e o viés do
+Mistral-7B pelo rótulo listado primeiro, estão em "O viés pela
+primeira opção do Mistral-7B" (seção T1). Para T3: boa parte do "viés
+negativo" do Mistral-7B em v1 é viés de posição, e a acurácia dele nos
+irônicos cai de 50,7 (v1) para 23,6 (v2) e 10,6 (v3) no MUStARD++, e
+de 68,3 para 37,0 e 32,9 no Sarcasm_NLP. Mesmo assim, a correlação
+entre T1 e T3 se mantém em cada ordem (de 0,86 a 0,91): o que muda com
+a ordem é o viés de cada modelo, e a acurácia em T3 acompanha.
+
+*** Exemplos de viés negativo e de posição
+
+/Ironia com marcas fortes, que os LLMs e o Kev-4B pegam e Laya e
+twitter-roberta não/ (Sarcasm_NLP: em 436 dos 2.229 irônicos negativos,
+Kev-4B e Mistral-7B acertam e Laya e twitter-roberta erram):
+- =snlp:1349= "Oh, great idea Japan! Because what could possibly go
+  wrong with sticking to nuclear power after a tsunami, right?":
+  Qwen3.5-4B, Mistral-7B e Kev-4B: negativo; twitter-roberta,
+  DeBERTa-NLI e Laya: positivo.
+- =snlp:1612= "Oh, great news! Putin was totally prepared to start a
+  nuclear war over Crimea. How reassuring.": mesma divisão.
+
+Exemplos do viés de posição do Mistral-7B: ver "O viés pela primeira
+opção do Mistral-7B".
+
+** O contexto ajuda na ironia?
+
+Todos os 601 irônicos do MUStARD++ têm gold negativo; logo, a mudança
+de acerto nos irônicos é a mudança na taxa de "negativo". Por isso,
+todo "ganho na ironia" abaixo vem acompanhado da mudança nos não
+irônicos neutros ou positivos (N = 328), onde "negativo" é erro.
+
+*** Efeito médio (601 irônicos do MUStARD++)
+
+Acurácia sem contexto (k = 0), com o turno anterior (k = 1) e com a
+conversa inteira (k = K); p = McNemar exato.
+
+| Modelo          | k = 0 | k = 1 | k = K | p (0 vs K) |
+|-----------------+-------+-------+-------+------------|
+| twitter-roberta |  25,0 |  10,1 |  11,5 | 1,1e-12    |
+| DeBERTa-NLI     |  65,1 |  68,6 |  70,7 | 0,0036     |
+| Qwen3.5-4B      |  42,9 |  40,4 |  41,8 | 0,56       |
+| Mistral-7B      |  50,7 |  44,6 |  43,8 | 0,00026    |
+| Kev-4B          |  18,0 |  23,0 |  24,3 | 0,00021    |
+| Laya            |  20,6 |  23,1 |  25,3 | 0,010      |
+
+(IC com a conversa inteira: DeBERTa-NLI 70,7 [67,1; 74,5]; Kev-4B 24,3
+[21,0; 27,5]; Laya 25,3 [21,8; 28,6]; Mistral-7B 43,8 [39,9; 47,9].)
+
+- *Em acurácia bruta*, DeBERTa-NLI (+5,7), Kev-4B (+6,3) e Laya (+4,7)
+  ganham; Mistral-7B (-7,0) e twitter-roberta (-13,5) perdem; o
+  Qwen3.5-4B não muda (-1,2, n.s.).
+- Os ganhos acompanham a mudança de "negativo" nos não irônicos
+  (subseção seguinte), e a perda do Mistral-7B vem da ordem v1 (ver "A
+  perda do Mistral-7B é da ordem v1").
+
+*** O ganho nos irônicos não é específico da ironia
+
+Mudança k = 0 -> K, em pontos: acerto nos irônicos (N = 601) contra a
+taxa de "negativo" nos não irônicos neutros ou positivos (N = 328);
+"dif." = primeira menos segunda, com IC por /bootstrap/ nos casos
+citados no texto.
+
+| Modelo          | ordem | irônicos (acerto) | não irôn. neu/pos ("negativo") | dif.           |
+|-----------------+-------+-------------------+--------------------------------+----------------|
+| Kev-4B          | v1    | @@latex:+@@6,3    | @@latex:+@@3,0                 | @@latex:+@@3,3 |
+| Kev-4B          | v2    | @@latex:+@@2,5    | @@latex:+@@0,9                 | @@latex:+@@1,6 |
+| Kev-4B          | v3    | @@latex:+@@3,2    | @@latex:+@@1,5                 | @@latex:+@@1,6 |
+| Laya            | v1    | @@latex:+@@4,7    | @@latex:+@@9,5                 | -4,8           |
+| Laya            | v2    | @@latex:+@@4,7    | @@latex:+@@6,1                 | -1,4           |
+| Laya            | v3    | @@latex:+@@5,7    | @@latex:+@@8,2                 | -2,6           |
+| DeBERTa-NLI     | none  | @@latex:+@@5,7    | @@latex:+@@10,1                | -4,4           |
+| Mistral-7B      | v1    | -7,0              | -9,8                           | @@latex:+@@2,8 |
+| Mistral-7B      | v2    | @@latex:+@@6,2    | @@latex:+@@1,8                 | @@latex:+@@4,3 |
+| Mistral-7B      | v3    | @@latex:+@@6,0    | @@latex:+@@0,9                 | @@latex:+@@5,1 |
+| Qwen3.5-4B      | v1    | -1,2              | -3,4                           | @@latex:+@@2,2 |
+| Qwen3.5-4B      | v2    | -4,2              | -7,9                           | @@latex:+@@3,8 |
+| Qwen3.5-4B      | v3    | -7,8              | -7,9                           | @@latex:+@@0,1 |
+| twitter-roberta | none  | -13,5             | -2,7                           | -10,7          |
+
+- O Laya ganha 4,7 nos irônicos, mas passa a errar "negativo" em 9,5
+  pontos a mais dos não irônicos neutros e positivos: ganha menos do
+  que perde. O DeBERTa-NLI idem. O Kev-4B tem diferença positiva, mas
+  pequena e não significativa (v1 +3,3 [-1,2; 7,5]); o ganho bruto dele
+  nos irônicos só é significativo em v1 (p = 2e-4; v2 p = 0,18; v3 p =
+  0,09). Nenhum /System One/ tem diferença positiva significativa. Só o
+  Mistral-7B em v3 tem (+5,1 [1,7; 8,2]); o twitter-roberta tem
+  diferença negativa significativa (-10,7 [-16,2; -4,9]).
+- Nas 26 configurações modelo x /prompt/ x ordem, a mudança nos
+  irônicos acompanha a mudança de "negativo" nos não negativos (r =
+  0,73, inclinação 0,67, intercepto +0,3; as configurações não são
+  independentes).
+- Leitura: o contexto do MUStARD++ deixa DeBERTa-NLI, Kev-4B e Laya
+  mais negativos em todos os itens. Como todo irônico é negativo, isso
+  aparece como "ganho na ironia".
+
+*** A perda do Mistral-7B é da ordem v1
+
+Irônicos, k = 0 -> K: v1 -7,0 (p = 3e-4), v2 +6,2 (p = 3e-4), v3 +6,0
+(p = 1e-5); média das ordens +1,7. O contexto enfraquece o viés de
+posição: a fração de respostas iguais à primeira opção cai nos
+irônicos nas três ordens (v1 50,7 -> 43,8; v2 12,8 -> 11,8; v3 78,4 ->
+64,7). Em v1, a primeira opção é "negativo", então menos viés de
+posição custa acerto nos irônicos. O Qwen3.5-4B perde nas três ordens,
+mas a taxa de "negativo" nos não irônicos neutros ou positivos cai
+quase o mesmo tanto (diferença n.s.): também é deslocamento geral.
+
+*** Ablação (292 irônicos com pelo menos quatro turnos)
+
+| Modelo          | k=0  | k=1  | k=4  | p (0 vs 1) | p (0 vs 4) |
+|-----------------+------+------+------+------------+------------|
+| twitter-roberta | 24,3 |  7,9 |  6,2 | 9,7e-11    | 1,6e-10    |
+| DeBERTa-NLI     | 57,5 | 66,1 | 67,5 | 0,0015     | 0,00052    |
+| Qwen3.5-4B      | 39,7 | 41,4 | 41,1 | 0,55       | 0,65       |
+| Mistral-7B      | 50,3 | 46,9 | 45,5 | 0,22       | 0,076      |
+| Kev-4B          | 16,4 | 21,9 | 23,6 | 0,011      | 0,0025     |
+| Laya            | 18,2 | 21,9 | 24,7 | 0,09       | 0,0079     |
+
+Distribuição das respostas (neg / neu / pos, %; neg = acerto):
+| Modelo          | k=0                | k=1                | k=4                |
+|-----------------+--------------------+--------------------+--------------------|
+| twitter-roberta | 24,3 / 48,3 / 27,4 | 7,9 / 71,6 / 20,5  | 6,2 / 73,6 / 20,2  |
+| DeBERTa-NLI     | 57,5 / 1,7 / 40,8  | 66,1 / 0,3 / 33,6  | 67,5 / 0,0 / 32,5  |
+| Qwen3.5-4B      | 39,7 / 10,6 / 49,7 | 41,4 / 19,9 / 38,7 | 41,1 / 16,8 / 42,1 |
+| Mistral-7B      | 50,3 / 28,1 / 21,6 | 46,9 / 22,6 / 30,5 | 45,5 / 25,7 / 28,8 |
+| Kev-4B          | 16,4 / 65,1 / 18,5 | 21,9 / 61,0 / 17,1 | 23,6 / 61,6 / 14,7 |
+| Laya            | 18,2 / 64,7 / 17,1 | 21,9 / 65,4 / 12,7 | 24,7 / 62,3 / 13,0 |
+
+- Com k = 2 e k = 3, os valores ficam próximos dos de k = 1 e k = 4
+  (DeBERTa-NLI 64,4 e 67,8; Kev-4B 22,9 e 21,6).
+- *DeBERTa-NLI e Kev-4B mudam quase tudo com o primeiro turno* (+8,6 e
+  +5,5; p < 0,02); turnos seguintes acrescentam pouco. O Laya muda aos
+  poucos e só é significativo com quatro turnos (+6,5; p = 0,008).
+  Pela seção "O ganho nos irônicos não é específico da ironia", essas
+  mudanças são, em boa parte, deslocamento geral para o negativo.
+- *O twitter-roberta vai para o neutro* (48,3 -> 73,6%) e perde quase
+  todos os acertos (24,3 -> 6,2).
+- *O Qwen3.5-4B troca positivo por neutro* (49,7 -> 42,1% positivo;
+  10,6 -> 16,8% neutro) sem ganhar acurácia.
+- *O Mistral-7B (v1) troca negativo por positivo* (21,6 -> 28,8% de
+  positivo).
+- *O neutro dos /System One/ não muda:* Kev-4B e Laya seguem
+  respondendo "neutro" em cerca de 62% dos irônicos.
+
+*** Leitura literal com contexto (451 irônicos com literal diferente)
+
+% que segue o literal, sem / com a conversa inteira:
+| Modelo          | Lit. positivo -> "positivo" | Lit. neutro -> "neutro" |
+|-----------------+-----------------------------+-------------------------|
+| twitter-roberta | 45,8 / 26,1                 | 66,1 / 77,0             |
+| DeBERTa-NLI     | 59,6 / 45,8                 | 1,2 / 0,4               |
+| Qwen3.5-4B      | 65,0 / 60,1                 | 21,0 / 33,5             |
+| Mistral-7B      | 33,0 / 42,9                 | 35,1 / 31,9             |
+| Kev-4B          | 31,5 / 28,1                 | 76,6 / 74,6             |
+| Laya            | 30,0 / 24,6                 | 73,4 / 71,0             |
+
+- O contexto reduz a leitura literal positiva do DeBERTa-NLI (-13,8)
+  e do twitter-roberta (-19,7), e um pouco a de Qwen3.5-4B, Kev-4B e
+  Laya. No Mistral-7B (v1), aumenta (+9,9).
+- A leitura literal neutra quase não muda para Kev-4B e Laya; aumenta
+  para Qwen3.5-4B (+12,5) e twitter-roberta (+10,9).
+- *O efeito do contexto depende do literal* (acurácia, McNemar): o
+  DeBERTa-NLI ganha nos de literal positivo (39,9 -> 54,2; N = 203; p =
+  8e-5), não nos de literal neutro (73,0 -> 75,4; N = 248; p = 0,51); o
+  Mistral-7B perde nos de literal positivo (47,8 -> 36,0; p = 2e-4); o
+  twitter-roberta perde até nos de literal negativo (59,7 -> 19,5; N =
+  77; p = 1e-7).
+- Os dados sugerem, na coorte com pelo menos quatro turnos (média das
+  ordens, k = 0 -> 4), que o DeBERTa-NLI é o único que sai do literal
+  para o pretendido (literal positivo, N = 113: "positivo" 65,5 ->
+  48,7, "negativo" 33,6 -> 51,3); o Qwen3.5-4B vai para o neutro; Kev-4B
+  e Laya ficam no literal neutro (74 a 76%).
+
+*** Mecanismos
+
+- *(a) Herança da valência do turno anterior* (DeBERTa-NLI, Laya e
+  twitter-roberta; valência medida pelo VADER). A inclinação da mudança
+  de p(negativo) na valência do turno anterior é igual em irônicos e
+  não irônicos (DeBERTa-NLI -0,23 contra -0,25). Entre os irônicos
+  errados em k = 0, a fração corrigida com k = 1 depois de um turno
+  negativo contra depois de um positivo (Fisher): DeBERTa-NLI 62,9% (N
+  = 35) contra 25,4% (N = 71), p = 3e-4; Laya 28,4% contra 8,8%, p =
+  2e-4; twitter-roberta 13,8% contra 1,2%, p = 2e-4. Eles acertam
+  quando a cena já é negativa, não porque percebem a ironia. Ex.:
+  =mpp:1_7357_u= "Oh, you have no idea how annoying this is." -> "I'm
+  starting to get a sense of it." (Laya: neutro -> negativo nas três
+  ordens).
+- *(b) O Kev-4B desce um degrau na escala*, qualquer que seja a
+  valência do contexto (inclinação +0,02, n.s.). Transições k = 0 -> K
+  (v1): neutro -> negativo 66, positivo -> neutro 24, positivo ->
+  negativo 4. Já o DeBERTa-NLI vai de positivo para negativo (78
+  itens).
+- *(c) Para os LLMs, uma pergunta no turno anterior transforma o
+  sarcasmo em resposta cooperativa.* Irônicos com pergunta antes (N =
+  200), k = 0 -> 1: Qwen3.5-4B perde nas três ordens (43,0 -> 34,5, p =
+  0,009; 50,0 -> 42,0, p = 0,02; 45,5 -> 34,5, p = 7e-4) e vai para
+  "neutro" (16,5 -> 36,0% em v1), não para o literal; sem pergunta antes
+  (N = 401): +0,5 / -4,7 / -2,5. Nos não irônicos depois de pergunta (N
+  = 169), o Qwen3.5-4B ganha (+3,6 a +5,3, n.s.). O Mistral-7B mostra o
+  efeito só em v1 (53,0 -> 40,0, p = 5e-4). Ex.: =mpp:1_S11E08_137_u=
+  "Why would the military want Sheldon?" -> "I don't know. Target
+  practice?". Numa leitura de 40 viradas em que o contexto atrapalha,
+  os dados sugerem que esse reenquadramento domina nos irônicos (8 de
+  12) e nos LLMs (8 de 14).
+
+*** Exemplos de contexto na ironia
+
+Em 9 irônicos, DeBERTa-NLI e Kev-4B erram sem contexto e acertam com o
+turno anterior:
+- =mpp:3_S01E01_226_u= "Oh. Look at me, I traveled back to 2009."
+  (depois de "You have to download your own media player?"). Sem
+  contexto: DeBERTa-NLI e Qwen3.5-4B "positivo", Kev-4B "neutro".
+- =mpp:2_31_u= RACHEL: "Even if people are on it!" (depois de "You
+  know what else I'm not gonna miss? 'I'm Monica. I wash the toilet 17
+  times a day.'"). Sem a fala anterior, a frase não tem sentido.
+- Nos dois, o turno anterior diz /do que/ a fala está zombando; mas,
+  pela seção [[*O ganho nos irônicos não é específico da ironia]], casos
+  assim não se distinguem, no agregado, do deslocamento geral para o
+  negativo.
+
+** Calibração nos irônicos
+
+ECE nos irônicos, sem contexto, v1 (MUStARD++ N = 601 / Sarcasm_NLP
+N = 2.568 / Filatova N = 437): twitter-roberta 0,484 / 0,330 / 0,039;
+DeBERTa-NLI 0,257 / 0,308 / 0,108; Qwen3.5-4B 0,319 / 0,141 / 0,079;
+Mistral-7B 0,398 / 0,219 / 0,130; Kev-4B 0,538 / 0,102 / 0,016; Laya
+0,507 / 0,320 / 0,039. O ECE nos não irônicos está em "Calibração e
+estabilidade", na seção T1.
+
+- *A calibração dos /System One/ não transfere para a ironia do
+  MUStARD++:* Kev-4B e Laya têm ali os piores ECE (0,538 e 0,507),
+  junto com o twitter-roberta. No Sarcasm_NLP, o Kev-4B continua bem
+  calibrado (0,102) e o Laya não (0,320).
+- *A confiança chega a apontar o lado errado.* Nos 69 irônicos do
+  MUStARD++ em que o Kev-4B tem confiança >= 0,9, ele acerta 13,0% (34
+  respostas neutras, 26 positivas); ele é mais confiante quando segue o
+  literal do que quando acerta (ver "Leitura literal (MUStARD++)");
+  ficar só com a metade mais confiante baixa a acurácia dele de 18,0
+  para 13,3%. Os dados sugerem que nenhuma temperatura resolve (melhor
+  ECE possível 0,179, com saída quase uniforme).
+- No Filatova irônico, o ECE fica entre 0,016 (Kev-4B) e 0,130
+  (Mistral-7B); nos não irônicos, de 0,039 a 0,088.
+
+* Acurácia por classe, viés positivo e tipos de erro
+
+Pergunta: a acurácia agregada esconde algo por classe, os modelos tendem
+a ser mais positivos e que tipos de erro cometem? Salvo indicação: sem
+contexto, não irônicos, ordem v1 (twitter-roberta: =none=; DeBERTa-NLI
+só tem v1); Sarcasm_NLP com a pergunta sobre "nuclear power"
+(tabela =merged/eval/predictions.csv= da rodada
+=20261121-220717-839516=); demais
+bases da rodada principal =20261117-181106-838446=. No MT-CSD, IC de 95%
+por /bootstrap/ por /thread/ (13 /threads/, 2.000 reamostragens, semente
+5); no MUStARD++, McNemar exato pareado item a item. * = IC sem o zero
+ou p < 0,05.
+
+** Recall por classe e distribuição das respostas
+
+Recall (% de cada classe do /ground truth/ acertada), neg / neu / pos
+(no MT-CSD: contra / nenhuma / a favor):
+
+| Modelo          | MUStARD++          | MT-CSD             | Sarcasm_NLP        | Filatova           |
+|-----------------+--------------------+--------------------+--------------------+--------------------|
+| twitter-roberta | 43,4 / 71,3 / 40,4 | 71,2 / 47,9 / 41,3 | 71,6 / 73,3 / 50,0 | 75,3 / 34,3 / 84,7 |
+| DeBERTa-NLI     | 85,1 / 3,0 / 64,6  | 43,8 / 72,0 / 69,9 | 91,3 / 10,9 / 85,1 | 93,8 / 0,0 / 96,1  |
+| Qwen3.5-4B      | 71,9 / 31,1 / 64,6 | 76,4 / 42,1 / 70,6 | 60,5 / 72,8 / 86,2 | 95,1 / 2,9 / 98,1  |
+| Mistral-7B      | 74,4 / 45,5 / 46,6 | 62,5 / 56,5 / 71,3 | 75,1 / 73,4 / 48,1 | 93,8 / 22,9 / 94,7 |
+| Kev-4B          | 42,6 / 82,0 / 33,5 | 52,9 / 83,1 / 57,3 | 63,7 / 85,0 / 57,8 | 93,8 / 40,0 / 96,6 |
+| Laya            | 43,0 / 82,6 / 21,7 | 27,9 / 88,1 / 18,2 | 70,7 / 52,4 / 62,2 | 82,7 / 48,6 / 93,4 |
+
+N por classe (neg / neu / pos): MUStARD++ 242 / 167 / 161; MT-CSD 208 /
+497 / 143; Sarcasm_NLP 917 / 2.074 / 370; Filatova 81 / 35 / 701.
+
+Distribuição das respostas (% neg / neu / pos):
+
+| Modelo          | MUStARD++          | MT-CSD             | Sarcasm_NLP        | Filatova           |
+|-----------------+--------------------+--------------------+--------------------+--------------------|
+| /ground truth/  | 42,5 / 29,3 / 28,2 | 24,5 / 58,6 / 16,9 | 27,3 / 61,7 / 11,0 | 9,9 / 4,3 / 85,8   |
+| twitter-roberta | 24,6 / 57,7 / 17,7 | 46,7 / 39,0 / 14,3 | 34,4 / 53,9 / 11,7 | 10,8 / 13,7 / 75,5 |
+| DeBERTa-NLI     | 61,2 / 1,6 / 37,2  | 16,6 / 56,1 / 27,2 | 66,8 / 7,5 / 25,7  | 15,4 / 0,1 / 84,5  |
+| Qwen3.5-4B      | 45,1 / 18,1 / 36,8 | 43,8 / 29,4 / 26,9 | 26,7 / 55,2 / 18,1 | 13,1 / 0,6 / 86,3  |
+| Mistral-7B      | 49,6 / 30,0 / 20,4 | 28,1 / 41,4 / 30,5 | 37,6 / 55,4 / 7,0  | 12,9 / 4,2 / 83,0  |
+| Kev-4B          | 22,6 / 64,7 / 12,6 | 19,6 / 65,3 / 15,1 | 25,6 / 66,1 / 8,4  | 11,8 / 3,9 / 84,3  |
+| Laya            | 24,9 / 65,4 / 9,6  | 12,7 / 81,1 / 6,1  | 42,6 / 40,6 / 16,9 | 10,9 / 7,1 / 82,0  |
+
+- *Dois perfis em relação ao neutro.*
+  - DeBERTa-NLI e os LLMs /polarizam/: transformam neutros em
+    polares. Neutro -> "negativo": DeBERTa-NLI 52,7 % no MUStARD++ e
+    65,8 % no Sarcasm_NLP; Mistral-7B 35,9 % no MUStARD++; Qwen3.5-4B
+    30,5 % no MUStARD++ e 37,6 % no MT-CSD. Neutro -> "positivo":
+    DeBERTa-NLI 44,3 % e Qwen3.5-4B 38,3 % no MUStARD++.
+  - Kev-4B, Laya e twitter-roberta /neutralizam/: transformam polares
+    em neutros (Kev-4B: 55,0 % dos negativos e 61,5 % dos positivos do
+    MUStARD++; Laya: 68,8 % dos "contra" e 74,8 % dos "a favor" no
+    MT-CSD; twitter-roberta: 52,5 e 51,6 % no MUStARD++).
+  - No Sarcasm_NLP, com a pergunta sobre "nuclear power", os LLMs
+    polarizam pouco (neutro -> "negativo": Mistral-7B 24,3 %, Qwen3.5-4B
+    15,6 %); quem polariza ali são DeBERTa-NLI (65,8 %) e Laya (35,1 %).
+    O perfil dos LLMs nessa base depende da pergunta (seção "A
+    pergunta do Sarcasm_NLP").
+- *Quem acerta mais negativos acerta menos neutros*, e vice-versa
+  (MUStARD++: DeBERTa-NLI 85,1 / 3,0; Laya 43,0 / 82,6). Parte da
+  diferença de acurácia entre famílias é, portanto, preferência por
+  classe. As matrizes de confusão completas estão em "Para onde vão os
+  erros", na seção T1.
+- *O DeBERTa-NLI usa a classe neutra só no MT-CSD* (72,0 % dos
+  "nenhuma postura"), onde a hipótese é de postura; nas bases de
+  sentimento, a hipótese de neutralidade quase nunca é implicada
+  (1,6 % de respostas "neutro" no MUStARD++, 0,1 % no Filatova).
+
+** Colapsos de classe escondidos pela acurácia
+
+Classes com recall abaixo de 20 % (v1, salvo indicação):
+- DeBERTa-NLI no neutro: 0 % no Filatova (N = 35), 3,0 % no MUStARD++
+  (N = 167), 10,9 % no Sarcasm_NLP (N = 2.074).
+- Qwen3.5-4B no neutro do Filatova: 2,9 % (N = 35).
+- Laya em "a favor" no MT-CSD: 18,2 % (N = 143); em "contra" com v2:
+  8,2 % (N = 208).
+- twitter-roberta no negativo do MUStARD++ com a conversa inteira:
+  17,4 % (N = 242).
+- Pares com a mesma acurácia e perfis opostos: Laya e Mistral-7B no
+  MT-CSD (61,6 e 60,5 %; recall de "nenhuma" 88,1 contra 56,5); Laya e
+  Qwen3.5-4B no MT-CSD com a conversa inteira (58,7 e 57,4 %).
+- As resenhas de 3 estrelas (neutras) do Filatova são o pior caso para
+  todos (ver "Para onde vão os erros", na seção T1, e "Filatova:
+  estrelas, 3 estrelas e resenhas longas").
+
+** A ordem das opções muda o perfil de classes sem mudar a acurácia
+
+- Laya, MT-CSD (N = 848): acurácia 61,6 / 62,1 / 61,3 (v1 / v2 / v3);
+  recall de "contra" 27,9 / 8,2 / 20,2; de "a favor" 18,2 / 42,0 /
+  28,7. Primazia: v2 lista "positive" primeiro.
+- Mistral-7B, Sarcasm_NLP (N = 3.361): acurácia 71,1 / 71,1 / 72,0;
+  recall de negativo 75,1 / 33,4 / 26,5 e de neutro 73,4 / 88,9 / 96,1.
+  A primazia vale para "negative" e "neutral"; em v2, que lista
+  "positive" primeiro, ele vai para o neutro ("neutro" no MUStARD++
+  30,0 / 54,9 / 71,4 %).
+- As taxas de "negativo" por ordem e os casos de Qwen3.5-4B e Kev-4B
+  estão em "Ordem das opções", na seção T1.
+- Consequência: reportar a média das ordens ou o recall por classe
+  junto com a acurácia.
+
+** Contexto por classe: sem contexto -> conversa inteira
+
+Os efeitos do contexto por classe (MT-CSD e MUStARD++, nas três ordens),
+a distribuição das respostas com e sem contexto e os exemplos estão em
+"Contexto por classe: mais contexto leva ao neutro?", na seção "T2: o
+contexto ajuda?".
+
+** Os modelos são mais positivos?
+
+*Resposta curta: não há viés positivo geral.* Fora da ironia, o viés
+dominante é o negativo ou a polarização. Excesso de respostas sobre o
+gold (pontos percentuais, não irônicos):
+- "negativo": DeBERTa-NLI +39,5 no Sarcasm_NLP e +18,8 no MUStARD++;
+  twitter-roberta +22,2 [13,0; 30,2] e Qwen3.5-4B +19,2 [12,0; 26,6] no
+  MT-CSD; Laya +15,3 e Mistral-7B +10,4 no Sarcasm_NLP.
+- "positivo": passa de 10 pontos só em quatro casos: Mistral-7B +13,7
+  [8,9; 19,3], DeBERTa-NLI +10,4 [6,0; 14,4] e Qwen3.5-4B +10,0 [3,9;
+  16,8] no MT-CSD, e DeBERTa-NLI +14,7 no Sarcasm_NLP.
+- Os /System One/ ficam abaixo do gold nas duas polaridades no
+  MUStARD++ (Kev-4B -19,8 / -15,6; Laya -17,5 / -18,6), por causa do
+  neutro.
+Há viés positivo real em quatro lugares, descritos abaixo.
+
+*1. Na ironia, a leitura literal é o viés positivo.* As inversões de
+polaridade se concentram nos irônicos, e P("positivo" | gold negativo)
+sobe com a ironia (números em "Para onde vão os erros nos irônicos" e
+"Leitura literal (MUStARD++)", na seção "T3: ironia").
+- Ex.: =snlp:10075= "Oh, great news! Israel is generously lending a
+  hand to India in their noble quest to build up their nuclear
+  arsenal." (só o Mistral-7B responde "negativo").
+- Fora da ironia, Kev-4B e Laya quase não invertem (1,4 a 5,1 % dos
+  itens polares; Laya 10,3 % no Sarcasm_NLP); DeBERTa-NLI, LLMs e
+  twitter-roberta invertem 12 a 22 % dos polares no MUStARD++ e no
+  MT-CSD (exceto twitter-roberta no MUStARD++, 5,7 %).
+
+*2. MT-CSD: o viés positivo é a SpaceX.* P("a favor" | nenhuma postura),
+SpaceX contra Tesla (N 187 / 310): Qwen3.5-4B 38,5 contra 9,4; Mistral-7B
+40,6 contra 15,8; DeBERTa-NLI 24,1 contra 15,5; Kev-4B 15,5 contra 3,2;
+twitter-roberta 8,6 contra 9,4.
+- Prior do alvo: para Mistral-7B, Qwen3.5-4B e Kev-4B, P("a favor" |
+  nenhuma) por /thread/ acompanha a fração de "a favor" no gold da
+  /thread/ (Spearman 0,67 a 0,75; N = 13 /threads/); o twitter-roberta,
+  que não recebe o nome do alvo, não (0,01). Alvo e /thread/ estão
+  confundidos (as cinco /threads/ da SpaceX são as últimas).
+- Tom da /thread/: com a conversa inteira, nas três /threads/
+  comemorativas ("52 Launches In 52 Weeks", Falcon Heavy e a dos três
+  foguetes em 36 horas), além do twitter-roberta (ver "Contexto por
+  classe: mais contexto leva ao neutro?"), o DeBERTa-NLI chama de
+  "positivo" 69,2 a 96,2 % dos neutros e o Kev-4B 20,5 a 50,0 %.
+- Ex.: =mtcsd:SpaceX:15= "And everybody cheered." (nenhuma postura):
+  quatro modelos dizem "a favor" sem contexto.
+- Teste não rodado: trocar o alvo por "the company" sem contexto; se o
+  excesso de "a favor" nos neutros da SpaceX sumir, é o prior do alvo.
+
+*3. Neutros com tema ou forma positiva.*
+- Filatova, 3 estrelas (N = 35): só twitter-roberta e Laya puxam o
+  neutro para o positivo (45,7 e 28,6 %); LLMs e DeBERTa-NLI puxam para
+  o negativo (45,7 a 68,6 %).
+- Sarcasm_NLP, neutros sobre energia (N = 459): DeBERTa-NLI 34,6 % e
+  Qwen3.5-4B 24,6 % de "positivo" (política, N = 1.121: 16,9 e 5,7 %).
+  Ex.: =snlp:1014= "If the French can figure out nuclear energy surely
+  America can" (gold neutro, discutível).
+- MUStARD++, falas curtas e de cortesia: nas falas de até 3 palavras com
+  gold não positivo (N = 46), DeBERTa-NLI responde "positivo" em 43,5 %,
+  Qwen3.5-4B em 28,3 %, Mistral-7B em 4,3 %. Com marca de cortesia ou de
+  discurso (thank, okay, yeah, well e similares; N = 114 contra 295 sem
+  marca): DeBERTa-NLI 38,6 contra 21,7 %. Ex.: =mpp:1_S09E04_230_u=
+  "Well, it's Thai food night." (neutro; DeBERTa-NLI, Qwen3.5-4B e
+  Mistral-7B: "positivo").
+
+*4. O contexto afasta do positivo, com exceções.* Diferença pareada na
+taxa de "positivo", sem contexto -> conversa inteira:
+- Qwen3.5-4B no MUStARD++: não irônico -6,0 [-9,1; -2,8], irônico -8,8
+  [-12,3; -5,5] (N = 570 / 601); Kev-4B nos irônicos -2,3* a -3,3* nas
+  três ordens; Laya nos irônicos -3,7* e -3,5* em v2 e v3 (v1 -2,5,
+  n.s.); Mistral-7B e Qwen3.5-4B no MT-CSD em v2 e v3 (Mistral-7B -7,8*
+  e -14,3*; Qwen3.5-4B -4,1* e -7,0*).
+- Exceções: DeBERTa-NLI no MT-CSD, +19,2 [9,0; 30,4] no total; nos
+  neutros, P("a favor") vai de 18,7 para 45,3 % (N = 497), e só o
+  /post/ já leva de 18,1 para 44,3 % (N = 465 neutros com K >= 2).
+  Mistral-7B no MUStARD++ em v1 e v3 (+7,4* e +7,9*; em v2 -4,0*).
+  twitter-roberta nos negativos não irônicos do MUStARD++: P("positivo")
+  4,1 -> 14,0 % (N = 242). Ex.: =mpp:1_10859_u= "I don't need a reason--
+  it's my house." (negativo; twitter-roberta passa de "neutro" para
+  "positivo").
+
+** Tipos de erro
+
+*Abstenção neutra quando falta palavra de polaridade.* Ver "O neutro
+como abstenção", na seção T1 (os /System One/ se abstêm sem palavra
+polar, mas não erram mais quando arriscam um polo).
+
+*Texto curto vira "neutro", mesmo dentro da classe.* Os neutros são mais
+curtos (mediana em palavras: Sarcasm_NLP 16 contra 27 nos negativos e 30
+nos positivos; MT-CSD 17 contra 26 e 32). Regressão logística P(neutro)
+em função de log(palavras) e do gold: coeficiente negativo em 16 de 18 pares modelo x
+base (MUStARD++, MT-CSD, Sarcasm_NLP; ex.: Kev-4B no Sarcasm_NLP -0,56,
+p = 7e-12; Mistral-7B no MUStARD++ -0,76, p = 3e-9). Exceções:
+Qwen3.5-4B no MT-CSD (+0,28, p = 0,002) e DeBERTa-NLI no Sarcasm_NLP (n.s.).
+Acerto nos neutros do Sarcasm_NLP, metade curta contra longa (N 1.053 /
+1.021): Kev-4B 88,9 contra 81,0; twitter-roberta 82,4 contra 64,0;
+Mistral-7B 77,5 contra 69,1; Qwen3.5-4B 75,0 contra 70,5.
+
+*Taxonomia qualitativa.* Um leitor, sem cegamento, codificou uma amostra
+estratificada de erros exclusivos (o modelo erra e no máximo um dos
+outros erra; 25 por modelo) e compartilhados (pelo menos 5 de 6 erram;
+30 itens), MUStARD++ e MT-CSD, com e sem contexto. Uma conferência
+independente achou plausíveis 19 de 20 códigos. As proporções descrevem
+a amostra, não a base; os dados sugerem as leituras abaixo.
+
+| Código (exclusivos, % [Wilson]) | twitter-roberta N=25 | NLI N=25    | LLM N=50    | System One N=50 |
+|---------------------------------+----------------------+-------------+-------------+-----------------|
+| abstenção neutra                | 40 [23; 59]          | 12 [4; 30]  | 6 [2; 16]   | 62 [48; 74]     |
+| polaridade espúria              | 12 [4; 30]           | 32 [17; 52] | 32 [21; 46] | 0 [0; 7]        |
+| confusão postura / alvo         | 16 [6; 35]           | 8 [2; 25]   | 22 [13; 35] | 2 [0; 10]       |
+| contexto mal usado              | 0 [0; 13]            | 28 [14; 48] | 2 [0; 10]   | 0 [0; 7]        |
+| ironia -> neutro                | 24 [11; 43]          | 4 [1; 20]   | 16 [8; 29]  | 32 [21; 46]     |
+| ironia -> positivo              | 8 [2; 25]            | 12 [4; 30]  | 14 [7; 26]  | 0 [0; 7]        |
+
+- Fisher exato, família contra as demais, passam Bonferroni (32
+  testes, 0,0016): /System One/ com mais abstenção (p = 2e-8) e menos
+  polaridade espúria (6e-6); LLMs com menos abstenção (6e-7); NLI com
+  contexto mal usado (1e-5).
+- /System One/: abstêm-se quando falta palavra polar ("Cover yourself
+  up!"); na ironia, os 16 erros exclusivos são todos "neutro": não leem
+  o literal, abstêm-se (sobretudo perguntas retóricas e ironia de
+  situação). O Laya fica neutro até diante de =mtcsd:SpaceX:251= "I cry
+  engineering tears of joy every time I see that." (0,85 de neutro).
+- LLMs: julgam o mundo ou o tema, não a postura. No MT-CSD, tema
+  negativo (recall, morte, polícia) ou briga com outro usuário vira
+  postura contra o alvo (=mtcsd:Tesla:303= "Pretty sure I read that Nhtsa
+  regulations for automobile recalls require in-person inspections",
+  gold nenhuma; Mistral-7B 0,85 "contra"); no MUStARD++, agradecimentos
+  e convites viram "positivo".
+- DeBERTa-NLI: o rótulo sai da premissa inteira (contexto + fala). Sem
+  contexto, polariza marcadores de discurso ("All right." 0,97
+  "positivo") e 97,0 % dos 167 neutros não irônicos do MUStARD++ (Kev-4B
+  18,0 %, Laya 17,4 %, twitter-roberta 28,7 %, Mistral-7B 54,5 %,
+  Qwen3.5-4B 68,9 %).
+- Erros compartilhados (N = 30): cerca de um terço não se resolve só com
+  o texto (5 dependem do vídeo, 4 têm gold errado, 3 são brincadeira
+  entre amigos, mais ironia sem pista como "Me, too.").
+- Quando o contexto atrapalha (40 viradas lidas): reenquadramento em
+  13 (o turno anterior é pergunta ou pedido e a fala irônica passa a
+  parecer resposta cooperativa; 8 de 12 nos irônicos, 8 de 14 nos LLMs),
+  transferência de tom em 11, diluição para o neutro em 9 (só
+  twitter-roberta e /System One/; =mtcsd:Tesla:65=, "he's a con man",
+  é desse tipo). Quando ajuda (40): 30 trazem informação real
+  (situação, contraste irônico, ligação ao alvo, tema); o resto é acerto
+  pelo motivo errado (copiar o tom). Ajuda de verdade: twitter-roberta 3
+  de 7, NLI 5 de 7, LLMs 11 de 14, /System One/ 12 de 12.
+- Mesmo item, efeitos opostos: =mtcsd:Tesla:159= "If it's good enough
+  for the McLaren F1, it's good enough for truckers!" ("a favor"): com a
+  conversa inteira, Qwen3.5-4B e Mistral-7B passam a acertar, enquanto
+  twitter-roberta e DeBERTa-NLI vão para "contra".
+
+*Itens que os seis modelos erram ou acertam juntos:* ver "Itens
+difíceis para todos", na seção "Bases, medição e limitações".
+
+* Bases, medição e limitações
+
+** Dados, modelos e tamanhos de amostra
+
+| Base        | Itens | Não irônicos | Irônicos | Não irôn. (neg/neu/pos) | Irôn. (neg/neu/pos) |
+|-------------+-------+--------------+----------+-------------------------+---------------------|
+| MUStARD++   | 1.171 |          570 |      601 | 242 / 167 / 161         | 601 / 0 / 0         |
+| MT-CSD      |   848 |          848 |       -- | 208 / 497 / 143         | --                  |
+| Sarcasm_NLP | 5.929 |        3.361 |    2.568 | 917 / 2.074 / 370       | 2.229 / 268 / 71    |
+| Filatova    | 1.254 |          817 |      437 | 81 / 35 / 701           | 289 / 20 / 128      |
+
+- Classe majoritária (acurácia de responder sempre ela): MUStARD++
+  não irônico 42,5% (negativo); MT-CSD 58,6% (neutro); Sarcasm_NLP não
+  irônico 61,7% (neutro); Filatova não irônico 85,8% (positivo).
+  Irônicos: MUStARD++ 100% negativo; Sarcasm_NLP 86,8% negativo;
+  Filatova 66,1% negativo.
+- Mapeamento para três classes: emoção do MUStARD++ -> sentimento;
+  postura do MT-CSD (contra / nenhuma / a favor) -> negativo / neutro /
+  positivo; estrelas do Filatova (1-2 / 3 / 4-5) -> negativo / neutro /
+  positivo. No Sarcasm_NLP, usamos o subconjunto em que os dois
+  anotadores concordaram.
+- Removidos no preparo: 30 itens "Surprise" do MUStARD++; 13 itens do
+  MT-CSD sem contexto (8 Tesla, 5 SpaceX); /hashtags/ que revelam o
+  rótulo no Sarcasm_NLP (1.030 nos irônicos, 332 nos não irônicos).
+- O MT-CSD tem só 13 /threads/, de 18 a 106 itens cada (Tesla 532
+  itens, SpaceX 316). Por isso, toda estatística do MT-CSD usa
+  /bootstrap/ por /thread/ (2.000 reamostragens, semente 5); as demais
+  bases usam McNemar exato e /bootstrap/ por item.
+- Distribuição do número de turnos de contexto (K = 1, 2, 3, 4, 5, 6,
+  >= 7):
+  - MUStARD++ não irônico: 57, 75, 145, 76, 72, 54, 91;
+  - MUStARD++ irônico: 104, 102, 103, 74, 82, 53, 83;
+  - MT-CSD: 63, 150, 179, 167, 136, 105, 48.
+- Coorte K >= 4: MUStARD++ não irônico 293 itens (124 neg / 99 neu /
+  70 pos = 42,3 / 33,8 / 23,9%); MT-CSD 456 itens (111 contra / 284
+  nenhuma / 61 a favor = 24,3 / 62,3 / 13,4%); MUStARD++ irônico 292.
+- Ablação: 5.910 entradas a mais por ordem de opções; 169.116 linhas
+  em =ablation.csv=; nenhuma série incompleta.
+- Execução: 0 falhas de item em todos os modelos; o Laya roteou 100%
+  das 11.221 entradas para o /checkpoint/ inglês.
+- Cortes de contexto por tamanho (entradas com contexto, 2.019 por
+  modelo): Laya 114 (5,6%), DeBERTa-NLI 18, twitter-roberta 13;
+  Qwen3.5-4B, Mistral-7B, Kev-4B e NanoJev nenhum. Sem contexto, há
+  corte de texto nas resenhas longas do Filatova (ver "Filatova:
+  estrelas, 3 estrelas e resenhas longas").
+- Sarcasm_NLP: todos os números usam a pergunta sobre "nuclear power"
+  (ver "A pergunta do Sarcasm_NLP"); o NanoJev não tem linhas do
+  Sarcasm_NLP.
+
+** A pergunta do Sarcasm_NLP
+
+*** O que o gold mede
+
+O artigo da base (Bhargava et al., arXiv 2504.05603, seção 3.2) diz
+que "Annotators were specifically instructed to judge sentiment in
+relation to nuclear power" e que "To maintain neutrality in the case
+of news headlines, such tweets were explicitly asked to be labeled as
+Neutral". 5.579 dos 5.929 tuítes (94%) contêm "nuclear". O gold muda
+muito com o tema (coluna Topic da base; % neg / neu / pos):
+- não irônicos: energia 24,1 / 45,4 / 30,5 (N = 1.012); política 32,5
+  / 65,3 / 2,2 (N = 1.718); geral 18,1 / 78,5 / 3,4 (N = 624);
+- irônicos: energia 88,8 / 4,1 / 7,1 (N = 757); política 87,5 / 11,9 /
+  0,6 (N = 1.460); geral 79,3 / 18,3 / 2,4 (N = 338).
+
+Falar mal de uma guerra ou do Irã costuma ser "neutro"; atacar a
+energia solar defendendo a nuclear é "positivo". Exemplos:
+=snlp:2254= "...solar is a terribly inefficient use of land, nuclear
+makes far more sense" (gold positivo); =snlp:4243= "More frightening
+news Erdogans Ambitions ... Nuclear Weapons" (gold neutro).
+
+Os dados sugerem que o gold é o sentimento do autor sobre o assunto
+nuclear em sentido amplo (energia, armas, acordos), com a regra
+"manchete = neutro": numa leitura estratificada (um leitor, sem ver o
+gold, 30 itens por célula), o gold segue o tom do tuíte em 87%
+(irônicos, política), 90% (irônicos, energia), 83% (não irônicos,
+política) e 67% (não irônicos, energia); quando tom e postura sobre
+energia nuclear divergem, segue o tom em três células (irônicos
+política 23/26, irônicos energia 14/16, não irônicos política 10/12),
+mas não nos não irônicos de energia (3/7). Uma segunda leitura cega
+de 40 itens concordou com a primeira no tom em 39/40 e na postura em
+34/40.
+
+*** Comparação entre perguntas
+
+O estudo usa a pergunta "How does the author of the tweet feel about
+nuclear power?". Para medir quanto o resultado depende da pergunta,
+rodamos a mesma base (5.929 itens, sem contexto, três ordens) com
+outras três:
+- "the topic": "How does the author of the tweet feel about the
+  topic?", sem dizer qual é o tópico;
+- "issue": "How does the author of the tweet feel about the nuclear
+  issue it discusses (nuclear power, nuclear weapons or nuclear
+  policy)?";
+- "issuenote": "issue" seguida de "A news headline that only reports
+  facts is neutral." (vai para os LLMs e para a instrução dos /System
+  One/; o DeBERTa-NLI não usa a frase, por isso é igual em "issue" e
+  "issuenote").
+O twitter-roberta não lê a pergunta: probabilidades iguais em "the
+topic" e "nuclear power" (diferença máxima 0,000002, N = 5.929;
+acurácia 70,3 nos não irônicos e 38,0 nos irônicos); não foi rodado
+com "issue". As três perguntas alternativas são só análise de
+sensibilidade.
+
+Acurácia, ordem v1, não irônicos (N = 3.361):
+
+| Modelo      | topic | nuclear | issue | issuenote |
+|-------------+-------+---------+-------+-----------|
+| DeBERTa-NLI |  45,9 |    41,0 |  36,8 |      36,8 |
+| Qwen3.5-4B  |  59,4 |    70,9 |  60,5 |      65,9 |
+| Mistral-7B  |  50,3 |    71,1 |  48,0 |      52,8 |
+| Kev-4B      |  74,1 |    76,2 |  76,3 |      78,2 |
+| Laya        |  59,0 |    58,4 |  61,4 |      64,6 |
+
+Acurácia, ordem v1, irônicos (N = 2.568):
+
+| Modelo      | topic | nuclear | issue | issuenote |
+|-------------+-------+---------+-------+-----------|
+| DeBERTa-NLI |  55,1 |    56,7 |  62,1 |      62,1 |
+| Qwen3.5-4B  |  69,2 |    57,7 |  71,1 |      70,6 |
+| Mistral-7B  |  79,9 |    68,3 |  82,7 |      81,9 |
+| Kev-4B      |  57,9 |    54,8 |  57,3 |      59,1 |
+| Laya        |  32,0 |    33,5 |  32,0 |      27,9 |
+
+- "the topic" -> "nuclear power" (McNemar exato): nos não irônicos,
+  p = 5e-92 (Mistral-7B), 5e-34 (Qwen3.5-4B), 2e-10 (DeBERTa-NLI),
+  0,006 (Kev-4B), 0,26 (Laya); nos irônicos, 2e-33, 3e-30, 0,09, 6e-4
+  e 0,007, na mesma ordem.
+- Com "nuclear power", os LLMs passam a responder "neutro" onde o gold
+  é neutro. Respostas nos não irônicos (% neg / neu / pos; gold 27,3 /
+  61,7 / 11,0): Mistral-7B 64,9 / 21,2 / 13,9 -> 37,6 / 55,4 / 7,0;
+  Qwen3.5-4B 42,3 / 29,8 / 27,9 -> 26,7 / 55,2 / 18,1. O Kev-4B quase
+  não muda (66,5 -> 66,1% de "neutro").
+- Mas a pergunta fica estreita demais: os LLMs chamam de neutros os
+  tuítes contra armas. Nos negativos sobre política, a queda é a mesma
+  com e sem ironia: Mistral-7B 94,6 -> 71,4 (N = 559, não irônicos) e
+  91,4 -> 66,1 (N = 1.277, irônicos); Qwen3.5-4B 85,3 -> 54,2 e 81,3
+  -> 55,4. O ganho vem dos neutros sobre política (N = 1.121):
+  Mistral-7B 27,1 -> 79,0; Qwen3.5-4B 46,8 -> 80,6. A perda maior nos
+  irônicos é só composição (87% de negativos nos irônicos, 33% nos não
+  irônicos sobre política). Hipótese testada e refutada: que o gold
+  dos irônicos seguisse uma regra de anotação diferente da dos não
+  irônicos.
+- Com a pergunta ampla ("issue"), os LLMs voltam a julgar o tom:
+  respostas "negativo" nos não irônicos Mistral-7B 71,2%, Qwen3.5-4B
+  51,1%. Acertam os negativos sobre política (não irônicos: Mistral-7B
+  95,7, Qwen3.5-4B 90,0) e voltam a errar os neutros (Mistral-7B 22,7,
+  Qwen3.5-4B 41,8).
+- A frase das manchetes ("issuenote" contra "issue", neutros não
+  irônicos de política, N = 1.121) ajuda pouco os LLMs (Mistral-7B 22,7
+  -> 36,0; Qwen3.5-4B 41,8 -> 51,3) e bastante o Laya (56,2 -> 67,4),
+  que em troca perde nos negativos irônicos de política (31,0 -> 24,5,
+  N = 1.277). Kev-4B: 83,6 -> 87,4.
+- O DeBERTa-NLI piora nos não irônicos a cada alvo mais explícito
+  (45,9 -> 41,0 -> 36,8; "neutro" em 15,1 -> 7,5 -> 5,0% das
+  respostas) e melhora nos irônicos: com o alvo na hipótese, polariza
+  mais.
+- Todas as 5.929, v1 / média das três ordens: Qwen3.5-4B nuclear 65,2
+  / 68,5, issuenote 67,9 / 69,7; Mistral-7B nuclear 69,9 / 60,4,
+  issuenote 65,4 / 56,5; Kev-4B nuclear 66,9 / 70,1, issuenote 69,9 /
+  70,4; Laya nuclear 47,6 / 46,7, issuenote 48,7 / 47,3. Com "nuclear
+  power", o Mistral-7B depende muito da ordem.
+- A divisão do custo da ironia nos negativos (acerto nos negativos não
+  irônicos menos irônicos, v1) se mantém em qualquer das quatro
+  perguntas: LLMs e Kev-4B de 2,3 a 12,8 pontos; DeBERTa-NLI de 24,4 a
+  28,9; Laya de 34,7 a 39,6.
+
+*** Leitura
+
+Nenhuma pergunta reproduz o gold do Sarcasm_NLP. Com o alvo estreito,
+os LLMs acertam os neutros (tudo o que não é sobre energia vira
+neutro) e erram os negativos sobre armas; com o alvo amplo, acertam os
+negativos e erram os neutros, porque leem opinião negativa em tuítes
+de política que os anotadores chamaram de neutros (em geral notícias
+de conteúdo negativo). A fronteira entre neutro e negativo do gold nos
+tuítes de política não coincide com nenhuma das leituras dos modelos.
+Os números do Sarcasm_NLP, portanto, dependem da pergunta tanto quanto
+do modelo: a mudança de pergunta move a acurácia dos LLMs em até 23
+pontos, e não convém tirar conclusões de ranking só dessa base.
+
+** A metade irônica do Sarcasm_NLP
+
+Os dados sugerem que a metade sarcástica foi gerada ou reescrita por
+LLM. Comparando sarcásticos (N = 2.568) e não sarcásticos (N =
+3.361):
+- marcas de raspagem raras: "amp" 0,7 contra 5,5%; URL 0,7 contra
+  5,7%; @menção 1,1 contra 5,0%;
+- molde frequente: começa com Oh, Wow, Great ou Because em 57,2 contra
+  5,5%; "because" em qualquer posição 40,6 contra 4,5%; "right?" 20,6
+  contra 1,1%;
+- pares de manchete neutra e versão sarcástica (=snlp:6436= "Future
+  supply of new tritium explosive for U.S. nuclear weapons in doubt" e
+  =snlp:7663= "Oh no, what a tragedy! ... How will we ever survive
+  without it?").
+O artigo da base só menciona GPT-3.5
+para remover sarcasmo; a origem gerada é inferência nossa. Em
+consequência, T3 no Sarcasm_NLP mede em parte o reconhecimento do
+estilo desse sarcasmo, e não só a leitura de ironia.
+
+** Filatova: estrelas, 3 estrelas e resenhas longas
+
+/As estrelas como gold./ As 3 estrelas são, em geral, "positivas com
+ressalvas" (tom e "but/however" parecidos com os das 4 estrelas), e
+são o pior caso para todos (N = 55, v1, sem contexto): twitter-roberta
+38,2, DeBERTa-NLI 0,0, Qwen3.5-4B 3,6, Mistral-7B 20,0, Kev-4B 36,4,
+Laya 43,6. O sinal graduado existe: a correlação de Spearman entre
+p(positivo) - p(negativo) e as estrelas (N = 1.254) vai de 0,69
+(twitter-roberta) a 0,80 (Kev-4B), com médias monótonas por estrela em
+todos os modelos. O teto no neutro é de limiar e de definição, e não
+de falta de sinal: o Mistral-7B acerta 54,5 e 52,7% das 3 estrelas em
+v2 e v3, contra 20,0 em v1.
+
+/Ironia em 1 e em 5 estrelas./ 60% das irônicas têm 1 estrela (262 de
+437), onde a ironia reforça uma crítica explícita e não custa nada:
+os quatro melhores modelos acertam de 95,8 a 96,9% tanto nas irônicas
+quanto nas não irônicas de 1 estrela (N = 64). O custo fica nas
+irônicas de 5 estrelas (N = 114), em que "acertar" é concordar com o
+elogio fingido: os seis respondem "positivo" juntos em 50 delas, e o
+Qwen3.5-4B, que responde "negativo" em 25,4%, é penalizado justamente
+por ler a ironia. Repesando as irônicas pela distribuição de estrelas
+das não irônicas, o custo da ironia vai a 9,8-19,6 pontos (Qwen3.5-4B
+19,6 [13,0; 26,4]); o custo baixo nessa base é, portanto, efeito da
+mistura de estrelas, e nas 5 estrelas o gold é discutível.
+
+/Resenhas longas./ Sem contexto, 384 resenhas passam da janela de pelo
+menos um modelo (Laya 384, DeBERTa-NLI 221, twitter-roberta 213); os
+LLMs e o Kev-4B leem a resenha inteira. Nas não cortadas (565 não
+irônicas / 305 irônicas), o twitter-roberta acerta 86,7 / 75,4; nas
+cortadas (252 / 132), 70,2 / 60,6. Nos positivos não irônicos
+cortados pelo twitter-roberta (N = 136, contra 565 não cortados): 66,2
+contra 89,2 (Fisher p = 9e-10); DeBERTa-NLI 91,2 contra 97,3; Qwen3.5-4B,
+Kev-4B e Mistral-7B sem diferença. O Laya quase não perde (89,3 contra
+91,0 nos não irônicos). É efeito do comprimento, e não de seleção:
+o twitter-roberta já cai por quartil de tamanho nas não cortadas
+(93,2 -> 79,4).
+
+** Ruído de rótulo
+
+Estimativa por leitura (um leitor, sem cegamento ao gold), feita nos
+itens em que os seis modelos dão o mesmo rótulo errado; por isso é um
+limite inferior. Os dados sugerem:
+- MT-CSD: cerca de 2,3% de gold errado, sobretudo golds "neutro" em
+  comentários com postura clara (=mtcsd:Tesla:58= "They wouldn't pay
+  to replace my defective blind spot camera under warranty"). Corrigir
+  esses itens daria no máximo cerca de 2,3 pontos a qualquer modelo.
+- Filatova: de 1,1% (irônicos) a 1,6% (não irônicos); o ruído vem da
+  definição, porque estrelas não são o sentimento do texto
+  (=fil:18_4_*= tem 5 estrelas e diz "I am outraged").
+- MUStARD++ não irônico: 2,3% de gold errado, e cerca de 10% dos itens
+  não se resolvem só com o texto (exigem áudio ou vídeo, ou têm gold
+  errado), o que põe o teto de um modelo de texto perto de 90%.
+- MUStARD++ irônico: quase zero; os erros comuns são falhas reais de
+  ironia.
+- Sarcasm_NLP: o problema principal não é ruído, e sim a definição do
+  gold (ver "A pergunta do Sarcasm_NLP").
+
+** Checagens de medição
+
+- /Primeiro token contra palavra inteira./ Pontuando cada rótulo pela
+  sequência completa de /tokens/ de cada grafia (word, Word, " word",
+  " Word"), em vez do primeiro /token/ ("Favor" = "F" + "avor"; no
+  Mistral-7B, "Neutral" = "Ne" + "utral"), a resposta é a mesma em
+  100% de 8.030 entradas por LLM (Qwen3.5-4B e Mistral-7B; MT-CSD
+  completo com e sem contexto, v1-v3; MUStARD++ completo com e sem
+  contexto, v1; 400 do Sarcasm_NLP e 200 do Filatova sem contexto, v1).
+  Diferença máxima de probabilidade 0,0001 no Qwen3.5-4B e 0,05 no
+  Mistral-7B; acurácias e efeitos do contexto idênticos.
+- /Determinismo./ Repetindo a entrada da rodada principal para o
+  twitter-roberta e o DeBERTa-NLI (9.202 itens cada), as probabilidades
+  diferem no máximo 0,000008 (ruído de ponto flutuante da GPU) e
+  nenhuma resposta muda.
+- /Massa nos rótulos./ No Qwen3.5-4B, a probabilidade somada dos três
+  rótulos tem média 0,992 e fica abaixo de 0,9 em 0,8% das entradas. No
+  Mistral-7B, fica abaixo de 0,9 (sem contexto, v1) em 35,7% do MT-CSD
+  e 68,9% do Sarcasm_NLP, contra 1,8% no Filatova e 0,8% no MUStARD++;
+  em v2 e v3, bem menos (Sarcasm_NLP 30,6 e 32,4%; MT-CSD 12,3 e
+  14,4%). Das 8.436 entradas sem contexto com massa abaixo de 0,9, em
+  1.448 (1.163 delas em v1) o /token/ mais provável começa uma
+  explicação ("Based", "The"); nas demais, quase sempre é o começo de
+  um rótulo. Massa baixa quase não prevê erro (Sarcasm_NLP 58,9 contra
+  61,6%, N = 7.822 / 9.965, Fisher p = 3e-4; MT-CSD 59,5 contra 63,5%,
+  N = 529 / 2.015, p = 0,11), e o contexto aumenta a massa (MT-CSD, v1:
+  massa baixa em 35,7 -> 17,5% das entradas). Como a renormalização
+  não muda o argmax e a pontuação por palavra inteira dá a mesma
+  resposta, a massa fora dos rótulos não afeta as acurácias.
+- /Poucas threads no MT-CSD./ Com 13 /threads/, os 848 itens não são
+  independentes; ICs e testes do MT-CSD usam /bootstrap/ por /thread/,
+  e com ele alguns efeitos que eram significativos por item deixam de
+  ser (ver "T2: o contexto ajuda?").
+
+** Itens difíceis para todos
+
+Itens que os seis modelos erram juntos / acertam juntos (v1/none):
+
+| Conjunto                 | N     | Todos erram | Todos acertam |
+|--------------------------+-------+-------------+---------------|
+| MUStARD++ não irôn., sem |   570 | 76 (13,3%)  | 87 (15,3%)    |
+| MUStARD++ não irôn., com |   570 | 58 (10,2%)  | 30 (5,3%)     |
+| MUStARD++ irônico, sem   |   601 | 145 (24,1%) | 41 (6,8%)     |
+| MUStARD++ irônico, com   |   601 | 115 (19,1%) | 23 (3,8%)     |
+| MT-CSD, sem              |   848 | 40 (4,7%)   | 111 (13,1%)   |
+| MT-CSD, com              |   848 | 40 (4,7%)   | 44 (5,2%)     |
+| Sarcasm_NLP não irôn.    | 3.361 | 97 (2,9%)   | 476 (14,2%)   |
+| Sarcasm_NLP irônico      | 2.568 | 223 (8,7%)  | 220 (8,6%)    |
+| Filatova não irôn.       |   817 | 19 (2,3%)   | 615 (75,3%)   |
+| Filatova irônico         |   437 | 23 (5,3%)   | 249 (57,0%)   |
+
+- O MUStARD++ concentra os itens difíceis: 221 de 1.171 (18,9%) sem
+  contexto, 145 deles irônicos; nas outras bases, de 3,3% (Filatova)
+  a 5,4% (Sarcasm_NLP).
+- O contexto reduz o consenso: com contexto, caem tanto os itens que
+  todos erram quanto os que todos acertam (MT-CSD: 111 -> 44 que todos
+  acertam). Os modelos passam a discordar mais.
+- Muitos desses erros vêm do gold: a emoção implícita do MUStARD++ foi
+  anotada com vídeo e áudio, e o texto sozinho nem sempre sustenta o
+  rótulo. Exemplos (MUStARD++, não irônicos):
+  - =mpp:2_8_u= JOEY: "It's white plastic, with a handle, and it fits
+    onto a stroller." (negativo: Joey e Chandler perderam um bebê no
+    ônibus e fingem procurar uma cadeirinha). Cinco respondem neutro: o
+    texto é uma descrição; o sentimento está na cena.
+  - =mpp:1_7445_u= PENNY: "My limbic system wants to take your pants
+    off." (positivo). Sem contexto, 4 de 6 respondem negativo; com
+    contexto, Qwen3.5-4B, Mistral-7B e twitter-roberta passam a
+    acertar.
+
+** Ressalvas e limitações
+
+- Só modelos pequenos (até 7B) e em inglês; um único /prompt/ por
+  família, com três ordens de opções.
+- /Ground truth/ derivado: emoção implícita (MUStARD++), postura
+  (MT-CSD), estrelas (Filatova), sentimento sobre o assunto nuclear
+  (Sarcasm_NLP). Postura não é exatamente sentimento: no MT-CSD, os
+  LLMs tendem a julgar o tema do comentário, e não a postura sobre o
+  alvo. Estrelas em resenhas irônicas de 5 estrelas medem concordância
+  com a nota irônica.
+- A pergunta do Sarcasm_NLP muda a acurácia dos LLMs em até 23 pontos,
+  e nenhuma pergunta reproduz o gold; a metade irônica parece gerada
+  por LLM. Resultados de ranking nessa base são frágeis.
+- O MT-CSD tem só 13 /threads/ e não identifica autores; os turnos
+  aparecem por posição.
+- Os irônicos do MUStARD++ são todos negativos; a acurácia em T3 deve
+  ser lida junto com a distribuição de respostas.
+- O Mistral-7B tem forte viés de posição; os resultados dele em v1
+  não devem ser lidos sem v2 e v3.
+- O Kev-4B foi treinado em bases de sentimento e de nota (SST-5, Yelp,
+  IMDB e resenhas da Amazon com estrelas, o domínio do Filatova): não é
+  /zero-shot/ para sentimento no mesmo sentido dos LLMs.
+- O Laya perde turnos de contexto em 5,6% das entradas por causa da
+  janela de 320 /tokens/, e o Laya, o DeBERTa-NLI e o twitter-roberta
+  cortam resenhas longas do Filatova mesmo sem contexto.
+- As estimativas de ruído de rótulo e as leituras qualitativas são de
+  um leitor, sem cegamento ao gold.
+- Muitos testes foram feitos sem correção para comparações múltiplas;
+  resultados isolados com p perto de 0,05 devem ser lidos como
+  sugestão.
+- O NanoJev não tem /checkpoint/ adequado à tarefa; é só controle.

@@ -1,0 +1,172 @@
+
+########  old 
+## SNLP acc nonir / iron, neg-rate nonir, neutral-rate nonir, prec of 'negative' nonir
+# A tibble: 6 × 9
+  model           acc_nonir acc_iron neg_rate neu_rate prec_neg neg_nonir neg_iron  loss
+  <chr>               <dbl>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl> <dbl>
+1 deberta-nli          45.9     55.1     64.2     15.1     37.8      88.9     61.2 27.7 
+2 kev-4b               74.1     57.9     24.8     66.5     69        62.6     59.2  3.4 
+3 laya                 59       32       39.2     43.6     46.5      66.8     29.3 37.5 
+4 mistral-7b           50.3     79.9     64.9     21.2     38.9      92.4     89.2  3.20
+5 qwen3.5-4b           59.4     69.2     42.3     29.8     52.7      81.7     76.9  4.8 
+6 twitter-roberta      70.3     38       34.4     53.9     56.8      71.6     37.9 33.7 
+## T1 recall of negatives vs T3 accuracy, Spearman over 6 models x 3 datasets (18 pairs)
+n = 18 spearman = 0.907 
+## ECE / F1 / acc non-sarcastic, no context, v1/none (SNLP and MT-CSD)
+# A tibble: 12 × 7
+   dataset     model               n accuracy macro_f1   ece confident_errors_0.9
+   <chr>       <chr>           <dbl>    <dbl>    <dbl> <dbl>                <dbl>
+ 1 mtcsd       deberta-nli       848    0.647    0.597 0.1                  0.053
+ 2 mtcsd       kev-4b            848    0.713    0.66  0.028                0.015
+ 3 mtcsd       laya              848    0.616    0.458 0.105                0.012
+ 4 mtcsd       mistral-7b        848    0.605    0.584 0.28                 0.189
+ 5 mtcsd       qwen3.5-4b        848    0.553    0.551 0.231                0.11 
+ 6 mtcsd       twitter-roberta   848    0.525    0.504 0.191                0.041
+ 7 sarcasm_nlp deberta-nli      3361    0.459    0.453 0.384                0.278
+ 8 sarcasm_nlp kev-4b           3361    0.741    0.649 0.035                0.019
+ 9 sarcasm_nlp laya             3361    0.59     0.554 0.112                0.035
+10 sarcasm_nlp mistral-7b       3361    0.503    0.504 0.431                0.387
+11 sarcasm_nlp qwen3.5-4b       3361    0.594    0.575 0.213                0.124
+12 sarcasm_nlp twitter-roberta  3361    0.703    0.634 0.053                0.031
+## Share of non-ironic items with confidence >= 0.9, no context, v1/none, all datasets
+# A tibble: 6 × 3
+  model               n conf09
+  <chr>           <int>  <dbl>
+1 deberta-nli      5596   57.3
+2 kev-4b           5596   32.6
+3 laya             5596   12.9
+4 mistral-7b       5596   78.9
+5 qwen3.5-4b       5596   49.2
+6 twitter-roberta  5596   21.7
+## Calibration figure numbers: confident errors (weighted over the figure cells), same answer in 3 orders
+# A tibble: 6 × 3
+  model           conf_err ece_T3
+  <chr>              <dbl>  <dbl>
+1 deberta-nli         26.2  0.329
+2 kev-4b               3.4  0.172
+3 laya                 2.1  0.332
+4 mistral-7b          19.2  0.2  
+5 qwen3.5-4b          11.8  0.163
+6 twitter-roberta      9.7  0.32 
+# A tibble: 5 × 2
+  model       same3
+  <chr>       <dbl>
+1 deberta-nli  NA  
+2 kev-4b       91.2
+3 laya         82.4
+4 mistral-7b   59.9
+5 qwen3.5-4b   87.8
+## Kev vs Qwen, non-ironic, no context, v1: neutral rate, recall neutral/positive, agreement, by dataset
+# A tibble: 8 × 6
+# Groups:   dataset [4]
+  dataset     model        neu rec_neu rec_pos   acc
+  <chr>       <chr>      <dbl>   <dbl>   <dbl> <dbl>
+1 filatova    kev-4b       3.9    40      96.6  93.9
+2 filatova    qwen3.5-4b   0.6     2.9    98.1  93.8
+3 mtcsd       kev-4b      65.3    83.1    57.3  71.3
+4 mtcsd       qwen3.5-4b  29.4    42.1    70.6  55.3
+5 mustardpp   kev-4b      64.7    82      33.5  51.6
+6 mustardpp   qwen3.5-4b  18.1    31.1    64.6  57.9
+7 sarcasm_nlp kev-4b      66.5    84.8    42.7  74.1
+8 sarcasm_nlp qwen3.5-4b  29.8    45.3    83.5  59.4
+# A tibble: 4 × 2
+  dataset     agree
+  <chr>       <dbl>
+1 filatova     96.3
+2 mtcsd        60.4
+3 mustardpp    51.8
+4 sarcasm_nlp  61.7
+## All six wrong (majority over orders not used: v1/none, no context), % of items per dataset
+# A tibble: 4 × 3
+  dataset         n   pct
+  <chr>       <int> <dbl>
+1 filatova     1254   3.3
+2 mtcsd         848   4.7
+3 mustardpp    1171  18.9
+4 sarcasm_nlp  5929   7.4
+
+########  new 
+## SNLP acc nonir / iron, neg-rate nonir, neutral-rate nonir, prec of 'negative' nonir
+# A tibble: 6 × 9
+  model           acc_nonir acc_iron neg_rate neu_rate prec_neg neg_nonir neg_iron  loss
+  <chr>               <dbl>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl> <dbl>
+1 deberta-nli          41       56.7     66.8      7.5     37.3      91.3     62.4 28.9 
+2 kev-4b               76.2     54.8     25.6     66.1     68        63.7     54.5  9.2 
+3 laya                 58.4     33.5     42.6     40.6     45.3      70.7     31   39.7 
+4 mistral-7b           71.1     68.3     37.6     55.4     54.5      75.1     70.2  4.90
+5 qwen3.5-4b           70.9     57.7     26.7     55.2     61.9      60.5     58.2  2.30
+6 twitter-roberta      70.3     38       34.4     53.9     56.8      71.6     37.9 33.7 
+## T1 recall of negatives vs T3 accuracy, Spearman over 6 models x 3 datasets (18 pairs)
+n = 18 spearman = 0.882 
+## ECE / F1 / acc non-sarcastic, no context, v1/none (SNLP and MT-CSD)
+# A tibble: 12 × 7
+   dataset     model               n accuracy macro_f1   ece confident_errors_0.9
+   <chr>       <chr>           <dbl>    <dbl>    <dbl> <dbl>                <dbl>
+ 1 mtcsd       deberta-nli       848    0.647    0.597 0.1                  0.053
+ 2 mtcsd       kev-4b            848    0.713    0.66  0.028                0.015
+ 3 mtcsd       laya              848    0.616    0.458 0.105                0.012
+ 4 mtcsd       mistral-7b        848    0.605    0.584 0.28                 0.189
+ 5 mtcsd       qwen3.5-4b        848    0.553    0.551 0.231                0.11 
+ 6 mtcsd       twitter-roberta   848    0.525    0.504 0.191                0.041
+ 7 sarcasm_nlp deberta-nli      3361    0.41     0.411 0.371                0.193
+ 8 sarcasm_nlp kev-4b           3361    0.762    0.712 0.027                0.006
+ 9 sarcasm_nlp laya             3361    0.584    0.558 0.113                0.039
+10 sarcasm_nlp mistral-7b       3361    0.711    0.665 0.21                 0.174
+11 sarcasm_nlp qwen3.5-4b       3361    0.709    0.678 0.072                0.035
+12 sarcasm_nlp twitter-roberta  3361    0.703    0.634 0.053                0.031
+## Share of non-ironic items with confidence >= 0.9, no context, v1/none, all datasets
+# A tibble: 6 × 3
+  model               n conf09
+  <chr>           <int>  <dbl>
+1 deberta-nli      5596   51.7
+2 kev-4b           5596   28.2
+3 laya             5596   13.4
+4 mistral-7b       5596   76.3
+5 qwen3.5-4b       5596   42.9
+6 twitter-roberta  5596   21.7
+## Calibration figure numbers: confident errors (weighted over the figure cells), same answer in 3 orders
+# A tibble: 6 × 3
+  model           conf_err ece_T3
+  <chr>              <dbl>  <dbl>
+1 deberta-nli         23.5  0.276
+2 kev-4b               2.8  0.164
+3 laya                 1.9  0.317
+4 mistral-7b          20.4  0.238
+5 qwen3.5-4b           9.8  0.163
+6 twitter-roberta      9.7  0.32 
+# A tibble: 5 × 2
+  model       same3
+  <chr>       <dbl>
+1 deberta-nli  NA  
+2 kev-4b       87.8
+3 laya         82.8
+4 mistral-7b   63.5
+5 qwen3.5-4b   84.7
+## Kev vs Qwen, non-ironic, no context, v1: neutral rate, recall neutral/positive, agreement, by dataset
+# A tibble: 8 × 6
+# Groups:   dataset [4]
+  dataset     model        neu rec_neu rec_pos   acc
+  <chr>       <chr>      <dbl>   <dbl>   <dbl> <dbl>
+1 filatova    kev-4b       3.9    40      96.6  93.9
+2 filatova    qwen3.5-4b   0.6     2.9    98.1  93.8
+3 mtcsd       kev-4b      65.3    83.1    57.3  71.3
+4 mtcsd       qwen3.5-4b  29.4    42.1    70.6  55.3
+5 mustardpp   kev-4b      64.7    82      33.5  51.6
+6 mustardpp   qwen3.5-4b  18.1    31.1    64.6  57.9
+7 sarcasm_nlp kev-4b      66.1    85      57.8  76.2
+8 sarcasm_nlp qwen3.5-4b  55.2    72.8    86.2  70.9
+# A tibble: 4 × 2
+  dataset     agree
+  <chr>       <dbl>
+1 filatova     96.3
+2 mtcsd        60.4
+3 mustardpp    51.8
+4 sarcasm_nlp  74  
+## All six wrong (majority over orders not used: v1/none, no context), % of items per dataset
+# A tibble: 4 × 3
+  dataset         n   pct
+  <chr>       <int> <dbl>
+1 filatova     1254   3.3
+2 mtcsd         848   4.7
+3 mustardpp    1171  18.9
+4 sarcasm_nlp  5929   5.4

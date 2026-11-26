@@ -1,0 +1,15 @@
+Kev-4B, MT-CSD by target, fixed cohort (>= 4 turns). Accuracy by order and k.
+   alvo     gold   n
+ SpaceX negativo  17
+ SpaceX   neutro  98
+ SpaceX positivo  33
+  Tesla negativo  94
+  Tesla   neutro 186
+  Tesla positivo  28
+   alvo variant   k0   k1   k2   k3   k4
+ SpaceX      v1 68.9 66.2 67.6 61.5 62.8
+ SpaceX      v2 73.0 68.2 68.9 61.5 64.2
+ SpaceX      v3 70.9 66.2 68.2 64.2 66.2
+  Tesla      v1 74.7 74.0 73.4 71.1 68.8
+  Tesla      v2 75.0 73.1 72.7 72.4 69.8
+  Tesla      v3 73.7 72.7 72.7 71.4 69.5

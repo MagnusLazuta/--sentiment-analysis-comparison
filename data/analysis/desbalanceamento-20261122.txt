@@ -1,0 +1,74 @@
+Ground-truth shares (%):
+           tarefa     dataset    N negative neutral positive
+ T1: sem contexto   MUStARD++  570     42.5    29.3     28.2
+ T1: sem contexto      MT-CSD  848     24.5    58.6     16.9
+ T1: sem contexto Sarcasm_NLP 3361     27.3    61.7     11.0
+ T1: sem contexto    Filatova  817      9.9     4.3     85.8
+ T2: com contexto   MUStARD++  570     42.5    29.3     28.2
+ T2: com contexto      MT-CSD  848     24.5    58.6     16.9
+       T3: ironia   MUStARD++  601    100.0      NA       NA
+       T3: ironia Sarcasm_NLP 2568     86.8    10.4      2.8
+       T3: ironia    Filatova  437     66.1     4.6     29.3
+
+Accuracy / balanced accuracy (%), mean over orders; majority baseline and chance (1/k):
+           tarefa     dataset   maj k DeBERTa-NLI      Kev-4B        Laya
+ T1: sem contexto   MUStARD++  42.5 3 55.3 / 50.9 51.4 / 52.4 47.5 / 48.5
+ T1: sem contexto      MT-CSD  58.6 3 64.7 / 61.9 71.3 / 64.9 61.7 / 45.7
+ T1: sem contexto Sarcasm_NLP  61.7 3 41.0 / 62.4 75.4 / 69.8 60.0 / 61.6
+ T1: sem contexto    Filatova  85.8 3 91.8 / 63.3 93.6 / 75.8 90.1 / 73.1
+ T2: com contexto   MUStARD++  42.5 3 50.9 / 46.1 54.8 / 54.9 46.1 / 46.2
+ T2: com contexto      MT-CSD  58.6 3 39.7 / 54.2 63.9 / 60.6 59.9 / 46.1
+       T3: ironia   MUStARD++ 100.0 1 65.1 / 65.1 20.1 / 20.1 17.7 / 17.7
+       T3: ironia Sarcasm_NLP  86.8 3 56.7 / 43.1 63.1 / 48.5 29.4 / 43.0
+       T3: ironia    Filatova  66.1 3 87.6 / 60.0 87.6 / 68.3 80.7 / 65.7
+  Mistral-7B  Qwen3.5-4B twitter-roberta
+ 54.7 / 54.9 58.6 / 56.3     50.7 / 51.7
+ 62.7 / 62.5 52.4 / 61.9     52.5 / 53.4
+ 71.4 / 61.8 71.8 / 73.8     70.3 / 65.0
+ 92.0 / 75.9 93.4 / 65.2     81.6 / 64.8
+ 53.2 / 53.5 59.7 / 58.1     37.5 / 40.5
+ 60.5 / 63.7 54.7 / 65.4     48.7 / 44.9
+ 28.3 / 28.3 46.6 / 46.6     25.0 / 25.0
+ 46.1 / 50.1 64.3 / 50.8     38.0 / 42.2
+ 82.5 / 65.9 85.7 / 59.1     70.9 / 61.6
+
+Ranks by accuracy vs by balanced accuracy (1 = best):
+           tarefa     dataset           model r_acc r_bacc
+ T1: sem contexto   MUStARD++     DeBERTa-NLI   2.0      5
+ T1: sem contexto   MUStARD++          Kev-4B   4.0      3
+ T1: sem contexto   MUStARD++      Mistral-7B   3.0      2
+ T1: sem contexto   MUStARD++ twitter-roberta   5.0      4
+ T1: sem contexto      MT-CSD     DeBERTa-NLI   2.0      3
+ T1: sem contexto      MT-CSD            Laya   4.0      6
+ T1: sem contexto      MT-CSD      Mistral-7B   3.0      2
+ T1: sem contexto      MT-CSD      Qwen3.5-4B   6.0      4
+ T1: sem contexto Sarcasm_NLP     DeBERTa-NLI   6.0      4
+ T1: sem contexto Sarcasm_NLP          Kev-4B   1.0      2
+ T1: sem contexto Sarcasm_NLP            Laya   5.0      6
+ T1: sem contexto Sarcasm_NLP      Mistral-7B   3.0      5
+ T1: sem contexto Sarcasm_NLP      Qwen3.5-4B   2.0      1
+ T1: sem contexto Sarcasm_NLP twitter-roberta   4.0      3
+ T1: sem contexto    Filatova     DeBERTa-NLI   4.0      6
+ T1: sem contexto    Filatova          Kev-4B   1.0      2
+ T1: sem contexto    Filatova            Laya   5.0      3
+ T1: sem contexto    Filatova      Mistral-7B   3.0      1
+ T1: sem contexto    Filatova      Qwen3.5-4B   2.0      4
+ T1: sem contexto    Filatova twitter-roberta   6.0      5
+ T2: com contexto   MUStARD++     DeBERTa-NLI   4.0      5
+ T2: com contexto   MUStARD++            Laya   5.0      4
+ T2: com contexto      MT-CSD     DeBERTa-NLI   6.0      4
+ T2: com contexto      MT-CSD          Kev-4B   1.0      3
+ T2: com contexto      MT-CSD            Laya   3.0      5
+ T2: com contexto      MT-CSD      Qwen3.5-4B   4.0      1
+ T2: com contexto      MT-CSD twitter-roberta   5.0      6
+       T3: ironia Sarcasm_NLP     DeBERTa-NLI   3.0      4
+       T3: ironia Sarcasm_NLP          Kev-4B   2.0      3
+       T3: ironia Sarcasm_NLP            Laya   6.0      5
+       T3: ironia Sarcasm_NLP      Mistral-7B   4.0      2
+       T3: ironia Sarcasm_NLP twitter-roberta   5.0      6
+       T3: ironia    Filatova     DeBERTa-NLI   1.5      5
+       T3: ironia    Filatova          Kev-4B   1.5      1
+       T3: ironia    Filatova            Laya   5.0      3
+       T3: ironia    Filatova      Mistral-7B   4.0      2
+       T3: ironia    Filatova      Qwen3.5-4B   3.0      6
+       T3: ironia    Filatova twitter-roberta   6.0      4

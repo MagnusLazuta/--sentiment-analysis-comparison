@@ -1,0 +1,234 @@
+## 1a. MT-CSD accuracy with thread-cluster CI (v1/none)
+# A tibble: 18 × 6
+# Groups:   model [6]
+   model               n   acc    lo    hi cond 
+   <chr>           <int> <dbl> <dbl> <dbl> <chr>
+ 1 deberta-nli       848  64.7  60.9  70.1 k0   
+ 2 deberta-nli       848  61    57.6  64.8 k1   
+ 3 deberta-nli       848  39.7  33.9  46.1 kK   
+ 4 kev-4b            848  71.3  67.5  76   k0   
+ 5 kev-4b            848  69.5  64.2  75   k1   
+ 6 kev-4b            848  64.4  58.7  71   kK   
+ 7 laya              848  61.6  56.9  67   k0   
+ 8 laya              848  59.4  54.7  64.8 k1   
+ 9 laya              848  58.7  54.5  64.1 kK   
+10 mistral-7b        848  60.5  56.7  65.9 k0   
+11 mistral-7b        848  61.7  57.5  66.8 k1   
+12 mistral-7b        848  55.7  50.1  62.8 kK   
+13 qwen3.5-4b        848  55.3  51    60   k0   
+14 qwen3.5-4b        848  60.7  56.5  64.9 k1   
+15 qwen3.5-4b        848  57.4  52.1  63   kK   
+16 twitter-roberta   848  52.5  48.6  56.8 k0   
+17 twitter-roberta   848  50.9  45.4  56.3 k1   
+18 twitter-roberta   848  48.7  39.8  56.5 kK   
+
+## 1b. MT-CSD paired differences, thread-cluster bootstrap, all option orders
+# A tibble: 42 × 10
+# Groups:   model, variant [14]
+   model           variant     n  diff    lo    hi sig   threads_up threads_down cmp   
+   <chr>           <chr>   <int> <dbl> <dbl> <dbl> <lgl>      <int>        <int> <chr> 
+ 1 deberta-nli     v1        848  -3.8  -8.6   0.6 FALSE          4            9 k0->k1
+ 2 kev-4b          v1        848  -1.9  -6.3   2.1 FALSE          8            5 k0->k1
+ 3 kev-4b          v2        848  -1.7  -5.8   1.8 FALSE          6            7 k0->k1
+ 4 kev-4b          v3        848  -2.2  -7     1.5 FALSE          6            7 k0->k1
+ 5 laya            v1        848  -2.1  -4.2   0   FALSE          3            6 k0->k1
+ 6 laya            v2        848   0    -2.5   2.7 FALSE          5            6 k0->k1
+ 7 laya            v3        848  -1.1  -3.6   1.7 FALSE          4            7 k0->k1
+ 8 mistral-7b      v1        848   1.2  -3     4.5 FALSE          8            4 k0->k1
+ 9 mistral-7b      v2        848   3.5  -0.5   6.8 FALSE          8            5 k0->k1
+10 mistral-7b      v3        848   3.5   0.3   6.3 TRUE           6            4 k0->k1
+11 qwen3.5-4b      v1        848   5.4   2.3   8.6 TRUE          11            2 k0->k1
+12 qwen3.5-4b      v2        848   7.2   4.2   9.9 TRUE          12            1 k0->k1
+13 qwen3.5-4b      v3        848   5.9   2.7   8.8 TRUE          11            2 k0->k1
+14 twitter-roberta none      848  -1.5  -6     3   FALSE          6            7 k0->k1
+15 deberta-nli     v1        848 -25   -34.4 -16.4 TRUE           1           12 k0->kK
+16 kev-4b          v1        848  -7   -12    -1.3 TRUE           3           10 k0->kK
+17 kev-4b          v2        848  -8.1 -12.9  -2.7 TRUE           2           11 k0->kK
+18 kev-4b          v3        848  -7.1 -12    -1.9 TRUE           2           10 k0->kK
+19 laya            v1        848  -2.8  -7.3   1.8 FALSE          3            8 k0->kK
+20 laya            v2        848  -1.2  -4.4   3.2 FALSE          4            7 k0->kK
+21 laya            v3        848  -1.2  -4.2   3.3 FALSE          3            7 k0->kK
+22 mistral-7b      v1        848  -4.8 -10.1   0.2 FALSE          5            8 k0->kK
+23 mistral-7b      v2        848  -1.2  -7.4   4.9 FALSE          7            6 k0->kK
+24 mistral-7b      v3        848  -0.6  -7.9   6.1 FALSE          6            6 k0->kK
+25 qwen3.5-4b      v1        848   2.1  -3.8   7.3 FALSE          8            5 k0->kK
+26 qwen3.5-4b      v2        848   1.2  -2.8   4.9 FALSE          9            3 k0->kK
+27 qwen3.5-4b      v3        848   3.4  -1.2   8.2 FALSE          8            4 k0->kK
+28 twitter-roberta none      848  -3.8 -12.6   4.9 FALSE          6            6 k0->kK
+29 deberta-nli     v1        848 -21.2 -29.1 -14.4 TRUE           2           11 k1->kK
+30 kev-4b          v1        848  -5.1  -8.9  -0.4 TRUE           2            8 k1->kK
+31 kev-4b          v2        848  -6.5  -9.7  -3.1 TRUE           1            9 k1->kK
+32 kev-4b          v3        848  -4.8  -7.8  -1.3 TRUE           2            9 k1->kK
+33 laya            v1        848  -0.7  -3.9   2.6 FALSE          4            5 k1->kK
+34 laya            v2        848  -1.2  -3.9   1.4 FALSE          4            6 k1->kK
+35 laya            v3        848  -0.1  -2.7   3   FALSE          4            7 k1->kK
+36 mistral-7b      v1        848  -6   -10.4  -1.4 TRUE           3            7 k1->kK
+37 mistral-7b      v2        848  -4.7 -10.5   0.8 FALSE          3            9 k1->kK
+38 mistral-7b      v3        848  -4.1  -9.4   0.9 FALSE          4            8 k1->kK
+39 qwen3.5-4b      v1        848  -3.3  -7.4   0.2 FALSE          5            6 k1->kK
+40 qwen3.5-4b      v2        848  -6   -10.9  -1.8 TRUE           3            9 k1->kK
+41 qwen3.5-4b      v3        848  -2.5  -7     1.4 FALSE          5            7 k1->kK
+42 twitter-roberta none      848  -2.2 -11.8   5.8 FALSE          6            5 k1->kK
+
+## 1c. MT-CSD per gold class k0 -> kK, thread-cluster bootstrap (v1/none)
+# A tibble: 18 × 9
+# Groups:   model, gold [18]
+   model           gold         n  diff    lo    hi sig   threads_up threads_down
+   <chr>           <chr>    <int> <dbl> <dbl> <dbl> <lgl>      <int>        <int>
+ 1 deberta-nli     negative   208  20.7   7.8  31.5 TRUE           7            1
+ 2 kev-4b          negative   208  15.4  -6.8  28.3 FALSE          6            3
+ 3 laya            negative   208   2.4  -7.7  10.3 FALSE          5            2
+ 4 mistral-7b      negative   208  13     5.4  17.5 TRUE           7            2
+ 5 qwen3.5-4b      negative   208  10.6   4.8  16.7 TRUE           7            1
+ 6 twitter-roberta negative   208 -20.2 -44.1   2.9 FALSE          4            5
+ 7 deberta-nli     neutral    497 -54.3 -62.6 -45.6 TRUE           0           13
+ 8 kev-4b          neutral    497 -15.1 -23    -7.8 TRUE           2           10
+ 9 laya            neutral    497  -8   -16.1  -1.7 TRUE           2           10
+10 mistral-7b      neutral    497 -14.1 -25.6  -5   TRUE           4            9
+11 qwen3.5-4b      neutral    497  -2.6 -12.6   6.9 FALSE          5            7
+12 twitter-roberta neutral    497   5   -15.7  23.8 FALSE          6            6
+13 deberta-nli     positive   143  10.5   0    21.6 FALSE          4            2
+14 kev-4b          positive   143 -11.2 -21.8  -0.7 TRUE           2            9
+15 laya            positive   143   7.7  -2.5  15.2 FALSE          5            3
+16 mistral-7b      positive   143   1.4  -9.1  13.7 FALSE          3            5
+17 qwen3.5-4b      positive   143   6.3   0.8  11.5 TRUE           6            2
+18 twitter-roberta positive   143 -10.5 -25.2   5.1 FALSE          3            8
+
+## 1d. MT-CSD cohort K>=4 k0 -> k4 and k0 -> k1, thread-cluster bootstrap (v1/none)
+# A tibble: 12 × 9
+# Groups:   model [6]
+   model               n  diff    lo    hi sig   threads_up threads_down cmp   
+   <chr>           <int> <dbl> <dbl> <dbl> <lgl>      <int>        <int> <chr> 
+ 1 deberta-nli       456  -0.7  -5.2   3.8 FALSE          4            7 k0->k1
+ 2 kev-4b            456  -1.3  -5.6   2.8 FALSE          6            5 k0->k1
+ 3 laya              456  -3.7  -6.7  -0.8 TRUE           4            8 k0->k1
+ 4 mistral-7b        456   2.6  -0.9   5.5 FALSE          8            2 k0->k1
+ 5 qwen3.5-4b        456   6.4   1.7  10.4 TRUE          10            2 k0->k1
+ 6 twitter-roberta   456   0.4  -4     5.3 FALSE          6            6 k0->k1
+ 7 deberta-nli       456 -22.6 -31.8 -13.5 TRUE           2           11 k0->k4
+ 8 kev-4b            456  -5.9 -10.9   0.7 FALSE          3            8 k0->k4
+ 9 laya              456  -4.4 -11.7   3.7 FALSE          3            7 k0->k4
+10 mistral-7b        456  -3.1  -9.2   2.3 FALSE          5            7 k0->k4
+11 qwen3.5-4b        456   6.4   1.4  10.4 TRUE           9            3 k0->k4
+12 twitter-roberta   456  -5   -13     1.7 FALSE          2            9 k0->k4
+
+## 1e. MT-CSD T1 accuracy minus majority (58.6), thread-cluster CI (v1/none)
+# A tibble: 6 × 5
+# Groups:   model [6]
+  model               n   acc    lo    hi
+  <chr>           <int> <dbl> <dbl> <dbl>
+1 deberta-nli       848  64.7  60.9  70  
+2 kev-4b            848  71.3  67.5  75.9
+3 laya              848  61.6  56.8  67.1
+4 mistral-7b        848  60.5  56.7  65.9
+5 qwen3.5-4b        848  55.3  50.8  60  
+6 twitter-roberta   848  52.5  48.6  56.7
+
+## 2. Filatova: reviews truncated by any model vs not (no_context)
+reviews truncated by at least one model: 384 of 1254 
+# A tibble: 6 × 3
+  model           sarcastic     n
+  <chr>               <dbl> <int>
+1 deberta-nli             0   149
+2 deberta-nli             1    72
+3 laya                    0   252
+4 laya                    1   132
+5 twitter-roberta         0   144
+6 twitter-roberta         1    69
+# A tibble: 12 × 6
+# Groups:   model, sarcastic [12]
+   model           sarcastic n_fits_all n_truncated_any acc_fits_all acc_truncated_any
+   <chr>               <dbl>      <int>           <int>        <dbl>             <dbl>
+ 1 deberta-nli             0        565             252         92.7              89.7
+ 2 deberta-nli             1        305             132         87.9              87.1
+ 3 kev-4b                  0        565             252         93.5              94.8
+ 4 kev-4b                  1        305             132         85.9              90.9
+ 5 laya                    0        565             252         91                89.3
+ 6 laya                    1        305             132         81                79.5
+ 7 mistral-7b              0        565             252         91.2              92.5
+ 8 mistral-7b              1        305             132         84.6              89.4
+ 9 qwen3.5-4b              0        565             252         93.3              94.8
+10 qwen3.5-4b              1        305             132         83                91.7
+11 twitter-roberta         0        565             252         86.7              70.2
+12 twitter-roberta         1        305             132         75.4              60.6
+# A tibble: 6 × 3
+  sarcastic gold         n
+      <dbl> <chr>    <int>
+1         0 negative   432
+2         0 neutral    138
+3         0 positive  2820
+4         1 negative  1176
+5         1 neutral     78
+6         1 positive   576
+
+## 3. Subgroups: per-class accuracy and class-standardised accuracy (no_context, non-ironic, v1/none)
+# A tibble: 8 × 9
+  dataset     subgroup raw_n `deberta-nli` `kev-4b`  laya `mistral-7b` `qwen3.5-4b` `twitter-roberta`
+  <chr>       <chr>    <int>         <dbl>    <dbl> <dbl>        <dbl>        <dbl>             <dbl>
+1 mtcsd       SpaceX     316          59.2     66.7  57.3         52.8         50.1              56.8
+2 mtcsd       Tesla      532          65.5     70.4  63           59.7         54.5              47.6
+3 mustardpp   BBT        336          55.5     52.5  48.6         56           55.7              49.6
+4 mustardpp   FRIENDS    194          54.5     50.4  51.5         65.6         63.7              56.9
+5 mustardpp   SV          39          58.3     51.6  49.5         49.3         59.3              38.4
+6 sarcasm_nlp Energy    1012          47.6     74.7  61.3         53.2         58.8              71.9
+7 sarcasm_nlp General    624          44.8     71.9  61           50.7         56                66.6
+8 sarcasm_nlp Politics  1718          47       76.3  57.9         49.5         62                72.6
+# A tibble: 8 × 5
+# Groups:   dataset, subgroup [8]
+  dataset     subgroup negative neutral positive
+  <chr>       <chr>       <dbl>   <dbl>    <dbl>
+1 mtcsd       SpaceX       13      59.2     27.8
+2 mtcsd       Tesla        31.4    58.3     10.3
+3 mustardpp   BBT          41.7    33.6     24.7
+4 mustardpp   FRIENDS      41.8    21.6     36.6
+5 mustardpp   SV           51.3    30.8     17.9
+6 sarcasm_nlp Energy       24.1    45.4     30.5
+7 sarcasm_nlp General      18.1    78.5      3.4
+8 sarcasm_nlp Politics     32.5    65.3      2.2
+
+## 4. AUROC of confidence for correct vs wrong (no_context, v1/none)
+# A tibble: 42 × 10
+   dataset     grp             n conf_ge_0.9 `deberta-nli` `kev-4b`   laya `mistral-7b` `qwen3.5-4b` `twitter-roberta`
+   <chr>       <chr>       <int>       <dbl>         <dbl>    <dbl>  <dbl>        <dbl>        <dbl>             <dbl>
+ 1 filatova    irônico       437        94.5         0.757   NA     NA           NA           NA                NA    
+ 2 filatova    irônico       437        68.2        NA        0.845 NA           NA           NA                NA    
+ 3 filatova    irônico       437        43          NA       NA      0.844       NA           NA                NA    
+ 4 filatova    irônico       437        96.1        NA       NA     NA            0.737       NA                NA    
+ 5 filatova    irônico       437        77.8        NA       NA     NA           NA            0.852            NA    
+ 6 filatova    irônico       437        16.7        NA       NA     NA           NA           NA                 0.772
+ 7 filatova    não irônico   817        94.6         0.861   NA     NA           NA           NA                NA    
+ 8 filatova    não irônico   817        79.7        NA        0.901 NA           NA           NA                NA    
+ 9 filatova    não irônico   817        40.1        NA       NA      0.896       NA           NA                NA    
+10 filatova    não irônico   817        96.1        NA       NA     NA            0.922       NA                NA    
+11 filatova    não irônico   817        92.4        NA       NA     NA           NA            0.891            NA    
+12 filatova    não irônico   817        43.6        NA       NA     NA           NA           NA                 0.871
+13 mtcsd       não irônico   848        20.3         0.604   NA     NA           NA           NA                NA    
+14 mtcsd       não irônico   848        17          NA        0.712 NA           NA           NA                NA    
+15 mtcsd       não irônico   848         5.3        NA       NA      0.597       NA           NA                NA    
+16 mtcsd       não irônico   848        61          NA       NA     NA            0.657       NA                NA    
+17 mtcsd       não irônico   848        40.6        NA       NA     NA           NA            0.68             NA    
+18 mtcsd       não irônico   848        11.6        NA       NA     NA           NA           NA                 0.557
+19 mustardpp   irônico       601        69.7         0.571   NA     NA           NA           NA                NA    
+20 mustardpp   irônico       601        11.5        NA        0.388 NA           NA           NA                NA    
+21 mustardpp   irônico       601         6.2        NA       NA      0.529       NA           NA                NA    
+22 mustardpp   irônico       601        73.4        NA       NA     NA            0.709       NA                NA    
+23 mustardpp   irônico       601        31.4        NA       NA     NA           NA            0.524            NA    
+24 mustardpp   irônico       601        16.6        NA       NA     NA           NA           NA                 0.382
+25 mustardpp   não irônico   570        69.1         0.669   NA     NA           NA           NA                NA    
+26 mustardpp   não irônico   570        12.3        NA        0.59  NA           NA           NA                NA    
+27 mustardpp   não irônico   570         6.3        NA       NA      0.558       NA           NA                NA    
+28 mustardpp   não irônico   570        77.4        NA       NA     NA            0.665       NA                NA    
+29 mustardpp   não irônico   570        40.9        NA       NA     NA           NA            0.681            NA    
+30 mustardpp   não irônico   570        16          NA       NA     NA           NA           NA                 0.626
+31 sarcasm_nlp irônico      2568        80.3         0.569   NA     NA           NA           NA                NA    
+32 sarcasm_nlp irônico      2568        11.1        NA        0.65  NA           NA           NA                NA    
+33 sarcasm_nlp irônico      2568         6.8        NA       NA      0.611       NA           NA                NA    
+34 sarcasm_nlp irônico      2568        89.1        NA       NA     NA            0.73        NA                NA    
+35 sarcasm_nlp irônico      2568        46.8        NA       NA     NA           NA            0.598            NA    
+36 sarcasm_nlp irônico      2568        20.5        NA       NA     NA           NA           NA                 0.45 
+37 sarcasm_nlp não irônico  3361        55.5         0.584   NA     NA           NA           NA                NA    
+38 sarcasm_nlp não irônico  3361        28.5        NA        0.753 NA           NA           NA                NA    
+39 sarcasm_nlp não irônico  3361         9.3        NA       NA      0.562       NA           NA                NA    
+40 sarcasm_nlp não irônico  3361        79.6        NA       NA     NA            0.576       NA                NA    
+41 sarcasm_nlp não irônico  3361        42.3        NA       NA     NA           NA            0.639            NA    
+42 sarcasm_nlp não irônico  3361        19.9        NA       NA     NA           NA           NA                 0.674

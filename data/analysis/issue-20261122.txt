@@ -1,0 +1,244 @@
+## 0. Cells
+# A tibble: 20 × 5
+   model       target       v1    v2    v3
+   <chr>       <fct>     <int> <int> <int>
+ 1 deberta-nli topic      5929    NA    NA
+ 2 deberta-nli nuclear    5929    NA    NA
+ 3 deberta-nli issue      5929    NA    NA
+ 4 deberta-nli issuenote  5929    NA    NA
+ 5 kev-4b      topic      5929  5929  5929
+ 6 kev-4b      nuclear    5929  5929  5929
+ 7 kev-4b      issue      5929  5929  5929
+ 8 kev-4b      issuenote  5929  5929  5929
+ 9 laya        topic      5929  5929  5929
+10 laya        nuclear    5929  5929  5929
+11 laya        issue      5929  5929  5929
+12 laya        issuenote  5929  5929  5929
+13 mistral-7b  topic      5929  5929  5929
+14 mistral-7b  nuclear    5929  5929  5929
+15 mistral-7b  issue      5929  5929  5929
+16 mistral-7b  issuenote  5929  5929  5929
+17 qwen3.5-4b  topic      5929  5929  5929
+18 qwen3.5-4b  nuclear    5929  5929  5929
+19 qwen3.5-4b  issue      5929  5929  5929
+20 qwen3.5-4b  issuenote  5929  5929  5929
+
+## 1. Accuracy by set, v1 (DeBERTa-NLI: v1 only) and mean over orders
+# A tibble: 10 × 6
+# Groups:   set, model [10]
+   set   model       topic nuclear issue issuenote
+   <chr> <chr>       <dbl>   <dbl> <dbl>     <dbl>
+ 1 iron  deberta-nli  55.1    56.7  62.1      62.1
+ 2 iron  kev-4b       57.9    54.8  57.3      59.1
+ 3 iron  laya         32      33.5  32        27.9
+ 4 iron  mistral-7b   79.9    68.3  82.7      81.9
+ 5 iron  qwen3.5-4b   69.2    57.7  71.1      70.6
+ 6 nonir deberta-nli  45.9    41    36.8      36.8
+ 7 nonir kev-4b       74.1    76.2  76.3      78.2
+ 8 nonir laya         59      58.4  61.4      64.6
+ 9 nonir mistral-7b   50.3    71.1  48        52.8
+10 nonir qwen3.5-4b   59.4    70.9  60.5      65.9
+# A tibble: 10 × 6
+# Groups:   set, model [10]
+   set   model       topic nuclear issue issuenote
+   <chr> <chr>       <dbl>   <dbl> <dbl>     <dbl>
+ 1 iron  deberta-nli  55.1    56.7  62.1      62.1
+ 2 iron  kev-4b       62.3    63.1  60.6      61.1
+ 3 iron  laya         27.5    29.4  27.9      25.2
+ 4 iron  mistral-7b   68      46.1  56        47  
+ 5 iron  qwen3.5-4b   72.1    64.3  74.3      72.1
+ 6 nonir deberta-nli  45.9    41    36.8      36.8
+ 7 nonir kev-4b       74.1    75.4  75.5      77.5
+ 8 nonir laya         60.1    60    62.1      64.2
+ 9 nonir mistral-7b   62.6    71.4  62.6      63.8
+10 nonir qwen3.5-4b   61.6    71.8  62.8      67.9
+
+## 2. McNemar vs nuclear, v1
+# A tibble: 10 × 7
+# Groups:   set [2]
+   set   model           n d_issue   p_issue d_note   p_note
+   <chr> <chr>       <int>   <dbl>     <dbl>  <dbl>    <dbl>
+ 1 iron  deberta-nli  2568     5.5 6.80e- 12    5.5 6.80e-12
+ 2 iron  kev-4b       2568     2.5 7.1 e-  5    4.2 6.20e- 9
+ 3 iron  laya         2568    -1.5 7.4 e-  3   -5.6 1.5 e-16
+ 4 iron  mistral-7b   2568    14.4 5.6 e- 54   13.6 2.70e-45
+ 5 iron  qwen3.5-4b   2568    13.4 1   e- 45   12.8 1.4 e-37
+ 6 nonir deberta-nli  3361    -4.2 1.5 e- 11   -4.2 1.5 e-11
+ 7 nonir kev-4b       3361     0.1 8.8 e-  1    2   1.6 e- 3
+ 8 nonir laya         3361     3   1.7 e-  8    6.2 1.6 e-17
+ 9 nonir mistral-7b   3361   -23.1 3.10e-118  -18.3 6.50e-81
+10 nonir qwen3.5-4b   3361   -10.4 1.20e- 28   -5.1 1.10e- 7
+
+## 3. By topic x gold, v1, accuracy
+# A tibble: 90 × 9
+# Groups:   set, theme, gold, model [90]
+   set   theme    gold     model           n topic nuclear issue issuenote
+   <chr> <chr>    <chr>    <chr>       <int> <dbl>   <dbl> <dbl>     <dbl>
+ 1 iron  Energy   negative deberta-nli   672  52.8    48.8  59.1      59.1
+ 2 iron  Energy   negative kev-4b        672  54.3    50.4  51        53.6
+ 3 iron  Energy   negative laya          672  25.6    30.4  25.4      18.9
+ 4 iron  Energy   negative mistral-7b    672  87.2    78.9  89.3      90.5
+ 5 iron  Energy   negative qwen3.5-4b    672  71.6    63.4  70.8      70.5
+ 6 iron  Energy   neutral  deberta-nli    31  12.9     9.7   0         0  
+ 7 iron  Energy   neutral  kev-4b         31  64.5    67.7  67.7      77.4
+ 8 iron  Energy   neutral  laya           31  64.5    74.2  74.2      80.6
+ 9 iron  Energy   neutral  mistral-7b     31  19.4    67.7  32.3      35.5
+10 iron  Energy   neutral  qwen3.5-4b     31  16.1    45.2  25.8      25.8
+11 iron  Energy   positive deberta-nli    54  37      55.6  29.6      29.6
+12 iron  Energy   positive kev-4b         54  27.8    29.6  22.2      24.1
+13 iron  Energy   positive laya           54  44.4    44.4  53.7      48.1
+14 iron  Energy   positive mistral-7b     54  29.6    25.9  13         5.6
+15 iron  Energy   positive qwen3.5-4b     54  40.7    35.2  33.3      37  
+16 iron  General  negative deberta-nli   268  59.7    61.9  70.1      70.1
+17 iron  General  negative kev-4b        268  52.6    52.2  53.7      53.4
+18 iron  General  negative laya          268  29.9    31    25.7      22.4
+19 iron  General  negative mistral-7b    268  84      68.7  89.6      88.8
+20 iron  General  negative qwen3.5-4b    268  69      58.6  71.6      73.1
+21 iron  General  neutral  deberta-nli    62   6.5    11.3   6.5       6.5
+22 iron  General  neutral  kev-4b         62  50      64.5  64.5      58.1
+23 iron  General  neutral  laya           62  53.2    50    58.1      74.2
+24 iron  General  neutral  mistral-7b     62  16.1    58.1  37.1      32.3
+25 iron  General  neutral  qwen3.5-4b     62   9.7    61.3  32.3      22.6
+26 iron  General  positive deberta-nli     8  62.5    75    50        50  
+27 iron  General  positive kev-4b          8  37.5    25    12.5      25  
+28 iron  General  positive laya            8  50      50    50        37.5
+29 iron  General  positive mistral-7b      8  37.5    25    12.5      12.5
+30 iron  General  positive qwen3.5-4b      8  75      50    50        62.5
+31 iron  Politics negative deberta-nli  1277  65.9    69.5  76        76  
+32 iron  Politics negative kev-4b       1277  63.1    57.2  62.1      64.6
+33 iron  Politics negative laya         1277  31.4    31.6  31        24.5
+34 iron  Politics negative mistral-7b   1277  91.4    66.1  93.6      91.3
+35 iron  Politics negative qwen3.5-4b   1277  81.3    55.4  82.9      82.4
+36 iron  Politics neutral  deberta-nli   174   6.9     8.6   2.9       2.9
+37 iron  Politics neutral  kev-4b        174  54.6    63.8  61.5      59.2
+38 iron  Politics neutral  laya          174  47.1    47.7  51.1      64.9
+39 iron  Politics neutral  mistral-7b    174  12.6    65.5  21.8      26.4
+40 iron  Politics neutral  qwen3.5-4b    174  12.1    61.5  20.7      17.2
+41 iron  Politics positive deberta-nli     9  55.6    55.6  22.2      22.2
+42 iron  Politics positive kev-4b          9  44.4    33.3  44.4      44.4
+43 iron  Politics positive laya            9  55.6    33.3  33.3      22.2
+44 iron  Politics positive mistral-7b      9  55.6    11.1   0         0  
+45 iron  Politics positive qwen3.5-4b      9  55.6    33.3  44.4      44.4
+46 nonir Energy   negative deberta-nli   244  85.7    90.2  92.2      92.2
+47 nonir Energy   negative kev-4b        244  53.3    61.9  66        66  
+48 nonir Energy   negative laya          244  67.2    71.7  64.3      54.1
+49 nonir Energy   negative mistral-7b    244  88.9    86.9  95.5      94.7
+50 nonir Energy   negative qwen3.5-4b    244  77.5    75    87.3      88.1
+51 nonir Energy   neutral  deberta-nli   459  27.9    12.6  11.3      11.3
+52 nonir Energy   neutral  kev-4b        459  90.2    89.8  89.3      92.8
+53 nonir Energy   neutral  laya          459  59.3    56    62.5      73  
+54 nonir Energy   neutral  mistral-7b    459  36.6    63.6  44        51  
+55 nonir Energy   neutral  qwen3.5-4b    459  46.4    57.7  47.3      61.9
+56 nonir Energy   positive deberta-nli   309  63.4    86.4  61.2      61.2
+57 nonir Energy   positive kev-4b        309  40.8    58.3  44.7      47.2
+58 nonir Energy   positive laya          309  58.3    61.8  60.5      50.5
+59 nonir Energy   positive mistral-7b    309  57.3    49.8  26.2      17.8
+60 nonir Energy   positive qwen3.5-4b    309  81.9    87.4  80.9      72.8
+61 nonir General  negative deberta-nli   113  83.2    86.7  92        92  
+62 nonir General  negative kev-4b        113  58.4    59.3  65.5      58.4
+63 nonir General  negative laya          113  61.9    68.1  65.5      54  
+64 nonir General  negative mistral-7b    113  88.5    69    90.3      88.5
+65 nonir General  negative qwen3.5-4b    113  72.6    61.1  85.8      82.3
+66 nonir General  neutral  deberta-nli   490  23.1    13.7   8.6       8.6
+67 nonir General  neutral  kev-4b        490  79.6    80.8  82.2      85.1
+68 nonir General  neutral  laya          490  58.8    56.1  62.2      75.5
+69 nonir General  neutral  mistral-7b    490  32      70    38.4      41.6
+70 nonir General  neutral  qwen3.5-4b    490  40.8    69.2  47.6      52.7
+71 nonir General  positive deberta-nli    21  71.4    71.4  66.7      66.7
+72 nonir General  positive kev-4b         21  61.9    52.4  42.9      38.1
+73 nonir General  positive laya           21  71.4    71.4  71.4      52.4
+74 nonir General  positive mistral-7b     21  61.9    33.3  23.8      19  
+75 nonir General  positive qwen3.5-4b     21 100      81    76.2      76.2
+76 nonir Politics negative deberta-nli   559  91.4    92.7  96.2      96.2
+77 nonir Politics negative kev-4b        559  67.4    65.3  73.3      71.2
+78 nonir Politics negative laya          559  67.6    70.7  68.9      59  
+79 nonir Politics negative mistral-7b    559  94.6    71.4  95.7      95.5
+80 nonir Politics negative qwen3.5-4b    559  85.3    54.2  90        91.9
+81 nonir Politics neutral  deberta-nli  1121  22.1     9     4.1       4.1
+82 nonir Politics neutral  kev-4b       1121  84.9    84.9  83.6      87.4
+83 nonir Politics neutral  laya         1121  52.6    49.3  56.2      67.4
+84 nonir Politics neutral  mistral-7b   1121  27.1    79    22.7      36  
+85 nonir Politics neutral  qwen3.5-4b   1121  46.8    80.6  41.8      51.3
+86 nonir Politics positive deberta-nli    38  76.3    84.2  71.1      71.1
+87 nonir Politics positive kev-4b         38  50      57.9  47.4      50  
+88 nonir Politics positive laya           38  63.2    63.2  57.9      47.4
+89 nonir Politics positive mistral-7b     38  63.2    44.7  28.9      13.2
+90 nonir Politics positive qwen3.5-4b     38  89.5    78.9  84.2      81.6
+
+## 4. Answer distribution non-ironic, v1 (gold 27.3 / 61.7 / 11.0)
+# A tibble: 20 × 5
+# Groups:   model [5]
+   model       target      neg   neu   pos
+   <chr>       <fct>     <dbl> <dbl> <dbl>
+ 1 deberta-nli topic      64.2  15.1  20.7
+ 2 deberta-nli nuclear    66.8   7.5  25.7
+ 3 deberta-nli issue      81.2   5    13.8
+ 4 deberta-nli issuenote  81.2   5    13.8
+ 5 kev-4b      topic      24.8  66.5   8.8
+ 6 kev-4b      nuclear    25.6  66.1   8.4
+ 7 kev-4b      issue      28    65.3   6.7
+ 8 kev-4b      issuenote  25.5  67.5   6.9
+ 9 laya        topic      39.2  43.6  17.2
+10 laya        nuclear    42.6  40.6  16.9
+11 laya        issue      37.1  45.6  17.3
+12 laya        issuenote  29.3  57.4  13.3
+13 mistral-7b  topic      64.9  21.2  13.9
+14 mistral-7b  nuclear    37.6  55.4   7  
+15 mistral-7b  issue      71.2  25.1   3.8
+16 mistral-7b  issuenote  66.9  30.9   2.2
+17 qwen3.5-4b  topic      42.3  29.8  27.9
+18 qwen3.5-4b  nuclear    26.7  55.2  18.1
+19 qwen3.5-4b  issue      51.1  29.8  19.2
+20 qwen3.5-4b  issuenote  48.9  35.4  15.7
+
+## 5. Irony cost on negatives (non-ironic neg recall - ironic neg recall), v1
+# A tibble: 20 × 5
+# Groups:   model [5]
+   model       target    neg_nonir neg_iron  cost
+   <chr>       <fct>         <dbl>    <dbl> <dbl>
+ 1 deberta-nli topic          88.9     61.2 27.7 
+ 2 deberta-nli nuclear        91.3     62.4 28.9 
+ 3 deberta-nli issue          94.7     70.2 24.5 
+ 4 deberta-nli issuenote      94.7     70.2 24.5 
+ 5 kev-4b      topic          62.6     59.2  3.4 
+ 6 kev-4b      nuclear        63.7     54.5  9.2 
+ 7 kev-4b      issue          70.4     57.7 12.7 
+ 8 kev-4b      issuenote      68.3     59.8  8.5 
+ 9 laya        topic          66.8     29.3 37.5 
+10 laya        nuclear        70.7     31   39.7 
+11 laya        issue          67.3     28.6 38.7 
+12 laya        issuenote      57.1     22.5 34.6 
+13 mistral-7b  topic          92.4     89.2  3.20
+14 mistral-7b  nuclear        75.1     70.2  4.90
+15 mistral-7b  issue          95       91.7  3.30
+16 mistral-7b  issuenote      94.4     90.7  3.70
+17 qwen3.5-4b  topic          81.7     76.9  4.8 
+18 qwen3.5-4b  nuclear        60.5     58.2  2.30
+19 qwen3.5-4b  issue          88.8     77.9 10.9 
+20 qwen3.5-4b  issuenote      89.7     77.7 12   
+
+## 6. All 5,929 items (ironic + non-ironic), v1 and mean over orders; macro-F1 v1
+# A tibble: 20 × 5
+# Groups:   model [5]
+   model       target    acc_v1 acc_mean f1_v1
+   <chr>       <fct>      <dbl>    <dbl> <dbl>
+ 1 deberta-nli topic       49.9     49.9  41.5
+ 2 deberta-nli nuclear     47.8     47.8  38.2
+ 3 deberta-nli issue       47.8     47.8  35.3
+ 4 deberta-nli issuenote   47.8     47.8  35.3
+ 5 kev-4b      topic       67.1     69    57.8
+ 6 kev-4b      nuclear     66.9     70.1  60.7
+ 7 kev-4b      issue       68.1     69    59.7
+ 8 kev-4b      issuenote   69.9     70.4  61.2
+ 9 laya        topic       47.3     46    43.1
+10 laya        nuclear     47.6     46.7  43.6
+11 laya        issue       48.7     47.3  44.4
+12 laya        issuenote   48.7     47.3  43.3
+13 mistral-7b  topic       63.1     64.9  53.1
+14 mistral-7b  nuclear     69.9     60.4  63.8
+15 mistral-7b  issue       63.1     59.7  50.4
+16 mistral-7b  issuenote   65.4     56.5  50.5
+17 qwen3.5-4b  topic       63.7     66.1  55.8
+18 qwen3.5-4b  nuclear     65.2     68.5  60.7
+19 qwen3.5-4b  issue       65.1     67.8  57.7
+20 qwen3.5-4b  issuenote   67.9     69.7  60.2

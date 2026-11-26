@@ -1,0 +1,90 @@
+#+TITLE: Experimento: sentimento com contexto e ironia
+#+DATE: 2026-11-15
+
+Inferência apenas (nada é treinado). Roda inteiro em um job Slurm numa tupi
+(PCAD, RTX 4090 24 GB). Desenho do estudo: [[file:../recursos.org][recursos.org]].
+
+* Como rodar (PCAD)
+
+Nada pesado no front: só copiar o código e submeter.
+
+#+begin_src bash
+rsync -a --exclude results experimento/ rrdmatos@pcad:~/pln-tf/experimento/
+ssh rrdmatos@pcad
+cd ~/pln-tf/experimento
+LIMIT=20 sbatch slurm/run_all.sbatch    # piloto: 20 itens por base, mede tempo
+sbatch slurm/run_all.sbatch             # completo
+RUN_ID=<id> sbatch slurm/run_all.sbatch # retoma um run (pula predições já feitas)
+#+end_src
+
+Falhas: só a preparação comum (ambiente principal, dados) para o job. Um modelo
+que falha é registrado em =logs/status.txt= e pulado; itens que falham vão para
+=preds/<modelo>.jsonl.failures.jsonl=. Re-submeter com o mesmo =RUN_ID= refaz
+só o que falta.
+
+Resultados: =~/pln-tf/results/<RUN_ID>/= (=preds/=, =eval/=, =logs/=, =data/=).
+Arquivos pesados (venvs, cache do HF, dados brutos) ficam em =$SCRATCH/pln-tf=.
+
+* Etapas
+
+| Etapa | Script                    | Saída                                    |
+|-------+---------------------------+------------------------------------------|
+|     0 | =src/download_data.py=    | dados brutos fixados por commit + sha256 |
+|     1 | =src/prepare_data.py=     | =items.jsonl= (esquema comum)            |
+|     - | =src/download_models.py=  | modelos fixados por revisão              |
+|    2a | =src/run_hf.py=           | twitter-roberta, DeBERTa NLI, LLMs       |
+|    2b | =src/run_systemone.py=    | Kev-4B (servidor), Laya, NanoJev         |
+|     3 | =src/evaluate.py=         | =metrics.csv=, =context_effect.csv=,     |
+|       |                           | =predictions.csv= (todas as predições)   |
+|     4 | =src/report.py=           | =report/report-<modelo>.pdf=: métricas e |
+|       |                           | cada instância (predição + probs)        |
+
+Fixações: datasets e modelos em =src/config.py=; pacotes em
+=requirements/*.txt= (gerados por =uv pip compile= a partir de =*.in=);
+ferramentas em =flake.nix= / =flake.lock=. Seed 5.
+
+* Itens (prepare_data.py, conferido em 2026-11-15)
+
+| Base        |    n | Notas                                                         |
+|-------------+------+---------------------------------------------------------------|
+| MUStARD++   | 1171 | 30 com emoção Surprise descartadas; 601 sarcásticas (todas neg) |
+| MT-CSD      |  848 | Tesla + SpaceX (teste); 13 posts sem contexto descartados     |
+| Sarcasm_NLP | 5929 | base inteira (2568 sarcásticos + 3361 não); aspas externas removidas |
+| Filatova    | 1254 | 437 irônicas + 817 regulares; estrelas do autor               |
+
+Condições: =no_context= (todos) e =with_context= (MUStARD++, MT-CSD).
+
+* Entradas dos modelos (src/prompts.py)
+
+Revisado em 2026-11-15 após revisão adversária (2 revisores):
+- Uma redação fixa por base, que mede o mesmo que o rótulo; as variantes
+  v1-v3 mudam *só a ordem* das opções (mesmo construto, comparáveis).
+  - MUStARD++: "How does the speaker of the utterance feel?"
+  - Sarcasm_NLP: "How does the author of the tweet feel about the topic?"
+  - Filatova: "How does the author of the review feel about the product?"
+  - MT-CSD: postura ("What is the stance of the author of the comment toward
+    Tesla?", opções favor/against/none), convertida depois em pos/neg/neu.
+- NLI: uma hipótese por classe, sem ordem -> só v1. Neutro = "neither
+  positive nor negative"; MT-CSD = "in favor of / against / takes no position on".
+- twitter-roberta: sem pergunta (variante =none=).
+- Falante do MUStARD++ aparece nas duas condições (só o contexto muda).
+- Sarcasm_NLP: hashtags que nomeiam o rótulo (#sarcasm, #sarcastic, #irony,
+  #ironic, #not) removidas nos dois grupos (231 sarcásticos, 52 não).
+- Confiança: softmax (BERT, fp32), softmax dos 3 "entailment" (NLI, fp32),
+  1o token do rótulo renormalizado (LLMs; =label_mass= guarda a massa),
+  distribuição da Choice (System One; descrições das opções só nesses).
+- Limites: 512 tokens (twitter-roberta, DeBERTa), 320 (texto no Laya), 6.000
+  (NanoJev): contexto cortado a partir do turno mais antigo; =turns_dropped= e
+  =over_budget= em cada predição.
+- Subgrupos nas métricas: tema (Sarcasm_NLP), marca (MT-CSD), série
+  (MUStARD++), estrelas (Filatova).
+
+* Decisões e limitações registradas
+
+- Kev-4B: base Qwen3.5-4B-Base (não a versão instruída usada como LLM);
+  temperatura do checkpoint (T = 2,41) mantida; servido em bf16.
+- NanoJev: único checkpoint público é treinado só em jogos; entra como
+  controle negativo; temperatura 1 (sem calibração).
+- Laya: forçado no checkpoint inglês (ModernBERT-large), revisão fixada;
+  o job falha o item se o Router responder por outro checkpoint.
+- twitter-roberta não recebe o alvo: classifica o tom do texto.

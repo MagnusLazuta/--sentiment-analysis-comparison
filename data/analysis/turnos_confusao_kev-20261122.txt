@@ -1,0 +1,158 @@
+Kev-4B, v1, fixed cohort (>= 4 context turns). Rows = gold, cols = prediction, counts.
+
+== MT-CSD  k = 0  acc = 72.8% 
+     gold negativo neutro positivo
+ negativo       65     42        4
+   neutro       26    237       21
+ positivo        2     29       30
+
+== MT-CSD  k = 1  acc = 71.5% 
+     gold negativo neutro positivo
+ negativo       60     47        4
+   neutro       32    238       14
+ positivo        3     30       28
+
+== MT-CSD  k = 2  acc = 71.5% 
+     gold negativo neutro positivo
+ negativo       71     37        3
+   neutro       46    231        7
+ positivo        8     29       24
+
+== MT-CSD  k = 3  acc = 68.0% 
+     gold negativo neutro positivo
+ negativo       73     35        3
+   neutro       54    214       16
+ positivo       13     25       23
+
+== MT-CSD  k = 4  acc = 66.9% 
+     gold negativo neutro positivo
+ negativo       80     30        1
+   neutro       67    199       18
+ positivo       14     21       26
+
+== MUStARD++ não irônico  k = 0  acc = 52.6% 
+     gold negativo neutro positivo
+ negativo       53     66        5
+   neutro       14     78        7
+ positivo        4     43       23
+
+== MUStARD++ não irônico  k = 1  acc = 52.9% 
+     gold negativo neutro positivo
+ negativo       56     65        3
+   neutro       16     79        4
+ positivo        4     46       20
+
+== MUStARD++ não irônico  k = 2  acc = 52.6% 
+     gold negativo neutro positivo
+ negativo       62     59        3
+   neutro       18     78        3
+ positivo        5     51       14
+
+== MUStARD++ não irônico  k = 3  acc = 54.3% 
+     gold negativo neutro positivo
+ negativo       63     58        3
+   neutro       16     79        4
+ positivo        5     48       17
+
+== MUStARD++ não irônico  k = 4  acc = 54.6% 
+     gold negativo neutro positivo
+ negativo       69     52        3
+   neutro       17     76        6
+ positivo        6     49       15
+
+== MUStARD++ irônico  k = 0  acc = 16.4% 
+     gold negativo neutro positivo
+ negativo       48    190       54
+
+== MUStARD++ irônico  k = 1  acc = 21.9% 
+     gold negativo neutro positivo
+ negativo       64    178       50
+
+== MUStARD++ irônico  k = 2  acc = 22.9% 
+     gold negativo neutro positivo
+ negativo       67    175       50
+
+== MUStARD++ irônico  k = 3  acc = 21.6% 
+     gold negativo neutro positivo
+ negativo       63    182       47
+
+== MUStARD++ irônico  k = 4  acc = 23.6% 
+     gold negativo neutro positivo
+ negativo       69    180       43
+
+
+Changes between consecutive k (same items):
+                   grp passo   n mudou errado_para_certo certo_para_errado
+                MT-CSD  0->1 456   107                45                51
+                MT-CSD  1->2 456    72                33                33
+                MT-CSD  2->3 456    62                18                34
+                MT-CSD  3->4 456    55                21                26
+ MUStARD++ não irônico  0->1 293    45                21                20
+ MUStARD++ não irônico  1->2 293    35                16                17
+ MUStARD++ não irônico  2->3 293    27                15                10
+ MUStARD++ não irônico  3->4 293    27                12                11
+     MUStARD++ irônico  0->1 292    62                26                10
+     MUStARD++ irônico  1->2 292    50                17                14
+     MUStARD++ irônico  2->3 292    37                11                15
+     MUStARD++ irônico  3->4 292    28                14                 8
+
+Direction of changes (de -> para):
+                   grp passo       de     para  n
+                MT-CSD  0->1 negativo   neutro 36
+                MT-CSD  0->1   neutro negativo 34
+                MT-CSD  0->1 positivo   neutro 18
+                MT-CSD  0->1   neutro positivo 13
+                MT-CSD  0->1 positivo negativo  5
+                MT-CSD  0->1 negativo positivo  1
+                MT-CSD  1->2   neutro negativo 41
+                MT-CSD  1->2 negativo   neutro 15
+                MT-CSD  1->2 positivo   neutro 10
+                MT-CSD  1->2 positivo negativo  4
+                MT-CSD  1->2   neutro positivo  2
+                MT-CSD  2->3   neutro negativo 30
+                MT-CSD  2->3 negativo   neutro 14
+                MT-CSD  2->3   neutro positivo 12
+                MT-CSD  2->3 positivo   neutro  5
+                MT-CSD  2->3 negativo positivo  1
+                MT-CSD  3->4   neutro negativo 29
+                MT-CSD  3->4 negativo   neutro  9
+                MT-CSD  3->4   neutro positivo  9
+                MT-CSD  3->4 positivo   neutro  5
+                MT-CSD  3->4 positivo negativo  2
+                MT-CSD  3->4 negativo positivo  1
+ MUStARD++ não irônico  0->1   neutro negativo 15
+ MUStARD++ não irônico  0->1 negativo   neutro 12
+ MUStARD++ não irônico  0->1 positivo   neutro 11
+ MUStARD++ não irônico  0->1   neutro positivo  5
+ MUStARD++ não irônico  0->1 positivo negativo  2
+ MUStARD++ não irônico  1->2   neutro negativo 15
+ MUStARD++ não irônico  1->2 positivo   neutro  9
+ MUStARD++ não irônico  1->2 negativo   neutro  7
+ MUStARD++ não irônico  1->2   neutro positivo  3
+ MUStARD++ não irônico  1->2 positivo negativo  1
+ MUStARD++ não irônico  2->3 negativo   neutro 11
+ MUStARD++ não irônico  2->3   neutro negativo 10
+ MUStARD++ não irônico  2->3   neutro positivo  5
+ MUStARD++ não irônico  2->3 positivo   neutro  1
+ MUStARD++ não irônico  3->4   neutro negativo 14
+ MUStARD++ não irônico  3->4 negativo   neutro  5
+ MUStARD++ não irônico  3->4 positivo   neutro  4
+ MUStARD++ não irônico  3->4   neutro positivo  3
+ MUStARD++ não irônico  3->4 negativo positivo  1
+     MUStARD++ irônico  0->1   neutro negativo 26
+     MUStARD++ irônico  0->1 positivo   neutro 15
+     MUStARD++ irônico  0->1   neutro positivo 11
+     MUStARD++ irônico  0->1 negativo   neutro 10
+     MUStARD++ irônico  1->2   neutro negativo 17
+     MUStARD++ irônico  1->2 negativo   neutro 13
+     MUStARD++ irônico  1->2 positivo   neutro 10
+     MUStARD++ irônico  1->2   neutro positivo  9
+     MUStARD++ irônico  1->2 negativo positivo  1
+     MUStARD++ irônico  2->3 negativo   neutro 15
+     MUStARD++ irônico  2->3   neutro negativo 11
+     MUStARD++ irônico  2->3 positivo   neutro  7
+     MUStARD++ irônico  2->3   neutro positivo  4
+     MUStARD++ irônico  3->4   neutro negativo 14
+     MUStARD++ irônico  3->4 negativo   neutro  8
+     MUStARD++ irônico  3->4 positivo   neutro  5
+     MUStARD++ irônico  3->4   neutro positivo  1

@@ -1,0 +1,38 @@
+
+== mistral-7b  (N rows 8030)
+dataset      cond          var     N  same%  max|dp|  mean|dp| acc_first acc_full  massF  massW
+filatova     no_context    v1    200  100.0   0.0000    0.0000      92.0     92.0  0.992  0.992
+mtcsd        no_context    v1    848  100.0   0.0161    0.0000      60.1     60.1  0.879  0.879
+mtcsd        no_context    v2    848  100.0   0.0267    0.0000      65.7     65.7  0.953  0.953
+mtcsd        no_context    v3    848  100.0   0.0501    0.0000      61.7     61.7  0.948  0.948
+mtcsd        with_context  v1    848  100.0   0.0001    0.0000      55.8     55.8  0.942  0.942
+mtcsd        with_context  v2    848  100.0   0.0000    0.0000      64.7     64.7  0.985  0.985
+mtcsd        with_context  v3    848  100.0   0.0003    0.0000      60.7     60.7  0.970  0.970
+mustardpp    no_context    v1   1171  100.0   0.0004    0.0000      55.1     55.1  0.995  0.995
+mustardpp    with_context  v1   1171  100.0   0.0000    0.0000      51.2     51.2  0.998  0.998
+sarcasm_nlp  no_context    v1    400  100.0   0.0001    0.0000      62.3     62.3  0.924  0.924
+MT-CSD v1 k0->kK (first): -4.4 (N 848)
+MT-CSD v1 k0->kK (full): -4.4 (N 848)
+MT-CSD v2 k0->kK (first): -0.9 (N 848)
+MT-CSD v2 k0->kK (full): -0.9 (N 848)
+MT-CSD v3 k0->kK (first): -0.9 (N 848)
+MT-CSD v3 k0->kK (full): -0.9 (N 848)
+
+== qwen3.5-4b  (N rows 8030)
+dataset      cond          var     N  same%  max|dp|  mean|dp| acc_first acc_full  massF  massW
+filatova     no_context    v1    200  100.0   0.0000    0.0000      92.5     92.5  0.998  0.998
+mtcsd        no_context    v1    848  100.0   0.0001    0.0000      55.3     55.3  0.979  0.979
+mtcsd        no_context    v2    848  100.0   0.0000    0.0000      50.0     50.0  0.982  0.982
+mtcsd        no_context    v3    848  100.0   0.0001    0.0000      52.1     52.1  0.963  0.963
+mtcsd        with_context  v1    848  100.0   0.0000    0.0000      57.4     57.4  0.981  0.981
+mtcsd        with_context  v2    848  100.0   0.0000    0.0000      51.1     51.1  0.975  0.975
+mtcsd        with_context  v3    848  100.0   0.0000    0.0000      56.1     56.1  0.943  0.943
+mustardpp    no_context    v1   1171  100.0   0.0000    0.0000      50.1     50.1  0.997  0.997
+mustardpp    with_context  v1   1171  100.0   0.0000    0.0000      50.4     50.4  0.997  0.997
+sarcasm_nlp  no_context    v1    400  100.0   0.0000    0.0000      63.2     63.2  0.996  0.996
+MT-CSD v1 k0->kK (first): +2.1 (N 848)
+MT-CSD v1 k0->kK (full): +2.1 (N 848)
+MT-CSD v2 k0->kK (first): +1.1 (N 848)
+MT-CSD v2 k0->kK (full): +1.1 (N 848)
+MT-CSD v3 k0->kK (first): +4.0 (N 848)
+MT-CSD v3 k0->kK (full): +4.0 (N 848)

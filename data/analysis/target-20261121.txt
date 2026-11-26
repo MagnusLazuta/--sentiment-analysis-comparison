@@ -1,0 +1,317 @@
+## 0. Cells (rows per model x prompt x target x variant)
+# A tibble: 24 × 7
+   model           prompt target     v1    v2    v3  none
+   <chr>           <chr>  <chr>   <int> <int> <int> <int>
+ 1 deberta-nli     orig   nuclear  5929    NA    NA    NA
+ 2 deberta-nli     orig   topic    5929    NA    NA    NA
+ 3 deberta-nli     swap   nuclear  5929    NA    NA    NA
+ 4 deberta-nli     swap   topic    5929    NA    NA    NA
+ 5 kev-4b          orig   nuclear  5929  5929  5929    NA
+ 6 kev-4b          orig   topic    5929  5929  5929    NA
+ 7 kev-4b          swap   nuclear  5929  5929  5929    NA
+ 8 kev-4b          swap   topic    5929  5929  5929    NA
+ 9 laya            orig   nuclear  5929  5929  5929    NA
+10 laya            orig   topic    5929  5929  5929    NA
+11 laya            swap   nuclear  5929  5929  5929    NA
+12 laya            swap   topic    5929  5929  5929    NA
+13 mistral-7b      orig   nuclear  5929  5929  5929    NA
+14 mistral-7b      orig   topic    5929  5929  5929    NA
+15 mistral-7b      swap   nuclear  5929  5929  5929    NA
+16 mistral-7b      swap   topic    5929  5929  5929    NA
+17 qwen3.5-4b      orig   nuclear  5929  5929  5929    NA
+18 qwen3.5-4b      orig   topic    5929  5929  5929    NA
+19 qwen3.5-4b      swap   nuclear  5929  5929  5929    NA
+20 qwen3.5-4b      swap   topic    5929  5929  5929    NA
+21 twitter-roberta orig   nuclear    NA    NA    NA  5929
+22 twitter-roberta orig   topic      NA    NA    NA  5929
+23 twitter-roberta swap   nuclear    NA    NA    NA  5929
+24 twitter-roberta swap   topic      NA    NA    NA  5929
+
+## 0b. Determinism: twitter-roberta input does not contain the target (must be identical)
+# A tibble: 1 × 2
+      n   max_diff
+  <int>      <dbl>
+1  5929 0.00000215
+
+## 1. Accuracy and macro-F1, v1/none, topic -> nuclear (McNemar on accuracy)
+# A tibble: 24 × 11
+# Groups:   prompt, set [4]
+   prompt set   model               n acc_topic acc_nuc     d        p f1_topic f1_nuc same_pred
+   <chr>  <chr> <chr>           <int>     <dbl>   <dbl> <dbl>    <dbl>    <dbl>  <dbl>     <dbl>
+ 1 orig   iron  deberta-nli      2568      55.1    56.7   1.6 9   e- 2     30.4   32.2      74.2
+ 2 orig   iron  kev-4b           2568      57.9    54.8  -3.1 6.3 e- 4     36.8   36        74.8
+ 3 orig   iron  laya             2568      32      33.5   1.5 7.4 e- 3     24.4   25.1      88.3
+ 4 orig   iron  mistral-7b       2568      79.9    68.3 -11.6 1.70e-33     41.8   43.9      72.4
+ 5 orig   iron  qwen3.5-4b       2568      69.2    57.7 -11.5 2.8 e-30     37.2   37.9      67  
+ 6 orig   iron  twitter-roberta  2568      38      38     0   1   e+ 0     28     28       100  
+ 7 orig   nonir deberta-nli      3361      45.9    41    -4.9 1.7 e-10     45.3   41.1      71.8
+ 8 orig   nonir kev-4b           3361      74.1    76.2   2.1 6   e- 3     64.9   71.2      79.4
+ 9 orig   nonir laya             3361      59      58.4  -0.6 2.6 e- 1     55.4   55.8      90.8
+10 orig   nonir mistral-7b       3361      50.3    71.1  20.7 5.30e-92     50.4   66.5      61.3
+11 orig   nonir qwen3.5-4b       3361      59.4    70.9  11.5 5.30e-34     57.5   67.8      65.8
+12 orig   nonir twitter-roberta  3361      70.3    70.3   0   1   e+ 0     63.4   63.4     100  
+13 swap   iron  deberta-nli      2568      55.1    56.7   1.6 9   e- 2     30.4   32.2      74.2
+14 swap   iron  kev-4b           2568      65.3    61.6  -3.7 9.9 e- 5     38.8   39.7      71.7
+15 swap   iron  laya             2568      34.1    34.7   0.6 3.2 e- 1     25.2   25.2      86.4
+16 swap   iron  mistral-7b       2568      81.7    78.6  -3.1 8.60e- 7     45     43.9      88.5
+17 swap   iron  qwen3.5-4b       2568      65.7    55.3 -10.4 1.9 e-25     38.9   37.4      66  
+18 swap   iron  twitter-roberta  2568      38      38     0   1   e+ 0     28     28       100  
+19 swap   nonir deberta-nli      3361      45.9    41    -4.9 1.7 e-10     45.3   41.1      71.8
+20 swap   nonir kev-4b           3361      70.2    71.6   1.5 1.1 e- 1     64.8   70.2      71.8
+21 swap   nonir laya             3361      59.6    60.2   0.6 2.6 e- 1     53     53.8      89.3
+22 swap   nonir mistral-7b       3361      53.3    62.9   9.6 4.70e-36     51.4   57.1      78.5
+23 swap   nonir qwen3.5-4b       3361      67.1    74.2   7.2 1.7 e-16     63.4   70.6      71.6
+24 swap   nonir twitter-roberta  3361      70.3    70.3   0   1   e+ 0     63.4   63.4     100  
+
+## 1b. Same, mean over orders v1-v3 (LLMs and System One)
+# A tibble: 20 × 6
+# Groups:   prompt, set, model [20]
+   prompt set   model       nuclear topic       d
+   <chr>  <chr> <chr>         <dbl> <dbl>   <dbl>
+ 1 orig   iron  deberta-nli    56.7  55.1   1.60 
+ 2 orig   iron  kev-4b         63.1  62.3   0.800
+ 3 orig   iron  laya           29.4  27.5   1.90 
+ 4 orig   iron  mistral-7b     46.1  68   -21.9  
+ 5 orig   iron  qwen3.5-4b     64.3  72.1  -7.8  
+ 6 orig   nonir deberta-nli    41    45.9  -4.9  
+ 7 orig   nonir kev-4b         75.4  74.1   1.30 
+ 8 orig   nonir laya           60    60.1  -0.100
+ 9 orig   nonir mistral-7b     71.4  62.6   8.80 
+10 orig   nonir qwen3.5-4b     71.8  61.6  10.2  
+11 swap   iron  deberta-nli    56.7  55.1   1.60 
+12 swap   iron  kev-4b         64    67.1  -3.10 
+13 swap   iron  laya           33.4  32.5   0.900
+14 swap   iron  mistral-7b     44.5  60   -15.5  
+15 swap   iron  qwen3.5-4b     58.6  69.2 -10.6  
+16 swap   nonir deberta-nli    41    45.9  -4.9  
+17 swap   nonir kev-4b         72.1  69.8   2.30 
+18 swap   nonir laya           59.7  58.8   0.900
+19 swap   nonir mistral-7b     66.8  60.6   6.20 
+20 swap   nonir qwen3.5-4b     74.4  66     8.40 
+
+## 2. Answer distribution (% neg / neu / pos), non-ironic, v1/none; gold row first
+# A tibble: 1 × 5
+  set       n   neg   neu   pos
+  <chr> <int> <dbl> <dbl> <dbl>
+1 nonir  3361  27.3  61.7    11
+# A tibble: 24 × 7
+# Groups:   prompt, model [12]
+   prompt model           target      n   neg   neu   pos
+   <chr>  <chr>           <chr>   <int> <dbl> <dbl> <dbl>
+ 1 orig   deberta-nli     nuclear  3361  66.8   7.5  25.7
+ 2 orig   deberta-nli     topic    3361  64.2  15.1  20.7
+ 3 orig   kev-4b          nuclear  3361  25.6  66.1   8.4
+ 4 orig   kev-4b          topic    3361  24.8  66.5   8.8
+ 5 orig   laya            nuclear  3361  42.6  40.6  16.9
+ 6 orig   laya            topic    3361  39.2  43.6  17.2
+ 7 orig   mistral-7b      nuclear  3361  37.6  55.4   7  
+ 8 orig   mistral-7b      topic    3361  64.9  21.2  13.9
+ 9 orig   qwen3.5-4b      nuclear  3361  26.7  55.2  18.1
+10 orig   qwen3.5-4b      topic    3361  42.3  29.8  27.9
+11 orig   twitter-roberta nuclear  3361  34.4  53.9  11.7
+12 orig   twitter-roberta topic    3361  34.4  53.9  11.7
+13 swap   deberta-nli     nuclear  3361  66.8   7.5  25.7
+14 swap   deberta-nli     topic    3361  64.2  15.1  20.7
+15 swap   kev-4b          nuclear  3361  36.8  53.6   9.6
+16 swap   kev-4b          topic    3361  34.6  51.3  14.2
+17 swap   laya            nuclear  3361  37.1  51.3  11.7
+18 swap   laya            topic    3361  37    50    12.9
+19 swap   mistral-7b      nuclear  3361  53.1  43.2   3.7
+20 swap   mistral-7b      topic    3361  64.4  28.6   7  
+21 swap   qwen3.5-4b      nuclear  3361  24.6  61.9  13.5
+22 swap   qwen3.5-4b      topic    3361  35.3  41.6  23.1
+23 swap   twitter-roberta nuclear  3361  34.4  53.9  11.7
+24 swap   twitter-roberta topic    3361  34.4  53.9  11.7
+
+## 3. By dataset topic column (Energy / Politics / General), non-ironic, orig, v1/none
+# A tibble: 3 × 5
+  topic        n gold_neg gold_neu gold_pos
+  <chr>    <int>    <dbl>    <dbl>    <dbl>
+1 Energy    1012     24.1     45.4     30.5
+2 General    624     18.1     78.5      3.4
+3 Politics  1718     32.5     65.3      2.2
+# A tibble: 18 × 11
+# Groups:   topic, model [18]
+   topic    model               n acc_nuclear acc_topic neu_as_neg_nuclear neu_as_neg_topic neu_ok_nuclear neu_ok_topic pos_ok_nuclear pos_ok_topic
+   <chr>    <chr>           <int>       <dbl>     <dbl>              <dbl>            <dbl>          <dbl>        <dbl>          <dbl>        <dbl>
+ 1 Energy   deberta-nli      1012        53.9      52.7               52.7             51.4           12.6         27.9           86.4         63.4
+ 2 Energy   kev-4b           1012        73.4      66.2                7.8              6.3           89.8         90.2           58.3         40.8
+ 3 Energy   laya             1012        61.6      60.9               30.9             27.7           56           59.3           61.8         58.3
+ 4 Energy   mistral-7b       1012        65        55.5               32               51.4           63.6         36.6           49.8         57.3
+ 5 Energy   qwen3.5-4b       1012        70.9      64.7               17.6             24.2           57.7         46.4           87.4         81.9
+ 6 Energy   twitter-roberta  1012        66.3      66.3               17.2             17.2           77.8         77.8           47.6         47.6
+ 7 General  deberta-nli       624        28.8      35.6               59               53.1           13.7         23.1           71.4         71.4
+ 8 General  kev-4b            624        76        75.2               14.7             10             80.8         79.6           52.4         61.9
+ 9 General  laya              624        58.8      59.8               29               26.1           56.1         58.8           71.4         71.4
+10 General  mistral-7b        624        68.6      43.3               28.2             54.1           70           32             33.3         61.9
+11 General  qwen3.5-4b        624        68.1      48.6               18               26.3           69.2         40.8           81          100  
+12 General  twitter-roberta   624        67.3      67.3               17.8             17.8           69           69             71.4         71.4
+13 Politics deberta-nli      1718        37.9      45.9               74.1             64.3            9           22.1           84.2         76.3
+14 Politics kev-4b           1718        77.9      78.5               13.7             12.1           84.9         84.9           57.9         50  
+15 Politics laya             1718        56.6      57.7               39.5             35.1           49.3         52.6           63.2         63.2
+16 Politics mistral-7b       1718        75.8      49.9               19.4             65             79           27.1           44.7         63.2
+17 Politics qwen3.5-4b       1718        72        60.3               13.6             33.8           80.6         46.8           78.9         89.5
+18 Politics twitter-roberta  1718        73.8      73.8               23.1             23.1           73.4         73.4           60.5         60.5
+
+## 4. Irony cost: accuracy on non-ironic negatives minus ironic (all ironic gold = ?), v1/none
+# A tibble: 6 × 3
+  set   gold         n
+  <chr> <chr>    <int>
+1 iron  negative  2229
+2 iron  neutral    268
+3 iron  positive    71
+4 nonir negative   917
+5 nonir neutral   2074
+6 nonir positive   370
+# A tibble: 24 × 7
+# Groups:   prompt, model [12]
+   prompt model           target  neg_nonir acc_iron neg_iron cost_neg
+   <chr>  <chr>           <chr>       <dbl>    <dbl>    <dbl>    <dbl>
+ 1 orig   deberta-nli     nuclear      91.3     56.7     62.4    28.9 
+ 2 orig   deberta-nli     topic        88.9     55.1     61.2    27.7 
+ 3 orig   kev-4b          nuclear      63.7     54.8     54.5     9.2 
+ 4 orig   kev-4b          topic        62.6     57.9     59.2     3.4 
+ 5 orig   laya            nuclear      70.7     33.5     31      39.7 
+ 6 orig   laya            topic        66.8     32       29.3    37.5 
+ 7 orig   mistral-7b      nuclear      75.1     68.3     70.2     4.90
+ 8 orig   mistral-7b      topic        92.4     79.9     89.2     3.20
+ 9 orig   qwen3.5-4b      nuclear      60.5     57.7     58.2     2.30
+10 orig   qwen3.5-4b      topic        81.7     69.2     76.9     4.8 
+11 orig   twitter-roberta nuclear      71.6     38       37.9    33.7 
+12 orig   twitter-roberta topic        71.6     38       37.9    33.7 
+13 swap   deberta-nli     nuclear      91.3     56.7     62.4    28.9 
+14 swap   deberta-nli     topic        88.9     55.1     61.2    27.7 
+15 swap   kev-4b          nuclear      75.2     61.6     62.6    12.6 
+16 swap   kev-4b          topic        75.4     65.3     69.3     6.10
+17 swap   laya            nuclear      64.6     34.7     31.8    32.8 
+18 swap   laya            topic        64.1     34.1     31.2    32.9 
+19 swap   mistral-7b      nuclear      88.7     78.6     85.3     3.40
+20 swap   mistral-7b      topic        93       81.7     90.5     2.5 
+21 swap   qwen3.5-4b      nuclear      58.6     55.3     53.8     4.80
+22 swap   qwen3.5-4b      topic        76.9     65.7     71.2     5.7 
+23 swap   twitter-roberta nuclear      71.6     38       37.9    33.7 
+24 swap   twitter-roberta topic        71.6     38       37.9    33.7 
+
+## 5. Negative bias in T1 (% 'negative' answers on non-ironic gold neutral/positive) vs T3, v1/none
+# A tibble: 12 × 6
+# Groups:   prompt, model [12]
+   prompt model           n_nuclear n_topic neg_rate_nuclear neg_rate_topic
+   <chr>  <chr>               <int>   <int>            <dbl>          <dbl>
+ 1 orig   deberta-nli          2444    2444             57.6           55  
+ 2 orig   kev-4b               2444    2444             11.3           10.6
+ 3 orig   laya                 2444    2444             32             28.9
+ 4 orig   mistral-7b           2444    2444             23.6           54.5
+ 5 orig   qwen3.5-4b           2444    2444             14             27.5
+ 6 orig   twitter-roberta      2444    2444             20.4           20.4
+ 7 swap   deberta-nli          2444    2444             57.6           55  
+ 8 swap   kev-4b               2444    2444             22.4           19.3
+ 9 swap   laya                 2444    2444             26.8           26.9
+10 swap   mistral-7b           2444    2444             39.8           53.6
+11 swap   qwen3.5-4b           2444    2444             11.9           19.8
+12 swap   twitter-roberta      2444    2444             20.4           20.4
+
+## 6. T1 negative recall vs T3 accuracy, Spearman over model x dataset (as followup B7: v1, four LLM/System One models)
+orig topic n = 12 spearman = 0.93 
+orig nuclear n = 12 spearman = 0.87 
+swap topic n = 12 spearman = 0.94 
+swap nuclear n = 12 spearman = 0.92 
+# A tibble: 16 × 6
+# Groups:   model, target [8]
+   model      target  prompt   r1n    a3 dataset    
+   <chr>      <chr>   <chr>  <dbl> <dbl> <chr>      
+ 1 kev-4b     nuclear orig    63.7  54.8 sarcasm_nlp
+ 2 kev-4b     topic   orig    62.6  57.9 sarcasm_nlp
+ 3 laya       nuclear orig    70.7  33.5 sarcasm_nlp
+ 4 laya       topic   orig    66.8  32   sarcasm_nlp
+ 5 mistral-7b nuclear orig    75.1  68.3 sarcasm_nlp
+ 6 mistral-7b topic   orig    92.4  79.9 sarcasm_nlp
+ 7 qwen3.5-4b nuclear orig    60.5  57.7 sarcasm_nlp
+ 8 qwen3.5-4b topic   orig    81.7  69.2 sarcasm_nlp
+ 9 kev-4b     nuclear swap    75.2  61.6 sarcasm_nlp
+10 kev-4b     topic   swap    75.4  65.3 sarcasm_nlp
+11 laya       nuclear swap    64.6  34.7 sarcasm_nlp
+12 laya       topic   swap    64.1  34.1 sarcasm_nlp
+13 mistral-7b nuclear swap    88.7  78.6 sarcasm_nlp
+14 mistral-7b topic   swap    93    81.7 sarcasm_nlp
+15 qwen3.5-4b nuclear swap    58.6  55.3 sarcasm_nlp
+16 qwen3.5-4b topic   swap    76.9  65.7 sarcasm_nlp
+
+## 7. Examples: non-ironic items whose answer changes for most models (orig, v1/none)
+# A tibble: 1 × 3
+  items any_fixed any_broken
+  <int>     <int>      <int>
+1  3361      1641       1147
+# A tibble: 8 × 4
+  id        gold     fixed broken
+  <chr>     <chr>    <int>  <int>
+1 snlp:8856 negative     5      0
+2 snlp:1231 neutral      4      0
+3 snlp:1311 negative     4      0
+4 snlp:303  negative     4      0
+5 snlp:3268 neutral      4      0
+6 snlp:3385 negative     4      0
+7 snlp:3395 negative     4      0
+8 snlp:3625 negative     4      0
+# A tibble: 5 × 4
+  id        gold     fixed broken
+  <chr>     <chr>    <int>  <int>
+1 snlp:2236 neutral      0      4
+2 snlp:2409 positive     0      4
+3 snlp:2451 negative     0      4
+4 snlp:7248 positive     0      4
+5 snlp:8813 negative     0      4
+
+## 8. Gold by irony x dataset topic column (the two subsets follow different rules?)
+# A tibble: 6 × 6
+# Groups:   set [2]
+  set   topic        n   neg   neu   pos
+  <chr> <chr>    <int> <dbl> <dbl> <dbl>
+1 iron  Energy     757  88.8   4.1   7.1
+2 iron  General    338  79.3  18.3   2.4
+3 iron  Politics  1460  87.5  11.9   0.6
+4 nonir Energy    1012  24.1  45.4  30.5
+5 nonir General    624  18.1  78.5   3.4
+6 nonir Politics  1718  32.5  65.3   2.2
+
+## 9. Energy-topic subset only (both readings coincide best): accuracy, mean over orders (v1-v3) or none
+# A tibble: 12 × 8
+# Groups:   prompt, model [12]
+   prompt model           iron_nuclear nonir_nuclear iron_topic nonir_topic cost_topic cost_nuclear
+   <chr>  <chr>                  <dbl>         <dbl>      <dbl>       <dbl>      <dbl>        <dbl>
+ 1 orig   deberta-nli             47.7          53.9       50.1        52.7       2.6          6.20
+ 2 orig   kev-4b                  56.8          73.2       58.7        66.7       8           16.4 
+ 3 orig   laya                    28.6          61.2       25.1        60        34.9         32.6 
+ 4 orig   mistral-7b              53.9          66.6       66.4        62.2      -4.20        12.7 
+ 5 orig   qwen3.5-4b              64.3          71.7       69.9        65.6      -4.30         7.40
+ 6 orig   twitter-roberta         32            66.3       32          66.3      34.3         34.3 
+ 7 swap   deberta-nli             47.7          53.9       50.1        52.7       2.6          6.20
+ 8 swap   kev-4b                  59            72.7       63.3        66.1       2.80        13.7 
+ 9 swap   laya                    29.9          58.6       28          56.1      28.1         28.7 
+10 swap   mistral-7b              46.5          61.3       57.2        59.3       2.10        14.8 
+11 swap   qwen3.5-4b              61.6          73.1       67.4        69         1.60        11.5 
+12 swap   twitter-roberta         32            66.3       32          66.3      34.3         34.3 
+
+## 10. Ironic items answered 'neutral' with the nuclear target, by topic (orig, mean over orders)
+# A tibble: 18 × 4
+# Groups:   model, topic [18]
+   model           topic    neu_nuclear neu_topic
+   <chr>           <chr>          <dbl>     <dbl>
+ 1 deberta-nli     Energy           1.2       0.8
+ 2 deberta-nli     General          3.3       1.2
+ 3 deberta-nli     Politics         2         1.2
+ 4 kev-4b          Energy          26.1      22.9
+ 5 kev-4b          General         33.1      27.8
+ 6 kev-4b          Politics        25.1      23.5
+ 7 laya            Energy          32.8      35.4
+ 8 laya            General         43.3      43.6
+ 9 laya            Politics        43.2      44.2
+10 mistral-7b      Energy          39.8      22.9
+11 mistral-7b      General         58.2      27.3
+12 mistral-7b      Politics        65.3      23.7
+13 qwen3.5-4b      Energy           9.2       1.9
+14 qwen3.5-4b      General         26.6       3.6
+15 qwen3.5-4b      Politics        30.9       3.6
+16 twitter-roberta Energy          17.4      17.4
+17 twitter-roberta General         20.7      20.7
+18 twitter-roberta Politics        19.9      19.9
+N ironic items: Energy 757, General 338, Politics 1460; N non-ironic Energy 1012

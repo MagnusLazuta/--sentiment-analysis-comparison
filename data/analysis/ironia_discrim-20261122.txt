@@ -1,0 +1,21 @@
+% 'negative': ironic negatives (acerto), non-ironic non-negatives (alarme), non-ironic negatives (literal).
+disc = acerto - alarme [95% CI item bootstrap]. No context, orders pooled.
+           model     dataset acerto alarme literal n_ir n_al disc   lo   hi
+     DeBERTa-NLI   MUStARD++   65.1   43.6    85.1  601  328 21.5 15.3 28.1
+      Qwen3.5-4B   MUStARD++   46.6   27.7    74.1  601  328 18.9 12.9 24.9
+ twitter-roberta   MUStARD++   25.0   10.7    43.4  601  328 14.3  9.4 19.0
+      Mistral-7B   MUStARD++   28.3   15.1    52.2  601  328 13.2  9.4 17.2
+          Kev-4B   MUStARD++   20.1    9.0    43.4  601  328 11.1  6.8 15.3
+            Laya   MUStARD++   17.7    9.8    38.7  601  328  7.9  3.6 12.1
+          Kev-4B Sarcasm_NLP   65.4   16.5    74.3 2229 2444 48.9 46.8 51.1
+      Qwen3.5-4B Sarcasm_NLP   66.4   18.6    69.0 2229 2444 47.8 45.5 49.9
+      Mistral-7B Sarcasm_NLP   42.2   10.0    45.0 2229 2444 32.2 30.5 34.0
+ twitter-roberta Sarcasm_NLP   37.9   20.4    71.6 2229 2444 17.4 14.9 19.9
+     DeBERTa-NLI Sarcasm_NLP   62.4   57.6    91.3 2229 2444  4.7  2.1  7.6
+            Laya Sarcasm_NLP   25.6   27.2    63.7 2229 2444 -1.6 -3.9  0.9
+          Kev-4B    Filatova   95.2    2.6    93.8  289  736 92.5 89.6 95.1
+      Qwen3.5-4B    Filatova   96.3    4.5    95.1  289  736 91.8 89.2 94.2
+     DeBERTa-NLI    Filatova   94.8    6.8    93.8  289  736 88.0 84.8 91.0
+      Mistral-7B    Filatova   90.1    2.7    86.0  289  736 87.4 84.2 90.5
+            Laya    Filatova   83.6    3.7    85.2  289  736 80.0 75.6 84.1
+ twitter-roberta    Filatova   75.8    3.7    75.3  289  736 72.1 66.5 77.2

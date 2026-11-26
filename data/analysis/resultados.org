@@ -1,0 +1,511 @@
+#+TITLE: Resultados: sentimento com contexto e ironia
+#+AUTHOR: Grupo 5
+#+DATE: 2026-11-17
+#+LANGUAGE: pt
+#+OPTIONS: toc:nil num:t ':t ^:{}
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [a4paper,10pt]
+#+LATEX_HEADER: \usepackage[portuguese]{babel}
+#+LATEX_HEADER: \usepackage[margin=2cm]{geometry}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+PROPERTY: header-args:R :noweb yes :exports results :eval no-export
+
+Documento de trabalho: os resultados são escritos à medida que os analisamos.
+Executar com =emacs --batch -l export.el resultados.org= (roda os blocos R e exporta o PDF).
+
+* Proveniência
+
+- Execução: =results/20261116-070125-838075= (PCAD, tupi1, RTX 4090, job 838075, 2026-11-16).
+- Dados baixados em 2026-11-16 (UTC) dos commits fixados em =src/config.py=; sha256 em =logs/data_manifest.json=.
+- Modelos nas revisões fixadas em =logs/model_manifest.json=.
+- Inferência apenas (zero-shot); nenhum modelo foi treinado nos nossos dados.
+- Bootstrap: 1000 reamostragens, semente 42, intervalo percentil de 95%.
+
+#+NAME: setup
+#+begin_src R :exports none :eval no
+suppressPackageStartupMessages({
+  library(dplyr); library(tidyr); library(readr); library(ggplot2)
+})
+run <- "../results/20261116-070125-838075/eval"
+models <- c("twitter-roberta", "deberta-nli", "qwen3.5-4b", "mistral-7b", "kev-4b", "laya", "nanojev")
+fam <- c("twitter-roberta" = "BERT (sentimento)", "deberta-nli" = "BERT (NLI)",
+         "qwen3.5-4b" = "LLM", "mistral-7b" = "LLM",
+         "kev-4b" = "System One", "laya" = "System One", "nanojev" = "Controle")
+fam_col <- c("BERT (sentimento)" = "#1b9e77", "BERT (NLI)" = "#66a61e", "LLM" = "#7570b3",
+             "System One" = "#d95f02", "Controle" = "#999999")
+ds_lab <- c(mustardpp = "MUStARD++", mtcsd = "MT-CSD", sarcasm_nlp = "Sarcasm_NLP", filatova = "Filatova")
+# task -> (dataset, condition, group); see README / evaluate.py
+tasks <- tribble(
+  ~task, ~dataset,      ~condition,     ~group,
+  "T1",  "mustardpp",   "no_context",   "non_sarcastic",
+  "T1",  "mtcsd",       "no_context",   "non_sarcastic",
+  "T2",  "mustardpp",   "with_context", "non_sarcastic",
+  "T2",  "mtcsd",       "with_context", "non_sarcastic",
+  "T3",  "mustardpp",   "no_context",   "sarcastic",
+  "T3",  "mustardpp",   "no_context",   "non_sarcastic",
+  "T3",  "sarcasm_nlp", "no_context",   "sarcastic",
+  "T3",  "sarcasm_nlp", "no_context",   "non_sarcastic",
+  "T3",  "filatova",    "no_context",   "sarcastic",
+  "T3",  "filatova",    "no_context",   "non_sarcastic")
+met <- read_csv(file.path(run, "metrics.csv"), show_col_types = FALSE) |>
+  mutate(model = factor(model, models), family = factor(fam[as.character(model)], names(fam_col)),
+         ds = factor(ds_lab[dataset], ds_lab),
+         # majority-class baseline from the gold distribution "neg=a/neu=b/pos=c"
+         majority = sapply(strsplit(gold_labels, "/"),
+                           function(x) max(as.numeric(sub(".*=", "", x)))) / n)
+# one row per model x task cell
+summ <- met |>
+  inner_join(tasks, by = c("dataset", "condition", "group")) |>
+  group_by(task, model, family, dataset, ds, condition, group, n, majority) |>
+  # main variant = v1 (LLM/System One/NLI) or none (classifier); range over v1-v3
+  summarise(acc = accuracy[variant %in% c("v1", "none")], acc_mean = mean(accuracy),
+            acc_min = min(accuracy), acc_max = max(accuracy),
+            f1 = macro_f1[variant %in% c("v1", "none")],
+            acc_lo = accuracy_lo[variant %in% c("v1", "none")],
+            acc_hi = accuracy_hi[variant %in% c("v1", "none")],
+            n_var = n(), .groups = "drop")
+theme_set(theme_minimal(base_size = 9) +
+          theme(legend.position = "bottom", panel.grid.minor = element_blank()))
+pct <- function(x) sprintf("%.1f", 100 * x)
+#+end_src
+
+* Dados por tarefa
+
+Contagens e distribuição do rótulo ouro em cada célula. "Maioria" é a acurácia de quem sempre
+responde o rótulo mais frequente: é o piso que um modelo precisa superar para ter aprendido algo.
+
+- T1 e T2 usam os mesmos itens; só muda a presença do contexto (pareamento item a item).
+- No T3 os subconjuntos sarcásticos são quase todos negativos (MUStARD++ 100%, Sarcasm_NLP 86%),
+  então acurácia alta ali também premia um modelo que tende a responder "negativo". Por isso
+  olhamos também a queda de literalidade (abaixo), que não sofre desse viés.
+
+#+begin_src R :results value table :colnames yes
+<<setup>>
+met |> filter(model == "qwen3.5-4b", variant == "v1") |>
+  inner_join(tasks, by = c("dataset", "condition", "group")) |>
+  transmute(Tarefa = task, Dataset = ds, Condição = condition, Grupo = group,
+            N = n, Ouro = gold_labels, `Maioria (%)` = pct(majority)) |>
+  arrange(Tarefa, Dataset, Grupo)
+#+end_src
+
+#+RESULTS:
+| Tarefa | Dataset     | Condição     | Grupo         |   N | Ouro                    | Maioria (%) |
+|--------+-------------+--------------+---------------+-----+-------------------------+-------------|
+| T1     | MUStARD++   | no_context   | non_sarcastic | 570 | neg=242/neu=167/pos=161 |        42.5 |
+| T1     | MT-CSD      | no_context   | non_sarcastic | 848 | neg=208/neu=497/pos=143 |        58.6 |
+| T2     | MUStARD++   | with_context | non_sarcastic | 570 | neg=242/neu=167/pos=161 |        42.5 |
+| T2     | MT-CSD      | with_context | non_sarcastic | 848 | neg=208/neu=497/pos=143 |        58.6 |
+| T3     | MUStARD++   | no_context   | non_sarcastic | 570 | neg=242/neu=167/pos=161 |        42.5 |
+| T3     | MUStARD++   | no_context   | sarcastic     | 601 | neg=601/neu=0/pos=0     |       100.0 |
+| T3     | Sarcasm_NLP | no_context   | non_sarcastic | 600 | neg=174/neu=355/pos=71  |        59.2 |
+| T3     | Sarcasm_NLP | no_context   | sarcastic     | 600 | neg=517/neu=63/pos=20   |        86.2 |
+| T3     | Filatova    | no_context   | non_sarcastic | 817 | neg=81/neu=35/pos=701   |        85.8 |
+| T3     | Filatova    | no_context   | sarcastic     | 437 | neg=289/neu=20/pos=128  |        66.1 |
+
+* T1: texto isolado
+
+Acurácia da variante principal (v1; o twitter-roberta não tem prompt), com IC 95% por bootstrap,
+faixa entre as três ordens de opções e a linha da maioria (tracejada na figura).
+
+Leitura:
+- *MUStARD++*: todos os modelos (exceto o controle) ficam acima da maioria (42,5%), mas longe do
+  teto: 49--59%. Os ICs se sobrepõem bastante; Qwen e Mistral estão no topo, sem separação clara.
+  Os rótulos vêm de emoções mapeadas para sentimento e foram anotados com áudio e vídeo; o texto
+  sozinho carrega menos sinal. Os autores do dataset relatam F1 de emoção só com texto em torno
+  de 33--39 (Ray et al., 2022; a conferir no PDF).
+- *MT-CSD*: a maioria (58,6%, "none") é difícil de bater. Só Kev (71,3%) e DeBERTa (64,7%)
+  ficam claramente acima; Mistral e Laya empatam com ela; twitter-roberta e Qwen ficam abaixo.
+  O Laya chega à maioria com F1 macro baixo (45,8): acerta muito "none" e pouco o resto.
+- *NanoJev* fica muito abaixo da maioria nos dois: ver a matriz de confusão.
+
+#+begin_src R :results value table :colnames yes
+<<setup>>
+summ |> filter(task == "T1") |>
+  transmute(Dataset = ds, Modelo = model,
+            `Acc v1 (%)` = pct(acc), `IC95` = paste0("[", pct(acc_lo), ", ", pct(acc_hi), "]"),
+            `Faixa variantes` = ifelse(n_var > 1, paste0(pct(acc_min), "--", pct(acc_max)), "--"),
+            `F1 macro v1 (%)` = pct(f1), `Maioria (%)` = pct(majority)) |>
+  arrange(Dataset, Modelo)
+#+end_src
+
+#+RESULTS:
+| Dataset   | Modelo          | Acc v1 (%) | IC95         | Faixa variantes | F1 macro v1 (%) | Maioria (%) |
+|-----------+-----------------+------------+--------------+-----------------+-----------------+-------------|
+| MUStARD++ | twitter-roberta |       50.7 | [46.7, 54.6] |              -- |            50.9 |        42.5 |
+| MUStARD++ | deberta-nli     |       55.3 | [51.2, 59.3] |              -- |            43.7 |        42.5 |
+| MUStARD++ | qwen3.5-4b      |       57.5 | [53.3, 61.9] |      57.5--59.8 |            54.4 |        42.5 |
+| MUStARD++ | mistral-7b      |       58.8 | [54.9, 62.8] |      48.8--58.8 |            56.6 |        42.5 |
+| MUStARD++ | kev-4b          |       51.6 | [47.5, 55.8] |      50.0--52.6 |            51.0 |        42.5 |
+| MUStARD++ | laya            |       48.6 | [44.6, 52.5] |      45.6--48.6 |            45.9 |        42.5 |
+| MUStARD++ | nanojev         |       28.2 | [24.4, 31.8] |      28.2--28.2 |            15.4 |        42.5 |
+| MT-CSD    | twitter-roberta |       52.5 | [49.4, 55.9] |              -- |            50.4 |        58.6 |
+| MT-CSD    | deberta-nli     |       64.7 | [61.3, 67.8] |              -- |            59.7 |        58.6 |
+| MT-CSD    | qwen3.5-4b      |       55.2 | [51.8, 58.6] |      49.9--55.2 |            55.1 |        58.6 |
+| MT-CSD    | mistral-7b      |       60.7 | [57.2, 64.0] |      60.7--65.4 |            58.7 |        58.6 |
+| MT-CSD    | kev-4b          |       71.3 | [67.9, 74.3] |      71.0--71.5 |            66.0 |        58.6 |
+| MT-CSD    | laya            |       61.6 | [58.3, 64.6] |      61.3--62.1 |            45.8 |        58.6 |
+| MT-CSD    | nanojev         |       18.0 | [15.4, 20.8] |      18.0--18.0 |            12.1 |        58.6 |
+
+#+begin_src R :results output graphics file :file fig/t1.pdf :width 6 :height 3
+<<setup>>
+d <- summ |> filter(task == "T1")
+p <- ggplot(d, aes(x = model, y = acc, colour = family)) +
+  geom_hline(aes(yintercept = majority), linetype = "dashed", colour = "grey40") +
+  geom_errorbar(aes(ymin = acc_lo, ymax = acc_hi), width = 0.2) +
+  geom_point(size = 2) +
+  geom_point(aes(y = acc_min), shape = 1, size = 1.2) +
+  geom_point(aes(y = acc_max), shape = 1, size = 1.2) +
+  facet_wrap(~ds) + scale_colour_manual(values = fam_col, name = NULL) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+  labs(x = NULL, y = "Acurácia") + theme(axis.text.x = element_text(angle = 35, hjust = 1))
+print(p)
+#+end_src
+
+#+RESULTS:
+[[file:fig/t1.pdf]]
+
+* T2: efeito do contexto
+
+Mesmos itens do T1, agora com a conversa anterior. "Corrigidos": errado sem contexto e certo com;
+"Quebrados": o inverso. Teste de McNemar exato sobre esses pares discordantes (sem correção para
+comparações múltiplas; são 34 testes).
+
+Leitura:
+- O contexto *não ajuda* em média. Nenhum modelo melhora de forma consistente nos dois datasets.
+- Os dois BERTs pioram muito: twitter-roberta -13,2 pp no MUStARD++ e DeBERTa -25,0 pp no MT-CSD
+  (p < 1e-25). Ambos recebem conversa e alvo concatenados num único texto, e o modelo passa a
+  classificar a conversa inteira, não o turno-alvo. *A verificar*: o DeBERTa no MT-CSD com
+  contexto (exemplos de itens quebrados).
+- Kev é o único que melhora no MUStARD++ (+2,8 a +4,0 pp, p entre 0,04 e 0,16), mas piora
+  ~7 pp no MT-CSD em todas as variantes (p < 0,001).
+- LLMs: efeitos pequenos e de sinal variável entre variantes, em geral não significativos.
+- Muitas trocas nos dois sentidos (ex.: Mistral v1 no MUStARD++: 65 corrigidos, 67 quebrados):
+  o contexto muda bastante a resposta, mas não na direção certa com mais frequência.
+
+#+begin_src R :results value table :colnames yes
+<<setup>>
+read_csv(file.path(run, "context_effect.csv"), show_col_types = FALSE) |>
+  filter(group == "non_sarcastic") |>
+  mutate(model = factor(model, models), ds = factor(ds_lab[dataset], ds_lab)) |>
+  transmute(Dataset = ds, Modelo = model, Var = variant, N = n_pairs,
+            `Sem (%)` = pct(acc_no_context), `Com (%)` = pct(acc_with_context),
+            `Delta (pp)` = sprintf("%+.1f", 100 * delta),
+            Corrigidos = fixed_by_context, Quebrados = broken_by_context,
+            `p McNemar` = signif(mcnemar_p, 2)) |>
+  arrange(Dataset, Modelo, Var)
+#+end_src
+
+#+RESULTS:
+| Dataset   | Modelo          | Var  |   N | Sem (%) | Com (%) | Delta (pp) | Corrigidos | Quebrados | p McNemar |
+|-----------+-----------------+------+-----+---------+---------+------------+------------+-----------+-----------|
+| MUStARD++ | twitter-roberta | none | 570 |    50.7 |    37.5 |      -13.2 |         66 |       141 |     2e-07 |
+| MUStARD++ | deberta-nli     | v1   | 570 |    55.3 |    50.9 |       -4.4 |         37 |        62 |     0.015 |
+| MUStARD++ | qwen3.5-4b      | v1   | 570 |    57.5 |    59.3 |        1.8 |         50 |        40 |      0.34 |
+| MUStARD++ | qwen3.5-4b      | v2   | 570 |    59.0 |    59.3 |        0.4 |         41 |        39 |      0.91 |
+| MUStARD++ | qwen3.5-4b      | v3   | 570 |    59.8 |    59.0 |       -0.9 |         46 |        51 |      0.68 |
+| MUStARD++ | mistral-7b      | v1   | 570 |    58.8 |    58.4 |       -0.4 |         65 |        67 |      0.93 |
+| MUStARD++ | mistral-7b      | v2   | 570 |    56.7 |    50.9 |       -5.8 |         43 |        76 |    0.0032 |
+| MUStARD++ | mistral-7b      | v3   | 570 |    48.8 |    50.0 |        1.2 |         58 |        51 |      0.57 |
+| MUStARD++ | kev-4b          | v1   | 570 |    51.6 |    54.4 |        2.8 |         65 |        49 |      0.16 |
+| MUStARD++ | kev-4b          | v2   | 570 |    52.6 |    56.7 |        4.0 |         68 |        45 |     0.038 |
+| MUStARD++ | kev-4b          | v3   | 570 |    50.0 |    53.7 |        3.7 |         64 |        43 |     0.053 |
+| MUStARD++ | laya            | v1   | 570 |    48.6 |    46.3 |       -2.3 |         62 |        75 |      0.31 |
+| MUStARD++ | laya            | v2   | 570 |    48.2 |    45.6 |       -2.6 |         55 |        70 |      0.21 |
+| MUStARD++ | laya            | v3   | 570 |    45.6 |    46.3 |        0.7 |         69 |        65 |       0.8 |
+| MUStARD++ | nanojev         | v1   | 570 |    28.2 |    28.4 |        0.2 |          3 |         2 |         1 |
+| MUStARD++ | nanojev         | v2   | 570 |    28.2 |    28.4 |        0.2 |          3 |         2 |         1 |
+| MUStARD++ | nanojev         | v3   | 570 |    28.2 |    28.4 |        0.2 |          3 |         2 |         1 |
+| MT-CSD    | twitter-roberta | none | 848 |    52.5 |    48.7 |       -3.8 |        165 |       197 |       0.1 |
+| MT-CSD    | deberta-nli     | v1   | 848 |    64.7 |    39.7 |      -25.0 |        100 |       312 |   1.8e-26 |
+| MT-CSD    | qwen3.5-4b      | v1   | 848 |    55.2 |    56.7 |        1.5 |        122 |       109 |      0.43 |
+| MT-CSD    | qwen3.5-4b      | v2   | 848 |    49.9 |    51.3 |        1.4 |        100 |        88 |      0.42 |
+| MT-CSD    | qwen3.5-4b      | v3   | 848 |    52.1 |    56.4 |        4.2 |        122 |        86 |     0.015 |
+| MT-CSD    | mistral-7b      | v1   | 848 |    60.7 |    56.0 |       -4.7 |        107 |       147 |     0.014 |
+| MT-CSD    | mistral-7b      | v2   | 848 |    65.5 |    64.9 |       -0.6 |        124 |       129 |       0.8 |
+| MT-CSD    | mistral-7b      | v3   | 848 |    61.7 |    61.1 |       -0.6 |        135 |       140 |      0.81 |
+| MT-CSD    | kev-4b          | v1   | 848 |    71.3 |    64.4 |       -7.0 |         94 |       153 |   0.00021 |
+| MT-CSD    | kev-4b          | v2   | 848 |    71.5 |    63.3 |       -8.1 |         93 |       162 |   1.8e-05 |
+| MT-CSD    | kev-4b          | v3   | 848 |    71.0 |    63.9 |       -7.1 |         94 |       154 |   0.00017 |
+| MT-CSD    | laya            | v1   | 848 |    61.6 |    58.7 |       -2.8 |         87 |       111 |       0.1 |
+| MT-CSD    | laya            | v2   | 848 |    62.2 |    61.0 |       -1.2 |         62 |        72 |      0.44 |
+| MT-CSD    | laya            | v3   | 848 |    61.3 |    60.1 |       -1.2 |         82 |        92 |       0.5 |
+| MT-CSD    | nanojev         | v1   | 848 |    18.0 |    17.1 |       -0.9 |          7 |        15 |      0.13 |
+| MT-CSD    | nanojev         | v2   | 848 |    18.0 |    17.1 |       -0.9 |          7 |        15 |      0.13 |
+| MT-CSD    | nanojev         | v3   | 848 |    18.0 |    17.1 |       -0.9 |          7 |        15 |      0.13 |
+
+#+begin_src R :results output graphics file :file fig/t2.pdf :width 6 :height 3.4
+<<setup>>
+d <- summ |> filter(task %in% c("T1", "T2")) |>
+  mutate(cond = factor(ifelse(condition == "no_context", "sem contexto", "com contexto"),
+                       c("sem contexto", "com contexto")))
+p <- ggplot(d, aes(x = acc, y = model)) +
+  geom_line(aes(group = model), colour = "grey70") +
+  geom_point(aes(shape = cond, colour = family), size = 2) +
+  geom_vline(aes(xintercept = majority), linetype = "dashed", colour = "grey40") +
+  facet_wrap(~ds) + scale_colour_manual(values = fam_col, name = NULL) +
+  scale_shape_manual(values = c(1, 16), name = NULL) +
+  scale_x_continuous(labels = scales::percent) + scale_y_discrete(limits = rev) +
+  labs(x = "Acurácia (v1)", y = NULL) + theme(legend.box = "vertical")
+print(p)
+#+end_src
+
+#+RESULTS:
+[[file:fig/t2.pdf]]
+
+* T3: ironia
+
+Acurácia em itens não sarcásticos e sarcásticos do mesmo dataset (sem contexto, v1).
+"Literal": entre os itens sarcásticos cujo sentimento literal difere do ouro (só o MUStARD++ tem
+essa anotação; N = 451), fração em que o modelo escolheu o sentimento literal.
+
+Leitura:
+- *Filatova*: queda pequena e consistente (4--11 pp) para todos; mesmo com ironia os modelos
+  passam de 80%. Resenhas longas dão mais pistas que uma fala curta.
+- *MUStARD++*: queda grande para twitter-roberta, Kev e Laya (-26 a -34 pp) e literalidade alta
+  (54--57%): caem no sentido literal na maioria das vezes. Os LLMs caem menos (Mistral -7,2 pp).
+- O DeBERTa *melhora* no sarcástico (+9,8 pp) e tem a menor literalidade (27,5%). Como o ouro
+  sarcástico é todo negativo, isso pode refletir só uma tendência a responder "negativo";
+  a matriz de confusão mostra que ele erra neutros para negativo com frequência.
+- *Sarcasm_NLP*: o mesmo viés aparece mais forte. Mistral vai de 52,5% (não sarc.) para 79,5%
+  (sarc.), e o Qwen também sobe: o subconjunto sarcástico é 86% negativo. Não é evidência de que
+  entendem melhor a ironia. twitter-roberta e Laya caem ~25--31 pp.
+- Resumo provisório: os modelos que tendem ao neutro/literal (twitter-roberta, Kev, Laya) sofrem
+  mais com ironia; LLMs e NLI sofrem menos, mas parte disso é viés para "negativo".
+
+#+begin_src R :results value table :colnames yes
+<<setup>>
+lit <- met |> filter(group == "sarcastic", condition == "no_context", variant %in% c("v1", "none")) |>
+  group_by(model, dataset) |>
+  summarise(lf = mean(as.numeric(literal_fall), na.rm = TRUE), n_lit = first(n_literal_differs),
+            .groups = "drop")
+summ |> filter(task == "T3") |>
+  select(model, dataset, ds, group, acc, majority) |>
+  pivot_wider(names_from = group, values_from = c(acc, majority)) |>
+  left_join(lit, by = c("model", "dataset")) |>
+  transmute(Dataset = ds, Modelo = model,
+            `Não sarc. (%)` = pct(acc_non_sarcastic), `Sarc. (%)` = pct(acc_sarcastic),
+            `Queda (pp)` = sprintf("%+.1f", 100 * (acc_sarcastic - acc_non_sarcastic)),
+            `Maioria sarc. (%)` = pct(majority_sarcastic),
+            `Literal (%)` = ifelse(is.na(lf), "--", pct(lf)), `N lit.` = n_lit) |>
+  arrange(Dataset, Modelo)
+#+end_src
+
+#+RESULTS:
+| Dataset     | Modelo          | Não sarc. (%) | Sarc. (%) | Queda (pp) | Maioria sarc. (%) | Literal (%) | N lit. |
+|-------------+-----------------+---------------+-----------+------------+-------------------+-------------+--------|
+| MUStARD++   | twitter-roberta |          50.7 |      25.0 |      -25.7 |             100.0 | 57.0        |    451 |
+| MUStARD++   | deberta-nli     |          55.3 |      65.1 |        9.8 |             100.0 | 27.5        |    451 |
+| MUStARD++   | qwen3.5-4b      |          57.5 |      43.1 |      -14.4 |             100.0 | 41.0        |    451 |
+| MUStARD++   | mistral-7b      |          58.8 |      51.6 |       -7.2 |             100.0 | 33.5        |    451 |
+| MUStARD++   | kev-4b          |          51.6 |      18.0 |      -33.6 |             100.0 | 56.3        |    451 |
+| MUStARD++   | laya            |          48.6 |      20.6 |      -28.0 |             100.0 | 53.9        |    451 |
+| MUStARD++   | nanojev         |          28.2 |       0.0 |      -28.2 |             100.0 | 45.2        |    451 |
+| Sarcasm_NLP | twitter-roberta |          70.5 |      39.7 |      -30.8 |              86.2 | --          |      0 |
+| Sarcasm_NLP | deberta-nli     |          48.7 |      56.0 |        7.3 |              86.2 | --          |      0 |
+| Sarcasm_NLP | qwen3.5-4b      |          60.7 |      71.3 |       10.7 |              86.2 | --          |      0 |
+| Sarcasm_NLP | mistral-7b      |          52.5 |      79.5 |       27.0 |              86.2 | --          |      0 |
+| Sarcasm_NLP | kev-4b          |          71.8 |      58.7 |      -13.2 |              86.2 | --          |      0 |
+| Sarcasm_NLP | laya            |          57.5 |      33.0 |      -24.5 |              86.2 | --          |      0 |
+| Sarcasm_NLP | nanojev         |          12.0 |       3.0 |       -9.0 |              86.2 | --          |      0 |
+| Filatova    | twitter-roberta |          81.6 |      70.9 |      -10.7 |              66.1 | --          |      0 |
+| Filatova    | deberta-nli     |          91.8 |      87.6 |       -4.2 |              66.1 | --          |      0 |
+| Filatova    | qwen3.5-4b      |          93.8 |      85.4 |       -8.4 |              66.1 | --          |      0 |
+| Filatova    | mistral-7b      |          91.4 |      86.0 |       -5.4 |              66.1 | --          |      0 |
+| Filatova    | kev-4b          |          93.9 |      87.4 |       -6.5 |              66.1 | --          |      0 |
+| Filatova    | laya            |          90.5 |      80.5 |       -9.9 |              66.1 | --          |      0 |
+| Filatova    | nanojev         |          85.6 |      29.3 |      -56.3 |              66.1 | --          |      0 |
+
+#+begin_src R :results output graphics file :file fig/t3.pdf :width 6 :height 3
+<<setup>>
+d <- summ |> filter(task == "T3") |>
+  mutate(grp = factor(ifelse(group == "sarcastic", "sarcástico", "não sarcástico"),
+                      c("não sarcástico", "sarcástico")))
+p <- ggplot(d, aes(x = model, y = acc, fill = grp)) +
+  geom_col(position = position_dodge(0.8), width = 0.75) +
+  geom_errorbar(aes(ymin = acc_lo, ymax = acc_hi), position = position_dodge(0.8), width = 0.2) +
+  facet_wrap(~ds) + scale_fill_manual(values = c("grey70", "#d95f02"), name = NULL) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+  labs(x = NULL, y = "Acurácia") + theme(axis.text.x = element_text(angle = 35, hjust = 1))
+print(p)
+#+end_src
+
+#+RESULTS:
+[[file:fig/t3.pdf]]
+
+* Onde erram: matrizes de confusão
+
+Linhas: rótulo ouro; colunas: predição (itens não sarcásticos, sem contexto, v1; % por linha).
+
+Leitura:
+- O erro dominante envolve *neutro*. LLMs e DeBERTa empurram o neutro para uma polaridade
+  (Qwen: 34% neutro -> negativo, 27% neutro -> positivo).
+- Kev e Laya fazem o contrário: puxam negativo para neutro (40% e 45%). Eles acertam muito
+  neutro (81% e 74%), o que explica o bom resultado no MT-CSD, onde neutro é a maioria.
+- *NanoJev responde "positivo" em ~98--99% dos itens*, em todas as variantes (concordância 100%):
+  as probabilidades variam com o texto (média de "positivo" 0,66, faixa 0,16--0,88), mas quase
+  nunca saem do positivo. Funciona como um classificador constante, coerente com o checkpoint
+  público ter sido treinado só em jogos. Serve como controle, mas não como linha de base informativa.
+
+#+NAME: preds
+#+begin_src R :exports none :eval no
+pred <- read_csv(file.path(run, "predictions.csv"), show_col_types = FALSE,
+                 col_select = c(model, dataset, id, sarcastic, gold, literal, condition, variant,
+                                pred, correct, confidence, label_mass)) |>
+  mutate(model = factor(model, models), ds = factor(ds_lab[dataset], ds_lab))
+#+end_src
+
+#+begin_src R :results output graphics file :file fig/confusao.pdf :width 6 :height 4.5
+<<setup>>
+<<preds>>
+lv <- c("negative", "neutral", "positive")
+d <- pred |> filter(condition == "no_context", sarcastic == 0, variant %in% c("v1", "none")) |>
+  count(model, gold, pred) |> complete(model, gold = lv, pred = lv, fill = list(n = 0)) |>
+  group_by(model, gold) |> mutate(p = n / sum(n)) |> ungroup()
+p <- ggplot(d, aes(x = pred, y = gold, fill = p)) + geom_tile() +
+  geom_text(aes(label = pct(p)), size = 2.5) +
+  facet_wrap(~model, nrow = 2) + scale_fill_gradient(low = "white", high = "#7570b3", guide = "none") +
+  scale_y_discrete(limits = rev) +
+  labs(x = "Predito", y = "Ouro") + theme(axis.text.x = element_text(angle = 35, hjust = 1))
+print(p)
+#+end_src
+
+#+RESULTS:
+[[file:fig/confusao.pdf]]
+
+* Calibração
+
+A confiança declarada acompanha o acerto? ECE (15 faixas) e fração de erros com confiança >= 0,9,
+por tarefa (média ponderada por N entre os datasets da tarefa; v1).
+
+Leitura:
+- Todos são *superconfiantes* (confiança média > acurácia).
+- Mistral é o pior: 88--95% de confiança média, ~20% dos itens são erros com confiança >= 0,9.
+- Kev e Laya são os mais bem calibrados (ECE 0,10--0,16 em T1/T2; < 4% de erros confiantes).
+- DeBERTa com contexto (T2) dispara: confiança 85%, acurácia 44%, 31,5% de erros confiantes.
+- Na figura (sem contexto): para Kev, Laya e twitter-roberta, a curva dos itens sarcásticos fica
+  bem abaixo da diagonal e da curva não sarcástica: com ironia, a mesma confiança vale menos.
+  Para Qwen e DeBERTa as duas curvas quase coincidem.
+
+#+begin_src R :results value table :colnames yes
+<<setup>>
+summ |> select(task, model, dataset, condition, group) |> distinct() |>
+  inner_join(met, by = c("model", "dataset", "condition", "group")) |>
+  filter(variant %in% c("v1", "none")) |>
+  group_by(Tarefa = task, Modelo = model) |>
+  summarise(`Acc (%)` = pct(weighted.mean(accuracy, n)),
+            `Conf. média (%)` = pct(weighted.mean(mean_confidence, n)),
+            ECE = sprintf("%.3f", weighted.mean(ece, n)),
+            `Erros conf.>=0,9 (%)` = pct(weighted.mean(`confident_errors_0.9`, n)), .groups = "drop") |>
+  arrange(Tarefa, Modelo)
+#+end_src
+
+#+RESULTS:
+| Tarefa | Modelo          | Acc (%) | Conf. média (%) |   ECE | Erros conf.>=0,9 (%) |
+|--------+-----------------+---------+-----------------+-------+----------------------|
+| T1     | twitter-roberta |    51.8 |            72.2 | 0.208 |                  4.8 |
+| T1     | deberta-nli     |    60.9 |            77.2 | 0.193 |                 13.5 |
+| T1     | qwen3.5-4b      |    56.1 |            78.5 | 0.224 |                 10.6 |
+| T1     | mistral-7b      |    59.9 |            89.5 | 0.303 |                 22.6 |
+| T1     | kev-4b          |    63.4 |            72.5 | 0.101 |                  2.6 |
+| T1     | laya            |    56.3 |            71.8 | 0.158 |                  2.0 |
+| T1     | nanojev         |    22.1 |            61.3 | 0.392 |                  0.0 |
+| T2     | twitter-roberta |    44.2 |            66.0 | 0.218 |                  1.0 |
+| T2     | deberta-nli     |    44.2 |            85.1 | 0.409 |                 31.5 |
+| T2     | qwen3.5-4b      |    57.8 |            80.3 | 0.229 |                 13.3 |
+| T2     | mistral-7b      |    57.0 |            87.8 |  0.31 |                 23.0 |
+| T2     | kev-4b          |    60.4 |            71.1 | 0.114 |                  2.5 |
+| T2     | laya            |    53.7 |            63.6 | 0.111 |                  0.8 |
+| T2     | nanojev         |    21.7 |            60.5 | 0.389 |                  0.0 |
+| T3     | twitter-roberta |    57.3 |            74.8 | 0.196 |                  7.0 |
+| T3     | deberta-nli     |    68.1 |            91.7 | 0.247 |                 20.1 |
+| T3     | qwen3.5-4b      |    69.5 |            85.2 | 0.159 |                  9.5 |
+| T3     | mistral-7b      |    70.6 |            95.2 | 0.248 |                 20.5 |
+| T3     | kev-4b          |    64.4 |            78.5 | 0.162 |                  3.8 |
+| T3     | laya            |    56.1 |            73.9 | 0.224 |                  2.6 |
+| T3     | nanojev         |    29.7 |            69.9 | 0.462 |                  0.0 |
+
+#+begin_src R :results output graphics file :file fig/calibracao.pdf :width 6 :height 2.4
+<<setup>>
+<<preds>>
+d <- pred |> filter(condition == "no_context", variant %in% c("v1", "none"), model != "nanojev") |>
+  mutate(grp = ifelse(sarcastic == 1, "sarcástico", "não sarcástico"),
+         bin = pmin(floor(confidence * 10), 9) / 10 + 0.05) |>
+  group_by(model, grp, bin) |> summarise(acc = mean(correct), n = n(), .groups = "drop")
+p <- ggplot(d, aes(x = bin, y = acc, colour = grp)) +
+  geom_abline(linetype = "dashed", colour = "grey50") +
+  geom_line() + geom_point(aes(size = n)) +
+  facet_wrap(~model, nrow = 1) + scale_size_area(max_size = 2.5, guide = "none") +
+  scale_colour_manual(values = c("grey50", "#d95f02"), name = NULL) +
+  coord_equal(xlim = c(0.3, 1), ylim = c(0, 1)) +
+  labs(x = "Confiança", y = "Acurácia")
+print(p)
+#+end_src
+
+#+RESULTS:
+[[file:fig/calibracao.pdf]]
+
+* Sensibilidade à ordem das opções
+
+Fração de itens (todas as condições) em que as três ordens das opções dão a mesma resposta.
+
+Leitura: Kev é o mais estável (92,6%), Mistral o menos (65,2%: um terço das respostas muda só
+com a ordem das opções). NanoJev é invariante (100%) porque ignora a ordem.
+
+#+begin_src R :results value table :colnames yes
+<<setup>>
+<<preds>>
+pred |> filter(variant %in% c("v1", "v2", "v3"), model != "deberta-nli") |>
+  select(model, dataset, id, condition, variant, pred) |>
+  pivot_wider(names_from = variant, values_from = pred) |>
+  group_by(Modelo = model) |>
+  summarise(N = n(), `Concordância 3/3 (%)` = pct(mean(v1 == v2 & v2 == v3)), .groups = "drop")
+#+end_src
+
+#+RESULTS:
+| Modelo     |    N | Concordância 3/3 (%) |
+|------------+------+----------------------|
+| qwen3.5-4b | 6492 |                 87.4 |
+| mistral-7b | 6492 |                 65.2 |
+| kev-4b     | 6492 |                 92.6 |
+| laya       | 6492 |                 84.2 |
+| nanojev    | 6492 |                100.0 |
+
+* Pontos a verificar
+
+- *Massa nos rótulos (LLMs)*: soma da probabilidade do primeiro token nas grafias dos três rótulos.
+  Mistral tem 1195 predições com massa < 0,9 (94 < 0,5), mas a acurácia quase não muda nelas
+  (59,2% contra 60,4%): o efeito no resultado é pequeno.
+- DeBERTa com contexto no MT-CSD (-25 pp): examinar itens quebrados.
+- Baselines publicadas do MT-CSD: ainda não conferidas.
+
+#+begin_src R :results value table :colnames yes
+<<setup>>
+<<preds>>
+pred |> filter(model %in% c("qwen3.5-4b", "mistral-7b")) |>
+  group_by(Modelo = model) |>
+  summarise(N = n(), `massa<0,5` = sum(label_mass < 0.5), `massa<0,9` = sum(label_mass < 0.9),
+            `Acc massa>=0,9 (%)` = pct(mean(correct[label_mass >= 0.9])),
+            `Acc massa<0,9 (%)` = pct(mean(correct[label_mass < 0.9])), .groups = "drop")
+#+end_src
+
+#+RESULTS:
+| Modelo     |     N | massa<0,5 | massa<0,9 | Acc massa>=0,9 (%) | Acc massa<0,9 (%) |
+|------------+-------+-----------+-----------+--------------------+-------------------|
+| qwen3.5-4b | 19476 |         2 |       270 |               62.9 |              59.3 |
+| mistral-7b | 19476 |        94 |      1195 |               60.4 |              59.2 |
+
+* Ambiente R
+
+#+begin_src R :results output
+<<setup>>
+cat(R.version.string, "\n")
+for (p in c("dplyr", "tidyr", "readr", "ggplot2", "scales")) cat(p, as.character(packageVersion(p)), "\n")
+#+end_src
+
+#+RESULTS:
+: R version 4.5.2 (2025-10-31) 
+: dplyr 1.2.0 
+: tidyr 1.3.2 
+: readr 2.1.6 
+: ggplot2 4.0.2 
+: scales 1.4.0 

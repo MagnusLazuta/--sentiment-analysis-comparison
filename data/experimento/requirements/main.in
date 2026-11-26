@@ -1,0 +1,12 @@
+# main environment: Hugging Face models (classifier, NLI, LLMs) + NanoJev
+# torch/transformers/safetensors/numpy match NanoJev requirements-toy.txt
+torch==2.14.0
+transformers==5.17.0
+safetensors==0.8.0
+numpy==2.5.3
+huggingface_hub
+sentencepiece
+protobuf
+tiktoken
+reportlab==4.4.4
+flash-linear-attention

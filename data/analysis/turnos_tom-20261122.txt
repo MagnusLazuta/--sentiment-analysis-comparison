@@ -1,0 +1,156 @@
+Share of answers (%) by k and majority sentiment of the conversation; cohort >= 4 turns; all orders pooled. Gold share of the same items at the end.
+
+===== mtcsd 
+  maioria     gold   n         p   N
+    misto negativo  17 28.333333  60
+    misto   neutro  30 50.000000  60
+    misto positivo  13 21.666667  60
+ negativo negativo  46 56.097561  82
+ negativo   neutro  26 31.707317  82
+ negativo positivo  10 12.195122  82
+   neutro negativo  40 14.598540 274
+   neutro   neutro 210 76.642336 274
+   neutro positivo  24  8.759124 274
+ positivo negativo   8 20.000000  40
+ positivo   neutro  18 45.000000  40
+ positivo positivo  14 35.000000  40
+  maioria           model     pred   k0   k1   k2   k3   k4
+    misto twitter-roberta negativo 46.7 36.7 41.7 46.7 33.3
+    misto twitter-roberta   neutro 38.3 55.0 51.7 45.0 48.3
+    misto twitter-roberta positivo 15.0  8.3  6.7  8.3 18.3
+    misto     DeBERTa-NLI negativo 23.3 40.0 41.7 43.3 41.7
+    misto     DeBERTa-NLI   neutro 55.0 40.0 26.7 15.0 11.7
+    misto     DeBERTa-NLI positivo 21.7 20.0 31.7 41.7 46.7
+    misto      Qwen3.5-4B negativo 49.4 50.6 56.1 60.0 55.6
+    misto      Qwen3.5-4B   neutro 21.1 30.0 26.1 21.1 23.9
+    misto      Qwen3.5-4B positivo 29.4 19.4 17.8 18.9 20.6
+    misto      Mistral-7B negativo 21.1 44.4 46.1 52.2 50.0
+    misto      Mistral-7B   neutro 43.3 40.0 33.9 25.6 25.6
+    misto      Mistral-7B positivo 35.6 15.6 20.0 22.2 24.4
+    misto          Kev-4B negativo 18.9 32.2 36.7 45.6 46.7
+    misto          Kev-4B   neutro 70.6 52.8 51.7 39.4 37.2
+    misto          Kev-4B positivo 10.6 15.0 11.7 15.0 16.1
+    misto            Laya negativo  9.4 16.7 22.8 23.3 25.0
+    misto            Laya   neutro 76.7 74.4 65.6 61.7 60.0
+    misto            Laya positivo 13.9  8.9 11.7 15.0 15.0
+ negativo twitter-roberta negativo 56.1 48.8 64.6 74.4 80.5
+ negativo twitter-roberta   neutro 28.0 40.2 26.8 20.7 17.1
+ negativo twitter-roberta positivo 15.9 11.0  8.5  4.9  2.4
+ negativo     DeBERTa-NLI negativo 29.3 40.2 57.3 63.4 69.5
+ negativo     DeBERTa-NLI   neutro 45.1 40.2 26.8 19.5 12.2
+ negativo     DeBERTa-NLI positivo 25.6 19.5 15.9 17.1 18.3
+ negativo      Qwen3.5-4B negativo 63.0 72.8 78.0 84.1 82.9
+ negativo      Qwen3.5-4B   neutro 17.5 15.4  7.7  8.1  9.8
+ negativo      Qwen3.5-4B positivo 19.5 11.8 14.2  7.7  7.3
+ negativo      Mistral-7B negativo 37.8 49.6 57.7 68.7 71.1
+ negativo      Mistral-7B   neutro 44.3 37.8 32.5 23.2 19.5
+ negativo      Mistral-7B positivo 17.9 12.6  9.8  8.1  9.3
+ negativo          Kev-4B negativo 38.2 48.8 65.0 77.2 80.5
+ negativo          Kev-4B   neutro 48.4 41.5 31.3 19.1 14.6
+ negativo          Kev-4B positivo 13.4  9.8  3.7  3.7  4.9
+ negativo            Laya negativo 12.2 16.3 19.9 25.6 23.2
+ negativo            Laya   neutro 80.1 78.0 72.8 66.3 71.5
+ negativo            Laya positivo  7.7  5.7  7.3  8.1  5.3
+   neutro twitter-roberta negativo 53.6 36.9 43.4 40.5 40.5
+   neutro twitter-roberta   neutro 35.4 58.0 54.0 56.2 54.4
+   neutro twitter-roberta positivo 10.9  5.1  2.6  3.3  5.1
+   neutro     DeBERTa-NLI negativo 15.7 19.3 25.2 27.0 33.9
+   neutro     DeBERTa-NLI   neutro 66.1 61.3 54.4 47.4 31.8
+   neutro     DeBERTa-NLI positivo 18.2 19.3 20.4 25.5 34.3
+   neutro      Qwen3.5-4B negativo 49.0 44.5 44.4 43.6 44.8
+   neutro      Qwen3.5-4B   neutro 31.0 41.5 42.6 41.6 39.2
+   neutro      Qwen3.5-4B positivo 20.0 14.0 13.0 14.8 16.1
+   neutro      Mistral-7B negativo 20.7 23.1 23.7 26.6 30.5
+   neutro      Mistral-7B   neutro 57.7 63.3 63.5 61.2 56.4
+   neutro      Mistral-7B positivo 21.7 13.6 12.8 12.2 13.0
+   neutro          Kev-4B negativo 17.9 13.4 18.4 20.1 23.4
+   neutro          Kev-4B   neutro 73.4 80.5 77.6 74.1 69.7
+   neutro          Kev-4B positivo  8.8  6.1  4.0  5.8  6.9
+   neutro            Laya negativo 10.2 10.8 13.7 15.7 15.7
+   neutro            Laya   neutro 83.1 83.7 80.2 77.3 76.5
+   neutro            Laya positivo  6.7  5.5  6.1  7.1  7.8
+ positivo twitter-roberta negativo 32.5 17.5 22.5 10.0  2.5
+ positivo twitter-roberta   neutro 40.0 60.0 55.0 45.0 45.0
+ positivo twitter-roberta positivo 27.5 22.5 22.5 45.0 52.5
+ positivo     DeBERTa-NLI negativo 12.5 12.5 17.5 10.0 10.0
+ positivo     DeBERTa-NLI   neutro 55.0 50.0 37.5 35.0 20.0
+ positivo     DeBERTa-NLI positivo 32.5 37.5 45.0 55.0 70.0
+ positivo      Qwen3.5-4B negativo 27.5 39.2 43.3 41.7 40.8
+ positivo      Qwen3.5-4B   neutro 16.7 10.8  6.7  8.3  4.2
+ positivo      Qwen3.5-4B positivo 55.8 50.0 50.0 50.0 55.0
+ positivo      Mistral-7B negativo 13.3 15.8 15.0 15.0 14.2
+ positivo      Mistral-7B   neutro 28.3 35.0 37.5 34.2 34.2
+ positivo      Mistral-7B positivo 58.3 49.2 47.5 50.8 51.7
+ positivo          Kev-4B negativo 15.8 11.7 16.7 15.0 19.2
+ positivo          Kev-4B   neutro 49.2 55.8 53.3 49.2 50.8
+ positivo          Kev-4B positivo 35.0 32.5 30.0 35.8 30.0
+ positivo            Laya negativo  7.5 14.2 12.5 14.2 15.0
+ positivo            Laya   neutro 84.2 72.5 70.8 70.0 65.0
+ positivo            Laya positivo  8.3 13.3 16.7 15.8 20.0
+
+===== mustardpp 
+  maioria     gold  n        p   N
+ negativo negativo 36 52.17391  69
+ negativo   neutro 16 23.18841  69
+ negativo positivo 17 24.63768  69
+   neutro negativo  8 53.33333  15
+   neutro   neutro  3 20.00000  15
+   neutro positivo  4 26.66667  15
+ positivo negativo 80 38.27751 209
+ positivo   neutro 80 38.27751 209
+ positivo positivo 49 23.44498 209
+  maioria           model     pred   k0   k1   k2   k3   k4
+ negativo twitter-roberta negativo 26.1 29.0 27.5 27.5 31.9
+ negativo twitter-roberta   neutro 63.8 69.6 68.1 69.6 63.8
+ negativo twitter-roberta positivo 10.1  1.4  4.3  2.9  4.3
+ negativo     DeBERTa-NLI negativo 66.7 76.8 78.3 81.2 81.2
+ negativo     DeBERTa-NLI   neutro  1.4  0.0  1.4  0.0  0.0
+ negativo     DeBERTa-NLI positivo 31.9 23.2 20.3 18.8 18.8
+ negativo      Qwen3.5-4B negativo 56.0 49.3 48.3 53.6 53.1
+ negativo      Qwen3.5-4B   neutro 14.0 23.2 22.2 18.4 21.7
+ negativo      Qwen3.5-4B positivo 30.0 27.5 29.5 28.0 25.1
+ negativo      Mistral-7B negativo 37.7 40.6 39.6 42.5 42.0
+ negativo      Mistral-7B   neutro 44.9 42.0 41.5 42.5 42.0
+ negativo      Mistral-7B positivo 17.4 17.4 18.8 15.0 15.9
+ negativo          Kev-4B negativo 34.3 39.6 39.6 41.1 46.9
+ negativo          Kev-4B   neutro 54.6 54.6 55.6 54.1 48.3
+ negativo          Kev-4B positivo 11.1  5.8  4.8  4.8  4.8
+ negativo            Laya negativo 30.4 37.2 39.1 42.5 44.9
+ negativo            Laya   neutro 54.1 56.0 54.6 49.3 48.3
+ negativo            Laya positivo 15.5  6.8  6.3  8.2  6.8
+   neutro twitter-roberta negativo 40.0  6.7 13.3  6.7  6.7
+   neutro twitter-roberta   neutro 40.0 86.7 86.7 80.0 86.7
+   neutro twitter-roberta positivo 20.0  6.7  0.0 13.3  6.7
+   neutro     DeBERTa-NLI negativo 66.7 60.0 60.0 80.0 73.3
+   neutro     DeBERTa-NLI   neutro  0.0  6.7  0.0  0.0  0.0
+   neutro     DeBERTa-NLI positivo 33.3 33.3 40.0 20.0 26.7
+   neutro      Qwen3.5-4B negativo 48.9 51.1 53.3 48.9 44.4
+   neutro      Qwen3.5-4B   neutro 11.1 17.8 13.3 20.0 24.4
+   neutro      Qwen3.5-4B positivo 40.0 31.1 33.3 31.1 31.1
+   neutro      Mistral-7B negativo 37.8 40.0 42.2 37.8 33.3
+   neutro      Mistral-7B   neutro 37.8 35.6 31.1 42.2 44.4
+   neutro      Mistral-7B positivo 24.4 24.4 26.7 20.0 22.2
+   neutro          Kev-4B negativo 31.1 33.3 40.0 40.0 37.8
+   neutro          Kev-4B   neutro 53.3 53.3 46.7 46.7 48.9
+   neutro          Kev-4B positivo 15.6 13.3 13.3 13.3 13.3
+   neutro            Laya negativo 40.0 37.8 31.1 40.0 44.4
+   neutro            Laya   neutro 46.7 48.9 62.2 53.3 46.7
+   neutro            Laya positivo 13.3 13.3  6.7  6.7  8.9
+ positivo twitter-roberta negativo 23.4 10.0 10.5  7.7  5.7
+ positivo twitter-roberta   neutro 57.4 75.6 71.3 72.2 71.8
+ positivo twitter-roberta positivo 19.1 14.4 18.2 20.1 22.5
+ positivo     DeBERTa-NLI negativo 62.2 68.9 69.9 71.3 69.4
+ positivo     DeBERTa-NLI   neutro  1.9  1.0  1.0  0.5  1.0
+ positivo     DeBERTa-NLI positivo 35.9 30.1 29.2 28.2 29.7
+ positivo      Qwen3.5-4B negativo 47.4 40.8 40.0 39.2 40.4
+ positivo      Qwen3.5-4B   neutro 19.8 30.5 30.6 31.7 31.6
+ positivo      Qwen3.5-4B positivo 32.9 28.7 29.3 29.0 28.1
+ positivo      Mistral-7B negativo 29.3 27.0 28.7 27.0 27.9
+ positivo      Mistral-7B   neutro 54.2 51.2 50.2 51.0 51.4
+ positivo      Mistral-7B positivo 16.4 21.9 21.1 22.0 20.7
+ positivo          Kev-4B negativo 21.7 21.5 24.7 22.8 24.7
+ positivo          Kev-4B   neutro 66.5 68.9 67.5 68.7 66.5
+ positivo          Kev-4B positivo 11.8  9.6  7.8  8.5  8.8
+ positivo            Laya negativo 20.7 22.5 20.1 23.6 26.3
+ positivo            Laya   neutro 69.5 67.9 71.0 68.3 63.6
+ positivo            Laya positivo  9.7  9.6  8.9  8.1 10.0

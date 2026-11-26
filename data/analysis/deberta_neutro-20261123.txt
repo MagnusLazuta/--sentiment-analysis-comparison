@@ -1,0 +1,17 @@
+DeBERTa-NLI, MT-CSD neutral comments, cohort >= 4 turns: % of answers by k and conversation tone.
+      tom   N k negativo neutro positivo
+ negativo  26 0      7.7   84.6      7.7
+ negativo  26 1     15.4   69.2     15.4
+ negativo  26 2     50.0   38.5     11.5
+ negativo  26 3     61.5   26.9     11.5
+ negativo  26 4     73.1   15.4     11.5
+   neutro 210 0      9.0   78.6     12.4
+   neutro 210 1     11.9   76.2     11.9
+   neutro 210 2     17.6   66.7     15.7
+   neutro 210 3     20.0   58.1     21.9
+   neutro 210 4     29.5   38.1     32.4
+ positivo  18 0     11.1   61.1     27.8
+ positivo  18 1     11.1   44.4     44.4
+ positivo  18 2     16.7   22.2     61.1
+ positivo  18 3     11.1   22.2     66.7
+ positivo  18 4     11.1   11.1     77.8

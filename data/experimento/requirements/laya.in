@@ -1,0 +1,2 @@
+# Laya environment (kept apart from main to avoid dependency conflicts)
+laya==0.4.34

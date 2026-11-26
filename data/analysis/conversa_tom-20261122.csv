@@ -1,0 +1,2020 @@
+id,dataset,n_turnos,n_rotulados,neg,neu,pos,maioria,medida,tom_total
+mpp:1_10004_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_10009_u,mustardpp,8,8,1,4,3,neutro,VADER por turno,positivo
+mpp:1_1001_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_1003_u,mustardpp,5,5,1,4,0,neutro,VADER por turno,negativo
+mpp:1_10190_u,mustardpp,6,6,1,2,3,positivo,VADER por turno,positivo
+mpp:1_10462_u,mustardpp,4,4,3,0,1,negativo,VADER por turno,negativo
+mpp:1_10495_u,mustardpp,5,5,2,2,1,misto,VADER por turno,negativo
+mpp:1_10496_u,mustardpp,6,6,2,3,1,neutro,VADER por turno,negativo
+mpp:1_105_u,mustardpp,6,6,3,1,2,negativo,VADER por turno,negativo
+mpp:1_10748_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,positivo
+mpp:1_10797_u,mustardpp,7,7,1,3,3,misto,VADER por turno,positivo
+mpp:1_10810_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_10829_u,mustardpp,5,5,2,0,3,positivo,VADER por turno,positivo
+mpp:1_10849_u,mustardpp,5,5,1,4,0,neutro,VADER por turno,negativo
+mpp:1_10853_u,mustardpp,5,5,2,0,3,positivo,VADER por turno,positivo
+mpp:1_10857_u,mustardpp,6,6,0,0,6,positivo,VADER por turno,positivo
+mpp:1_10859_u,mustardpp,4,4,1,1,2,positivo,VADER por turno,positivo
+mpp:1_10890_u,mustardpp,6,6,1,5,0,neutro,VADER por turno,negativo
+mpp:1_10977_u,mustardpp,7,7,0,6,1,neutro,VADER por turno,positivo
+mpp:1_11006_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_11021_u,mustardpp,3,3,2,1,0,negativo,VADER por turno,negativo
+mpp:1_11042_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:1_11046_u,mustardpp,7,7,0,1,6,positivo,VADER por turno,positivo
+mpp:1_11051_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_11055_u,mustardpp,6,6,0,2,4,positivo,VADER por turno,positivo
+mpp:1_11098_u,mustardpp,8,8,0,5,3,neutro,VADER por turno,positivo
+mpp:1_11120_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_11177_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_11201_u,mustardpp,4,4,1,1,2,positivo,VADER por turno,negativo
+mpp:1_11224_u,mustardpp,5,5,3,0,2,negativo,VADER por turno,negativo
+mpp:1_11232_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_11236_u,mustardpp,5,5,2,0,3,positivo,VADER por turno,positivo
+mpp:1_11242_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_11243_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_11253_u,mustardpp,4,4,2,1,1,negativo,VADER por turno,positivo
+mpp:1_11257_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:1_11306_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_11322_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_11378_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_11439_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_1144_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_11485_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_11526_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_11529_u,mustardpp,6,6,2,2,2,misto,VADER por turno,positivo
+mpp:1_11609_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:1_11697_u,mustardpp,7,7,0,4,3,neutro,VADER por turno,positivo
+mpp:1_11699_u,mustardpp,7,7,1,6,0,neutro,VADER por turno,negativo
+mpp:1_11723_u,mustardpp,7,7,2,3,2,neutro,VADER por turno,negativo
+mpp:1_11736_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_11773_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_1180_u,mustardpp,7,7,2,4,1,neutro,VADER por turno,negativo
+mpp:1_1185_u,mustardpp,2,2,1,0,1,misto,VADER por turno,negativo
+mpp:1_11885_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_11889_u,mustardpp,7,7,0,5,2,neutro,VADER por turno,positivo
+mpp:1_1189_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_11901_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_11913_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_11924_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_11928_u,mustardpp,7,7,1,2,4,positivo,VADER por turno,positivo
+mpp:1_12002_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,negativo
+mpp:1_12083_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_12202_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_12275_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_12320_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_1262_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_1296_u,mustardpp,4,4,1,1,2,positivo,VADER por turno,positivo
+mpp:1_1466_u,mustardpp,2,2,1,0,1,misto,VADER por turno,neutro
+mpp:1_1470_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_1478_u,mustardpp,2,2,2,0,0,negativo,VADER por turno,negativo
+mpp:1_1484_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:1_1549_u,mustardpp,6,6,2,2,2,misto,VADER por turno,positivo
+mpp:1_1560_u,mustardpp,6,6,0,1,5,positivo,VADER por turno,positivo
+mpp:1_162_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_1627_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:1_1638_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_1666_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,positivo
+mpp:1_1678_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_1722_u,mustardpp,4,4,2,2,0,misto,VADER por turno,negativo
+mpp:1_1732_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_175_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:1_1772_u,mustardpp,7,7,2,2,3,positivo,VADER por turno,positivo
+mpp:1_1798_u,mustardpp,3,3,2,0,1,negativo,VADER por turno,negativo
+mpp:1_1803_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_182_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_1931_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_1973_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_1987_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_2075_u,mustardpp,5,5,0,5,0,neutro,VADER por turno,positivo
+mpp:1_2119_u,mustardpp,4,4,3,1,0,negativo,VADER por turno,negativo
+mpp:1_213_u,mustardpp,8,8,0,3,5,positivo,VADER por turno,positivo
+mpp:1_2198_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:1_2354_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_2361_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_2420_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_2423_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,positivo
+mpp:1_2464_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_2580_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_2614_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_2616_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:1_2664_u,mustardpp,4,4,2,1,1,negativo,VADER por turno,positivo
+mpp:1_276_u,mustardpp,8,8,1,3,4,positivo,VADER por turno,positivo
+mpp:1_2778_u,mustardpp,4,4,2,1,1,negativo,VADER por turno,positivo
+mpp:1_2792_u,mustardpp,7,7,1,4,2,neutro,VADER por turno,positivo
+mpp:1_2797_u,mustardpp,6,6,1,4,1,neutro,VADER por turno,positivo
+mpp:1_2819_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_2830_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_2837_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_2842_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_2853_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_3064_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:1_3069_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_3125_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_3177_u,mustardpp,5,5,0,5,0,neutro,VADER por turno,neutro
+mpp:1_3204_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:1_3256_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_3259_u,mustardpp,6,6,0,2,4,positivo,VADER por turno,positivo
+mpp:1_3287_u,mustardpp,7,7,1,2,4,positivo,VADER por turno,positivo
+mpp:1_3293_u,mustardpp,5,5,0,0,5,positivo,VADER por turno,positivo
+mpp:1_3333_u,mustardpp,5,5,0,1,4,positivo,VADER por turno,positivo
+mpp:1_3348_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,negativo
+mpp:1_3371_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:1_340_u,mustardpp,6,6,2,1,3,positivo,VADER por turno,positivo
+mpp:1_3419_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_3545_u,mustardpp,3,3,2,0,1,negativo,VADER por turno,negativo
+mpp:1_3573_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_3649_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:1_3660_u,mustardpp,6,6,0,5,1,neutro,VADER por turno,positivo
+mpp:1_3707_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_3766_u,mustardpp,5,5,2,1,2,misto,VADER por turno,negativo
+mpp:1_3837_u,mustardpp,4,4,0,0,4,positivo,VADER por turno,positivo
+mpp:1_3840_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_3911_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_4031_u,mustardpp,7,7,0,3,4,positivo,VADER por turno,positivo
+mpp:1_410_u,mustardpp,7,7,0,6,1,neutro,VADER por turno,positivo
+mpp:1_4145_u,mustardpp,2,2,2,0,0,negativo,VADER por turno,negativo
+mpp:1_427_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_4281_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:1_4286_u,mustardpp,8,8,1,4,3,neutro,VADER por turno,positivo
+mpp:1_4290_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_430_u,mustardpp,5,5,1,0,4,positivo,VADER por turno,positivo
+mpp:1_4352_u,mustardpp,5,5,2,2,1,misto,VADER por turno,negativo
+mpp:1_4477_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_4544_u,mustardpp,7,7,1,4,2,neutro,VADER por turno,positivo
+mpp:1_4552_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_4576_u,mustardpp,2,2,1,0,1,misto,VADER por turno,negativo
+mpp:1_4603_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_4639_u,mustardpp,7,7,0,3,4,positivo,VADER por turno,positivo
+mpp:1_467_u,mustardpp,6,6,2,3,1,neutro,VADER por turno,negativo
+mpp:1_4743_u,mustardpp,6,6,1,2,3,positivo,VADER por turno,positivo
+mpp:1_4760_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_4789_u,mustardpp,7,7,1,5,1,neutro,VADER por turno,negativo
+mpp:1_4792_u,mustardpp,4,4,2,0,2,misto,VADER por turno,negativo
+mpp:1_4850_u,mustardpp,5,5,2,2,1,misto,VADER por turno,positivo
+mpp:1_4949_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_4967_u,mustardpp,5,5,0,1,4,positivo,VADER por turno,positivo
+mpp:1_4995_u,mustardpp,8,8,2,5,1,neutro,VADER por turno,negativo
+mpp:1_5058_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_506_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_507_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_5109_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,positivo
+mpp:1_5134_u,mustardpp,5,5,0,1,4,positivo,VADER por turno,positivo
+mpp:1_5156_u,mustardpp,8,8,1,5,2,neutro,VADER por turno,positivo
+mpp:1_5166_u,mustardpp,6,6,0,2,4,positivo,VADER por turno,positivo
+mpp:1_5169_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_5211_u,mustardpp,8,8,0,5,3,neutro,VADER por turno,positivo
+mpp:1_533_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_536_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_537_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_5496_u,mustardpp,5,5,3,1,1,negativo,VADER por turno,negativo
+mpp:1_5571_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_5572_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_5580_u,mustardpp,4,4,1,3,0,neutro,VADER por turno,negativo
+mpp:1_5581_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:1_5617_u,mustardpp,7,7,0,3,4,positivo,VADER por turno,positivo
+mpp:1_5627_u,mustardpp,6,6,1,2,3,positivo,VADER por turno,positivo
+mpp:1_5679_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,positivo
+mpp:1_5699_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_5751_u,mustardpp,9,9,3,4,2,neutro,VADER por turno,negativo
+mpp:1_5758_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_5786_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_5880_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_5919_u,mustardpp,7,7,1,2,4,positivo,VADER por turno,positivo
+mpp:1_5953_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,positivo
+mpp:1_5964_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_60_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_6020_u,mustardpp,7,7,3,2,2,negativo,VADER por turno,negativo
+mpp:1_6032_u,mustardpp,5,5,1,2,2,misto,VADER por turno,negativo
+mpp:1_6039_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,negativo
+mpp:1_6065_u,mustardpp,4,4,1,1,2,positivo,VADER por turno,positivo
+mpp:1_6092_u,mustardpp,6,6,2,2,2,misto,VADER por turno,negativo
+mpp:1_6134_u,mustardpp,3,3,2,1,0,negativo,VADER por turno,negativo
+mpp:1_6165_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_6183_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,positivo
+mpp:1_6188_u,mustardpp,9,9,0,4,5,positivo,VADER por turno,positivo
+mpp:1_6211_u,mustardpp,7,7,0,3,4,positivo,VADER por turno,positivo
+mpp:1_6221_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_6355_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_6370_u,mustardpp,6,6,0,1,5,positivo,VADER por turno,positivo
+mpp:1_6426_u,mustardpp,7,7,0,6,1,neutro,VADER por turno,positivo
+mpp:1_6427_u,mustardpp,8,8,0,6,2,neutro,VADER por turno,positivo
+mpp:1_6428_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_6472_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_6504_u,mustardpp,5,5,1,1,3,positivo,VADER por turno,positivo
+mpp:1_6534_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_6627_u,mustardpp,5,5,1,1,3,positivo,VADER por turno,positivo
+mpp:1_6645_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,negativo
+mpp:1_6648_u,mustardpp,4,4,0,0,4,positivo,VADER por turno,positivo
+mpp:1_6683_u,mustardpp,5,5,2,2,1,misto,VADER por turno,negativo
+mpp:1_672_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_6766_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_6769_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,neutro
+mpp:1_6835_u,mustardpp,8,8,1,3,4,positivo,VADER por turno,positivo
+mpp:1_6860_u,mustardpp,4,4,1,0,3,positivo,VADER por turno,positivo
+mpp:1_70_u,mustardpp,7,7,0,3,4,positivo,VADER por turno,positivo
+mpp:1_7047_u,mustardpp,6,6,2,4,0,neutro,VADER por turno,negativo
+mpp:1_7082_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,neutro
+mpp:1_7089_u,mustardpp,7,7,0,1,6,positivo,VADER por turno,positivo
+mpp:1_7186_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_7281_u,mustardpp,5,5,1,4,0,neutro,VADER por turno,negativo
+mpp:1_7341_u,mustardpp,7,7,1,4,2,neutro,VADER por turno,positivo
+mpp:1_7357_u,mustardpp,4,4,1,3,0,neutro,VADER por turno,negativo
+mpp:1_7395_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,negativo
+mpp:1_7400_u,mustardpp,7,7,3,2,2,negativo,VADER por turno,negativo
+mpp:1_7402_u,mustardpp,5,5,1,0,4,positivo,VADER por turno,positivo
+mpp:1_7442_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_7443_u,mustardpp,6,6,2,4,0,neutro,VADER por turno,negativo
+mpp:1_7445_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_7449_u,mustardpp,7,7,1,2,4,positivo,VADER por turno,positivo
+mpp:1_7487_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_7490_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_7494_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_7504_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_7575_u,mustardpp,5,5,1,1,3,positivo,VADER por turno,positivo
+mpp:1_7593_u,mustardpp,6,6,2,3,1,neutro,VADER por turno,positivo
+mpp:1_7641_u,mustardpp,6,6,2,2,2,misto,VADER por turno,positivo
+mpp:1_7661_u,mustardpp,4,4,0,0,4,positivo,VADER por turno,positivo
+mpp:1_7675_u,mustardpp,3,3,1,0,2,positivo,VADER por turno,positivo
+mpp:1_7722_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_7894_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_7938_u,mustardpp,4,4,2,0,2,misto,VADER por turno,positivo
+mpp:1_7953_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,negativo
+mpp:1_80_u,mustardpp,3,3,2,1,0,negativo,VADER por turno,negativo
+mpp:1_8042_u,mustardpp,6,6,2,3,1,neutro,VADER por turno,positivo
+mpp:1_8045_u,mustardpp,5,5,1,2,2,misto,VADER por turno,neutro
+mpp:1_8052_u,mustardpp,2,2,1,0,1,misto,VADER por turno,positivo
+mpp:1_8078_u,mustardpp,6,6,2,2,2,misto,VADER por turno,negativo
+mpp:1_8136_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_8159_u,mustardpp,6,6,0,1,5,positivo,VADER por turno,positivo
+mpp:1_8185_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_8217_u,mustardpp,4,4,3,0,1,negativo,VADER por turno,negativo
+mpp:1_8407_u,mustardpp,7,7,2,4,1,neutro,VADER por turno,negativo
+mpp:1_8417_u,mustardpp,7,7,0,5,2,neutro,VADER por turno,positivo
+mpp:1_8452_u,mustardpp,6,6,1,4,1,neutro,VADER por turno,positivo
+mpp:1_8505_u,mustardpp,5,5,2,3,0,neutro,VADER por turno,negativo
+mpp:1_8717_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:1_8746_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_8749_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:1_8827_u,mustardpp,3,3,2,1,0,negativo,VADER por turno,negativo
+mpp:1_8837_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_90_u,mustardpp,7,7,0,4,3,neutro,VADER por turno,positivo
+mpp:1_9003_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_9009_u,mustardpp,8,8,0,7,1,neutro,VADER por turno,positivo
+mpp:1_9087_u,mustardpp,5,5,2,2,1,misto,VADER por turno,negativo
+mpp:1_9245_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_9594_u,mustardpp,5,5,1,2,2,misto,VADER por turno,neutro
+mpp:1_9668_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_971_u,mustardpp,7,7,2,4,1,neutro,VADER por turno,negativo
+mpp:1_9963_u,mustardpp,6,6,3,1,2,negativo,VADER por turno,negativo
+mpp:1_9971_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_9972_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_9993_u,mustardpp,3,3,2,0,1,negativo,VADER por turno,neutro
+mpp:1_S09E01_027_u,mustardpp,7,7,0,4,3,neutro,VADER por turno,positivo
+mpp:1_S09E01_368_u,mustardpp,5,5,1,1,3,positivo,VADER por turno,positivo
+mpp:1_S09E01_379_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S09E01_403_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S09E01_439_u,mustardpp,4,4,1,3,0,neutro,VADER por turno,negativo
+mpp:1_S09E02_002_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S09E02_064_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_S09E02_078_u,mustardpp,6,6,4,2,0,negativo,VADER por turno,negativo
+mpp:1_S09E02_178_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S09E02_215_u,mustardpp,5,5,1,2,2,misto,VADER por turno,negativo
+mpp:1_S09E02_271_u,mustardpp,7,7,0,6,1,neutro,VADER por turno,positivo
+mpp:1_S09E02_371_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S09E02_386_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_S09E02_424_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S09E03_056_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,positivo
+mpp:1_S09E03_072_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S09E03_120_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:1_S09E03_125_u,mustardpp,7,7,1,5,1,neutro,VADER por turno,negativo
+mpp:1_S09E03_143_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S09E03_170_u,mustardpp,11,11,2,7,2,neutro,VADER por turno,positivo
+mpp:1_S09E03_233_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S09E03_241_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S09E03_359_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_S09E03_476_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S09E04_015_u,mustardpp,6,6,1,4,1,neutro,VADER por turno,negativo
+mpp:1_S09E04_053_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S09E04_088_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S09E04_106_u,mustardpp,9,9,0,6,3,neutro,VADER por turno,positivo
+mpp:1_S09E04_207_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S09E04_230_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S09E04_267_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S09E04_288_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S09E04_342_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_S09E04_351_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S09E04_382_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S09E05_022_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S09E05_213_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_S09E05_222_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,negativo
+mpp:1_S09E05_258_u,mustardpp,9,9,0,7,2,neutro,VADER por turno,positivo
+mpp:1_S09E05_278_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S09E05_284_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_S09E05_291_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S09E06_055_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S09E06_168_u,mustardpp,7,7,1,4,2,neutro,VADER por turno,positivo
+mpp:1_S09E07_054_u,mustardpp,10,10,2,4,4,misto,VADER por turno,positivo
+mpp:1_S09E07_135_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S09E07_285_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:1_S09E08_255_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S09E10_065_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,positivo
+mpp:1_S09E10_208_u,mustardpp,2,2,1,0,1,misto,VADER por turno,positivo
+mpp:1_S09E11_045_u,mustardpp,7,7,2,4,1,neutro,VADER por turno,negativo
+mpp:1_S09E12_184_u,mustardpp,6,6,2,2,2,misto,VADER por turno,positivo
+mpp:1_S09E12_369_u,mustardpp,10,10,1,8,1,neutro,VADER por turno,positivo
+mpp:1_S09E13_024_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_S09E14_045_u,mustardpp,5,5,0,5,0,neutro,VADER por turno,neutro
+mpp:1_S09E14_455_u,mustardpp,8,8,0,4,4,misto,VADER por turno,positivo
+mpp:1_S09E16_101_u,mustardpp,10,10,0,7,3,neutro,VADER por turno,positivo
+mpp:1_S09E16_189_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S09E18_033_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S09E18_147_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_S09E18_357_u,mustardpp,2,2,1,0,1,misto,VADER por turno,positivo
+mpp:1_S09E19_044_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S09E20_029_u,mustardpp,11,11,1,3,7,positivo,VADER por turno,positivo
+mpp:1_S09E20_127_u,mustardpp,11,11,0,7,4,neutro,VADER por turno,positivo
+mpp:1_S09E20_156_u,mustardpp,11,11,0,8,3,neutro,VADER por turno,positivo
+mpp:1_S09E20_179_u,mustardpp,9,9,1,5,3,neutro,VADER por turno,positivo
+mpp:1_S09E20_237_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S09E20_354_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S09E21_024_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_S09E21_255_u,mustardpp,5,5,3,1,1,negativo,VADER por turno,negativo
+mpp:1_S09E21_401_u,mustardpp,7,7,0,5,2,neutro,VADER por turno,positivo
+mpp:1_S09E22_015_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:1_S09E22_075_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_S09E23_017_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S09E23_102_u,mustardpp,3,3,3,0,0,negativo,VADER por turno,negativo
+mpp:1_S09E23_270_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:1_S09E23_420_u,mustardpp,8,8,2,5,1,neutro,VADER por turno,positivo
+mpp:1_S09E24_014_u,mustardpp,6,6,0,2,4,positivo,VADER por turno,positivo
+mpp:1_S09E24_152_u,mustardpp,5,5,0,0,5,positivo,VADER por turno,positivo
+mpp:1_S10E01_075_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_S10E01_197_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_S10E01_225_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_S10E01_381_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:1_S10E01_474_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:1_S10E02_101_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S10E02_123_u,mustardpp,10,10,3,3,4,positivo,VADER por turno,positivo
+mpp:1_S10E02_327_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,negativo
+mpp:1_S10E02_372_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S10E03_144_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S10E03_154_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S10E03_177_u,mustardpp,6,6,1,5,0,neutro,VADER por turno,negativo
+mpp:1_S10E03_224_u,mustardpp,4,4,2,2,0,misto,VADER por turno,negativo
+mpp:1_S10E03_260_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_S10E03_282_u,mustardpp,4,4,1,1,2,positivo,VADER por turno,positivo
+mpp:1_S10E03_311_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,negativo
+mpp:1_S10E04_007_u,mustardpp,6,6,3,2,1,negativo,VADER por turno,negativo
+mpp:1_S10E04_021_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_S10E04_043_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S10E04_057_u,mustardpp,5,5,2,3,0,neutro,VADER por turno,negativo
+mpp:1_S10E04_082_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S10E04_105_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:1_S10E04_158_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S10E04_177_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S10E04_194_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_S10E04_238_u,mustardpp,5,5,0,5,0,neutro,VADER por turno,negativo
+mpp:1_S10E04_262_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,negativo
+mpp:1_S10E04_277_u,mustardpp,10,10,3,4,3,neutro,VADER por turno,positivo
+mpp:1_S10E04_307_u,mustardpp,7,7,0,6,1,neutro,VADER por turno,positivo
+mpp:1_S10E04_343_u,mustardpp,4,4,2,1,1,negativo,VADER por turno,neutro
+mpp:1_S10E04_361_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_S10E04_398_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:1_S10E04_403_u,mustardpp,3,3,1,1,1,misto,VADER por turno,neutro
+mpp:1_S10E05_079_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_S10E05_110_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_S10E05_120_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S10E05_288_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S10E05_319_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S10E06_003_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:1_S10E06_062_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:1_S10E06_166_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S10E06_255_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S10E07_069_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_S10E07_110_u,mustardpp,3,3,2,1,0,negativo,VADER por turno,negativo
+mpp:1_S10E07_140_u,mustardpp,8,8,2,2,4,positivo,VADER por turno,positivo
+mpp:1_S10E07_163_u,mustardpp,5,5,1,4,0,neutro,VADER por turno,negativo
+mpp:1_S10E07_187_u,mustardpp,8,8,2,5,1,neutro,VADER por turno,negativo
+mpp:1_S10E07_198_u,mustardpp,4,4,3,1,0,negativo,VADER por turno,negativo
+mpp:1_S10E07_247_u,mustardpp,8,8,1,5,2,neutro,VADER por turno,positivo
+mpp:1_S10E07_267_u,mustardpp,4,4,1,3,0,neutro,VADER por turno,negativo
+mpp:1_S10E08_063_u,mustardpp,10,10,1,8,1,neutro,VADER por turno,negativo
+mpp:1_S10E08_131_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_S10E08_140_u,mustardpp,5,5,0,5,0,neutro,VADER por turno,neutro
+mpp:1_S10E09_021_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S10E09_066_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:1_S10E09_081_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_S10E09_100_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:1_S10E09_169_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S10E09_186_u,mustardpp,8,8,2,5,1,neutro,VADER por turno,negativo
+mpp:1_S10E09_194_u,mustardpp,4,4,2,2,0,misto,VADER por turno,negativo
+mpp:1_S10E09_258_u,mustardpp,8,8,0,5,3,neutro,VADER por turno,positivo
+mpp:1_S10E09_324_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_S10E10_009_u,mustardpp,6,6,0,2,4,positivo,VADER por turno,positivo
+mpp:1_S10E10_090_u,mustardpp,8,8,2,2,4,positivo,VADER por turno,positivo
+mpp:1_S10E10_158_u,mustardpp,7,7,1,3,3,misto,VADER por turno,positivo
+mpp:1_S10E10_269_u,mustardpp,4,4,1,3,0,neutro,VADER por turno,neutro
+mpp:1_S10E10_376_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S10E11_321_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_S10E12_115_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_S10E13_095_u,mustardpp,4,4,0,0,4,positivo,VADER por turno,positivo
+mpp:1_S10E13_135_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:1_S10E14_032_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:1_S10E14_056_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S10E14_094_u,mustardpp,6,6,1,4,1,neutro,VADER por turno,positivo
+mpp:1_S10E14_476_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:1_S10E16_009_u,mustardpp,7,7,1,5,1,neutro,VADER por turno,positivo
+mpp:1_S10E17_032_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,negativo
+mpp:1_S10E17_096_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_S10E17_125_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_S10E17_146_u,mustardpp,6,6,1,1,4,positivo,VADER por turno,positivo
+mpp:1_S10E17_287_u,mustardpp,6,6,1,1,4,positivo,VADER por turno,positivo
+mpp:1_S10E18_164_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S10E18_266_u,mustardpp,7,7,2,2,3,positivo,VADER por turno,positivo
+mpp:1_S10E18_323_u,mustardpp,3,3,2,0,1,negativo,VADER por turno,negativo
+mpp:1_S10E18_391_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S10E18_423_u,mustardpp,3,3,1,0,2,positivo,VADER por turno,negativo
+mpp:1_S10E19_015_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S10E19_252_u,mustardpp,6,6,2,2,2,misto,VADER por turno,positivo
+mpp:1_S10E21_151_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_S10E21_200_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_S10E23_165_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S11E01_100_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_S11E01_222_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S11E01_337_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S11E01_400_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:1_S11E01_446_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S11E02_008_u,mustardpp,8,8,1,5,2,neutro,VADER por turno,positivo
+mpp:1_S11E02_030_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S11E02_049_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S11E02_205_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S11E02_299_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_S11E03_006_u,mustardpp,6,6,0,2,4,positivo,VADER por turno,positivo
+mpp:1_S11E03_220_u,mustardpp,6,6,1,4,1,neutro,VADER por turno,negativo
+mpp:1_S11E03_250_u,mustardpp,4,4,1,1,2,positivo,VADER por turno,positivo
+mpp:1_S11E03_321_u,mustardpp,5,5,1,1,3,positivo,VADER por turno,positivo
+mpp:1_S11E03_365_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_S11E04_005_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_S11E04_016_u,mustardpp,10,10,1,4,5,positivo,VADER por turno,positivo
+mpp:1_S11E04_024_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_S11E04_067_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S11E04_137_u,mustardpp,7,7,3,2,2,negativo,VADER por turno,negativo
+mpp:1_S11E04_162_u,mustardpp,9,9,2,5,2,neutro,VADER por turno,positivo
+mpp:1_S11E04_273_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,positivo
+mpp:1_S11E04_298_u,mustardpp,8,8,2,5,1,neutro,VADER por turno,negativo
+mpp:1_S11E04_315_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S11E04_347_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_S11E05_005_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_S11E05_060_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S11E05_099_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S11E05_156_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S11E05_186_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:1_S11E05_193_u,mustardpp,5,5,1,4,0,neutro,VADER por turno,negativo
+mpp:1_S11E05_253_u,mustardpp,7,7,1,4,2,neutro,VADER por turno,positivo
+mpp:1_S11E05_306_u,mustardpp,9,9,0,4,5,positivo,VADER por turno,positivo
+mpp:1_S11E05_343_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_S11E05_370_u,mustardpp,5,5,1,4,0,neutro,VADER por turno,negativo
+mpp:1_S11E05_429_u,mustardpp,10,10,1,8,1,neutro,VADER por turno,positivo
+mpp:1_S11E05_448_u,mustardpp,6,6,1,2,3,positivo,VADER por turno,positivo
+mpp:1_S11E06_003_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S11E06_019_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:1_S11E06_060_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,negativo
+mpp:1_S11E06_102_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_S11E06_187_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_S11E06_249_u,mustardpp,11,11,1,5,5,misto,VADER por turno,positivo
+mpp:1_S11E06_391_u,mustardpp,6,6,1,4,1,neutro,VADER por turno,positivo
+mpp:1_S11E06_410_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:1_S11E06_448_u,mustardpp,9,9,2,7,0,neutro,VADER por turno,negativo
+mpp:1_S11E07_026_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_S11E07_112_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_S11E07_153_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_S11E07_161_u,mustardpp,5,5,2,2,1,misto,VADER por turno,positivo
+mpp:1_S11E07_220_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_S11E07_265_u,mustardpp,5,5,3,1,1,negativo,VADER por turno,negativo
+mpp:1_S11E07_271_u,mustardpp,4,4,1,0,3,positivo,VADER por turno,positivo
+mpp:1_S11E07_381_u,mustardpp,6,6,0,1,5,positivo,VADER por turno,positivo
+mpp:1_S11E07_405_u,mustardpp,5,5,2,2,1,misto,VADER por turno,neutro
+mpp:1_S11E07_415_u,mustardpp,9,9,0,6,3,neutro,VADER por turno,positivo
+mpp:1_S11E08_005_u,mustardpp,5,5,0,5,0,neutro,VADER por turno,neutro
+mpp:1_S11E08_113_u,mustardpp,11,11,1,6,4,neutro,VADER por turno,positivo
+mpp:1_S11E08_137_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_S11E08_142_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S11E08_195_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_S11E08_217_u,mustardpp,10,10,1,8,1,neutro,VADER por turno,positivo
+mpp:1_S11E08_283_u,mustardpp,7,7,0,3,4,positivo,VADER por turno,positivo
+mpp:1_S11E08_305_u,mustardpp,7,7,0,5,2,neutro,VADER por turno,positivo
+mpp:1_S11E08_351_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S11E08_428_u,mustardpp,7,7,2,5,0,neutro,VADER por turno,negativo
+mpp:1_S11E10_009_u,mustardpp,9,9,1,4,4,misto,VADER por turno,positivo
+mpp:1_S11E10_062_u,mustardpp,9,9,0,5,4,neutro,VADER por turno,positivo
+mpp:1_S11E10_143_u,mustardpp,5,5,4,0,1,negativo,VADER por turno,negativo
+mpp:1_S11E10_228_u,mustardpp,6,6,2,4,0,neutro,VADER por turno,negativo
+mpp:1_S11E10_240_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S11E10_249_u,mustardpp,6,6,3,3,0,misto,VADER por turno,negativo
+mpp:1_S11E10_297_u,mustardpp,5,5,1,1,3,positivo,VADER por turno,positivo
+mpp:1_S11E10_309_u,mustardpp,6,6,1,1,4,positivo,VADER por turno,positivo
+mpp:1_S11E10_337_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_S11E10_432_u,mustardpp,6,6,1,2,3,positivo,VADER por turno,positivo
+mpp:1_S11E10_461_u,mustardpp,8,8,0,6,2,neutro,VADER por turno,positivo
+mpp:1_S11E11_024_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_S11E11_055_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S11E11_077_u,mustardpp,8,8,0,4,4,misto,VADER por turno,positivo
+mpp:1_S11E11_098_u,mustardpp,7,7,1,6,0,neutro,VADER por turno,negativo
+mpp:1_S11E11_127_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S11E11_182_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S11E11_217_u,mustardpp,5,5,2,0,3,positivo,VADER por turno,positivo
+mpp:1_S11E11_301_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S11E11_343_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S11E11_403_u,mustardpp,8,8,0,5,3,neutro,VADER por turno,positivo
+mpp:1_S11E12_038_u,mustardpp,5,5,1,4,0,neutro,VADER por turno,negativo
+mpp:1_S11E12_237_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_S11E12_279_u,mustardpp,8,8,0,5,3,neutro,VADER por turno,positivo
+mpp:1_S11E12_290_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S11E13_001_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S11E13_211_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S11E13_362_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S11E16_170_u,mustardpp,5,5,2,1,2,misto,VADER por turno,negativo
+mpp:1_S11E18_206_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S11E19_030_u,mustardpp,7,7,1,4,2,neutro,VADER por turno,positivo
+mpp:1_S11E19_143_u,mustardpp,8,8,0,6,2,neutro,VADER por turno,positivo
+mpp:1_S11E20_143_u,mustardpp,3,3,2,0,1,negativo,VADER por turno,negativo
+mpp:1_S11E20_332_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S11E21_080_u,mustardpp,10,10,0,5,5,misto,VADER por turno,positivo
+mpp:1_S11E21_201_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S11E22_069_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_S11E22_149_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:1_S11E22_205_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S11E22_260_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:1_S11E23_048_u,mustardpp,5,5,2,2,1,misto,VADER por turno,neutro
+mpp:1_S11E24_338_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_S12E01_111_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_S12E01_139_u,mustardpp,4,4,2,2,0,misto,VADER por turno,negativo
+mpp:1_S12E01_150_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_S12E01_248_u,mustardpp,5,5,0,5,0,neutro,VADER por turno,neutro
+mpp:1_S12E01_268_u,mustardpp,9,9,1,4,4,misto,VADER por turno,positivo
+mpp:1_S12E01_274_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:1_S12E01_297_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S12E01_325_u,mustardpp,7,7,1,5,1,neutro,VADER por turno,negativo
+mpp:1_S12E01_332_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S12E01_339_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_S12E02_006_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_S12E02_105_u,mustardpp,5,5,1,1,3,positivo,VADER por turno,positivo
+mpp:1_S12E02_118_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_S12E02_204_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S12E02_228_u,mustardpp,10,10,1,4,5,positivo,VADER por turno,positivo
+mpp:1_S12E02_262_u,mustardpp,8,8,0,6,2,neutro,VADER por turno,positivo
+mpp:1_S12E02_274_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S12E02_358_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S12E02_385_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S12E02_433_u,mustardpp,11,11,2,6,3,neutro,VADER por turno,positivo
+mpp:1_S12E02_443_u,mustardpp,9,9,0,7,2,neutro,VADER por turno,positivo
+mpp:1_S12E02_466_u,mustardpp,10,10,1,3,6,positivo,VADER por turno,positivo
+mpp:1_S12E02_471_u,mustardpp,5,5,0,1,4,positivo,VADER por turno,positivo
+mpp:1_S12E03_061_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S12E03_095_u,mustardpp,6,6,0,3,3,misto,VADER por turno,positivo
+mpp:1_S12E03_101_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_S12E03_118_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S12E03_174_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,negativo
+mpp:1_S12E03_195_u,mustardpp,4,4,0,0,4,positivo,VADER por turno,positivo
+mpp:1_S12E03_239_u,mustardpp,5,5,1,4,0,neutro,VADER por turno,negativo
+mpp:1_S12E03_263_u,mustardpp,5,5,0,1,4,positivo,VADER por turno,positivo
+mpp:1_S12E03_286_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S12E03_310_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,positivo
+mpp:1_S12E03_337_u,mustardpp,7,7,1,4,2,neutro,VADER por turno,positivo
+mpp:1_S12E03_338_u,mustardpp,8,8,1,4,3,neutro,VADER por turno,positivo
+mpp:1_S12E03_380_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:1_S12E03_410_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_S12E04_003_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S12E04_027_u,mustardpp,8,8,0,4,4,misto,VADER por turno,positivo
+mpp:1_S12E04_040_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:1_S12E04_046_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:1_S12E04_055_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,positivo
+mpp:1_S12E04_070_u,mustardpp,6,6,0,6,0,neutro,VADER por turno,neutro
+mpp:1_S12E04_076_u,mustardpp,5,5,2,2,1,misto,VADER por turno,neutro
+mpp:1_S12E04_102_u,mustardpp,4,4,1,1,2,positivo,VADER por turno,positivo
+mpp:1_S12E04_195_u,mustardpp,11,11,0,4,7,positivo,VADER por turno,positivo
+mpp:1_S12E04_204_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S12E04_233_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,negativo
+mpp:1_S12E04_242_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:1_S12E04_249_u,mustardpp,6,6,3,1,2,negativo,VADER por turno,negativo
+mpp:1_S12E04_276_u,mustardpp,8,8,1,4,3,neutro,VADER por turno,positivo
+mpp:1_S12E04_456_u,mustardpp,7,7,0,6,1,neutro,VADER por turno,positivo
+mpp:1_S12E05_030_u,mustardpp,7,7,0,5,2,neutro,VADER por turno,positivo
+mpp:1_S12E05_054_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_S12E05_083_u,mustardpp,6,6,3,3,0,misto,VADER por turno,negativo
+mpp:1_S12E05_110_u,mustardpp,9,9,0,6,3,neutro,VADER por turno,positivo
+mpp:1_S12E05_134_u,mustardpp,8,8,2,2,4,positivo,VADER por turno,positivo
+mpp:1_S12E06_010_u,mustardpp,10,10,1,8,1,neutro,VADER por turno,positivo
+mpp:1_S12E06_016_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S12E06_027_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S12E06_088_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:1_S12E06_111_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:1_S12E06_171_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S12E06_248_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S12E06_287_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S12E06_316_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_S12E06_367_u,mustardpp,9,9,0,8,1,neutro,VADER por turno,positivo
+mpp:1_S12E06_412_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S12E07_005_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:1_S12E07_060_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S12E07_092_u,mustardpp,8,8,1,5,2,neutro,VADER por turno,positivo
+mpp:1_S12E07_105_u,mustardpp,9,9,1,5,3,neutro,VADER por turno,positivo
+mpp:1_S12E07_147_u,mustardpp,9,9,1,4,4,misto,VADER por turno,positivo
+mpp:1_S12E07_169_u,mustardpp,10,10,0,5,5,misto,VADER por turno,positivo
+mpp:1_S12E07_179_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:1_S12E07_264_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_S12E07_424_u,mustardpp,11,11,3,6,2,neutro,VADER por turno,positivo
+mpp:1_S12E07_443_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S12E08_006_u,mustardpp,6,6,1,5,0,neutro,VADER por turno,negativo
+mpp:1_S12E08_023_u,mustardpp,8,8,0,5,3,neutro,VADER por turno,positivo
+mpp:1_S12E08_071_u,mustardpp,10,10,1,4,5,positivo,VADER por turno,positivo
+mpp:1_S12E08_098_u,mustardpp,10,10,1,5,4,neutro,VADER por turno,positivo
+mpp:1_S12E08_103_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S12E08_135_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:1_S12E08_258_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S12E08_445_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:1_S12E09_005_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:1_S12E09_081_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_S12E09_090_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S12E09_103_u,mustardpp,10,10,0,4,6,positivo,VADER por turno,positivo
+mpp:1_S12E09_175_u,mustardpp,8,8,1,4,3,neutro,VADER por turno,positivo
+mpp:1_S12E09_207_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S12E09_307_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:1_S12E09_369_u,mustardpp,6,6,1,3,2,neutro,VADER por turno,positivo
+mpp:1_S12E09_413_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_S12E10_195_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:1_S12E10_245_u,mustardpp,9,9,5,1,3,negativo,VADER por turno,negativo
+mpp:1_S12E11_002_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S12E11_072_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:1_S12E11_190_u,mustardpp,7,7,2,2,3,positivo,VADER por turno,positivo
+mpp:1_S12E11_199_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:1_S12E11_216_u,mustardpp,9,9,1,5,3,neutro,VADER por turno,positivo
+mpp:1_S12E12_030_u,mustardpp,4,4,1,3,0,neutro,VADER por turno,negativo
+mpp:1_S12E12_043_u,mustardpp,10,10,3,6,1,neutro,VADER por turno,negativo
+mpp:1_S12E12_086_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S12E12_266_u,mustardpp,9,9,1,5,3,neutro,VADER por turno,positivo
+mpp:1_S12E12_281_u,mustardpp,8,8,1,5,2,neutro,VADER por turno,positivo
+mpp:1_S12E12_371_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_S12E13_088_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:1_S12E13_224_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_S12E14_125_u,mustardpp,7,7,1,2,4,positivo,VADER por turno,positivo
+mpp:1_S12E14_152_u,mustardpp,9,9,2,5,2,neutro,VADER por turno,negativo
+mpp:1_S12E15_013_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:1_S12E15_064_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S12E15_154_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:1_S12E15_273_u,mustardpp,7,7,1,5,1,neutro,VADER por turno,positivo
+mpp:1_S12E15_351_u,mustardpp,6,6,1,4,1,neutro,VADER por turno,positivo
+mpp:1_S12E15_420_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:1_S12E16_140_u,mustardpp,6,6,0,2,4,positivo,VADER por turno,positivo
+mpp:1_S12E17_085_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S12E17_124_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_S12E17_195_u,mustardpp,7,7,3,4,0,neutro,VADER por turno,negativo
+mpp:1_S12E17_336_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:1_S12E18_030_u,mustardpp,8,8,2,3,3,misto,VADER por turno,positivo
+mpp:1_S12E18_159_u,mustardpp,8,8,3,5,0,neutro,VADER por turno,negativo
+mpp:1_S12E18_198_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:1_S12E18_225_u,mustardpp,7,7,2,4,1,neutro,VADER por turno,negativo
+mpp:1_S12E18_290_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:1_S12E18_303_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:1_S12E19_143_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,negativo
+mpp:1_S12E19_354_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,negativo
+mpp:1_S12E20_378_u,mustardpp,6,6,1,2,3,positivo,VADER por turno,positivo
+mpp:1_S12E21_167_u,mustardpp,5,5,2,1,2,misto,VADER por turno,positivo
+mpp:1_S12E21_261_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:1_S12E21_285_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:1_S12E22_004_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S12E22_066_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:1_S12E22_188_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S12E22_211_u,mustardpp,6,6,0,2,4,positivo,VADER por turno,positivo
+mpp:1_S12E23_209_u,mustardpp,8,8,1,5,2,neutro,VADER por turno,positivo
+mpp:1_S12E23_350_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,positivo
+mpp:1_S12E23_389_u,mustardpp,5,5,2,2,1,misto,VADER por turno,positivo
+mpp:1_S12E23_470_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:1_S12E23_488_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:1_S12E23_539_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:1_S12E23_576_u,mustardpp,9,9,0,7,2,neutro,VADER por turno,negativo
+mpp:1_S12E23_600_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:2_1_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_102_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_103_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_104_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_105_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_107_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_109_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_11_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_112_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_113_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_114_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_115_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_119_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_12_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_120_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_121_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_123_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_124_u,mustardpp,4,4,2,2,0,misto,VADER por turno,negativo
+mpp:2_125_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_126_u,mustardpp,2,2,2,0,0,negativo,VADER por turno,negativo
+mpp:2_127_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_128_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_129_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_13_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_131_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_134_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_135_u,mustardpp,2,2,2,0,0,negativo,VADER por turno,negativo
+mpp:2_137_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_140_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_141_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_144_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_146_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:2_147_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_148_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_149_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_15_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_150_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_151_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_152_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_154_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_155_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:2_158_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_160_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_161_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_162_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_163_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_168_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_169_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_170_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_171_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_172_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_173_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,positivo
+mpp:2_174_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_176_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_177_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_178_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_180_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_181_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_182_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_183_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_186_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_187_u,mustardpp,2,2,1,0,1,misto,VADER por turno,positivo
+mpp:2_188_u,mustardpp,3,3,2,1,0,negativo,VADER por turno,negativo
+mpp:2_189_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_190_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_193_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_194_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_196_u,mustardpp,2,2,1,0,1,misto,VADER por turno,negativo
+mpp:2_197_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_198_u,mustardpp,3,3,1,0,2,positivo,VADER por turno,positivo
+mpp:2_2_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_20_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_202_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_203_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_204_u,mustardpp,9,9,1,6,2,neutro,VADER por turno,positivo
+mpp:2_205_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_206_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_208_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_209_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_210_u,mustardpp,3,3,1,0,2,positivo,VADER por turno,positivo
+mpp:2_213_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_217_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_218_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:2_221_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_222_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_223_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_225_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_226_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_227_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_228_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_230_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_231_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_232_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_234_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_235_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:2_236_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_24_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_240_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_241_u,mustardpp,2,2,1,0,1,misto,VADER por turno,positivo
+mpp:2_242_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_243_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_245_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_246_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,negativo
+mpp:2_247_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_248_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_250_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_251_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_253_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_254_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_255_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_257_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_258_u,mustardpp,5,5,1,4,0,neutro,VADER por turno,negativo
+mpp:2_259_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:2_260_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_261_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_263_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:2_264_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_268_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_27_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_270_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_271_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_272_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_278_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_279_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_28_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_280_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_281_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_282_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_283_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_286_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_287_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_288_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_289_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_29_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_291_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_292_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_293_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:2_294_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_295_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_297_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:2_299_u,mustardpp,2,2,2,0,0,negativo,VADER por turno,negativo
+mpp:2_3_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_30_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_300_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_301_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_302_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_303_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_305_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_306_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_31_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_310_u,mustardpp,2,2,1,0,1,misto,VADER por turno,negativo
+mpp:2_312_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_313_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_314_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_315_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_316_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_317_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_318_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_319_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_322_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_323_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_326_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_33_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_334_u,mustardpp,3,3,1,0,2,positivo,VADER por turno,positivo
+mpp:2_337_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_338_u,mustardpp,4,4,1,0,3,positivo,VADER por turno,positivo
+mpp:2_339_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_34_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_341_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_342_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_343_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_344_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_345_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:2_347_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_35_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_350_u,mustardpp,5,5,2,2,1,misto,VADER por turno,negativo
+mpp:2_351_u,mustardpp,2,2,2,0,0,negativo,VADER por turno,negativo
+mpp:2_352_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_353_u,mustardpp,2,2,1,0,1,misto,VADER por turno,negativo
+mpp:2_356_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_357_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_358_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_359_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_36_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_361_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_365_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_367_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_369_u,mustardpp,11,11,2,9,0,neutro,VADER por turno,negativo
+mpp:2_370_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_371_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_372_u,mustardpp,4,4,2,2,0,misto,VADER por turno,negativo
+mpp:2_373_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_374_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_375_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_376_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_377_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_378_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_38_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:2_380_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_381_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_385_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_387_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_388_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_389_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_39_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_390_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_392_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_393_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_397_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_398_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_400_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_405_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_406_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_407_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_408_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:2_409_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_410_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_413_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_415_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_416_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_419_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_42_u,mustardpp,2,2,1,0,1,misto,VADER por turno,negativo
+mpp:2_420_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:2_421_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_422_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:2_423_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:2_425_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_426_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_427_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_428_u,mustardpp,4,4,1,3,0,neutro,VADER por turno,negativo
+mpp:2_429_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_43_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_430_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_431_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_433_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_434_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_435_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_437_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_438_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_439_u,mustardpp,2,2,1,0,1,misto,VADER por turno,positivo
+mpp:2_44_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_440_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_441_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_442_u,mustardpp,2,2,1,0,1,misto,VADER por turno,negativo
+mpp:2_443_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:2_444_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_445_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_446_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_447_u,mustardpp,2,2,1,0,1,misto,VADER por turno,negativo
+mpp:2_448_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_449_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:2_45_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_450_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_454_u,mustardpp,2,2,1,0,1,misto,VADER por turno,positivo
+mpp:2_456_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:2_457_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_458_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_461_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_462_u,mustardpp,2,2,2,0,0,negativo,VADER por turno,negativo
+mpp:2_463_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:2_464_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_465_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_467_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_471_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_472_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_473_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_474_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_475_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_477_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_478_u,mustardpp,5,5,1,3,1,neutro,VADER por turno,negativo
+mpp:2_479_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_48_u,mustardpp,2,2,1,0,1,misto,VADER por turno,positivo
+mpp:2_481_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_482_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_484_u,mustardpp,9,9,2,5,2,neutro,VADER por turno,positivo
+mpp:2_485_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_486_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_487_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_488_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:2_489_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_49_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_490_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_491_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_492_u,mustardpp,4,4,2,0,2,misto,VADER por turno,positivo
+mpp:2_493_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_494_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_495_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_498_u,mustardpp,5,5,0,5,0,neutro,VADER por turno,neutro
+mpp:2_499_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_50_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_500_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_502_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_504_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_505_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_506_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_507_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_508_u,mustardpp,4,4,1,2,1,neutro,VADER por turno,positivo
+mpp:2_509_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_51_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:2_511_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_512_u,mustardpp,6,6,0,5,1,neutro,VADER por turno,positivo
+mpp:2_514_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_517_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_518_u,mustardpp,6,6,1,4,1,neutro,VADER por turno,negativo
+mpp:2_521_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_522_u,mustardpp,2,2,2,0,0,negativo,VADER por turno,negativo
+mpp:2_523_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_524_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_525_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_526_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_527_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_53_u,mustardpp,2,2,1,0,1,misto,VADER por turno,negativo
+mpp:2_530_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_531_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_532_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_534_u,mustardpp,3,3,2,0,1,negativo,VADER por turno,negativo
+mpp:2_535_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:2_536_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_537_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_54_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_540_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_541_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_542_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_546_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_547_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:2_548_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_549_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_55_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_550_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_552_u,mustardpp,2,2,2,0,0,negativo,VADER por turno,negativo
+mpp:2_553_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_555_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_556_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_557_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_558_u,mustardpp,3,3,2,1,0,negativo,VADER por turno,negativo
+mpp:2_56_u,mustardpp,3,3,1,0,2,positivo,VADER por turno,positivo
+mpp:2_560_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_562_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_564_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_567_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_569_u,mustardpp,2,2,2,0,0,negativo,VADER por turno,negativo
+mpp:2_570_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_572_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_573_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:2_574_u,mustardpp,5,5,0,5,0,neutro,VADER por turno,neutro
+mpp:2_575_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_576_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_577_u,mustardpp,2,2,1,0,1,misto,VADER por turno,positivo
+mpp:2_579_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_58_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_581_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_583_u,mustardpp,2,2,2,0,0,negativo,VADER por turno,negativo
+mpp:2_585_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_586_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_587_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_588_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_589_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_590_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_591_u,mustardpp,2,2,1,0,1,misto,VADER por turno,positivo
+mpp:2_594_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:2_595_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:2_596_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_598_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_599_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_604_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_607_u,mustardpp,3,3,0,0,3,positivo,VADER por turno,positivo
+mpp:2_608_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:2_609_u,mustardpp,3,3,1,0,2,positivo,VADER por turno,positivo
+mpp:2_611_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_612_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_615_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_617_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_622_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_623_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:2_626_u,mustardpp,2,2,1,1,0,misto,VADER por turno,positivo
+mpp:2_627_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_65_u,mustardpp,3,3,2,1,0,negativo,VADER por turno,positivo
+mpp:2_66_u,mustardpp,5,5,1,4,0,neutro,VADER por turno,negativo
+mpp:2_69_u,mustardpp,4,4,0,3,1,neutro,VADER por turno,positivo
+mpp:2_7_u,mustardpp,3,3,2,0,1,negativo,VADER por turno,positivo
+mpp:2_71_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:2_72_u,mustardpp,3,3,1,2,0,neutro,VADER por turno,negativo
+mpp:2_73_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:2_74_u,mustardpp,1,1,1,0,0,negativo,VADER por turno,negativo
+mpp:2_77_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:2_78_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_79_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_8_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:2_84_u,mustardpp,5,5,0,2,3,positivo,VADER por turno,positivo
+mpp:2_86_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_87_u,mustardpp,3,3,1,1,1,misto,VADER por turno,negativo
+mpp:2_88_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:2_89_u,mustardpp,6,6,0,4,2,neutro,VADER por turno,positivo
+mpp:2_9_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:2_91_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:2_92_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:2_94_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:2_96_u,mustardpp,2,2,1,0,1,misto,VADER por turno,negativo
+mpp:2_97_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:3_S01E01_128_u,mustardpp,8,8,1,6,1,neutro,VADER por turno,positivo
+mpp:3_S01E01_226_u,mustardpp,3,3,0,2,1,neutro,VADER por turno,positivo
+mpp:3_S01E01_255_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:3_S01E01_568_u,mustardpp,11,11,1,5,5,misto,VADER por turno,positivo
+mpp:3_S01E02_004_u,mustardpp,4,4,2,2,0,misto,VADER por turno,negativo
+mpp:3_S01E02_324_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:3_S01E02_461_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:3_S01E03_021_u,mustardpp,9,9,3,4,2,neutro,VADER por turno,negativo
+mpp:3_S01E03_024_u,mustardpp,1,1,0,0,1,positivo,VADER por turno,positivo
+mpp:3_S01E03_056_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:3_S01E03_122_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:3_S01E03_249_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:3_S01E03_359_u,mustardpp,8,8,2,5,1,neutro,VADER por turno,negativo
+mpp:3_S01E04_009_u,mustardpp,7,7,0,5,2,neutro,VADER por turno,positivo
+mpp:3_S01E04_327_u,mustardpp,10,10,2,7,1,neutro,VADER por turno,negativo
+mpp:3_S01E04_342_u,mustardpp,6,6,0,5,1,neutro,VADER por turno,positivo
+mpp:3_S01E04_356_u,mustardpp,5,5,2,3,0,neutro,VADER por turno,negativo
+mpp:3_S01E05_417_u,mustardpp,8,8,1,4,3,neutro,VADER por turno,positivo
+mpp:3_S01E05_456_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:3_S01E05_520_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:3_S01E06_054_u,mustardpp,6,6,1,1,4,positivo,VADER por turno,positivo
+mpp:3_S01E06_266_u,mustardpp,4,4,1,3,0,neutro,VADER por turno,negativo
+mpp:3_S01E08_422_u,mustardpp,3,3,1,1,1,misto,VADER por turno,positivo
+mpp:3_S02E01_050_u,mustardpp,5,5,1,1,3,positivo,VADER por turno,positivo
+mpp:3_S02E01_096_u,mustardpp,7,7,1,4,2,neutro,VADER por turno,positivo
+mpp:3_S02E01_413_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:3_S02E02_081_u,mustardpp,6,6,1,5,0,neutro,VADER por turno,negativo
+mpp:3_S02E03_218_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:3_S02E03_229_u,mustardpp,7,7,1,5,1,neutro,VADER por turno,negativo
+mpp:3_S02E03_244_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:3_S02E03_370_u,mustardpp,5,5,0,4,1,neutro,VADER por turno,positivo
+mpp:3_S02E03_561_u,mustardpp,8,8,1,3,4,positivo,VADER por turno,positivo
+mpp:3_S02E04_162_u,mustardpp,9,9,0,5,4,neutro,VADER por turno,positivo
+mpp:3_S02E04_395_u,mustardpp,6,6,0,5,1,neutro,VADER por turno,positivo
+mpp:3_S02E05_179_u,mustardpp,10,10,3,6,1,neutro,VADER por turno,negativo
+mpp:3_S02E05_378_u,mustardpp,4,4,0,4,0,neutro,VADER por turno,neutro
+mpp:3_S02E05_466_u,mustardpp,7,7,1,5,1,neutro,VADER por turno,negativo
+mpp:3_S02E07_256_u,mustardpp,4,4,1,1,2,positivo,VADER por turno,neutro
+mpp:3_S02E10_133_u,mustardpp,4,4,0,1,3,positivo,VADER por turno,positivo
+mpp:3_S03E01_185_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:3_S03E01_409_u,mustardpp,8,8,1,2,5,positivo,VADER por turno,positivo
+mpp:3_S03E01_431_u,mustardpp,10,10,3,4,3,neutro,VADER por turno,negativo
+mpp:3_S03E02_062_u,mustardpp,2,2,0,1,1,misto,VADER por turno,positivo
+mpp:3_S03E02_111_u,mustardpp,7,7,2,3,2,neutro,VADER por turno,positivo
+mpp:3_S03E03_012_u,mustardpp,6,6,2,4,0,neutro,VADER por turno,negativo
+mpp:3_S03E03_111_u,mustardpp,5,5,0,5,0,neutro,VADER por turno,positivo
+mpp:3_S03E03_126_u,mustardpp,8,8,1,3,4,positivo,VADER por turno,positivo
+mpp:3_S03E03_316_u,mustardpp,10,10,4,2,4,misto,VADER por turno,negativo
+mpp:3_S03E03_511_u,mustardpp,6,6,1,2,3,positivo,VADER por turno,positivo
+mpp:3_S03E04_437_u,mustardpp,7,7,1,2,4,positivo,VADER por turno,positivo
+mpp:3_S04E01_575_u,mustardpp,2,2,0,0,2,positivo,VADER por turno,positivo
+mpp:3_S04E02_217_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:3_S04E02_326_u,mustardpp,2,2,0,2,0,neutro,VADER por turno,neutro
+mpp:3_S04E04_363_u,mustardpp,1,1,0,1,0,neutro,VADER por turno,neutro
+mpp:3_S04E05_313_u,mustardpp,5,5,2,2,1,misto,VADER por turno,negativo
+mpp:3_S04E05_320_u,mustardpp,12,12,4,3,5,positivo,VADER por turno,positivo
+mpp:3_S04E05_497_u,mustardpp,4,4,1,1,2,positivo,VADER por turno,positivo
+mpp:3_S04E06_526_u,mustardpp,9,9,2,4,3,neutro,VADER por turno,positivo
+mpp:3_S04E07_292_u,mustardpp,2,2,1,1,0,misto,VADER por turno,negativo
+mpp:3_S04E10_120_u,mustardpp,4,4,0,2,2,misto,VADER por turno,positivo
+mpp:3_S05E01_120_u,mustardpp,3,3,0,1,2,positivo,VADER por turno,positivo
+mpp:3_S05E02_072_u,mustardpp,5,5,1,2,2,misto,VADER por turno,positivo
+mpp:3_S05E02_532_u,mustardpp,4,4,2,1,1,negativo,VADER por turno,negativo
+mpp:3_S05E03_098_u,mustardpp,8,8,1,3,4,positivo,VADER por turno,positivo
+mpp:3_S05E05_119_u,mustardpp,11,11,0,4,7,positivo,VADER por turno,positivo
+mpp:3_S05E06_207_u,mustardpp,3,3,0,3,0,neutro,VADER por turno,neutro
+mpp:3_S06E01_317_u,mustardpp,3,3,2,1,0,negativo,VADER por turno,negativo
+mpp:3_S06E01_417_u,mustardpp,6,6,2,4,0,neutro,VADER por turno,negativo
+mpp:3_S06E01_460_u,mustardpp,11,11,1,7,3,neutro,VADER por turno,positivo
+mpp:3_S06E02_152_u,mustardpp,6,6,2,4,0,neutro,VADER por turno,negativo
+mpp:3_S06E02_171_u,mustardpp,9,9,2,7,0,neutro,VADER por turno,negativo
+mpp:3_S06E02_398_u,mustardpp,8,8,1,6,1,neutro,VADER por turno,negativo
+mpp:3_S06E03_366_u,mustardpp,6,6,1,1,4,positivo,VADER por turno,positivo
+mpp:3_S06E05_355_u,mustardpp,8,8,1,2,5,positivo,VADER por turno,positivo
+mpp:3_S06E06_143_u,mustardpp,5,5,0,3,2,neutro,VADER por turno,positivo
+mpp:3_S06E07_272_u,mustardpp,3,3,2,1,0,negativo,VADER por turno,negativo
+mtcsd:Tesla:1,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:2,mtcsd,2,1,1,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:3,mtcsd,3,2,2,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:4,mtcsd,4,3,3,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:5,mtcsd,5,4,4,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:6,mtcsd,5,4,4,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:7,mtcsd,5,4,4,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:8,mtcsd,4,3,3,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:9,mtcsd,2,1,1,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:10,mtcsd,3,2,2,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:11,mtcsd,4,3,3,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:12,mtcsd,3,2,2,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:13,mtcsd,2,1,1,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:14,mtcsd,2,1,1,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:15,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:16,mtcsd,2,1,1,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:17,mtcsd,3,2,2,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:18,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:19,mtcsd,5,4,3,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:20,mtcsd,6,5,4,1,0,negativo,postura anotada,positivo
+mtcsd:Tesla:21,mtcsd,7,6,5,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:22,mtcsd,2,1,1,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:23,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:24,mtcsd,4,3,2,1,0,negativo,postura anotada,positivo
+mtcsd:Tesla:25,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:26,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:27,mtcsd,2,1,1,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:28,mtcsd,3,2,2,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:29,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:30,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:31,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:32,mtcsd,5,4,2,1,1,negativo,postura anotada,positivo
+mtcsd:Tesla:33,mtcsd,6,5,3,1,1,negativo,postura anotada,positivo
+mtcsd:Tesla:34,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:35,mtcsd,3,2,2,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:36,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:37,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:38,mtcsd,5,4,3,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:39,mtcsd,6,5,3,2,0,negativo,postura anotada,positivo
+mtcsd:Tesla:40,mtcsd,2,1,1,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:41,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:42,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:43,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:44,mtcsd,2,1,1,0,0,negativo,postura anotada,neutro
+mtcsd:Tesla:45,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:46,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:47,mtcsd,3,2,0,2,0,neutro,postura anotada,neutro
+mtcsd:Tesla:48,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:49,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:50,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:51,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:52,mtcsd,6,5,3,2,0,negativo,postura anotada,positivo
+mtcsd:Tesla:53,mtcsd,7,6,4,2,0,negativo,postura anotada,positivo
+mtcsd:Tesla:54,mtcsd,7,6,4,2,0,negativo,postura anotada,positivo
+mtcsd:Tesla:55,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:56,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:57,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:58,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:59,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:60,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:61,mtcsd,4,3,0,3,0,neutro,postura anotada,neutro
+mtcsd:Tesla:62,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:63,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:64,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:65,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:66,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:67,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:68,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:69,mtcsd,5,4,1,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:70,mtcsd,5,4,1,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:71,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:72,mtcsd,2,1,1,0,0,negativo,postura anotada,neutro
+mtcsd:Tesla:73,mtcsd,3,2,2,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:74,mtcsd,4,3,3,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:75,mtcsd,3,2,2,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:76,mtcsd,4,3,3,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:77,mtcsd,3,2,2,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:78,mtcsd,2,1,1,0,0,negativo,postura anotada,neutro
+mtcsd:Tesla:80,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:81,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:82,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:83,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:84,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:85,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:86,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:87,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:88,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:89,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:90,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:91,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:92,mtcsd,4,3,0,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:93,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:94,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:95,mtcsd,4,3,0,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:96,mtcsd,4,3,0,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:97,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:98,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:99,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:100,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:101,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:102,mtcsd,5,4,1,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:103,mtcsd,6,5,1,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:104,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:105,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:106,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:107,mtcsd,5,4,1,2,1,neutro,postura anotada,positivo
+mtcsd:Tesla:108,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:109,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:110,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:111,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:112,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:113,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:114,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:115,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:116,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:117,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:118,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:Tesla:119,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:Tesla:120,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:121,mtcsd,5,4,1,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:122,mtcsd,6,5,1,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:123,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:124,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:125,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:Tesla:126,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:127,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:128,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:129,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:130,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:131,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:132,mtcsd,4,3,2,1,0,negativo,postura anotada,positivo
+mtcsd:Tesla:133,mtcsd,5,4,3,1,0,negativo,postura anotada,positivo
+mtcsd:Tesla:134,mtcsd,6,5,4,1,0,negativo,postura anotada,positivo
+mtcsd:Tesla:135,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:136,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:137,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:138,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:139,mtcsd,6,5,2,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:140,mtcsd,6,5,2,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:141,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:142,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:143,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:144,mtcsd,5,4,3,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:145,mtcsd,6,5,4,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:146,mtcsd,7,6,5,1,0,negativo,postura anotada,positivo
+mtcsd:Tesla:147,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:148,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:149,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:150,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:151,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:152,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:153,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:154,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:155,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:156,mtcsd,4,3,2,1,0,negativo,postura anotada,positivo
+mtcsd:Tesla:157,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:158,mtcsd,2,1,1,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:159,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:160,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:Tesla:161,mtcsd,5,4,2,1,1,negativo,postura anotada,positivo
+mtcsd:Tesla:162,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:163,mtcsd,2,1,0,0,1,positivo,postura anotada,negativo
+mtcsd:Tesla:164,mtcsd,2,1,0,0,1,positivo,postura anotada,negativo
+mtcsd:Tesla:166,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:167,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:168,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:169,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:170,mtcsd,3,2,2,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:171,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:172,mtcsd,5,4,4,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:173,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:174,mtcsd,5,4,4,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:175,mtcsd,6,5,5,0,0,negativo,postura anotada,positivo
+mtcsd:Tesla:176,mtcsd,5,4,4,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:177,mtcsd,5,4,4,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:178,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:179,mtcsd,5,4,3,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:180,mtcsd,6,5,3,2,0,negativo,postura anotada,negativo
+mtcsd:Tesla:181,mtcsd,7,6,3,3,0,misto,postura anotada,negativo
+mtcsd:Tesla:182,mtcsd,6,5,3,2,0,negativo,postura anotada,negativo
+mtcsd:Tesla:183,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:184,mtcsd,5,4,4,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:185,mtcsd,6,5,4,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:186,mtcsd,6,5,4,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:187,mtcsd,6,5,4,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:188,mtcsd,3,2,2,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:189,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:190,mtcsd,5,4,3,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:191,mtcsd,6,5,3,2,0,negativo,postura anotada,negativo
+mtcsd:Tesla:192,mtcsd,7,6,3,3,0,misto,postura anotada,negativo
+mtcsd:Tesla:193,mtcsd,6,5,3,2,0,negativo,postura anotada,negativo
+mtcsd:Tesla:194,mtcsd,7,6,3,3,0,misto,postura anotada,negativo
+mtcsd:Tesla:195,mtcsd,6,5,3,2,0,negativo,postura anotada,negativo
+mtcsd:Tesla:196,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:197,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:198,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:199,mtcsd,3,2,2,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:200,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:201,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:202,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:203,mtcsd,5,4,3,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:204,mtcsd,3,2,2,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:205,mtcsd,4,3,3,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:206,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:207,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:208,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:209,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:210,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:211,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:212,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:213,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:214,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:215,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:216,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:217,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:218,mtcsd,3,2,0,1,1,misto,postura anotada,negativo
+mtcsd:Tesla:219,mtcsd,4,3,0,2,1,neutro,postura anotada,negativo
+mtcsd:Tesla:220,mtcsd,3,2,0,1,1,misto,postura anotada,negativo
+mtcsd:Tesla:221,mtcsd,4,3,0,2,1,neutro,postura anotada,negativo
+mtcsd:Tesla:222,mtcsd,5,4,0,3,1,neutro,postura anotada,negativo
+mtcsd:Tesla:223,mtcsd,6,5,0,4,1,neutro,postura anotada,negativo
+mtcsd:Tesla:224,mtcsd,7,6,0,5,1,neutro,postura anotada,positivo
+mtcsd:Tesla:225,mtcsd,6,5,0,4,1,neutro,postura anotada,negativo
+mtcsd:Tesla:226,mtcsd,3,2,0,1,1,misto,postura anotada,negativo
+mtcsd:Tesla:227,mtcsd,4,3,0,2,1,neutro,postura anotada,negativo
+mtcsd:Tesla:228,mtcsd,3,2,0,1,1,misto,postura anotada,negativo
+mtcsd:Tesla:229,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:230,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:231,mtcsd,3,2,1,0,1,misto,postura anotada,negativo
+mtcsd:Tesla:232,mtcsd,4,3,1,1,1,misto,postura anotada,negativo
+mtcsd:Tesla:233,mtcsd,5,4,1,2,1,neutro,postura anotada,negativo
+mtcsd:Tesla:234,mtcsd,6,5,1,3,1,neutro,postura anotada,negativo
+mtcsd:Tesla:235,mtcsd,3,2,1,0,1,misto,postura anotada,negativo
+mtcsd:Tesla:236,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:237,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:238,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:239,mtcsd,5,4,1,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:240,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:241,mtcsd,3,2,1,0,1,misto,postura anotada,negativo
+mtcsd:Tesla:242,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:243,mtcsd,3,2,1,0,1,misto,postura anotada,negativo
+mtcsd:Tesla:244,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:245,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:247,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:248,mtcsd,2,1,0,0,1,positivo,postura anotada,negativo
+mtcsd:Tesla:249,mtcsd,3,2,1,0,1,misto,postura anotada,negativo
+mtcsd:Tesla:250,mtcsd,3,2,1,0,1,misto,postura anotada,negativo
+mtcsd:Tesla:251,mtcsd,3,2,1,0,1,misto,postura anotada,negativo
+mtcsd:Tesla:252,mtcsd,3,2,1,0,1,misto,postura anotada,negativo
+mtcsd:Tesla:253,mtcsd,2,1,0,0,1,positivo,postura anotada,negativo
+mtcsd:Tesla:254,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:255,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:256,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:257,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:258,mtcsd,5,4,1,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:259,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:260,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:261,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:262,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:263,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:Tesla:264,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:265,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:266,mtcsd,5,4,1,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:267,mtcsd,6,5,1,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:268,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:Tesla:269,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:270,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:Tesla:271,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:272,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:273,mtcsd,5,4,1,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:274,mtcsd,6,5,1,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:275,mtcsd,7,6,2,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:276,mtcsd,5,4,1,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:277,mtcsd,6,5,2,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:278,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:279,mtcsd,5,4,1,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:280,mtcsd,6,5,1,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:281,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:Tesla:282,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:283,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:284,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:285,mtcsd,2,1,1,0,0,negativo,postura anotada,neutro
+mtcsd:Tesla:286,mtcsd,3,2,1,1,0,misto,postura anotada,neutro
+mtcsd:Tesla:287,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:288,mtcsd,5,4,1,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:289,mtcsd,6,5,1,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:290,mtcsd,3,2,1,1,0,misto,postura anotada,neutro
+mtcsd:Tesla:291,mtcsd,2,1,1,0,0,negativo,postura anotada,neutro
+mtcsd:Tesla:292,mtcsd,2,1,1,0,0,negativo,postura anotada,neutro
+mtcsd:Tesla:293,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:294,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:295,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:Tesla:296,mtcsd,5,4,2,1,1,negativo,postura anotada,negativo
+mtcsd:Tesla:297,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:298,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:299,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:301,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:302,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:303,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:304,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:305,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:306,mtcsd,3,2,1,1,0,misto,postura anotada,neutro
+mtcsd:Tesla:307,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:308,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:309,mtcsd,6,5,2,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:310,mtcsd,7,6,2,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:311,mtcsd,6,5,2,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:312,mtcsd,3,2,1,1,0,misto,postura anotada,neutro
+mtcsd:Tesla:313,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:314,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:315,mtcsd,3,2,0,2,0,neutro,postura anotada,neutro
+mtcsd:Tesla:316,mtcsd,4,3,0,3,0,neutro,postura anotada,neutro
+mtcsd:Tesla:317,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:318,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:319,mtcsd,7,6,0,6,0,neutro,postura anotada,positivo
+mtcsd:Tesla:320,mtcsd,7,6,0,6,0,neutro,postura anotada,positivo
+mtcsd:Tesla:321,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:322,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:323,mtcsd,7,6,0,6,0,neutro,postura anotada,positivo
+mtcsd:Tesla:324,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:325,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:326,mtcsd,4,3,0,3,0,neutro,postura anotada,neutro
+mtcsd:Tesla:327,mtcsd,5,4,0,4,0,neutro,postura anotada,neutro
+mtcsd:Tesla:328,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:Tesla:329,mtcsd,7,6,0,6,0,neutro,postura anotada,negativo
+mtcsd:Tesla:330,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:Tesla:331,mtcsd,4,3,0,3,0,neutro,postura anotada,neutro
+mtcsd:Tesla:332,mtcsd,3,2,0,2,0,neutro,postura anotada,neutro
+mtcsd:Tesla:333,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:334,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:335,mtcsd,6,5,2,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:336,mtcsd,7,6,3,3,0,misto,postura anotada,neutro
+mtcsd:Tesla:337,mtcsd,6,5,2,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:338,mtcsd,7,6,3,3,0,misto,postura anotada,negativo
+mtcsd:Tesla:339,mtcsd,6,5,2,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:340,mtcsd,6,5,2,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:341,mtcsd,7,6,3,3,0,misto,postura anotada,negativo
+mtcsd:Tesla:342,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:343,mtcsd,6,5,3,2,0,negativo,postura anotada,negativo
+mtcsd:Tesla:344,mtcsd,7,6,4,2,0,negativo,postura anotada,negativo
+mtcsd:Tesla:345,mtcsd,6,5,3,2,0,negativo,postura anotada,negativo
+mtcsd:Tesla:346,mtcsd,7,6,3,3,0,misto,postura anotada,negativo
+mtcsd:Tesla:347,mtcsd,3,2,0,2,0,neutro,postura anotada,neutro
+mtcsd:Tesla:348,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:349,mtcsd,5,4,2,2,0,misto,postura anotada,positivo
+mtcsd:Tesla:350,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:351,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:352,mtcsd,3,2,0,2,0,neutro,postura anotada,neutro
+mtcsd:Tesla:353,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:354,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:355,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:356,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:357,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:358,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:359,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:360,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:361,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:362,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:363,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:364,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:365,mtcsd,3,2,0,2,0,neutro,postura anotada,neutro
+mtcsd:Tesla:366,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:367,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:368,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:369,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:370,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:371,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:372,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:373,mtcsd,2,1,1,0,0,negativo,postura anotada,neutro
+mtcsd:Tesla:374,mtcsd,3,2,1,0,1,misto,postura anotada,neutro
+mtcsd:Tesla:375,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:Tesla:376,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:Tesla:377,mtcsd,3,2,1,0,1,misto,postura anotada,neutro
+mtcsd:Tesla:378,mtcsd,2,1,1,0,0,negativo,postura anotada,neutro
+mtcsd:Tesla:379,mtcsd,3,2,2,0,0,negativo,postura anotada,neutro
+mtcsd:Tesla:380,mtcsd,2,1,1,0,0,negativo,postura anotada,neutro
+mtcsd:Tesla:381,mtcsd,2,1,1,0,0,negativo,postura anotada,neutro
+mtcsd:Tesla:382,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:383,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:Tesla:384,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:Tesla:385,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:386,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:387,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:Tesla:388,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:389,mtcsd,4,3,0,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:390,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:391,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:Tesla:393,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,positivo
+mtcsd:Tesla:394,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:Tesla:395,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:396,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:397,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:398,mtcsd,6,5,2,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:399,mtcsd,7,6,2,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:400,mtcsd,7,6,2,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:401,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:402,mtcsd,6,5,2,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:403,mtcsd,6,5,2,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:404,mtcsd,6,5,2,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:405,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:406,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:Tesla:407,mtcsd,6,5,2,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:408,mtcsd,7,6,2,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:409,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:410,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:411,mtcsd,5,4,1,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:412,mtcsd,6,5,1,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:413,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:414,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:415,mtcsd,5,4,1,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:416,mtcsd,6,5,1,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:417,mtcsd,7,6,1,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:418,mtcsd,5,4,1,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:419,mtcsd,6,5,2,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:420,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:421,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:422,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:423,mtcsd,5,4,1,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:424,mtcsd,5,4,1,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:425,mtcsd,6,5,1,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:426,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:Tesla:427,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:Tesla:428,mtcsd,4,3,0,2,1,neutro,postura anotada,positivo
+mtcsd:Tesla:429,mtcsd,5,4,0,3,1,neutro,postura anotada,positivo
+mtcsd:Tesla:430,mtcsd,6,5,0,4,1,neutro,postura anotada,positivo
+mtcsd:Tesla:431,mtcsd,7,6,0,5,1,neutro,postura anotada,positivo
+mtcsd:Tesla:432,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:Tesla:433,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:434,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:Tesla:435,mtcsd,5,4,2,1,1,negativo,postura anotada,negativo
+mtcsd:Tesla:436,mtcsd,5,4,2,1,1,negativo,postura anotada,negativo
+mtcsd:Tesla:437,mtcsd,6,5,3,1,1,negativo,postura anotada,negativo
+mtcsd:Tesla:438,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:439,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:Tesla:440,mtcsd,5,4,2,1,1,negativo,postura anotada,negativo
+mtcsd:Tesla:441,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:Tesla:442,mtcsd,5,4,2,1,1,negativo,postura anotada,negativo
+mtcsd:Tesla:443,mtcsd,6,5,2,1,2,misto,postura anotada,negativo
+mtcsd:Tesla:444,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:Tesla:445,mtcsd,4,3,2,1,0,negativo,postura anotada,positivo
+mtcsd:Tesla:446,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,positivo
+mtcsd:Tesla:447,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:448,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:449,mtcsd,4,3,0,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:450,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:451,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:452,mtcsd,7,6,0,6,0,neutro,postura anotada,positivo
+mtcsd:Tesla:453,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:454,mtcsd,4,3,0,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:455,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:456,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:457,mtcsd,4,3,0,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:458,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:459,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:460,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:461,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:462,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:463,mtcsd,4,3,0,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:464,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:465,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:466,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:467,mtcsd,7,6,0,6,0,neutro,postura anotada,positivo
+mtcsd:Tesla:468,mtcsd,4,3,0,3,0,neutro,postura anotada,positivo
+mtcsd:Tesla:469,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:470,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:471,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,positivo
+mtcsd:Tesla:472,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:Tesla:473,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:474,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:Tesla:475,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:Tesla:476,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:478,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:479,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:480,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:481,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:482,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:483,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:484,mtcsd,7,6,0,6,0,neutro,postura anotada,positivo
+mtcsd:Tesla:485,mtcsd,7,6,0,6,0,neutro,postura anotada,positivo
+mtcsd:Tesla:486,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:487,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:488,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:Tesla:489,mtcsd,3,2,0,2,0,neutro,postura anotada,neutro
+mtcsd:Tesla:490,mtcsd,4,3,0,3,0,neutro,postura anotada,neutro
+mtcsd:Tesla:491,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:492,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:Tesla:493,mtcsd,7,6,0,6,0,neutro,postura anotada,negativo
+mtcsd:Tesla:494,mtcsd,3,2,0,2,0,neutro,postura anotada,neutro
+mtcsd:Tesla:495,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:Tesla:497,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:498,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:499,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:500,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:501,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:502,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:Tesla:503,mtcsd,7,6,0,6,0,neutro,postura anotada,negativo
+mtcsd:Tesla:504,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:505,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:Tesla:506,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:507,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:508,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:509,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:510,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:511,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:512,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:513,mtcsd,6,5,0,5,0,neutro,postura anotada,positivo
+mtcsd:Tesla:514,mtcsd,7,6,0,6,0,neutro,postura anotada,positivo
+mtcsd:Tesla:515,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:516,mtcsd,5,4,1,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:517,mtcsd,6,5,2,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:518,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:519,mtcsd,5,4,0,4,0,neutro,postura anotada,positivo
+mtcsd:Tesla:520,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:521,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:Tesla:522,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:Tesla:523,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:524,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:525,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:526,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:527,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:528,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:529,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:530,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:531,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:532,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:Tesla:533,mtcsd,5,4,0,3,1,neutro,postura anotada,negativo
+mtcsd:Tesla:534,mtcsd,6,5,0,4,1,neutro,postura anotada,negativo
+mtcsd:Tesla:535,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:536,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:Tesla:537,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:Tesla:538,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,negativo
+mtcsd:Tesla:539,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:1,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:2,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:3,mtcsd,3,2,0,2,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:4,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:5,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:6,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:7,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:8,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:9,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:10,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:11,mtcsd,4,3,0,3,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:12,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:13,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:14,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:15,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:16,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:17,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:18,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:SpaceX:19,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:20,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:21,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:22,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:23,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:SpaceX:24,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:SpaceX:25,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:26,mtcsd,5,4,1,3,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:27,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:28,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:29,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:30,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:31,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:32,mtcsd,5,4,1,2,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:33,mtcsd,6,5,1,3,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:34,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:35,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:36,mtcsd,5,4,1,2,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:37,mtcsd,5,4,1,2,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:38,mtcsd,6,5,1,3,1,neutro,postura anotada,negativo
+mtcsd:SpaceX:39,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:40,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:41,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:42,mtcsd,4,3,0,2,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:43,mtcsd,5,4,1,2,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:44,mtcsd,6,5,1,3,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:45,mtcsd,5,4,1,2,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:46,mtcsd,6,5,1,3,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:47,mtcsd,7,6,1,4,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:48,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:49,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:50,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:51,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:52,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:53,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:54,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:55,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:56,mtcsd,4,3,1,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:57,mtcsd,5,4,2,0,2,misto,postura anotada,positivo
+mtcsd:SpaceX:58,mtcsd,6,5,2,1,2,misto,postura anotada,positivo
+mtcsd:SpaceX:59,mtcsd,7,6,2,2,2,misto,postura anotada,positivo
+mtcsd:SpaceX:60,mtcsd,6,5,2,1,2,misto,postura anotada,positivo
+mtcsd:SpaceX:61,mtcsd,7,6,2,2,2,misto,postura anotada,positivo
+mtcsd:SpaceX:62,mtcsd,5,4,2,0,2,misto,postura anotada,positivo
+mtcsd:SpaceX:63,mtcsd,6,5,2,1,2,misto,postura anotada,positivo
+mtcsd:SpaceX:64,mtcsd,5,4,2,0,2,misto,postura anotada,positivo
+mtcsd:SpaceX:65,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:66,mtcsd,4,3,1,0,2,positivo,postura anotada,negativo
+mtcsd:SpaceX:67,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:68,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:69,mtcsd,5,4,1,2,1,neutro,postura anotada,negativo
+mtcsd:SpaceX:70,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:71,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:72,mtcsd,5,4,1,2,1,neutro,postura anotada,negativo
+mtcsd:SpaceX:73,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:74,mtcsd,2,1,0,1,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:75,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:SpaceX:76,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:77,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:SpaceX:78,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:SpaceX:79,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:80,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:81,mtcsd,3,2,0,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:82,mtcsd,4,3,1,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:83,mtcsd,5,4,1,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:84,mtcsd,6,5,1,2,2,misto,postura anotada,positivo
+mtcsd:SpaceX:86,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:87,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:SpaceX:88,mtcsd,2,1,1,0,0,negativo,postura anotada,negativo
+mtcsd:SpaceX:89,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:90,mtcsd,2,1,1,0,0,negativo,postura anotada,positivo
+mtcsd:SpaceX:91,mtcsd,3,2,2,0,0,negativo,postura anotada,positivo
+mtcsd:SpaceX:92,mtcsd,3,2,2,0,0,negativo,postura anotada,positivo
+mtcsd:SpaceX:93,mtcsd,4,3,2,1,0,negativo,postura anotada,positivo
+mtcsd:SpaceX:94,mtcsd,2,1,1,0,0,negativo,postura anotada,positivo
+mtcsd:SpaceX:95,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:SpaceX:96,mtcsd,4,3,1,2,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:97,mtcsd,5,4,1,3,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:98,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:SpaceX:99,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:100,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:101,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:102,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:103,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:104,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:105,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:106,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:107,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:108,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:109,mtcsd,7,6,0,6,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:110,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:111,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:112,mtcsd,4,3,0,3,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:113,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:114,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:115,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:116,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:SpaceX:117,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:118,mtcsd,5,4,1,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:119,mtcsd,6,5,1,2,2,misto,postura anotada,positivo
+mtcsd:SpaceX:120,mtcsd,7,6,1,3,2,neutro,postura anotada,positivo
+mtcsd:SpaceX:121,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:SpaceX:122,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:123,mtcsd,5,4,1,3,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:124,mtcsd,6,5,2,3,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:125,mtcsd,7,6,2,4,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:126,mtcsd,3,2,1,1,0,misto,postura anotada,positivo
+mtcsd:SpaceX:127,mtcsd,4,3,1,2,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:128,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:129,mtcsd,3,2,1,1,0,misto,postura anotada,negativo
+mtcsd:SpaceX:130,mtcsd,4,3,2,1,0,negativo,postura anotada,negativo
+mtcsd:SpaceX:131,mtcsd,5,4,2,2,0,misto,postura anotada,negativo
+mtcsd:SpaceX:132,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:133,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:134,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:135,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:136,mtcsd,5,4,1,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:137,mtcsd,6,5,1,1,3,positivo,postura anotada,positivo
+mtcsd:SpaceX:138,mtcsd,7,6,2,1,3,positivo,postura anotada,positivo
+mtcsd:SpaceX:139,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:140,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:141,mtcsd,5,4,1,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:142,mtcsd,6,5,1,1,3,positivo,postura anotada,positivo
+mtcsd:SpaceX:143,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:144,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:145,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:146,mtcsd,5,4,1,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:147,mtcsd,6,5,1,1,3,positivo,postura anotada,positivo
+mtcsd:SpaceX:148,mtcsd,7,6,2,1,3,positivo,postura anotada,positivo
+mtcsd:SpaceX:149,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:150,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:151,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:152,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:153,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:154,mtcsd,5,4,1,2,1,neutro,postura anotada,negativo
+mtcsd:SpaceX:155,mtcsd,6,5,1,2,2,misto,postura anotada,negativo
+mtcsd:SpaceX:156,mtcsd,7,6,1,3,2,neutro,postura anotada,negativo
+mtcsd:SpaceX:157,mtcsd,4,3,1,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:158,mtcsd,5,4,2,1,1,negativo,postura anotada,negativo
+mtcsd:SpaceX:159,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:160,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:161,mtcsd,4,3,0,2,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:162,mtcsd,5,4,0,3,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:163,mtcsd,5,4,0,3,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:164,mtcsd,6,5,0,4,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:165,mtcsd,7,6,0,5,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:166,mtcsd,5,4,0,3,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:167,mtcsd,6,5,0,4,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:168,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:169,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:170,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:171,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:172,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:173,mtcsd,4,3,0,2,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:174,mtcsd,5,4,0,3,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:175,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:176,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:177,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:178,mtcsd,4,3,1,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:179,mtcsd,5,4,1,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:180,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:181,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:182,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:183,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:184,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:185,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:186,mtcsd,4,3,1,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:187,mtcsd,5,4,1,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:188,mtcsd,5,4,1,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:189,mtcsd,6,5,1,1,3,positivo,postura anotada,positivo
+mtcsd:SpaceX:190,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:191,mtcsd,3,2,1,0,1,misto,postura anotada,positivo
+mtcsd:SpaceX:193,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:194,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:195,mtcsd,3,2,0,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:196,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:197,mtcsd,5,4,0,2,2,misto,postura anotada,positivo
+mtcsd:SpaceX:198,mtcsd,6,5,0,3,2,neutro,postura anotada,positivo
+mtcsd:SpaceX:199,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:200,mtcsd,3,2,0,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:201,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:202,mtcsd,3,2,0,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:203,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:204,mtcsd,5,4,0,2,2,misto,postura anotada,positivo
+mtcsd:SpaceX:205,mtcsd,6,5,0,3,2,neutro,postura anotada,positivo
+mtcsd:SpaceX:206,mtcsd,3,2,0,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:207,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:208,mtcsd,3,2,0,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:209,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:210,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:211,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:212,mtcsd,4,3,0,2,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:213,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:214,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:215,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:216,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:217,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:218,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:219,mtcsd,3,2,0,1,1,misto,postura anotada,negativo
+mtcsd:SpaceX:220,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:221,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:222,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:223,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:224,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:225,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:226,mtcsd,5,4,0,2,2,misto,postura anotada,positivo
+mtcsd:SpaceX:227,mtcsd,6,5,0,3,2,neutro,postura anotada,positivo
+mtcsd:SpaceX:228,mtcsd,7,6,0,4,2,neutro,postura anotada,negativo
+mtcsd:SpaceX:229,mtcsd,7,6,0,4,2,neutro,postura anotada,negativo
+mtcsd:SpaceX:230,mtcsd,5,4,0,2,2,misto,postura anotada,positivo
+mtcsd:SpaceX:231,mtcsd,6,5,0,3,2,neutro,postura anotada,positivo
+mtcsd:SpaceX:232,mtcsd,7,6,0,4,2,neutro,postura anotada,positivo
+mtcsd:SpaceX:233,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:234,mtcsd,3,2,0,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:235,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:236,mtcsd,5,4,0,2,2,misto,postura anotada,positivo
+mtcsd:SpaceX:237,mtcsd,6,5,0,2,3,positivo,postura anotada,positivo
+mtcsd:SpaceX:238,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:239,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:240,mtcsd,3,2,0,0,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:241,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:242,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:243,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:244,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:245,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:246,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:247,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:249,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:250,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:251,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:252,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:253,mtcsd,5,4,0,1,3,positivo,postura anotada,positivo
+mtcsd:SpaceX:254,mtcsd,6,5,0,1,4,positivo,postura anotada,positivo
+mtcsd:SpaceX:255,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:256,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:257,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:258,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:259,mtcsd,5,4,0,1,3,positivo,postura anotada,positivo
+mtcsd:SpaceX:260,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:261,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:262,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:263,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:264,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:265,mtcsd,3,2,0,2,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:266,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:267,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:268,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:269,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:270,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:271,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:273,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:274,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:275,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:276,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:277,mtcsd,5,4,0,1,3,positivo,postura anotada,positivo
+mtcsd:SpaceX:278,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:279,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:280,mtcsd,4,3,0,2,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:281,mtcsd,5,4,0,2,2,misto,postura anotada,positivo
+mtcsd:SpaceX:282,mtcsd,6,5,0,3,2,neutro,postura anotada,positivo
+mtcsd:SpaceX:283,mtcsd,4,3,0,2,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:284,mtcsd,5,4,0,3,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:285,mtcsd,6,5,0,4,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:286,mtcsd,7,6,0,5,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:287,mtcsd,6,5,0,4,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:288,mtcsd,5,4,0,3,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:289,mtcsd,6,5,0,4,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:290,mtcsd,7,6,0,5,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:291,mtcsd,7,6,0,5,1,neutro,postura anotada,positivo
+mtcsd:SpaceX:292,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:293,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:294,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:295,mtcsd,3,2,0,1,1,misto,postura anotada,positivo
+mtcsd:SpaceX:296,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:297,mtcsd,4,3,0,1,2,positivo,postura anotada,positivo
+mtcsd:SpaceX:298,mtcsd,5,4,0,2,2,misto,postura anotada,negativo
+mtcsd:SpaceX:299,mtcsd,2,1,0,0,1,positivo,postura anotada,positivo
+mtcsd:SpaceX:300,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:301,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:302,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:303,mtcsd,3,2,0,1,1,misto,postura anotada,negativo
+mtcsd:SpaceX:304,mtcsd,4,3,0,1,2,positivo,postura anotada,negativo
+mtcsd:SpaceX:305,mtcsd,4,3,0,1,2,positivo,postura anotada,negativo
+mtcsd:SpaceX:306,mtcsd,2,1,0,1,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:307,mtcsd,3,2,0,1,1,misto,postura anotada,negativo
+mtcsd:SpaceX:308,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
+mtcsd:SpaceX:309,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:310,mtcsd,2,1,0,1,0,neutro,postura anotada,neutro
+mtcsd:SpaceX:311,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:312,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:313,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:314,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:315,mtcsd,4,3,0,3,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:316,mtcsd,5,4,0,4,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:317,mtcsd,6,5,0,5,0,neutro,postura anotada,negativo
+mtcsd:SpaceX:318,mtcsd,7,6,0,6,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:319,mtcsd,3,2,0,2,0,neutro,postura anotada,positivo
+mtcsd:SpaceX:320,mtcsd,1,0,0,0,0,sem rótulo,postura anotada,neutro
