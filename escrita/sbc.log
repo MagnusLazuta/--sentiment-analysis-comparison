@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.8.3)  26 NOV 2026 20:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.8.3)  26 NOV 2026 20:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -501,10 +501,14 @@ Underfull \hbox (badness 1286) in paragraph at lines 63--64
 fol-lowed, such as Laya
  []
 
-[2]
+
+Underfull \vbox (badness 1092) has occurred while \output is active []
+
+ [2]
 LaTeX Font Info:    Trying to load font information for T1+phv on input line 77
 .
- (/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/t1phv.fd
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 ) [3]
 <../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png, id=121, 1766.
@@ -523,7 +527,8 @@ g)
 Package pdftex.def Info: ../base_de_conhecimento/img/turnos_mtcsd_acc_f1.png  u
 sed on input line 158.
 (pdftex.def)             Requested size: 349.97203pt x 153.98341pt.
-<../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen.png, id=126, 1706.375pt
+ [4]
+<../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen.png, id=133, 1706.375pt
  x 501.875pt>
 File: ../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen.png Graphic file (
 type png)
@@ -531,17 +536,15 @@ type png)
 Package pdftex.def Info: ../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen
 .png  used on input line 168.
 (pdftex.def)             Requested size: 341.43437pt x 100.41916pt.
- [4]
-<../base_de_conhecimento/img/tom-20261123.png, id=136, 1766.6pt x 662.475pt>
+ [5 <../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png> <../base_
+de_conhecimento/img/turnos_mtcsd_acc_f1.png> <../base_de_conhecimento/img/turno
+s_mtcsd_confusao_qwen.png>]
+<../base_de_conhecimento/img/tom-20261123.png, id=146, 1766.6pt x 662.475pt>
 File: ../base_de_conhecimento/img/tom-20261123.png Graphic file (type png)
 <use ../base_de_conhecimento/img/tom-20261123.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/tom-20261123.png  used on 
 input line 177.
 (pdftex.def)             Requested size: 349.97203pt x 131.2392pt.
-
-[5 <../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png> <../base_d
-e_conhecimento/img/turnos_mtcsd_acc_f1.png> <../base_de_conhecimento/img/turnos
-_mtcsd_confusao_qwen.png>]
 <../base_de_conhecimento/img/deberta_neutro_barras.png, id=148, 1405.25pt x 622
 .325pt>
 File: ../base_de_conhecimento/img/deberta_neutro_barras.png Graphic file (type 
@@ -550,7 +553,9 @@ png)
 Package pdftex.def Info: ../base_de_conhecimento/img/deberta_neutro_barras.png 
  used on input line 186.
 (pdftex.def)             Requested size: 264.60855pt x 117.17943pt.
-<../base_de_conhecimento/img/desbal_gold_semmtcsd.png, id=151, 1405.25pt x 602.
+ [6 <../base_de_conhecimento/img/tom-20261123.png> <../base_de_conhecimento/img
+/deberta_neutro_barras.png>]
+<../base_de_conhecimento/img/desbal_gold_semmtcsd.png, id=160, 1405.25pt x 602.
 25pt>
 File: ../base_de_conhecimento/img/desbal_gold_semmtcsd.png Graphic file (type p
 ng)
@@ -558,8 +563,6 @@ ng)
 Package pdftex.def Info: ../base_de_conhecimento/img/desbal_gold_semmtcsd.png  
 used on input line 196.
 (pdftex.def)             Requested size: 320.0935pt x 137.18208pt.
- [6 <../base_de_conhecimento/img/tom-20261123.png> <../base_de_conhecimento/img
-/deberta_neutro_barras.png>]
 <../base_de_conhecimento/img/distribuicao_semmtcsd.png, id=163, 1706.375pt x 75
 2.8125pt>
 File: ../base_de_conhecimento/img/distribuicao_semmtcsd.png Graphic file (type 
@@ -584,7 +587,7 @@ Package pdftex.def Info: ../base_de_conhecimento/img/calibracao-20261123.png  u
 sed on input line 243.
 (pdftex.def)             Requested size: 349.97203pt x 120.3026pt.
  [7 <../base_de_conhecimento/img/desbal_gold_semmtcsd.png>]
-<../base_de_conhecimento/img/qwenkev-gold-20261123.png, id=179, 1766.6pt x 993.
+<../base_de_conhecimento/img/qwenkev-gold-20261123.png, id=178, 1766.6pt x 993.
 7125pt>
 File: ../base_de_conhecimento/img/qwenkev-gold-20261123.png Graphic file (type 
 png)
@@ -606,11 +609,11 @@ Package rerunfilecheck Info: File `sbc.out' has not changed.
 Here is how much of TeX's memory you used:
  13569 strings out of 467525
  216032 string characters out of 5418983
- 644892 words of memory out of 5000000
+ 646158 words of memory out of 5000000
  42243 multiletter control sequences out of 15000+600000
  674951 words of font info for 103 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,9n,79p,1305b,559s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,9n,79p,1305b,555s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 ></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
@@ -623,7 +626,7 @@ ive/2026/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/202
 st/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/
 times/utmri8a.pfb>
-Output written on sbc.pdf (11 pages, 881467 bytes).
+Output written on sbc.pdf (11 pages, 882673 bytes).
 PDF statistics:
  274 PDF objects out of 1000 (max. 8388607)
  214 compressed objects within 3 object streams
