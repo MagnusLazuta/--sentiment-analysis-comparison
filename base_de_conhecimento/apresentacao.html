@@ -1,0 +1,641 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8"><title>Sentimento com contexto e ironia</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}]})"></script>
+<style>
+html,body{margin:0;height:100%;background:#222;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px}
+:root {
+  --ink: #23262B;
+  --gray: #6B7078;
+  --accent: #2B4C7E;
+  --hair: #C9CDD3;
+}
+
+body {
+  font-family: 'Source Sans 3', Arial, sans-serif;
+  color: var(--ink);
+}
+
+section {
+  background: #FFFFFF;
+  padding: 100px 140px 140px;
+  box-sizing: border-box;
+  counter-increment: page;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2 { font-family: 'Source Serif 4', Georgia, serif; color: var(--ink); font-weight: 600; line-height: 1.15; }
+h1 { font-size: 76px; }
+h2 { font-size: 54px; margin-bottom: 20px; }
+h3 { font-family: 'Source Sans 3', Arial, sans-serif; font-size: 34px; font-weight: 600; color: var(--accent); margin-bottom: 20px; }
+
+hr.tr { width: 88px; height: 0; border: none; border-top: 3px solid var(--accent); margin: 0; }
+
+.body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+p { font-size: 32px; line-height: 1.5; color: var(--ink); }
+ul, ol { font-size: 32px; line-height: 1.45; color: var(--ink); padding-left: 44px; }
+li { margin-bottom: 22px; }
+li ul { font-size: 28px; margin-top: 14px; }
+li li { margin-bottom: 8px; }
+
+.small { font-size: 26px; color: var(--gray); }
+.muted { color: var(--gray); }
+.lead { font-size: 34px; line-height: 1.5; margin-bottom: 36px; }
+.after { margin-top: 40px; }
+
+.pg { position: absolute; right: 140px; bottom: 56px; width: 200px; text-align: right; font-size: 24px; color: var(--gray); }
+
+/* title and closing slides */
+.titleslide { justify-content: center; align-items: center; text-align: center; }
+.titleslide hr.tr { width: 120px; margin: 36px 0 36px 0; }
+.titleslide .sub { font-size: 36px; color: var(--gray); }
+.titleslide .names { font-size: 32px; margin-top: 56px; }
+
+/* two columns */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 110px; }
+
+/* conversation example */
+.conv { border-left: 3px solid var(--hair); padding-left: 32px; }
+.conv p { font-size: 28px; line-height: 1.4; margin-bottom: 14px; }
+.conv .who { font-weight: 600; color: var(--gray); }
+.conv .target { color: var(--ink); font-weight: 600; }
+.conv .target .who { color: var(--accent); }
+
+/* result slides: question as title, centered figure, short answer */
+.result .body { align-items: center; }
+.fig { width: 1400px; height: 470px; object-fit: contain; }
+.cap { font-size: 24px; color: var(--gray); margin-top: 14px; text-align: center; width: 1400px; }
+.below { font-size: 30px; margin-top: 32px; width: 1400px; text-align: left; }
+.below li { margin-bottom: 10px; }
+.fig.big { width: 1640px; height: 615px; }
+.big ~ .cap, .big ~ .below { width: 1640px; }
+
+table { font-size: 28px; color: var(--ink); width: 100%; }
+
+/* section covers and footer */
+.sectionslide { justify-content: center; }
+.sectionslide .secnum { font-family: 'Source Serif 4', Georgia, serif; font-size: 40px; color: var(--accent); margin-bottom: 8px; }
+.sectionslide h1 { font-size: 88px; }
+.sectionslide hr.tr { width: 120px; margin: 36px 0; }
+.sectionslide .subs { font-size: 34px; color: var(--gray); }
+.sectionslide .subs li { margin-bottom: 12px; }
+.foot { position: absolute; left: 140px; bottom: 56px; font-size: 24px; color: var(--gray); opacity: 0.75; }
+
+/* metric formulas */
+table.metrics td { vertical-align: middle; font-size: 28px; }
+table.metrics td:nth-child(2) { font-size: 30px; white-space: nowrap; padding: 18px 28px; }
+.katex { font-size: 1.05em; }
+
+/* metric definitions and cards */
+.defs { display: flex; flex-direction: column; gap: 14px; margin-bottom: 52px; font-size: 27px; color: var(--ink); }
+.defs .sym { display: inline-block; min-width: 150px; color: var(--accent); }
+.mcards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; }
+.mcard { border-top: 3px solid var(--accent); padding-top: 22px; }
+.mcard h3 { margin-bottom: 18px; }
+.mcard .formula { font-size: 34px; min-height: 120px; display: flex; align-items: center; }
+.mcard .peso { font-size: 27px; margin-top: 14px; }
+.mcard .prob { font-size: 25px; color: var(--gray); margin-top: 12px; line-height: 1.4; }
+.qa { display: grid; grid-template-columns: 430px 1fr; column-gap: 48px; row-gap: 0; }
+.qa .q { font-size: 28px; font-weight: 600; color: var(--accent); padding: 20px 0; border-top: 1px solid var(--hair); }
+.qa .a { font-size: 28px; line-height: 1.45; color: var(--ink); padding: 20px 0; border-top: 1px solid var(--hair); }
+.qa .q .n { color: var(--gray); font-weight: 400; margin-right: 10px; }
+.licao { margin-top: 36px; border-left: 4px solid var(--accent); padding: 10px 0 10px 28px; font-size: 30px; line-height: 1.45; }
+.licao b { color: var(--accent); }
+.qa.topics { grid-template-columns: 300px 1fr; }
+.twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
+.twocol ul { font-size: 32px; line-height: 1.45; }
+.twocol li { margin-bottom: 18px; }
+
+section{position:absolute;left:0;top:0;width:1920px;height:1080px;display:none}
+section.on{display:flex}
+x-shape{display:block;border-radius:50%;box-sizing:border-box}
+aside.notes{display:none}
+body.shownotes section.on aside.notes{display:block;position:fixed;left:0;right:0;bottom:0;max-height:30vh;overflow:auto;background:#fffbe6;color:#222;font:18px/1.4 sans-serif;padding:12px 20px;z-index:9}
+h1,h2,h3,p,ul,ol{margin:0}
+table{border-collapse:collapse} th{font-weight:500;border-bottom:2px solid #333} th,td{text-align:left;padding:12px 16px;vertical-align:top} table{border-top:2px solid #333;border-bottom:2px solid #333}
+</style></head><body>
+<div id="stage">
+<section id="cover" class="titleslide">
+<h1>Análise de Sentimentos com Contexto e Ironia</h1>
+<p class="sub" style="margin-top:20px">BERT, LLMs e modelos System One</p>
+<hr class="tr">
+<p class="names">Rayan Raddatz de Matos · Eduardo Magnus Lazuta</p>
+<p class="small" style="margin-top:12px">Instituto de Informática, UFRGS · Processamento de Linguagem Natural</p>
+<aside class="notes">Tempo: 10 s. Dica da Aula 26b: o primeiro slide é só título e autores. Diga o título e os nomes e passe adiante.</aside>
+</section>
+<section id="agenda">
+<h2>Roteiro</h2>
+<hr class="tr">
+<div class="body">
+<ol><li>Introdução</li><li>Metodologia</li><li>Resultados<ul><li>Variações do prompt</li><li>T1: texto isolado</li><li>T2: contexto</li><li>T3: ironia</li><li>Outras análises</li></ul></li><li>Conclusão</li></ol>
+</div>
+<p class="pg">2 / 33</p>
+<aside class="notes">Tempo: 10 s. Dica da Aula 26b: mostre o roteiro e numere as páginas. Não leia os itens.</aside>
+</section>
+<section id="sec-introducao" class="sectionslide">
+<p class="secnum">1</p>
+<h1>Introdução</h1>
+<hr class="tr">
+
+<p class="pg">3 / 33</p>
+<aside class="notes">Transição para introdução.</aside>
+</section>
+<section id="problema">
+<h2>Motivação</h2>
+<hr class="tr">
+<div class="body">
+<ul>
+<li>Análise de sentimentos costuma ser avaliada em texto isolado e literal.</li>
+<li>Em conversas, o sentido depende do que veio antes:
+<ul>
+<li class="quote">“It left the pad. Success is a spectrum.”</li>
+<li class="quote">“But it’s own goal was to circle then entire earth and it didn’t?”</li>
+<li>Sobre a SpaceX: contra. Só dá para saber com o comentário anterior.</li>
+</ul>
+</li>
+<li>A ironia inverte o sentido literal:
+<ul>
+<li class="quote">“A perfect date movie: you’ll miss absolutely nothing of merit if you make out in the back row instead of watching the film.”</li>
+<li>Resenha de 1 estrela (Filatova): elogio literal, sentimento negativo.</li>
+</ul>
+</li>
+</ul>
+</div>
+<p class="foot">Introdução</p>
+<p class="pg">4 / 33</p>
+<aside class="notes">Tempo: 40 s. Dica da Aula 26b: comece pelo problema, com exemplos concretos. Feche com: hoje há três jeitos de classificar sentimento sem treinar nada, e queremos saber como cada um lida com contexto e ironia.</aside>
+</section>
+<section id="perguntas">
+<h2>Perguntas de pesquisa</h2>
+<hr class="tr">
+<div class="body">
+<p class="lead">Objetivo: comparar BERTs, LLMs e modelos System One em sentimento com contexto e ironia, sem treinar nenhum modelo.</p>
+<ol>
+<li>O contexto da conversa ajuda a classificar o sentimento?</li>
+<li>O contexto ajuda especificamente nos textos irônicos?</li>
+<li>Como o contexto muda cada classe? Mais contexto leva ao neutro?</li>
+<li>Os System One se comportam de forma diferente? O viés negativo em T1 explica T3?</li>
+</ol>
+</div>
+<p class="foot">Introdução</p>
+<p class="pg">5 / 33</p>
+<aside class="notes">Tempo: 30 s. Dica da Aula 26b: deixe a pergunta de pesquisa explícita. A conclusão responde estas quatro perguntas, uma a uma. T1 é texto isolado, T2 com contexto, T3 ironia.</aside>
+</section>
+<section id="relacionados">
+<h2>Trabalhos relacionados</h2>
+<hr class="tr">
+<div class="body">
+<ul>
+<li>Sentimento com alvo e contexto: Jiang et al. (2011); SemEval-2016 Task 6; MT-CSD (Niu et al., 2024), em que os melhores modelos treinados ficam abaixo de 51%.</li>
+<li>Ironia: Riloff et al. (2013); Ghosh et al. (2018); Bhargava et al. (2025), em que classificadores acertam de 30% a 60% dos sarcásticos.</li>
+<li>LLMs e calibração: Zhang et al. (2023); Guo et al. (2017).</li>
+<li>Modelos System One: Jev, Kev, Laya; Rafe et al. (2026) mostram o ECE do Jev indo de 0,03 para 0,25 em tarefas sociais.</li>
+</ul>
+<p class="after">Lacuna: nenhum trabalho compara as três famílias com contexto, ironia e calibração no mesmo protocolo.</p>
+</div>
+<p class="foot">Introdução</p>
+<p class="pg">6 / 33</p>
+<aside class="notes">Tempo: 35 s. Dica da Aula 26b: sempre tem alguma coisa publicada; o ponto é mostrar onde vocês estão. Cite um número por área e termine na lacuna.</aside>
+</section>
+<section id="sec-metodologia" class="sectionslide">
+<p class="secnum">2</p>
+<h1>Metodologia</h1>
+<hr class="tr">
+
+<p class="pg">7 / 33</p>
+<aside class="notes">Transição para metodologia.</aside>
+</section>
+<section id="tarefa">
+<h2>A tarefa</h2>
+<hr class="tr">
+<div class="body">
+<p class="small" style="margin-bottom:20px">Exemplo do MT-CSD, alvo Tesla</p>
+<div class="conv">
+<p><span class="who">Post:</span> <i>“Sleeping in Tesla while going 70mph on the freeway in San Diego”</i></p>
+<p><span class="who">Reply 1:</span> <i>“This shouldn’t be possible should it? I thought every so many seconds you had to interact with the steering wheel?”</i></p>
+<p><span class="who">Reply 2:</span> <i>“What’s the point of a self driving car that requires you to still interact with it?”</i></p>
+<p class="target"><span class="who">Reply 3 (texto alvo):</span> <i>“Reduces driver fatigue during long trips where it’s just hundreds of miles of straight highway.”</i></p>
+</div>
+<p style="margin-top:44px; font-size:34px">Qual o sentimento deste comentário sobre a Tesla, dada a conversa anterior?</p>
+<p class="muted" style="margin-top:8px">Negativo, neutro ou positivo? Ground-truth: positivo (a favor).</p>
+<p class="small" style="margin-top:44px">T1: só o texto alvo · T2: texto alvo e conversa anterior · T3: irônicos contra não irônicos, sem contexto</p>
+</div>
+<p class="foot">Metodologia</p>
+<p class="pg">8 / 33</p>
+<aside class="notes">Tempo: 45 s. Leia a conversa e pare no texto alvo: é ele que classificamos. Sozinho, o comentário fala de cansaço em estrada e nem cita a Tesla; com a conversa, fica claro que defende o piloto automático, por isso o ground-truth é a favor. Em T1 o modelo vê só o texto alvo; em T2 vê também a conversa (do turno de cima até a conversa inteira); a diferença entre os dois é o efeito do contexto. T3 compara irônicos e não irônicos da mesma base.</aside>
+</section>
+<section id="familias">
+<h2>Modelos</h2>
+<hr class="tr">
+<div class="body">
+<table style="font-size:27px">
+<tr><th style="width:15%">Família</th><th style="width:33%">O que é</th><th style="width:30%">Como obtemos a resposta</th><th>Modelos</th></tr>
+<tr><td>BERT</td><td>codificador ajustado para uma tarefa fixa</td><td>camada de classificação; o NLI testa uma hipótese por rótulo</td><td>twitter-roberta, DeBERTa-NLI</td></tr>
+<tr><td>LLM</td><td>gerador de texto que segue instruções</td><td>probabilidade de cada rótulo como próxima palavra</td><td>Qwen3.5-4B, Mistral-7B</td></tr>
+<tr><td>System One</td><td>recebe uma pergunta tipada e devolve uma distribuição, sem gerar texto</td><td>probabilidade de cada opção, calibrada por temperatura</td><td>Kev-4B, Laya</td></tr>
+</table>
+<ul class="after" style="font-size:28px">
+<li>Todos em zero-shot, até 7B parâmetros. NanoJev como controle negativo.</li>
+<li>Kev-4B: base do Qwen3.5-4B congelada, com adaptador LoRA e cabeça de decisão.</li>
+<li>Resposta: classe mais provável. Confiança: probabilidade dela.</li>
+</ul>
+</div>
+<p class="foot">Metodologia</p>
+<p class="pg">9 / 33</p>
+<aside class="notes">Tempo: 45 s. A diferença central: o BERT já vem treinado para uma tarefa; o LLM é um gerador, e lemos a probabilidade de cada rótulo como próxima palavra (primeiro token, conferido contra a palavra inteira em 8.030 entradas); o System One é feito para decidir e devolve a distribuição direto. Kev-4B e Qwen3.5-4B partem do mesmo modelo base, o que permite comparar a forma de adaptação. O Kev-4B foi treinado com bases de sentimento, inclusive resenhas da Amazon.</aside>
+</section>
+<section id="metdados">
+<h2>Dados</h2>
+<hr class="tr">
+<div class="body">
+<table>
+<tr><th style="width:18%">Base</th><th style="width:30%">Texto</th><th style="width:28%">Rótulo original</th><th style="width:11%">Itens</th><th>Tarefas</th></tr>
+<tr><td>MUStARD++</td><td>falas de séries de TV</td><td>emoção pretendida</td><td>1.171</td><td>T1, T2, T3</td></tr>
+<tr><td>MT-CSD</td><td>comentários do Reddit</td><td>postura sobre a marca</td><td>848</td><td>T1, T2</td></tr>
+<tr><td>Sarcasm_NLP</td><td>tweets sobre energia nuclear</td><td>sentimento anotado</td><td>5.929</td><td>T3</td></tr>
+<tr><td>Filatova</td><td>resenhas da Amazon</td><td>estrelas</td><td>1.254</td><td>T3</td></tr>
+</table>
+<ul class="after" style="font-size:28px">
+<li>Todos os rótulos convertidos para negativo, neutro e positivo.</li>
+<li>MT-CSD: só Tesla e SpaceX, partição de teste.</li>
+</ul>
+</div>
+<p class="foot">Metodologia</p>
+<p class="pg">10 / 33</p>
+<aside class="notes">Tempo: 35 s. MUStARD++: emoção pretendida do falante. MT-CSD: postura sobre a marca (a favor, contra, nenhuma). Sarcasm_NLP: sentimento dos anotadores sobre energia nuclear. Filatova: estrelas (1 e 2 negativo, 3 neutro, 4 e 5 positivo). No MT-CSD usamos só Tesla e SpaceX da partição de teste porque a motivação é postura sobre marcas e não treinamos nada. São 9.202 itens no total.</aside>
+</section>
+<section id="metcomparacao">
+<h2>Como comparamos</h2>
+<hr class="tr">
+<div class="body">
+<ul>
+<li>Mesmos itens sem contexto, com o turno anterior e com a conversa inteira; comparação item a item.</li>
+<li>Ablação no MT-CSD: 456 itens com 4 ou mais turnos, vistos com 1 a 4 turnos; em 785 itens, só o post ou só o comentário de cima.</li>
+<li>Três ordens das opções (v1, v2, v3), para separar escolha de posição.</li>
+<li>Acurácia e F1 macro com IC de 95%; no MT-CSD, bootstrap por thread (são só 13).</li>
+<li>Calibração: ECE e fração de erros com confiança de 0,9 ou mais.</li>
+</ul>
+</div>
+<p class="foot">Metodologia</p>
+<p class="pg">11 / 33</p>
+<aside class="notes">Tempo: 45 s. Dica da Aula 26b: diga como avaliaram se tiveram sucesso. A comparação de contexto é pareada, nos mesmos itens; a ablação isola quanto de contexto e qual parte dele muda a resposta; as três ordens mostram quando um modelo escolhe pela posição. Também olhamos a distribuição das respostas, porque nas bases irônicas, quase todas negativas, acertar pode ser só tendência a dizer negativo.</aside>
+</section>
+<section id="sec-resultados" class="sectionslide">
+<p class="secnum">3</p>
+<h1>Resultados</h1>
+<hr class="tr">
+<ol class="subs"><li>Variações do prompt</li><li>T1: texto isolado</li><li>T2: contexto</li><li>T3: ironia</li><li>Outras análises</li></ol>
+<p class="pg">12 / 33</p>
+<aside class="notes">Transição para resultados.</aside>
+</section>
+<section id="rprompt">
+<h2>As variações do prompt mudam o resultado?</h2>
+<hr class="tr">
+<div class="body">
+<table>
+<tr><th>Variação testada</th><th>O que muda</th><th>Diferença?</th></tr>
+<tr><td>Ordem das opções</td><td>v1, v2, v3: a posição de cada rótulo na lista</td><td><b>Sim, no Mistral-7B</b>: muda 36,5% das respostas; até 40 pp nos irônicos. Outros: 1–3 pp</td></tr>
+<tr><td>Descrição das opções</td><td>Quem recebe a definição de cada rótulo</td><td><b>Pouca</b>: a % de “neutro” muda ~10 pp; a acurácia, até 12 pp, mais no Mistral-7B</td></tr>
+<tr><td>Pergunta do Sarcasm_NLP</td><td>“the topic” × “nuclear power” × assunto nuclear amplo</td><td><b>Sim</b>: os LLMs mudam até 21 pp e a ordem dos modelos muda</td></tr>
+<tr><td>Descrição do alvo</td><td>“Tesla” × “Tesla (the electric car company…)”</td><td><b>Não</b>: todos entre −3 e +3 pp</td></tr>
+</table>
+<p class="after">Só a ordem (no Mistral-7B) e a pergunta do Sarcasm_NLP mudam o quadro; os resultados a seguir usam a média das três ordens.</p>
+</div>
+<p class="foot">Resultados · Variações do prompt</p>
+<p class="pg">13 / 33</p>
+<aside class="notes">Tempo: 50 s. twitter-roberta não recebe pergunta nem opções; o DeBERTa-NLI recebe a pergunta na hipótese, mas não lista de opções, então só as duas últimas variações o afetam. Ordem: % de itens com a mesma resposta nas três ordens, Kev-4B 87,8, Qwen3.5-4B 84,7, Laya 82,8, Mistral-7B 63,5. Descrições: na rodada principal só os System One recebem descrições; na rodada trocada, os LLMs recebem e os System One não; Kev-4B segue o melhor no MT-CSD e Kev-4B e Laya seguem os piores na ironia do MUStARD++. Pergunta do Sarcasm_NLP: Mistral-7B nos não irônicos, v1, 50,3 com "the topic" e 71,1 com "nuclear power"; nenhuma pergunta reproduz bem o ground-truth. Alvo: 848 itens do MT-CSD, rodada 839743.</aside>
+</section>
+<section id="rordem">
+<h2>A ordem das opções muda o resultado?</h2>
+<hr class="tr">
+<div class="body">
+<p class="lead">Os resultados a seguir usam a média das três ordens das opções.</p>
+<table>
+<tr><th>Mistral-7B, irônicos do MUStARD++</th><th>Ordem das opções</th><th>“negativo”</th><th>“neutro”</th><th>Acurácia</th></tr>
+<tr><td>v1</td><td>negativo, neutro, positivo</td><td>50,7%</td><td>29,6%</td><td>50,7%</td></tr>
+<tr><td>v2</td><td>positivo, neutro, negativo</td><td>23,6%</td><td>63,6%</td><td>23,6%</td></tr>
+<tr><td>v3</td><td>neutro, positivo, negativo</td><td>10,6%</td><td>78,4%</td><td>10,6%</td></tr>
+</table>
+<p class="after">Sem ironia, a diferença costuma ser pequena (11 de 16 casos até 3 pp); nos irônicos, chega a 40 pp.</p>
+</div>
+<p class="foot">Resultados · Variações do prompt</p>
+<p class="pg">14 / 33</p>
+<aside class="notes">Tempo: 30 s. Mesmos 601 itens e mesma pergunta; só muda a ordem em que as opções aparecem. O Mistral-7B escolhe mais a opção que vem primeiro: negativo primeiro (v1) dá 50,7% de negativo; neutro primeiro (v3) dá 78,4% de neutro. Outros casos grandes: Mistral-7B nos irônicos do Sarcasm_NLP (68,3 / 37,0 / 32,9) e Kev-4B nos mesmos itens (54,8 / 67,6 / 66,8). Em T1, 11 de 16 combinações de modelo e base variam até 3 pp (ex.: Qwen3.5-4B no Filatova, 93,8 / 93,1 / 93,3). twitter-roberta e DeBERTa-NLI não recebem opções, então têm um resultado só.</aside>
+</section>
+<section id="rt1" class="result">
+<h2>T1: como cada modelo se sai sem contexto?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig" src="img/visao_geral_t1.png" alt="Acurácia e F1 macro de seis modelos em T1 (itens não irônicos, sem contexto), no MUStARD++ e no MT-CSD">
+<ul class="below">
+<li>Nenhuma família domina: o Qwen3.5-4B lidera no MUStARD++ (59%), o Kev-4B no MT-CSD (71%).</li>
+<li>Ponto de partida para T2: são as duas bases em que vamos acrescentar o contexto.</li>
+</ul>
+</div>
+<p class="foot">Resultados · T1: texto isolado</p>
+<p class="pg">15 / 33</p>
+<aside class="notes">Tempo: 30 s. Itens não irônicos, sem contexto, nas duas bases que têm conversa (MUStARD++ e MT-CSD). Acurácia (número grande) e F1 macro (abaixo), média das três ordens de opções; twitter-roberta e DeBERTa-NLI têm uma só. Classe majoritária: 43% no MUStARD++ e 59% no MT-CSD. Sarcasm_NLP e Filatova aparecem na parte de ironia.</aside>
+</section>
+<section id="rcontexto" class="result">
+<h2>O contexto ajuda o modelo a acertar?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig" src="img/contexto-semsig-semmaj-20261123.png" alt="Acurácia de seis modelos sem contexto, com o turno anterior e com a conversa inteira, no MUStARD++, no MT-CSD e nos irônicos do MUStARD++">
+<p class="cap">Acurácia sem contexto, com o turno anterior e com a conversa inteira.</p>
+<ul class="below">
+<li>Há ganhos, mas pequenos e pontuais: Qwen3.5-4B +5,4 no MT-CSD com o turno anterior; Kev-4B +2,8 no MUStARD++ com a conversa inteira; Mistral-7B +1 a +2 com o turno anterior.</li>
+<li>As perdas são maiores: DeBERTa-NLI −25,0 no MT-CSD, twitter-roberta −13,2 no MUStARD++. Nos irônicos, quem ganha (Kev-4B +6,3, DeBERTa-NLI +5,7) passa a dizer mais “negativo”.</li>
+</ul>
+</div>
+<p class="foot">Resultados · T2: contexto</p>
+<p class="pg">16 / 33</p>
+<aside class="notes">Tempo: 65 s. Ordem v1, todos os itens. Diferença para sem contexto, turno anterior / conversa inteira: MUStARD++ Qwen3.5-4B +1,1 / +1,8, Mistral-7B +1,6 / +0,4, Kev-4B +0,4 / +2,8; MT-CSD Qwen3.5-4B +5,4 / +2,1, Mistral-7B +1,2 / −4,8, Kev-4B −1,9 / −7,0; irônicos do MUStARD++ DeBERTa-NLI +3,5 / +5,7, Kev-4B +5,0 / +6,3, Laya +2,5 / +4,7. O DeBERTa-NLI perde porque a manchete crítica que abre a thread entra na premissa do NLI: só com o post ele já perde 24,7 pontos. Nos 324 itens em que a postura difere da do comentário de cima, mostrá-lo piora todos menos o Qwen3.5-4B. O ganho do Qwen aparece em 11 das 13 threads e nas três ordens.</aside>
+</section>
+<section id="rturnos" class="result">
+<h2>Turno a turno: quem ganha com mais contexto?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig big" src="img/turnos_mtcsd_acc_f1.png" alt="Acurácia e F1 macro de seis modelos no MT-CSD de 0 a 4 turnos de contexto, um painel por modelo, mesmos 456 itens em todo k">
+<ul class="below">
+<li>O Qwen3.5-4B ganha +7,0 pp, todo no primeiro turno; o Mistral-7B sobe até k = 2 (+5,1) e depois volta; o DeBERTa-NLI perde a cada turno.</li>
+<li>O F1 mostra o que a acurácia esconde: o twitter-roberta cai mais no F1 (47 para 39), e o Laya fica bem abaixo (≈47) por responder quase só “neutro”.</li>
+</ul>
+</div>
+<p class="foot">Resultados · T2: contexto</p>
+<p class="pg">17 / 33</p>
+<aside class="notes">Tempo: 45 s. MT-CSD, só os 456 itens com pelo menos 4 turnos de contexto, para que cada ponto use os mesmos itens. Média das três ordens de opções. Acurácia de k = 0 para k = 4: twitter-roberta -5,1; DeBERTa-NLI -22,5; Qwen3.5-4B +7,0 (k = 1 já dá +7,0); Mistral-7B -0,8 (sobe até k = 2, +5,1, e depois volta); Kev-4B -5,5; Laya -2,5. F1 macro de k = 0 para k = 4: twitter-roberta 47,0 para 38,9; DeBERTa-NLI 61,7 para 45,5; Qwen3.5-4B 50,1 para 56,7; Mistral-7B 58,8 para 59,9; Kev-4B 65,9 para 61,7; Laya 46,4 para 47,9. O Kev-4B continua o melhor em todo k nas duas métricas.</aside>
+</section>
+<section id="rturnosqwen" class="result">
+<h2>De onde vem o ganho do Qwen3.5-4B?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig big" src="img/turnos_mtcsd_confusao_qwen.png" alt="Matriz de confusão do Qwen3.5-4B no MT-CSD para k de 0 a 4, em porcentagem de cada linha">
+<ul class="below">
+<li>No primeiro turno, o neutro sobe de 36% para 46%: o comentário de cima mostra que o texto não toma posição.</li>
+<li>Depois, os turnos só trocam acertos: mais “contra” certo (81% para 93%), mais positivos virando “contra” (22% para 31%).</li>
+</ul>
+</div>
+<p class="foot">Resultados · T2: contexto</p>
+<p class="pg">18 / 33</p>
+<aside class="notes">Tempo: 40 s. Cada linha é uma classe do ground-truth e soma 100%; a diagonal é o acerto. Contorno vermelho: célula que mudou 10 pontos ou mais em relação ao turno anterior; só o neutro em k = 1 passa desse limite. Os neutros continuam o maior erro: cerca de 41% deles viram "contra" em todo k. Mesmos 456 itens do MT-CSD, três ordens de opções juntas.</aside>
+</section>
+<section id="rtom" class="result">
+<h2>Por que mais turnos não ajudam?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig big" src="img/tom-20261123.png" alt="MT-CSD, mesmos itens com pelo menos quatro turnos: fração de respostas iguais ao tom da conversa e acurácia, de k = 0 a 4, para comentários que concordam e que discordam da conversa, por modelo">
+<p class="cap">MT-CSD, mesmos itens em todo k. Azul: o comentário concorda com o tom da conversa (n = 270); vermelho: discorda (n = 126).</p>
+<ul class="below">
+<li>Nos que discordam, twitter-roberta e Kev-4B passam a responder o tom da conversa (+39,7 e +17,2 pp); Qwen3.5-4B e Laya quase não mudam.</li>
+</ul>
+</div>
+<p class="foot">Resultados · T2: contexto</p>
+<p class="pg">19 / 33</p>
+<aside class="notes">Tempo: 60 s. Como ler: em cima, quanto o modelo responde igual ao tom da conversa; embaixo, a acurácia. Na linha vermelha, responder o tom da conversa é sempre erro. Se a hipótese vale, a vermelha sobe em cima e desce embaixo. De k = 0 a 4, nos comentários que discordam (três ordens juntas): twitter-roberta +39,7 pp no tom e -33,3 na acurácia; Kev-4B +17,2 e -13,2; DeBERTa-NLI +17,5 e -22,2, mas ele também sai do neutro nos que concordam, então parte é polarização geral. Qwen3.5-4B (+5,8), Mistral-7B (+9,3) e Laya (+3,2) não têm efeito claro. Quando a leitura isolada do comentário e a do comentário de cima discordam, twitter-roberta, DeBERTa-NLI e Kev-4B seguem cada uma em cerca de 50% dos casos; Qwen3.5-4B, Mistral-7B e Laya seguem o comentário em cerca de 62%. Por isso mais turnos não melhoram a média: o que se ganha nos alinhados se perde nos que discordam.</aside>
+</section>
+<section id="rdeberta" class="result">
+<h2>Por que o DeBERTa-NLI perde nos dois grupos?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig big" src="img/deberta_neutro_barras.png" alt="Porcentagem de respostas neutro do DeBERTa-NLI para comentários neutros do MT-CSD, de 0 a 4 turnos, por tom da conversa">
+<ul class="below">
+<li>Com mais turnos, ele deixa de dizer “neutro”: segue o tom quando a conversa é polar e polariza quando a conversa é neutra.</li>
+</ul>
+</div>
+<p class="foot">Resultados · T2: contexto</p>
+<p class="pg">20 / 33</p>
+<aside class="notes">Tempo: 45 s. Só comentários neutros, que são a maioria dos dois grupos do slide anterior (210 dos 270 que concordam; 44 dos 126 que discordam). Cinza é acerto. Conversa negativa: neutro 85% para 15%, "contra" 8% para 73%. Conversa positiva: neutro 61% para 11%, "a favor" 28% para 78%. Conversa neutra: neutro 79% para 38%, dividido entre "contra" (30%) e "a favor" (32%), porque mesmo uma conversa com maioria neutra tem turnos com postura. Os comentários polares mudam pouco. É um mecanismo só: a hipótese "takes no position on Tesla" perde para as outras quando a premissa tem frases com postura. Nos neutros do MT-CSD como um todo, o acerto dele cai de 72% para 18%.</aside>
+</section>
+<section id="padrao">
+<h2>Padrão geral entre os modelos</h2>
+<hr class="tr">
+<div class="body">
+<ol>
+<li>O contexto não melhora a média; a mudança vem quase toda no primeiro turno.</li>
+<li>O modelo é puxado pelo tom da conversa, e a força depende de como lê a entrada:
+<ul>
+<li>twitter-roberta, DeBERTa-NLI e Kev-4B pesam o comentário e o de cima por igual (~50%);</li>
+<li>Qwen3.5-4B, Mistral-7B e Laya seguem o comentário (~62%) e quase não perdem acurácia.</li>
+</ul></li>
+<li>Cada modelo tem uma preferência de resposta que se repete nas bases; na ironia, acerta mais quem já responde mais “negativo”.</li>
+</ol>
+</div>
+<p class="foot">Resultados · T2: contexto</p>
+<p class="pg">21 / 33</p>
+<aside class="notes">Tempo: 50 s. Ponto 2: quando a leitura isolada do comentário e a do comentário de cima discordam, qual delas o modelo segue com contexto. Nos comentários que discordam da conversa, os três primeiros perdem de 13 a 33 pp de acurácia. Ponto 3: no MUStARD++, a ordem dos modelos em T3 é a do acerto nos negativos de T1 (Spearman = 1,0). Kev-4B e Qwen3.5-4B têm a mesma base: um foi treinado para seguir instruções, o outro tem uma cabeça treinada em resenhas e frases isoladas.</aside>
+</section>
+<section id="rvisao" class="result">
+<h2>E nas bases com ironia?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig big" src="img/visao_geral_ironia2.png" alt="Acurácia e F1 macro de seis modelos nos não irônicos do MUStARD++, do Sarcasm_NLP e do Filatova (T1) e nos irônicos das três bases (T3)">
+<ul class="below">
+<li>O DeBERTa-NLI é o pior no Sarcasm_NLP sem ironia (41%) e o melhor na ironia do MUStARD++ (65%).</li>
+<li>Como o mesmo modelo é o pior e o melhor? A resposta está em como as classes se distribuem.</li>
+</ul>
+</div>
+<p class="foot">Resultados · T3: ironia</p>
+<p class="pg">22 / 33</p>
+<aside class="notes">Tempo: 30 s. À esquerda, T1 das três bases com ironia (o MUStARD++ repete o slide de T1; Sarcasm_NLP e Filatova aparecem aqui pela primeira vez); à direita, os irônicos das três bases (T3). Use o DeBERTa-NLI como provocação: 41% no Sarcasm_NLP não irônico e 65% nos irônicos do MUStARD++, onde todos os outros ficam entre 18% e 47%. Os próximos slides mostram que isso vem do desbalanceamento das bases e do viés negativo dele.</aside>
+</section>
+<section id="rdesbal1" class="result">
+<h2>As bases são desbalanceadas</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig" src="img/desbal_gold_semmtcsd.png" alt="Distribuição das classes no ground-truth de cada base, em T1 e T3, com a acurácia de responder sempre a classe majoritária">
+<ul class="below">
+<li>Responder sempre a classe mais comum já dá 42–86% sem ironia e 66–100% com ironia.</li>
+<li>Vários resultados ficam abaixo desse chute: twitter-roberta no Filatova (82 contra 86), DeBERTa-NLI no Sarcasm_NLP (41 contra 62).</li>
+</ul>
+</div>
+<p class="foot">Resultados · T3: ironia</p>
+<p class="pg">23 / 33</p>
+<aside class="notes">Tempo: 30 s. "Maioria" é a acurácia de responder sempre a classe mais frequente. Abaixo dela em T1: DeBERTa-NLI e Laya no Sarcasm_NLP (41,0 e 60,0 contra 61,7), twitter-roberta no Filatova (81,6 contra 85,8). Nos irônicos do Sarcasm_NLP, todos ficam abaixo de 87%. Os irônicos do MUStARD++ são todos negativos, então ali "acurácia" é só a taxa de "negativo".</aside>
+</section>
+<section id="rdesbal2">
+<h2>Como medir com classes desbalanceadas?</h2>
+<hr class="tr">
+<div class="body">
+<div class="defs">
+<div><span class="sym">\(R_c\)</span><b>revocação</b> da classe \(c\): dos itens que <i>são</i> \(c\), quantos o modelo acertou</div>
+<div><span class="sym">\(P_c\)</span><b>precisão</b> da classe \(c\): das vezes que o modelo <i>respondeu</i> \(c\), quantas estavam certas</div>
+<div><span class="sym">\(n_c,\ N,\ K\)</span>itens da classe \(c\), total de itens, número de classes (3)</div>
+</div>
+<div class="mcards">
+<div class="mcard">
+<h3>Acurácia</h3>
+<div class="formula">\(\displaystyle \sum_c \frac{n_c}{N}\,R_c\)</div>
+<p class="peso">Cada <b>item</b> pesa igual</p>
+<p class="prob">Premia a classe majoritária: no Filatova, chutar sempre “positivo” já dá 86%.</p>
+</div>
+<div class="mcard">
+<h3>F1 macro</h3>
+<div class="formula">\(\displaystyle \frac{1}{K}\sum_c \frac{2\,P_c\,R_c}{P_c+R_c}\)</div>
+<p class="peso">Cada <b>classe</b> pesa igual; junta precisão e revocação</p>
+<p class="prob">Com uma classe só (irônicos do MUStARD++), não passa de 33.</p>
+</div>
+<div class="mcard">
+<h3>Acurácia balanceada</h3>
+<div class="formula">\(\displaystyle \frac{1}{K}\sum_c R_c\)</div>
+<p class="peso">Cada <b>classe</b> pesa igual</p>
+<p class="prob">Chutar sempre a mesma classe dá 33% em qualquer base.</p>
+</div>
+</div>
+</div>
+<p class="foot">Resultados · T3: ironia</p>
+<p class="pg">24 / 33</p>
+<aside class="notes">Tempo: 40 s. Precisão: das vezes que o modelo disse "negativo", quantas eram negativas. Revocação: dos negativos de verdade, quantos ele achou. F1: média harmônica das duas, só é alto se as duas forem. O F1 macro dá o mesmo peso a cada classe, por isso cai quando o modelo ignora classes raras. Nos irônicos do MUStARD++ as classes neutro e positivo não existem no ground-truth e entram com F1 zero, então o F1 macro vai no máximo a 33. A acurácia balanceada não depende da proporção das classes: responder sempre a mesma classe dá 1/3.</aside>
+</section>
+<section id="rdesbal3" class="result">
+<h2>Com acurácia balanceada, o que muda?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig big" src="img/desbal_heat_f1_semmtcsd.png" alt="Acurácia balanceada e acurácia de seis modelos em T1, T2 e T3 no MUStARD++, no Sarcasm_NLP e no Filatova, com a linha da classe majoritária">
+<ul class="below">
+<li>O Filatova deixa de ser fácil: acurácia de 82–94% vira 63–76% balanceada.</li>
+<li>A liderança muda: o Qwen3.5-4B passa a primeiro no Sarcasm_NLP; no Filatova, Mistral-7B e Kev-4B ficam na frente.</li>
+</ul>
+</div>
+<p class="foot">Resultados · T3: ironia</p>
+<p class="pg">25 / 33</p>
+<aside class="notes">Tempo: 40 s. Número grande: acurácia balanceada; abaixo, a acurácia e o F1 macro. Linha de baixo: o que dá chutar sempre a classe majoritária (balanceada 33; acurácia = % da maioria). Nos irônicos do MUStARD++ só existe a classe negativa, então as duas métricas coincidem. Mudanças de posição: no Sarcasm_NLP T1, Qwen3.5-4B 73,8 contra Kev-4B 69,8; no Filatova T1, Mistral-7B e Kev-4B (~76) na frente do Qwen3.5-4B (65). O DeBERTa-NLI no Sarcasm_NLP sobe de 41,0 para 62,4: ele erra muito o neutro, que é a maioria, mas acerta as outras classes.</aside>
+</section>
+<section id="rdist" class="result">
+<h2>O que cada modelo responde?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig big" src="img/distribuicao_semmtcsd.png" alt="Distribuição das respostas negativo, neutro e positivo de cada modelo e do ground-truth, por base, em T1 e T3, sem contexto">
+<ul class="below">
+<li>Filatova é quase só positivo (86%): por isso todos vão bem em T1. T3 são outros itens, só os irônicos.</li>
+<li>O DeBERTa-NLI quase nunca diz “neutro” (1–8%) e responde muito “negativo”.</li>
+</ul>
+</div>
+<p class="foot">Resultados · T3: ironia</p>
+<p class="pg">26 / 33</p>
+<aside class="notes">Tempo: 40 s. Primeira linha de cada painel: o ground-truth. T1 e T3 são conjuntos diferentes de itens da mesma base: T1 os não irônicos, T3 os irônicos. No Filatova, os não irônicos são 86% positivos (classe majoritária já dá 86%) e os irônicos são 66% negativos; no Sarcasm_NLP, os não irônicos são 62% neutros e os irônicos 87% negativos; no MUStARD++, todo irônico é negativo. O DeBERTa-NLI responde neutro em 1,6% (MUStARD++) e 7,5% (Sarcasm_NLP) dos não irônicos; a hipótese de neutro é "The author feels neither positive nor negative", e modelos de NLI lidam mal com negação (hipótese, não testada).</aside>
+</section>
+<section id="rnegativo" class="result">
+<h2>Acertar a ironia é só dizer “negativo”?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig big" src="img/ironia_discrim.png" alt="Porcentagem de negativo nos irônicos contra porcentagem de negativo nos não irônicos que não são negativos, por modelo e base">
+<ul class="below">
+<li>Sarcasm_NLP: o DeBERTa-NLI diz “negativo” em 62% dos irônicos e em 58% dos não negativos: é viés.</li>
+<li>MUStARD++: todos separam pouco (8–22 pp); o DeBERTa-NLI lidera por partir de um viés de 44%.</li>
+</ul>
+</div>
+<p class="foot">Resultados · T3: ironia</p>
+<p class="pg">27 / 33</p>
+<aside class="notes">Tempo: 50 s. Eixo x: quanto o modelo diz "negativo" para textos não irônicos que NÃO são negativos (alarme falso). Eixo y: quanto diz "negativo" nos irônicos. Na diagonal, o modelo diz "negativo" na mesma taxa com e sem ironia: só viés. A linha cinza é quanto ele separa. Separação (pp, IC 95% por bootstrap de item): Sarcasm_NLP Kev-4B +48,9, Qwen3.5-4B +47,8, Mistral-7B +32,2, twitter-roberta +17,4, DeBERTa-NLI +4,7 [2,1; 7,6], Laya -1,6 (n.s.). MUStARD++: DeBERTa-NLI +21,5, Qwen3.5-4B +18,9, twitter-roberta +14,3, Mistral-7B +13,2, Kev-4B +11,1, Laya +7,9. Nos irônicos do MUStARD++, mesmo o melhor fica 20 pp abaixo do que acerta nos negativos literais (DeBERTa-NLI 65,1 contra 85,1). Filatova: todos separam bem (72 a 93 pp) e acertam a ironia quase como os negativos literais (Kev-4B 95,2 contra 93,8). Custo da ironia no MUStARD++ (acerto nos negativos literais menos acerto nos irônicos, três ordens juntas): twitter-roberta 18,4; DeBERTa-NLI 20,0; Laya 21,0; Kev-4B 23,3; Mistral-7B 23,9; Qwen3.5-4B 27,5. Com contexto, DeBERTa-NLI, Kev-4B e Laya ganham de 4,7 a 6,3 pontos nos irônicos, mas passam a dizer negativo também nos não irônicos: o ganho não é específico da ironia.</aside>
+</section>
+<section id="rsystemone" class="result">
+<h2>Os modelos System One são mais confiáveis?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig" src="img/calibracao-20261123.png" alt="ECE por tarefa, erros confiantes e estabilidade à ordem das opções, por modelo">
+<p class="cap">ECE: distância média entre a confiança e o acerto (0 = perfeito; tracejado em 0,05 = bem calibrado). T1 e T2: MUStARD++ e MT-CSD; T3: irônicos das três bases. Ordem v1.</p>
+<ul class="below">
+<li>Sem ironia, Kev-4B e Laya são os mais calibrados (0,10–0,16) e quase não erram com certeza (2–3%), mas porque respondem muito “neutro”.</li>
+<li>Na ironia, a vantagem some: o Laya fica entre os piores (0,32). Ninguém chega perto de 0,05.</li>
+</ul>
+</div>
+<p class="foot">Resultados · Outras análises</p>
+<p class="pg">28 / 33</p>
+<aside class="notes">Tempo: 60 s. ECE de 0,3 quer dizer que a confiança erra o acerto real em cerca de 30 pontos: quando o modelo diz 90%, acerta perto de 60%. Abaixo de ~0,05 costuma-se considerar bem calibrado (convenção). O Mistral-7B tem confiança média de 94% quando acerta e de 86% quando erra. Erros confiantes: respostas erradas com confiança de 0,9 ou mais, em todos os itens das três tarefas; depende de quanto cada modelo chega a 0,9 (Laya raramente chega). Kev-4B e Laya respondem "neutro" em 65% a 81% dos itens. Parte da calibração do Kev-4B vem da temperatura (T = 2,41): no MUStARD++, o Qwen3.5-4B com a mesma temperatura fica mais bem calibrado que ele. Conclusão: os System One são mais cautelosos, não mais competentes; nos irônicos do MUStARD++ acertam 18 a 20%.</aside>
+</section>
+<section id="rqwenkev" class="result">
+<h2>Kev-4B e Qwen3.5-4B: mesma base, o que muda?</h2>
+<hr class="tr">
+<div class="body">
+<img class="fig big" src="img/qwenkev-gold-20261123.png" alt="Acurácia e fração de respostas neutro do Qwen3.5-4B e do Kev-4B em cada tarefa e base, ordem v1, com a fração de neutro no ground-truth">
+<p class="cap">Mesmos itens, ordem v1. Traço preto: % de neutro no ground-truth.</p>
+<ul class="below">
+<li>MT-CSD e Sarcasm_NLP (~60% neutro): o Kev-4B acerta a proporção de neutro e vence.</li>
+<li>MUStARD++: o Kev-4B exagera no neutro e o Qwen3.5-4B vence, sobretudo na ironia.</li>
+</ul>
+</div>
+<p class="foot">Resultados · Outras análises</p>
+<p class="pg">29 / 33</p>
+<aside class="notes">Tempo: 60 s. No MT-CSD o Kev-4B acerta 71,3% contra 55,3% do Qwen3.5-4B, que diz neutro de menos (29% contra 59% no ground-truth). No MUStARD++ o Kev-4B diz neutro em 65% (ground-truth 29%) e em 68% dos irônicos, que nunca são neutros; na ironia o Qwen3.5-4B acerta 42,9% contra 18,0%. Os dois partem do mesmo modelo base; o Qwen3.5-4B foi pós-treinado para seguir instruções e o Kev-4B ganhou um adaptador e uma cabeça de decisão. Com contexto no MT-CSD, o Qwen3.5-4B ganha 5,4 pontos com o turno anterior e o Kev-4B perde 7,0 com a conversa inteira. A calibração do Kev-4B no MUStARD++ vem da temperatura: aplicando ao Qwen a mesma T = 2,41, o ECE do Qwen cai de 0,209 para 0,063. O Kev-4B também é um pouco mais estável à ordem das opções (87,8% contra 84,7%).</aside>
+</section>
+<section id="sec-conclusao" class="sectionslide">
+<p class="secnum">4</p>
+<h1>Conclusão</h1>
+<hr class="tr">
+
+<p class="pg">30 / 33</p>
+<aside class="notes">Transição para conclusão.</aside>
+</section>
+<section id="conclusao">
+<h2>Conclusão</h2>
+<hr class="tr">
+<div class="body">
+<div class="qa topics">
+<div class="q">Prompt</div>
+<div class="a">Nos nossos testes, só a ordem das opções (Mistral-7B: 36,5% das respostas mudaram) e a pergunta do Sarcasm_NLP (até 21 pp) alteraram o quadro; descrever o alvo não mudou nada (±3 pp).</div>
+<div class="q">Contexto (T2)</div>
+<div class="a">No MT-CSD e no MUStARD++, mais turnos não melhoraram a média: os modelos passaram a seguir o tom da conversa. Os que pesaram o comentário de cima como o próprio perderam até 33 pp quando o comentário discordava; só o Qwen3.5-4B ganhou a cada turno (+7 pp).</div>
+<div class="q">Ironia (T3)</div>
+<div class="a">Nas nossas bases, a maioria dos irônicos é negativa (66–100%); por isso, parte do acerto veio de responder “negativo”. No Sarcasm_NLP, o DeBERTa-NLI disse negativo em 62% dos irônicos e em 58% dos não negativos.</div>
+<div class="q">Métricas</div>
+<div class="a">Como nossas bases são desbalanceadas, a acurácia sozinha enganou: com acurácia balanceada, o Filatova caiu de 82–94% para 63–76% e a liderança mudou.</div>
+<div class="q">System One</div>
+<div class="a">O Kev-4B foi o mais calibrado e venceu o Qwen3.5-4B, de mesma base, nas bases em que o neutro domina; na ironia do MUStARD++ acertou 18% contra 43%. Na ironia, nenhum modelo foi bem calibrado.</div>
+</div>
+</div>
+<p class="foot">Conclusão</p>
+<p class="pg">31 / 33</p>
+<aside class="notes">Tempo: 60 s. Uma linha por parte dos resultados, na ordem em que apareceram. Prompt: Kev-4B 87,8% de respostas iguais nas três ordens, Mistral-7B 63,5%; alvo testado em 848 itens do MT-CSD. Contexto: coorte do MT-CSD com pelo menos 4 turnos (n = 456), k = 0 a 4: Qwen3.5-4B 50,9 → 57,9; DeBERTa-NLI 68,6 → 46,1; nos comentários que discordam da conversa, twitter-roberta -33,3, DeBERTa-NLI -22,2, Kev-4B -13,2; o DeBERTa-NLI quase deixa de dizer neutro. Ironia: separação entre irônicos e não negativos no Sarcasm_NLP, Kev-4B +48,9, DeBERTa-NLI +4,7; com contexto, os ganhos nos irônicos vêm junto com mais negativo nos não irônicos. Métricas: a classe majoritária já dá 42–86% em T1. System One: ECE sem ironia 0,10–0,16 (Kev-4B e Laya); no MT-CSD e no Sarcasm_NLP o Kev-4B diz neutro na proporção do ground-truth; no MUStARD++ exagera (65% contra 29%).</aside>
+</section>
+<section id="limitacoes">
+<h2>Limitações e trabalhos futuros</h2>
+<hr class="tr">
+<div class="body">
+<div class="twocol">
+<div>
+<h3>Limitações</h3>
+<ul>
+<li>Só modelos pequenos (até 7B) e só inglês</li>
+<li>Um prompt por família, sem exemplos; variamos só a ordem das opções, as descrições e a pergunta</li>
+<li>Bases desbalanceadas: poucos irônicos positivos ou neutros</li>
+<li>Rótulos derivados de emoções, posturas e estrelas</li>
+<li>MT-CSD sem os autores dos turnos e com só dois alvos</li>
+</ul>
+</div>
+<div>
+<h3>Trabalhos futuros</h3>
+<ul>
+<li>Engenharia de prompt: exemplos no prompt, separar a pergunta da conversa, marcar o autor de cada turno</li>
+<li>Outros modelos: maiores e de outras famílias</li>
+<li>Português: bases e modelos em língua portuguesa</li>
+<li>Bases mais balanceadas para ironia</li>
+<li>Ajustar System One com exemplos de contexto e ironia</li>
+</ul>
+</div>
+</div>
+</div>
+<p class="foot">Conclusão</p>
+<p class="pg">32 / 33</p>
+<aside class="notes">Tempo: 25 s. Dica da Aula 26b: as limitações são quase uma confissão; melhor dizer antes que a banca pergunte. A falta de informação sobre o alvo foi testada: descrever a Tesla no prompt não mudou a acurácia (±3 pp, 848 itens do MT-CSD). O desbalanceamento explica parte do acerto na ironia: a maioria dos irônicos é negativa (66–100%). Português: nenhuma base nem modelo usado aqui é em português.</aside>
+</section>
+<section id="obrigado" class="titleslide">
+<h1>Obrigado!</h1>
+<hr class="tr">
+<p class="names" style="margin-top:0px">Rayan Raddatz de Matos · [email]</p>
+<p class="names" style="margin-top:8px">Eduardo Magnus Lazuta · [email]</p>
+<p class="small" style="margin-top:28px">Instituto de Informática, UFRGS</p>
+<aside class="notes">Tempo: 5 s. Agradeça e abra para perguntas. Perguntas prováveis: por que só Tesla e SpaceX no MT-CSD (marcas, partição de teste, sem treino); por que o Kev-4B não é zero-shot de verdade (treinado com bases de sentimento, inclusive resenhas da Amazon); como o LLM vira probabilidade (primeiro token de cada rótulo, conferido contra a palavra inteira); o modelo sabe o que é a Tesla? (não damos nenhuma descrição do alvo; é o primeiro trabalho futuro).</aside>
+</section>
+
+</div>
+<script>
+const S=[...document.querySelectorAll('section')];let i=0;const st=document.getElementById('stage');
+function fit(){const k=Math.min(innerWidth/1920,innerHeight/1080);st.style.transform=`translate(-50%,-50%) scale(${k})`;}
+function show(n){i=Math.max(0,Math.min(S.length-1,n));S.forEach((s,j)=>s.classList.toggle('on',j===i));}
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key))show(i+1);if(['ArrowLeft','PageUp'].includes(e.key))show(i-1);if(e.key==='n')document.body.classList.toggle('shownotes');if(e.key==='f')document.documentElement.requestFullscreen();});
+addEventListener('click',()=>show(i+1));addEventListener('resize',fit);fit();show((parseInt(location.hash.slice(1))||1)-1);addEventListener("hashchange",()=>show((parseInt(location.hash.slice(1))||1)-1));
+</script></body></html>

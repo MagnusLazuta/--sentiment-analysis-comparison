@@ -1,0 +1,789 @@
+# -*- coding: utf-8 -*-
+# -*- mode: org -*-
+
+#+TITLE: Análise de Sentimentos com Contexto e Ironia: BERT, LLMs e Modelos System One
+#+AUTHOR: Rayan Raddatz de Matos, Eduardo Magnus Lazuta
+
+#+STARTUP: overview indent
+#+LANGUAGE: pt
+#+OPTIONS: H:3 creator:nil timestamp:nil skip:nil toc:nil num:t ^:nil ~:~
+#+OPTIONS: author:nil title:nil date:nil
+#+TAGS: noexport(n) deprecated(d) ignore(i)
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [12pt]
+
+#+LATEX_HEADER: \sloppy
+
+# PDF generation can be done by make (thanks Luka Stanisic)
+#   or C-c C-e l p (thanks Vinicius Garcia)
+
+* *The Paper*                                                       :ignore:
+** Frontpage                                                        :ignore:
+
+#+BEGIN_EXPORT latex
+\makeatletter
+\let\orgtitle\@title
+\makeatother
+
+\title{\orgtitle}
+
+\author{
+   Rayan Raddatz de Matos\inst{1},
+   Eduardo Magnus Lazuta\inst{1}}
+
+\address{
+   Instituto de Informática -- Universidade Federal do Rio Grande do Sul (UFRGS)\\
+   Caixa Postal 15.064 -- 91.501-970 -- Porto Alegre -- RS -- Brasil
+   \email{rayan.raddatz@inf.ufrgs.br}}
+#+END_EXPORT
+
+#+LaTeX: \maketitle
+
+** Abstract                                                         :ignore:
+
+#+begin_abstract
+TODO.
+#+end_abstract
+
+#+begin_resumo
+TODO.
+#+end_resumo
+
+** Introdução
+<<sec.intro>>
+
+TODO.
+
+** Trabalhos Relacionados
+<<sec.relatedwork>>
+
+*** Sentimento dependente de alvo e de contexto
+<<sec.rw.contexto>>
+
+A classificação de sentimentos sobre o texto isolado assume que a
+polaridade expressa pelas palavras coincide com a polaridade em
+relação ao objeto de interesse. Essa hipótese falha com frequência em
+redes sociais. cite:jiang2011target mostraram, para o Twitter, que
+classificadores independentes do alvo erram de forma sistemática:
+cerca de 40% dos erros decorriam de não considerar a entidade à qual
+o sentimento se refere. Os autores propuseram características
+dependentes do alvo e o uso de /tweets/ relacionados como contexto.
+
+A distância entre o sentimento do texto e a posição em relação a um
+alvo fica ainda mais clara na detecção de postura (/stance/). No
+SemEval-2016 Task 6 cite:mohammad2016semeval, o sistema deve decidir
+se o autor é favorável ou contrário a um alvo que pode nem ser
+mencionado no texto. Um /tweet/ negativo contra um candidato rival,
+por exemplo, expressa postura favorável ao candidato-alvo. O mesmo
+fenômeno aparece em sentenças comparativas: cite:ganapathibhotla2008mining
+tratam de identificar qual entidade é preferida em comparações como
+``a câmera X é bem melhor que a Y'', em que uma única sentença carrega
+polaridades opostas para entidades distintas. Em conversas, o DiaASQ
+cite:li2023diaasq mostra que essas opiniões se espalham por várias
+respostas de uma mesma discussão, frequentemente comparando produtos
+concorrentes. É esse o caso que motiva nosso cenário com contexto: uma
+crítica ao concorrente pode ser positiva para a marca analisada, e só
+o contexto permite decidir.
+
+Trabalhos recentes avaliam esse tipo de tarefa com LLMs.
+cite:juros2024llms classificam o sentimento (negativo, neutro ou
+positivo) em relação a uma entidade de manchetes e comparam LLMs,
+incluindo modelos pequenos como Llama 3 8B, Gemma e Phi-3, com
+codificadores ajustados, medindo também a calibração. Na detecção de
+postura em conversas com vários turnos, o MT-CSD cite:niu2024challenge
+(Reddit) e o ZS-CSD cite:ding2025zero (Weibo) fornecem a discussão
+completa como contexto; mesmo os melhores modelos ficam abaixo de 51%
+de acurácia no primeiro e de 44% de F1 macro no segundo, o que indica
+que o contexto conversacional continua difícil.
+
+*** Ironia e sarcasmo
+<<sec.rw.ironia>>
+
+A ironia inverte a relação entre o sentimento literal e o pretendido.
+cite:riloff2013sarcasm caracterizaram um padrão frequente no Twitter:
+um sentimento positivo seguido de uma situação negativa (``adoro
+passar o domingo no hospital''). O primeiro /shared task/ dedicado ao
+tema foi o SemEval-2018 Task 3 cite:vanhee2018semeval, com 3.834
+/tweets/ de treino e 784 de teste. O melhor sistema atingiu F1 de 0,71
+na detecção binária e apenas 0,51 na classificação do tipo de ironia.
+
+Grande parte desses /datasets/ rotula ironia por /hashtags/ (/#sarcasm/)
+ou por marcadores do próprio autor. O SARC cite:khodak2018large usa o
+marcador ``/s'' do Reddit e reúne cerca de 1,3 milhão de comentários
+sarcásticos com o contexto da conversa, ao custo de algum ruído nos
+rótulos. cite:oprea2020isarcasm argumentam que ironia percebida por
+anotadores difere da ironia pretendida pelo autor e coletaram rótulos
+do próprio autor (iSarcasm). Essa abordagem foi adotada no SemEval-2022
+Task 6 (iSarcasmEval) cite:abufarha2022semeval, em inglês e árabe, em
+que os autores também reescreveram cada texto sem sarcasmo.
+
+O papel do contexto conversacional foi estudado por
+cite:ghosh2018sarcasm. Modelos LSTM com atenção que leem também o
+turno anterior superaram o modelo que lê apenas a resposta, em dados
+do Twitter e de fóruns. O FigLang 2020 Shared Task
+cite:ghosh2020report padronizou essa formulação: cada exemplo traz a
+resposta e a lista ordenada de turnos anteriores, em duas trilhas
+(Reddit e Twitter). Em formato multimodal, o MUStARD
+cite:castro2019towards fornece cenas de séries de TV com o diálogo
+anterior a cada fala-alvo. Mais recentemente, o EPIC
+cite:frenda2023epic e o MultiPICo cite:casola2024multipico anotaram
+pares post-resposta do Twitter e do Reddit (3.000 pares em inglês e
+18.778 em nove línguas, respectivamente), mostrando que a percepção de
+ironia varia entre anotadores de perfis diferentes. cite:jang2024generalizable
+observaram ainda que detectores de sarcasmo treinados em um
+/dataset/ generalizam mal para os demais.
+
+Poucos trabalhos medem o efeito da ironia diretamente sobre a
+classificação de sentimentos. cite:bhargava2025impact mostram que
+classificadores de sentimento acertam entre 30% e 60% dos /tweets/
+sarcásticos e que remover o sarcasmo do texto melhora a acurácia em
+até 21%. O SarcasmCue cite:yao2024sarcasm explora justamente o
+mecanismo de inversão: o LLM estima primeiro o sentimento literal,
+depois a intenção, e verifica se há contradição entre eles.
+
+*** LLMs na análise de sentimentos e de ironia
+<<sec.rw.llm>>
+
+cite:zhang2023sentiment avaliaram LLMs em 13 tarefas de sentimento e 26
+conjuntos de dados. LLMs via /prompting/ foram competitivos em
+classificação binária simples, mas ficaram atrás de modelos menores
+ajustados em tarefas que exigem compreensão mais fina, como análise
+baseada em aspectos. Com modelos abertos e pequenos, o quadro é
+parecido: cite:edwards2024language compararam LLaMA de 7B e Flan-T5
+via /prompting/ com RoBERTa ajustado em 16 conjuntos, incluindo
+sentimento e ironia do TweetEval, e os modelos ajustados venceram na
+maioria dos casos. No SarcasmBench cite:zhang2024sarcasmbench, que
+inclui modelos como Llama 3-8B e Mistral-7B, os LLMs também ficaram
+abaixo dos modelos pré-treinados ajustados de forma supervisionada,
+mesmo com /few-shot/ ou /chain-of-thought/.
+
+*** Calibração da confiança
+<<sec.rw.calibracao>>
+
+Um modelo é calibrado quando a confiança que informa corresponde à
+sua taxa real de acerto. cite:guo2017calibration mostraram que redes
+neurais modernas tendem a ser excessivamente confiantes e propuseram
+o /temperature scaling/ como correção simples. Para Transformers
+pré-treinados, cite:desai2020calibration observaram que BERT e
+RoBERTa são razoavelmente calibrados no domínio de treino e mais
+robustos fora dele que modelos anteriores. Em LLMs, a confiança
+verbalizada (pedir ao modelo que declare sua confiança) tende a ser
+superestimada cite:xiong2024can e pouco informativa: em classificação,
+ela se concentra em poucos valores cite:merdjanovska2026evaluation, e
+em modelos abertos de 3B a 9B atinge o valor máximo em 91,7% das
+respostas cite:cacioli2026verbal. Por isso, as probabilidades dos
+/tokens/ tendem a ser um sinal de confiança mais útil que a confiança
+declarada.
+
+Sobre ironia, cite:shroff2026ai observaram que um RoBERTa de
+sentimentos fica menos confiante em textos sarcásticos e que
+descartar as previsões de baixa confiança aumenta a acurácia nas
+restantes. Não encontramos, porém, trabalhos que comparem a calibração
+de codificadores ajustados, LLMs e modelos /System One/ em textos
+irônicos.
+
+*** Modelos de decisão /System One/
+<<sec.rw.jev>>
+
+O Jev cite:typesafe2026jev, lançado pela TypeSafe AI em setembro de
+2026, inaugurou a categoria que a empresa chama de modelos /System
+One/: modelos discriminativos /zero-shot/ que recebem um texto e uma
+pergunta tipada (verdadeiro/falso, escolha ou escala) e devolvem uma
+distribuição de probabilidade e uma confiança, sem gerar texto. A
+empresa afirma que o modelo é treinado com dados sintéticos para ser
+calibrado, mas não publicou arquitetura, pesos nem artigo técnico.
+
+Em poucas semanas surgiram alternativas abertas com a mesma interface.
+O Laya cite:convai2026laya é um codificador ModernBERT-large de 421M
+parâmetros (com variante multilíngue de 322M); seu próprio cartão
+indica que o modelo base é pouco confiável em /zero-shot/ e
+superconfiante sem recalibração, servindo melhor como base para
+ajuste fino. O Kev cite:palmer2026kev é uma família de 0,8B a 27B
+parâmetros ajustada a partir do Qwen, e o Clef cite:chen2026clef, da
+Cloudflare, tem 27B parâmetros (9B na versão /flash/) e é treinado com
+entropia cruzada e um termo de /Brier score/ para melhorar a
+calibração. Os três reportam resultados próximos ou superiores ao Jev,
+mas em avaliações feitas pelos próprios autores.
+
+A comparação mais sistemática até o momento é a de
+cite:rafe2026benchmarking, que avaliou oito /checkpoints/ de seis
+famílias (Jev, Laya, Kev e outros) contra LLMs generativos e
+classificadores ajustados. Um DeBERTa-v3-large ajustado obteve a maior
+acurácia em quase todos os conjuntos rotulados, e o Gemma-4-31B via
+/prompting/ igualou ou superou o Jev em parte deles. O Jev foi bem
+calibrado em tarefas de intenção (ECE próximo de 0,03), mas o ECE subiu
+para 0,25 em tarefas de ciências sociais, como detecção de polidez e
+de descarrilamento de conversas. Os autores também mostram que trocar a
+ordem de ``sim'' e ``não'' na pergunta altera cerca de metade das
+respostas do Jev. cite:deusser2026evaluating avaliaram o Jev em 37
+conjuntos, com acurácia entre 95% e 99% em sentimento (IMDB e SST-2), e
+o TypedBench cite:sharma2026typedbench mostrou que esses modelos são
+sensíveis à forma como a pergunta é escrita.
+
+Em tarefas afetivas, o Emo-Jev cite:zhang2026emojev avaliou o Jev em
+sentimento (TweetEval e SST-5) e em sarcasmo (SemEval-2018 e
+iSarcasmEval): o modelo obteve 62,93% de F1 macro médio, contra 67,28%
+do melhor LLM, com menor custo e latência. Esse trabalho, porém, não
+mede calibração e não inclui modelos /System One/ abertos.
+
+As demais comparações são independentes e não revisadas por pares.
+cite:raschka2026classifier reporta 96,5% de acurácia do Jev no IMDb,
+próximo a um ModernBERT ajustado (cerca de 95%). O /benchmark/ de
+cite:li2026jevbenchmark compara o Jev 1.14 a modelos locais: no SST-2,
+o Jev obteve 96,0% contra 90,5% do DistilBERT ajustado, com erro de
+calibração esperado (ECE) de 0,018; no AG News, porém, ficou 4,9 pontos
+abaixo do DistilBERT. O jevbench cite:mehra2026jevbench inclui ainda
+LLMs e BART-MNLI /zero-shot/ no SST-2, AG News e Banking77. Fora de
+sentimento, cite:nilas2026jev compararam Jev, um LLM e BERT ajustados
+em detecção de /spam/ e /phishing/, com acurácias próximas e o BERT
+como opção mais rápida e barata.
+
+*** Lacuna
+<<sec.rw.lacuna>>
+
+Os trabalhos acima tratam separadamente o sentimento dependente de
+contexto, a ironia, o uso de LLMs e a calibração. Nenhum deles compara,
+no mesmo protocolo, codificadores ajustados, LLMs abertos pequenos e
+modelos /System One/ abertos na classificação de sentimentos (negativo,
+neutro e positivo) com texto isolado, com contexto e com ironia,
+verificando também se a confiança desses modelos corresponde à taxa
+real de acerto. Os resultados de cite:rafe2026benchmarking sugerem que
+a calibração dos modelos /System One/ piora em tarefas sociais e
+pragmáticas, mais próximas da ironia, e é essa lacuna que este trabalho
+explora.
+
+** Metodologia
+<<sec.metodologia>>
+
+TODO.
+
+** Resultados
+<<sec.resultados>>
+
+TODO.
+
+** Conclusão
+<<sec.conclusao>>
+
+TODO.
+
+** References                                                        :ignore:
+
+# See next section to understand how refs.bib file is created.
+bibliographystyle:sbc.bst
+[[bibliography:refs.bib]]
+
+* Fontes consultadas                                               :noexport:
+
+Referências levantadas e conferidas por busca web em 2026-11-15.
+Fontes sobre Jev são blogs, repositórios e documentação (sem revisão
+por pares); conferir números antes da versão final.
+
+- Jev (Wikipedia): https://en.wikipedia.org/wiki/Jev_(AI_model)
+- Blog TypeSafe: https://typesafe.ai/blog/introducing-system-one-models-and-jev (não lido diretamente)
+- Raschka: https://magazine.sebastianraschka.com/p/classifier-history-and-jev
+- jev-benchmark: https://github.com/jasonli0226/jev-benchmark (execução de 2026-10-21)
+- jevbench: https://github.com/dhruvmehra/jevbench (números no README em imagem; não conferidos)
+- ML6: https://www.ml6.eu/en/blog/jev-vs-gpt-6-luna-vs-bert-text-classification
+- Agregador: https://systemonemodels.org/guides/jev-benchmarks/
+- Ling et al. 2026, arXiv:2609.30216 (análise de repositórios, não é benchmark; não citado)
+- Rafe e Das 2026, arXiv:2610.00346 (v2, 6 out. 2026); números da tabela lidos via resumo do HTML, conferir
+- Laya: https://huggingface.co/convaiinnovations/laya (cita preprint doi 10.20944/preprints202611.0781.v1)
+- Kev: https://github.com/jaredpalmer/kev
+- Clef: https://blog.cloudflare.com/clef-decision-models e https://huggingface.co/Cloudflare/clef
+- Lista de modelos System One: https://github.com/andyrewlee/awesome-system-one
+- Barbosa 2026, arXiv:2609.28940 (pentest com Jev e Laya; sem medições próprias de calibração; não citado)
+
+* Bib file is here                                                 :noexport:
+
+Tangle this file with C-c C-v t
+#+begin_src bibtex :tangle refs.bib
+@inproceedings{jiang2011target,
+  author    = {Jiang, Long and Yu, Mo and Zhou, Ming and Liu, Xiaohua and Zhao, Tiejun},
+  title     = {Target-dependent {T}witter Sentiment Classification},
+  booktitle = {Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies},
+  pages     = {151--160},
+  year      = {2011},
+  publisher = {ACL}
+}
+
+@inproceedings{mohammad2016semeval,
+  author    = {Mohammad, Saif and Kiritchenko, Svetlana and Sobhani, Parinaz and Zhu, Xiaodan and Cherry, Colin},
+  title     = {{SemEval}-2016 Task 6: Detecting Stance in Tweets},
+  booktitle = {Proceedings of the 10th International Workshop on Semantic Evaluation (SemEval-2016)},
+  pages     = {31--41},
+  year      = {2016},
+  publisher = {ACL}
+}
+
+@inproceedings{ganapathibhotla2008mining,
+  author    = {Ganapathibhotla, Murthy and Liu, Bing},
+  title     = {Mining Opinions in Comparative Sentences},
+  booktitle = {Proceedings of the 22nd International Conference on Computational Linguistics (COLING 2008)},
+  pages     = {241--248},
+  year      = {2008}
+}
+
+@inproceedings{zhang2023sentiment,
+  author    = {Zhang, Wenxuan and Deng, Yue and Liu, Bing and Pan, Sinno Jialin and Bing, Lidong},
+  title     = {Sentiment Analysis in the Era of Large Language Models: A Reality Check},
+  booktitle = {Findings of the Association for Computational Linguistics: NAACL 2024},
+  pages     = {3881--3906},
+  year      = {2024}
+}
+
+@inproceedings{riloff2013sarcasm,
+  author    = {Riloff, Ellen and Qadir, Ashequl and Surve, Prafulla and De Silva, Lalindra and Gilbert, Nathan and Huang, Ruihong},
+  title     = {Sarcasm as Contrast between a Positive Sentiment and Negative Situation},
+  booktitle = {Proceedings of the 2013 Conference on Empirical Methods in Natural Language Processing},
+  pages     = {704--714},
+  year      = {2013}
+}
+
+@inproceedings{vanhee2018semeval,
+  author    = {Van Hee, Cynthia and Lefever, Els and Hoste, V{\'e}ronique},
+  title     = {{SemEval}-2018 Task 3: Irony Detection in {E}nglish Tweets},
+  booktitle = {Proceedings of the 12th International Workshop on Semantic Evaluation},
+  pages     = {39--50},
+  year      = {2018},
+  doi       = {10.18653/v1/S18-1005}
+}
+
+@inproceedings{khodak2018large,
+  author    = {Khodak, Mikhail and Saunshi, Nikunj and Vodrahalli, Kiran},
+  title     = {A Large Self-Annotated Corpus for Sarcasm},
+  booktitle = {Proceedings of the Eleventh International Conference on Language Resources and Evaluation (LREC 2018)},
+  year      = {2018}
+}
+
+@inproceedings{oprea2020isarcasm,
+  author    = {Oprea, Silviu and Magdy, Walid},
+  title     = {{iSarcasm}: A Dataset of Intended Sarcasm},
+  booktitle = {Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics},
+  year      = {2020}
+}
+
+@inproceedings{abufarha2022semeval,
+  author    = {Abu Farha, Ibrahim and Oprea, Silviu Vlad and Wilson, Steven and Magdy, Walid},
+  title     = {{SemEval}-2022 Task 6: {iSarcasmEval}, Intended Sarcasm Detection in {E}nglish and {A}rabic},
+  booktitle = {Proceedings of the 16th International Workshop on Semantic Evaluation (SemEval-2022)},
+  pages     = {802--814},
+  year      = {2022},
+  doi       = {10.18653/v1/2022.semeval-1.111}
+}
+
+@article{ghosh2018sarcasm,
+  author    = {Ghosh, Debanjan and Fabbri, Alexander R. and Muresan, Smaranda},
+  title     = {Sarcasm Analysis Using Conversation Context},
+  journal   = {Computational Linguistics},
+  volume    = {44},
+  number    = {4},
+  pages     = {755--792},
+  year      = {2018},
+  doi       = {10.1162/coli_a_00336}
+}
+
+@inproceedings{ghosh2020report,
+  author    = {Ghosh, Debanjan and Vajpayee, Avijit and Muresan, Smaranda},
+  title     = {A Report on the 2020 Sarcasm Detection Shared Task},
+  booktitle = {Proceedings of the Second Workshop on Figurative Language Processing},
+  year      = {2020}
+}
+
+@inproceedings{castro2019towards,
+  author    = {Castro, Santiago and Hazarika, Devamanyu and P{\'e}rez-Rosas, Ver{\'o}nica and Zimmermann, Roger and Mihalcea, Rada and Poria, Soujanya},
+  title     = {Towards Multimodal Sarcasm Detection (An \_{O}bviously\_ Perfect Paper)},
+  booktitle = {Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics},
+  year      = {2019}
+}
+
+@misc{zhang2024sarcasmbench,
+  author       = {Zhang, Yazhou and Zou, Chunwang and Lian, Zheng and Tiwari, Prayag and Qin, Jing},
+  title        = {{SarcasmBench}: Towards Evaluating Large Language Models on Sarcasm Understanding},
+  howpublished = {arXiv:2408.11319},
+  year         = {2024}
+}
+
+@inproceedings{guo2017calibration,
+  author    = {Guo, Chuan and Pleiss, Geoff and Sun, Yu and Weinberger, Kilian Q.},
+  title     = {On Calibration of Modern Neural Networks},
+  booktitle = {Proceedings of the 34th International Conference on Machine Learning (ICML)},
+  year      = {2017}
+}
+
+@inproceedings{desai2020calibration,
+  author    = {Desai, Shrey and Durrett, Greg},
+  title     = {Calibration of Pre-trained Transformers},
+  booktitle = {Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  pages     = {295--302},
+  year      = {2020}
+}
+
+@inproceedings{xiong2024can,
+  author    = {Xiong, Miao and Hu, Zhiyuan and Lu, Xinyang and Li, Yifei and Fu, Jie and He, Junxian and Hooi, Bryan},
+  title     = {Can {LLMs} Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in {LLMs}},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024}
+}
+
+@misc{typesafe2026jev,
+  author       = {{TypeSafe AI}},
+  title        = {Introducing System One Models \& {Jev}},
+  howpublished = {\url{https://typesafe.ai/blog/introducing-system-one-models-and-jev}},
+  year         = {2026},
+  note         = {Acesso em: 15 nov. 2026}
+}
+
+@misc{rafe2026benchmarking,
+  author       = {Rafe, Amir and Das, Subasish},
+  title        = {Benchmarking System One decision models against trained classifiers and language models for automated decision gates},
+  howpublished = {arXiv:2610.00346},
+  year         = {2026}
+}
+
+@misc{convai2026laya,
+  author       = {{Convai Innovations}},
+  title        = {Laya: open non-autoregressive decision model (model card)},
+  howpublished = {\url{https://huggingface.co/convaiinnovations/laya}},
+  year         = {2026},
+  note         = {Acesso em: 15 nov. 2026}
+}
+
+@misc{palmer2026kev,
+  author       = {Palmer, Jared},
+  title        = {kev: Jev-like family of decision models built on top of {Qwen3.5/3.8}},
+  howpublished = {\url{https://github.com/jaredpalmer/kev}},
+  year         = {2026},
+  note         = {Acesso em: 15 nov. 2026}
+}
+
+@misc{chen2026clef,
+  author       = {Chen, Michelle},
+  title        = {Introducing {Clef}: our open-source decision models, and new {RL} fine-tuning platform},
+  howpublished = {\url{https://blog.cloudflare.com/clef-decision-models}},
+  year         = {2026},
+  note         = {Cloudflare Blog, 1 out. 2026. Acesso em: 15 nov. 2026}
+}
+
+@misc{raschka2026classifier,
+  author       = {Raschka, Sebastian},
+  title        = {Language Models for Text Classification: From Bag-of-Words to {Jev}},
+  howpublished = {\url{https://magazine.sebastianraschka.com/p/classifier-history-and-jev}},
+  year         = {2026},
+  note         = {Ahead of AI, 29 set. 2026. Acesso em: 15 nov. 2026}
+}
+
+@misc{li2026jevbenchmark,
+  author       = {jasonli0226},
+  title        = {Jev Benchmark: {Jev} decision model vs local {ML} on {SST-2}, {AG News} and {UCI Adult}},
+  howpublished = {\url{https://github.com/jasonli0226/jev-benchmark}},
+  year         = {2026},
+  note         = {Acesso em: 15 nov. 2026}
+}
+
+@misc{mehra2026jevbench,
+  author       = {dhruvmehra},
+  title        = {jevbench: Benchmark {TypeSafe JEV} against {LLMs}, fine-tuned {BERT}, {Laya} and zero-shot {NLI}},
+  howpublished = {\url{https://github.com/dhruvmehra/jevbench}},
+  year         = {2026},
+  note         = {Acesso em: 15 nov. 2026}
+}
+
+@misc{nilas2026jev,
+  author       = {Nilas, Andreea and van der Burght, Roel},
+  title        = {{Jev} vs. {GPT-6 Luna} vs. {BERT}: same accuracy, a fraction of the cost},
+  howpublished = {\url{https://www.ml6.eu/en/blog/jev-vs-gpt-6-luna-vs-bert-text-classification}},
+  year         = {2026},
+  note         = {ML6 Blog. Acesso em: 15 nov. 2026}
+}
+
+@misc{bhargava2025impact,
+      title={On the Impact of Language Nuances on Sentiment Analysis with Large Language Models: Paraphrasing, Sarcasm, and Emojis}, 
+      author={Naman Bhargava and Mohammed I. Radaideh and O Hwang Kwon and Aditi Verma and Majdi I. Radaideh},
+      year={2025},
+      eprint={2504.05603},
+      howpublished={arXiv:2504.05603},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2504.05603}, 
+}
+
+@misc{cacioli2026verbal,
+      title={Verbal Confidence Saturation in 3-9B Open-Weight Instruction-Tuned LLMs: A Pre-Registered Psychometric Validity Screen}, 
+      author={Jon-Paul Cacioli},
+      year={2026},
+      eprint={2604.22215},
+      howpublished={arXiv:2604.22215},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2604.22215}, 
+}
+
+@inproceedings{casola2024multipico,
+    title = "{M}ulti{PIC}o: Multilingual Perspectivist Irony Corpus",
+    author = "Casola, Silvia  and
+      Frenda, Simona  and
+      Lo, Soda Marem  and
+      Sezerer, Erhan  and
+      Uva, Antonio  and
+      Basile, Valerio  and
+      Bosco, Cristina  and
+      Pedrani, Alessandro  and
+      Rubagotti, Chiara  and
+      Patti, Viviana  and
+      Bernardi, Davide",
+    editor = "Ku, Lun-Wei  and
+      Martins, Andre  and
+      Srikumar, Vivek",
+    booktitle = "Proceedings of the 62nd Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 1: Long Papers)",
+    month = aug,
+    year = "2024",
+    address = "Bangkok, Thailand",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.acl-long.849/",
+    doi = "10.18653/v1/2024.acl-long.849",
+    pages = "16008--16021"
+}
+
+
+@misc{deusser2026evaluating,
+      title={Evaluating and Benchmarking the System One Model Jev}, 
+      author={Tobias Deu{\ss}er and Rajkumar Ramamurthy and Lorenz Sparrenberg and Rafet Sifa},
+      year={2026},
+      eprint={2609.37647},
+      howpublished={arXiv:2609.37647},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2609.37647}, 
+}
+
+@misc{ding2025zero,
+      title={Zero-Shot Conversational Stance Detection: Dataset and Approaches}, 
+      author={Yuzhe Ding and Kang He and Bobo Li and Li Zheng and Haijun He and Fei Li and Chong Teng and Donghong Ji},
+      year={2025},
+      eprint={2506.17693},
+      howpublished={arXiv:2506.17693},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2506.17693}, 
+}
+
+@inproceedings{edwards2024language,
+    title = "Language Models for Text Classification: Is In-Context Learning Enough?",
+    author = "Edwards, Aleksandra  and
+      Camacho-Collados, Jose",
+    editor = "Calzolari, Nicoletta  and
+      Kan, Min-Yen  and
+      Hoste, Veronique  and
+      Lenci, Alessandro  and
+      Sakti, Sakriani  and
+      Xue, Nianwen",
+    booktitle = "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation ({LREC}-{COLING} 2024)",
+    month = may,
+    year = "2024",
+    address = "Torino, Italia",
+    publisher = "ELRA and ICCL",
+    url = "https://aclanthology.org/2024.lrec-main.879/",
+    pages = "10058--10072"
+}
+
+
+@inproceedings{frenda2023epic,
+    title = "{EPIC}: Multi-Perspective Annotation of a Corpus of Irony",
+    author = "Frenda, Simona  and
+      Pedrani, Alessandro  and
+      Basile, Valerio  and
+      Lo, Soda Marem  and
+      Cignarella, Alessandra Teresa  and
+      Panizzon, Raffaella  and
+      Marco, Cristina  and
+      Scarlini, Bianca  and
+      Patti, Viviana  and
+      Bosco, Cristina  and
+      Bernardi, Davide",
+    editor = "Rogers, Anna  and
+      Boyd-Graber, Jordan  and
+      Okazaki, Naoaki",
+    booktitle = "Proceedings of the 61st Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2023",
+    address = "Toronto, Canada",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.acl-long.774/",
+    doi = "10.18653/v1/2023.acl-long.774",
+    pages = "13844--13857"
+}
+
+
+@inproceedings{jang2024generalizable,
+    title = "Generalizable Sarcasm Detection is Just Around the Corner, of Course!",
+    author = "Jang, Hyewon  and
+      Frassinelli, Diego",
+    editor = "Duh, Kevin  and
+      Gomez, Helena  and
+      Bethard, Steven",
+    booktitle = "Proceedings of the 2024 Conference of the {N}orth {A}merican Chapter of the {A}ssociation for {C}omputational {L}inguistics: Human Language Technologies (Volume 1: Long Papers)",
+    month = jun,
+    year = "2024",
+    address = "Mexico City, Mexico",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.naacl-long.238/",
+    doi = "10.18653/v1/2024.naacl-long.238",
+    pages = "4238--4249"
+}
+
+
+@inproceedings{juros2024llms,
+    title = "{LLM}s for Targeted Sentiment in News Headlines: Exploring the Descriptive-Prescriptive Dilemma",
+    author = "Juro{\v{s}}, Jana  and
+      Majer, Laura  and
+      Snajder, Jan",
+    editor = "De Clercq, Orph{\'e}e  and
+      Barriere, Valentin  and
+      Barnes, Jeremy  and
+      Klinger, Roman  and
+      Sedoc, Jo{\~a}o  and
+      Tafreshi, Shabnam",
+    booktitle = "Proceedings of the 14th Workshop on Computational Approaches to Subjectivity, Sentiment, {\&} Social Media Analysis",
+    month = aug,
+    year = "2024",
+    address = "Bangkok, Thailand",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.wassa-1.27/",
+    doi = "10.18653/v1/2024.wassa-1.27",
+    pages = "329--343"
+}
+
+
+@inproceedings{li2023diaasq,
+    title = "{D}ia{ASQ}: A Benchmark of Conversational Aspect-based Sentiment Quadruple Analysis",
+    author = "Li, Bobo  and
+      Fei, Hao  and
+      Li, Fei  and
+      Wu, Yuhan  and
+      Zhang, Jinsong  and
+      Wu, Shengqiong  and
+      Li, Jingye  and
+      Liu, Yijiang  and
+      Liao, Lizi  and
+      Chua, Tat-Seng  and
+      Ji, Donghong",
+    editor = "Rogers, Anna  and
+      Boyd-Graber, Jordan  and
+      Okazaki, Naoaki",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {ACL} 2023",
+    month = jul,
+    year = "2023",
+    address = "Toronto, Canada",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.findings-acl.849/",
+    doi = "10.18653/v1/2023.findings-acl.849",
+    pages = "13449--13467"
+}
+
+
+@inproceedings{merdjanovska2026evaluation,
+    title = "Evaluation Pitfalls and Sparsity Limitations in {LLM}-based Confidence Estimates for Classification",
+    author = {Merdjanovska, Elena  and
+      Zaidan, Omar  and
+      R{\"u}ckl{\'e}, Andreas},
+    editor = "Liakata, Maria  and
+      Moreira, Viviane P.  and
+      Zhang, Jiajun  and
+      Jurgens, David",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {ACL} 2026",
+    month = jul,
+    year = "2026",
+    address = "San Diego, California, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.findings-acl.1671/",
+    doi = "10.18653/v1/2026.findings-acl.1671",
+    pages = "33424--33435",
+    ISBN = "979-8-89176-395-1"
+}
+
+
+@inproceedings{niu2024challenge,
+    title = "A Challenge Dataset and Effective Models for Conversational Stance Detection",
+    author = "Niu, Fuqiang  and
+      Yang, Min  and
+      Li, Ang  and
+      Zhang, Baoquan  and
+      Peng, Xiaojiang  and
+      Zhang, Bowen",
+    editor = "Calzolari, Nicoletta  and
+      Kan, Min-Yen  and
+      Hoste, Veronique  and
+      Lenci, Alessandro  and
+      Sakti, Sakriani  and
+      Xue, Nianwen",
+    booktitle = "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation ({LREC}-{COLING} 2024)",
+    month = may,
+    year = "2024",
+    address = "Torino, Italia",
+    publisher = "ELRA and ICCL",
+    url = "https://aclanthology.org/2024.lrec-main.11/",
+    pages = "122--132"
+}
+
+
+@misc{sharma2026typedbench,
+      title={TypedBench: A Benchmark for Calibration, Framing Sensitivity, and Cost in System One Decision Models}, 
+      author={Rahul Sharma and Andrew B. Duncan and Ga{\'e}tan Marceau Caron and Sebastian J. Vollmer},
+      year={2026},
+      eprint={2610.11392},
+      howpublished={arXiv:2610.11392},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2610.11392}, 
+}
+
+@misc{shroff2026ai,
+      title={When AI Rewrites, Classifiers Relax: Uncertainty-Aware Sentiment Analysis on Sarcastic and AI-Paraphrased Social Text}, 
+      author={Shresth Shroff},
+      year={2026},
+      eprint={2608.15338},
+      howpublished={arXiv:2608.15338},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2608.15338}, 
+}
+
+@misc{yao2024sarcasm,
+      title={Is Sarcasm Detection A Step-by-Step Reasoning Process in Large Language Models?}, 
+      author={Ben Yao and Yazhou Zhang and Qiuchi Li and Jing Qin},
+      year={2024},
+      eprint={2407.12725},
+      howpublished={arXiv:2407.12725},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2407.12725}, 
+}
+
+@misc{zhang2026emojev,
+      title={Emo-Jev: Probabilistic Reasoning for Emotion Classification with Jev}, 
+      author={Yazhou Zhang and Junhao Yu},
+      year={2026},
+      eprint={2610.08829},
+      howpublished={arXiv:2610.08829},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2610.08829}, 
+}
+#+end_src
+* Emacs setup                                                      :noexport:
+# Local Variables:
+# eval: (add-to-list 'load-path ".")
+# eval: (require 'ox-extra)
+# eval: (ox-extras-activate '(ignore-headlines))
+# eval: (require 'org-ref)
+# eval: (require 'doi-utils)
+# eval: (add-to-list 'org-latex-packages-alist '("" "url") t)
+# eval: (add-to-list 'org-latex-packages-alist '("" "sbc-template") t)
+# eval: (add-to-list 'org-latex-packages-alist '("AUTO" "babel" t ("pdflatex")))
+# eval: (setq org-latex-pdf-process (list "latexmk -pdf %f"))
+# eval: (add-to-list 'org-export-before-processing-hook (lambda (be) (org-babel-tangle)))
+# End:
