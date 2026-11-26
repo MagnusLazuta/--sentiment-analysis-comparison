@@ -40,11 +40,11 @@
 
 \maketitle
 \begin{abstract}
-Modelos de análise de sentimentos são frequentemente avaliados em textos isolados, embora conversas e ironia possam alterar a interpretação. Comparamos, sem ajuste realizado neste estudo, seis modelos de até 7 bilhões de parâmetros de três famílias -- codificadores, LLMs generativos e modelos de decisão \emph{System One} -- em quatro bases em inglês, totalizando 9.202 exemplos. Investigamos texto isolado (T1), contexto conversacional (T2) e textos irônicos (T3), além de sensibilidade a \emph{prompts}, desbalanceamento e calibração. O contexto não trouxe ganho consistente: em uma coorte pareada de 456 itens do MT-CSD, a acurácia do Qwen3.5-4B aumentou 7,0 pontos percentuais (pp), enquanto a do DeBERTa-NLI caiu 22,5 pp. A análise por classe indica que parte das perdas decorre de respostas que seguem o tom da conversa mesmo quando ele diverge do comentário-alvo. Nas bases com ironia, a alta proporção de exemplos negativos torna a acurácia insuficiente: no Filatova, valores de 82--94\% correspondem a 63--76\% de acurácia balanceada. A ordem das opções alterou 36,5\% das respostas do Mistral-7B, e nenhum modelo foi bem calibrado nos subconjuntos irônicos. Os resultados mostram que desempenho agregado pode ocultar dependência da distribuição de classes, do contexto e da formulação da entrada.
+Modelos de análise de sentimentos são frequentemente avaliados em textos isolados, embora conversas e ironia possam alterar a interpretação. Comparamos, sem ajuste realizado neste estudo, seis modelos de até 7 bilhões de parâmetros de três famílias -- codificadores, LLMs generativos e modelos de decisão \emph{System One} -- em quatro bases de dados em inglês, totalizando 9.202 exemplos. Investigamos texto isolado (T1), contexto conversacional (T2) e textos irônicos (T3), além de sensibilidade a \emph{prompts}, desbalanceamento e calibração. O contexto não trouxe ganho consistente: em uma coorte pareada de 456 itens do MT-CSD, a acurácia do Qwen3.5-4B aumentou 7,0 pontos percentuais (pp), enquanto a do DeBERTa-NLI caiu 22,5 pp. A análise por classe indica que parte das perdas decorre de respostas que seguem o tom da conversa mesmo quando ele diverge do comentário-alvo. Nas bases com ironia, a alta proporção de exemplos negativos torna a acurácia insuficiente: no Filatova, valores de 82--94\% correspondem a 63--76\% de acurácia balanceada. A ordem das opções alterou 36,5\% das respostas do Mistral-7B, e nenhum modelo foi bem calibrado nos subconjuntos irônicos. Os resultados mostram que desempenho agregado pode ocultar dependência da distribuição de classes, do contexto e da formulação da entrada.
 \end{abstract}
 
 \begin{resumo}
-Modelos de análise de sentimentos são frequentemente avaliados em textos isolados, embora conversas e ironia possam alterar sua interpretação. Comparamos seis modelos de até 7 bilhões de parâmetros, de três famílias -- codificadores, LLMs generativos e modelos de decisão \emph{System One} -- em quatro bases em inglês, com 9.202 exemplos. Investigamos texto isolado (T1), contexto conversacional (T2) e ironia (T3), além de sensibilidade a \emph{prompts}, desbalanceamento e calibração. O contexto não trouxe ganho consistente: em uma coorte pareada de 456 itens do MT-CSD, a acurácia do Qwen3.5-4B aumentou 7,0 pontos percentuais, enquanto a do DeBERTa-NLI caiu 22,5. A análise por classe indica que parte das perdas ocorre quando o modelo segue o tom da conversa apesar de ele divergir do comentário-alvo. Nas bases com ironia, a prevalência de exemplos negativos torna a acurácia insuficiente: no Filatova, 82--94\% de acurácia correspondem a 63--76\% de acurácia balanceada. A ordem das opções alterou 36,5\% das respostas do Mistral-7B, e nenhum modelo foi bem calibrado nos subconjuntos irônicos. Os resultados evidenciam que métricas agregadas podem ocultar dependências da distribuição de classes e da formulação da entrada.
+Modelos de análise de sentimentos são frequentemente avaliados em textos isolados, embora conversas e ironia possam alterar sua interpretação. Comparamos seis modelos de até 7 bilhões de parâmetros, de três famílias -- codificadores, LLMs generativos e modelos de decisão \emph{System One} -- em quatro bases de dados em inglês, com 9.202 exemplos. Investigamos texto isolado (T1), contexto conversacional (T2) e ironia (T3), além de sensibilidade a \emph{prompts}, desbalanceamento e calibração. O contexto não trouxe ganho consistente: em uma coorte pareada de 456 itens do MT-CSD, a acurácia do Qwen3.5-4B aumentou 7,0 pontos percentuais, enquanto a do DeBERTa-NLI caiu 22,5. A análise por classe indica que parte das perdas ocorre quando o modelo segue o tom da conversa apesar de ele divergir do comentário-alvo. Nas bases com ironia, a prevalência de exemplos negativos torna a acurácia insuficiente: no Filatova, 82--94\% de acurácia correspondem a 63--76\% de acurácia balanceada. A ordem das opções alterou 36,5\% das respostas do Mistral-7B, e nenhum modelo foi bem calibrado nos subconjuntos irônicos. Os resultados evidenciam que métricas agregadas podem ocultar dependências da distribuição de classes e da formulação da entrada.
 \end{resumo}
 \section{Introdução}
 \label{sec:orged62fcf}
@@ -54,9 +54,9 @@ Análise de sentimentos costuma tratar cada texto como uma unidade autossuficien
 
 Este trabalho investiga esses problemas comparando três famílias de modelos sem ajuste fino adicional: codificadores pré-treinados, LLMs generativos e modelos de decisão \emph{System One}. Em vez de apresentar apenas uma tabela de desempenho, organizamos a análise como uma investigação. Primeiro medimos o comportamento em texto isolado (T1), com contexto conversacional (T2) e em subconjuntos irônicos e não irônicos (T3). Em seguida examinamos possíveis explicações para os resultados: dependência da ordem e da redação do \emph{prompt}, prevalência das classes, tendência a seguir o tom da conversa, viés de resposta e calibração.
 
-As perguntas que orientam o estudo são: (i) o contexto melhora a classificação? (ii) esse efeito se mantém em comentários irônicos? (iii) como o contexto altera as previsões por classe? e (iv) diferenças de viés e calibração ajudam a explicar o comportamento das famílias? Avaliamos seis modelos em quatro bases em inglês (9.202 itens). O protocolo é observacional e não permite atribuir causalidade a diferenças de arquitetura ou pós-treinamento; as explicações propostas são apoiadas por análises de erros e ablações, e são qualificadas como hipóteses quando não foram testadas diretamente.
+As perguntas que orientam o estudo são: (i) o contexto melhora a classificação? (ii) esse efeito se mantém em comentários irônicos? (iii) como o contexto altera as previsões por classe? e (iv) diferenças de viés e calibração ajudam a explicar o comportamento das famílias? Avaliamos seis modelos em quatro bases de dados em inglês (9.202 itens). O protocolo é observacional e não permite atribuir causalidade a diferenças de arquitetura ou pós-treinamento, as explicações propostas são apoiadas por análises de erros e ablações, e são qualificadas como hipóteses quando não foram testadas diretamente.
 
-As principais contribuições são: uma comparação sob protocolo comum de três famílias em tarefas com contexto e ironia; uma análise pareada do efeito de acrescentar turnos; e a demonstração de que acurácia, isoladamente, pode superestimar o desempenho em bases desbalanceadas. A Seção 2 situa o trabalho; a Seção 3 descreve dados, modelos e métricas; a Seção 4 apresenta os resultados e suas análises explicativas; e a Seção 5 sintetiza conclusões, limitações e próximos passos.
+As principais contribuições são: uma comparação sob protocolo comum de três famílias em tarefas com contexto e ironia, uma análise pareada do efeito de acrescentar turnos, e a demonstração de que acurácia, isoladamente, pode superestimar o desempenho em bases de dados desbalanceadas. A Seção 2 situa o trabalho, a Seção 3 descreve dados, modelos e métricas, a Seção 4 apresenta os resultados e suas análises explicativas, e a Seção 5 sintetiza conclusões, limitações e próximos passos.
 \section{Trabalhos Relacionados}
 \label{sec:org6b495ce}
 \label{org69eea39}
@@ -96,7 +96,7 @@ incluindo modelos pequenos como Llama 3 8B, Gemma e Phi-3, com
 codificadores ajustados, medindo também a calibração. Na detecção de
 postura em conversas com vários turnos, o MT-CSD \cite{niu2024challenge}
 (Reddit) e o ZS-CSD \cite{ding2025zero} (Weibo) fornecem a discussão
-completa como contexto; mesmo os melhores modelos ficam abaixo de 51\%
+completa como contexto, mesmo os melhores modelos ficam abaixo de 51\%
 de acurácia no primeiro e de 44\% de F1 macro no segundo, o que indica
 que o contexto conversacional continua difícil.
 \subsection{Ironia e sarcasmo}
@@ -199,7 +199,7 @@ calibrado, mas não publicou arquitetura, pesos nem artigo técnico.
 
 Em poucas semanas surgiram alternativas abertas com a mesma interface.
 O Laya \cite{convai2026laya} é um codificador ModernBERT-large de 421M
-parâmetros (com variante multilíngue de 322M); seu próprio cartão
+parâmetros (com variante multilíngue de 322M), seu próprio cartão
 indica que o modelo base é pouco confiável em \emph{zero-shot} e
 superconfiante sem recalibração, servindo melhor como base para
 ajuste fino. O Kev \cite{palmer2026kev} é uma família de 0,8B a 27B
@@ -235,7 +235,7 @@ As demais comparações são independentes e não revisadas por pares.
 próximo a um ModernBERT ajustado (cerca de 95\%). O \emph{benchmark} de
 \cite{li2026jevbenchmark} compara o Jev 1.14 a modelos locais: no SST-2,
 o Jev obteve 96,0\% contra 90,5\% do DistilBERT ajustado, com erro de
-calibração esperado (ECE) de 0,018; no AG News, porém, ficou 4,9 pontos
+calibração esperado (ECE) de 0,018, no AG News, porém, ficou 4,9 pontos
 abaixo do DistilBERT. O jevbench \cite{mehra2026jevbench} inclui ainda
 LLMs e BART-MNLI \emph{zero-shot} no SST-2, AG News e Banking77. Fora de
 sentimento, \cite{nilas2026jev} compararam Jev, um LLM e BERT ajustados
@@ -259,20 +259,70 @@ explora.
 \section{Metodologia}
 \label{sec:org46ba3a7}
 \label{orga5dfe02}
-O estudo compara previsões em três condições: T1, classificação do texto-alvo isolado; T2, classificação do mesmo texto com o turno imediatamente anterior ou com a conversa disponível; e T3, classificação separada dos subconjuntos irônicos e não irônicos, sem contexto. Não treinamos modelos neste trabalho. Portanto, “zero-shot” descreve a execução sem ajuste específico para nossas avaliações, mas não implica que todos os modelos nunca tenham visto dados de sentimento durante o treinamento original.
+O estudo compara previsões em três condições: T1, classificação do texto-alvo isolado, T2, classificação do mesmo texto com o turno imediatamente anterior ou com a conversa disponível, e T3, classificação separada dos subconjuntos irônicos e não irônicos, sem contexto. Não treinamos modelos neste trabalho. Portanto, “zero-shot” descreve a execução sem ajuste específico para nossas avaliações, mas não implica que todos os modelos nunca tenham visto dados de sentimento durante o treinamento original.
 
-Um exemplo do MT-CSD ilustra T1 e T2: o comentário-alvo “Reduces driver fatigue during long trips where it’s just hundreds of miles of straight highway” não menciona Tesla. Isoladamente, pode parecer uma afirmação geral; diante da conversa sobre o piloto automático da marca, o rótulo de referência é a favor da Tesla. Em T1 o modelo recebe apenas o comentário; em T2, recebe também os turnos anteriores. Essa comparação operacionaliza o efeito do contexto sem alterar o item-alvo.
+Um exemplo do MT-CSD ilustra T1 e T2: o comentário-alvo “Reduces driver fatigue during long trips where it’s just hundreds of miles of straight highway” não menciona Tesla. Isoladamente, pode parecer uma afirmação geral, diante da conversa sobre o piloto automático da marca, o rótulo de referência é a favor da Tesla. Em T1 o modelo recebe apenas o comentário, em T2, recebe também os turnos anteriores. Essa comparação operacionaliza o efeito do contexto sem alterar o item-alvo.
 
-\subsection{Bases e tarefas}
-Usamos quatro bases em inglês, somando 9.202 itens: MUStARD++ (1.171 falas de séries, com rótulo de emoção pretendida), MT-CSD (848 comentários do Reddit, com postura sobre a marca), Sarcasm\_NLP (5.929 tweets sobre energia nuclear, com sentimento anotado) e Filatova (1.254 resenhas da Amazon, rotuladas por estrelas). No MT-CSD foram considerados apenas Tesla e SpaceX da partição de teste. No MUStARD++ e MT-CSD avaliamos T1 e T2; nas três bases com subconjuntos irônicos avaliamos T1 e T3. Os rótulos originais foram harmonizados em negativo, neutro e positivo: para Filatova, 1--2 estrelas correspondem a negativo, 3 a neutro e 4--5 a positivo. Os demais rótulos representam, respectivamente, emoção pretendida, postura sobre o alvo e sentimento anotado; não são construtos idênticos, limitação considerada na interpretação.
+\subsection{Bases de dados e tarefas}
+Usamos quatro bases de dados em inglês, somando 9.202 itens. A Tabela~\ref{tab:bases} resume suas características e as tarefas avaliadas.
+
+\begin{table}[ht]
+\centering
+\small
+\caption{Bases de dados, rótulos e tarefas avaliadas.}
+\label{tab:bases}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{2.5cm}p{2.4cm}r p{3.3cm}p{1.4cm}}
+\hline
+Base de dados & Fonte / domínio & Itens & Rótulo original & Tarefas \\
+\hline
+MUStARD++ & Falas de séries & 1.171 & Emoção pretendida & T1, T2, T3 \\
+MT-CSD & Reddit: comentários sobre marcas & 848 & Postura sobre a marca & T1, T2 \\
+Sarcasm\_NLP & Twitter: energia nuclear & 5.929 & Sentimento anotado & T1, T3 \\
+Filatova & Amazon: resenhas & 1.254 & Avaliação por estrelas & T1, T3 \\
+\hline
+Total & & 9.202 & & \\
+\hline
+\end{tabular}
+\end{table}
+
+No MT-CSD foram considerados apenas Tesla e SpaceX da partição de teste. No MUStARD++ e MT-CSD avaliamos T1 e T2, nas três bases de dados com subconjuntos irônicos avaliamos T1 e T3.
+
+Para comparar as bases de dados, os rótulos originais foram mapeados para três classes de polaridade: positivo, negativo e neutro. Rótulos associados a avaliações favoráveis foram classificados como positivos, avaliações desfavoráveis, como negativas, e rótulos sem polaridade clara ou sem avaliação, como neutros. 
+
+No Filatova, especificamente, 1--2 estrelas correspondem a negativo, 3 a neutro e 4--5 a positivo. Como os rótulos originais também incluem emoção pretendida e postura em relação ao alvo, esse mapeamento é uma aproximação: as classes harmonizadas não devem ser interpretadas como construtos equivalentes.
 
 \subsection{Modelos e extração das previsões}
-Comparamos seis modelos (até 7B parâmetros): twitter-roberta e DeBERTa-NLI (codificadores); Qwen3.5-4B e Mistral-7B (LLMs generativos); Kev-4B e Laya (\emph{System One}). O NanoJev foi considerado controle negativo, não integrando a comparação principal apresentada. Para os codificadores usamos a saída de classificação disponível; no DeBERTa-NLI comparamos hipóteses correspondentes aos rótulos. Para os LLMs, estimamos a probabilidade dos rótulos como próximo token, usando o primeiro token e verificando sua consistência com a palavra completa em 8.030 entradas. Os modelos System One fornecem diretamente uma distribuição sobre opções. Em todos os casos, a classe prevista é a de maior probabilidade e sua probabilidade é usada como confiança. O Kev-4B e o Qwen3.5-4B compartilham a base Qwen3.5-4B; entretanto, o Kev recebeu adaptador e cabeça de decisão e foi treinado com dados de sentimento, enquanto o Qwen é um modelo pós-treinado para seguir instruções. Essa comparação não isola o efeito de uma única variável.
+Nas nossas comparações, escolhemos 2 modelos de cada um dos três tipos de famílias de modelos (BERTs, LLMs e System One), resumidos na Tabela~\ref{tab:modelos}. 
+
+\begin{table}[ht]
+\centering
+\small
+\caption{Modelos avaliados, família e método de obtenção das previsões.}
+\label{tab:modelos}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{2.3cm}p{2.6cm}p{4.8cm}}
+\hline
+Modelo & Família & Extração das previsões \\
+\hline
+twitter-roberta & Codificador & Saída de classificação do modelo \\
+DeBERTa-NLI & Codificador & Comparação de hipóteses associadas aos rótulos \\
+Qwen3.5-4B & LLM generativo & Probabilidade do próximo token correspondente ao rótulo \\
+Mistral-7B & LLM generativo & Probabilidade do próximo token correspondente ao rótulo \\
+Kev-4B & \emph{System One} & Distribuição fornecida diretamente sobre as opções \\
+Laya & \emph{System One} & Distribuição fornecida diretamente sobre as opções \\
+\hline
+\end{tabular}
+\end{table}
+
+Para os LLMs, estimamos a probabilidade dos rótulos como próximo token, usando o primeiro token e verificando sua consistência com a palavra completa em 8.030 entradas. Em todos os casos, a classe prevista é a de maior probabilidade e sua probabilidade é usada como confiança. O Kev-4B e o Qwen3.5-4B compartilham a base Qwen3.5-4B. Entretanto, o Kev recebeu adaptador e cabeça de decisão e foi treinado com dados de sentimento, enquanto o Qwen é um modelo pós-treinado para seguir instruções. Essa comparação não isola o efeito de uma única variável.
 
 \subsection{Protocolo e métricas}
 As comparações de contexto são pareadas: os modelos recebem os mesmos itens em T1 e T2. No MT-CSD, além da comparação com o turno anterior e com a conversa, realizamos uma ablação de \(k=0\) a \(k=4\) turnos em uma coorte fixa de 456 itens com pelo menos quatro turnos. Essa coorte evita que a composição dos exemplos mude entre valores de \(k\). Análises adicionais consideram 785 itens para contrastar o post inicial e o comentário imediatamente anterior. Como o subconjunto de quatro ou mais turnos contém apenas 13 discussões, a incerteza da comparação no MT-CSD deve ser interpretada com cautela.
 
-Avaliamos acurácia e F1 macro; para analisar desbalanceamento, também usamos acurácia balanceada, definida como a média das revocações das três classes. A acurácia pondera cada exemplo igualmente; F1 macro e acurácia balanceada dão peso igual às classes. Calculamos intervalos de confiança de 95\%; no MT-CSD, a reamostragem considera a discussão (thread), e nas análises de separação da ironia, o item. Para confiança usamos o erro de calibração esperado (ECE) e a proporção de erros com confiança de pelo menos 0,9. ECE depende da discretização e da distribuição avaliada, portanto não é uma propriedade universal do modelo.
+Avaliamos acurácia e F1 macro, para analisar desbalanceamento, também usamos acurácia balanceada, definida como a média das revocações das três classes. A acurácia pondera cada exemplo igualmente, F1 macro e acurácia balanceada dão peso igual às classes. Calculamos intervalos de confiança de 95\%, no MT-CSD, a reamostragem considera a discussão (thread), e nas análises de separação da ironia, o item. Para confiança usamos o erro de calibração esperado (ECE) e a proporção de erros com confiança de pelo menos 0,9. ECE depende da discretização e da distribuição avaliada, portanto não é uma propriedade universal do modelo.
 
 Também variamos a ordem das opções (três permutações), a presença de descrições dos rótulos, a redação da pergunta no Sarcasm\_NLP e a descrição do alvo Tesla. Os resultados principais com opções são a média das três ordens, exceto quando explicitamente indicado. A sensibilidade à ordem é medida pela fração de itens cuja resposta permaneceu igual nas três permutações.
 \section{Resultados}
@@ -282,12 +332,12 @@ Também variamos a ordem das opções (três permutações), a presença de desc
 Os resultados são apresentados na sequência da investigação: sensibilidade do protocolo, desempenho em T1, efeito do contexto (T2), comportamento em ironia (T3) e análises explicativas de desbalanceamento, vieses e calibração. Salvo indicação contrária, diferenças são expressas em pontos percentuais (pp).
 
 \subsection{A formulação do \emph{prompt} é uma fonte de variação}
-A ordem das opções foi a variação mais expressiva para o Mistral-7B: somente 63,5\% das respostas permaneceram iguais nas três ordens, isto é, 36,5\% mudaram. A estabilidade correspondente foi 87,8\% para Kev-4B, 84,7\% para Qwen3.5-4B e 82,8\% para Laya. Em uma das condições irônicas do MUStARD++, o Mistral respondeu “negativo” em 50,7\% dos itens quando essa opção vinha primeiro, mas “neutro” em 78,4\% quando neutro vinha primeiro; a acurácia variou de 50,7\% para 10,6\%. Em 11 de 16 combinações de modelo e base em T1, as diferenças de acurácia entre ordens ficaram em até 3 pp. Portanto, reportar uma única ordem pode ocultar instabilidade substancial.
+A ordem das opções foi a variação mais expressiva para o Mistral-7B: somente 63,5\% das respostas permaneceram iguais nas três ordens, isto é, 36,5\% mudaram. A estabilidade correspondente foi 87,8\% para Kev-4B, 84,7\% para Qwen3.5-4B e 82,8\% para Laya. Em uma das condições irônicas do MUStARD++, o Mistral respondeu “negativo” em 50,7\% dos itens quando essa opção vinha primeiro, mas “neutro” em 78,4\% quando neutro vinha primeiro, a acurácia variou de 50,7\% para 10,6\%. Em 11 de 16 combinações de modelo e base de dados em T1, as diferenças de acurácia entre ordens ficaram em até 3 pp. Portanto, reportar uma única ordem pode ocultar instabilidade substancial.
 
-As descrições dos rótulos alteraram em cerca de 10 pp a frequência de respostas neutras e em até 12 pp a acurácia, sobretudo para Mistral-7B. No Sarcasm\_NLP, a pergunta também foi relevante: para Mistral-7B nos itens não irônicos, a acurácia foi 50,3\% com a expressão “the topic” e 71,1\% com “nuclear power”; nenhuma formulação reproduziu adequadamente o rótulo de referência em todas as condições. Descrever Tesla de forma expandida, em contraste com apenas nomeá-la, alterou a acurácia em no máximo 3 pp nos 848 itens do MT-CSD. As análises seguintes usam a média das três ordens para reduzir a dependência de uma permutação particular.
+As descrições dos rótulos alteraram em cerca de 10 pp a frequência de respostas neutras e em até 12 pp a acurácia, sobretudo para Mistral-7B. No Sarcasm\_NLP, a pergunta também foi relevante: para Mistral-7B nos itens não irônicos, a acurácia foi 50,3\% com a expressão “the topic” e 71,1\% com “nuclear power”, nenhuma formulação reproduziu adequadamente o rótulo de referência em todas as condições. Descrever Tesla de forma expandida, em contraste com apenas nomeá-la, alterou a acurácia em no máximo 3 pp nos 848 itens do MT-CSD. As análises seguintes usam a média das três ordens para reduzir a dependência de uma permutação particular.
 
 \subsection{T1: o desempenho depende da base e da métrica}
-Em texto isolado, nenhuma família dominou ambas as bases conversacionais: Qwen3.5-4B obteve 59\% de acurácia no MUStARD++, enquanto Kev-4B liderou no MT-CSD com 71\% (Figura~\ref{fig:t1}). Esses resultados constituem o ponto de partida para T2. Já nas bases usadas em T3, a acurácia é particularmente difícil de interpretar sem a distribuição de classes. A classe majoritária por si só alcança 42--86\% nos subconjuntos não irônicos. Essa observação motiva a análise balanceada abaixo, não uma conclusão de que o desempenho seja equivalente ao chute majoritário.
+Em texto isolado, nenhuma família dominou ambas as bases de dados conversacionais: Qwen3.5-4B obteve 59\% de acurácia no MUStARD++, enquanto Kev-4B liderou no MT-CSD com 71\% (Figura~\ref{fig:t1}). Esses resultados constituem o ponto de partida para T2. Já nas bases de dados usadas em T3, a acurácia é particularmente difícil de interpretar sem a distribuição de classes. A classe majoritária por si só alcança 42--86\% nos subconjuntos não irônicos. Essa observação motiva a análise balanceada abaixo, não uma conclusão de que o desempenho seja equivalente ao chute majoritário.
 
 \begin{figure}[ht]
 \centering
@@ -299,7 +349,7 @@ Em texto isolado, nenhuma família dominou ambas as bases conversacionais: Qwen3
 \subsection{T2: contexto não produz melhora uniforme}
 Na comparação geral (Figura~\ref{fig:contexto}), acrescentar contexto gerou ganhos pontuais e perdas também relevantes. No MT-CSD, Qwen3.5-4B ganhou 5,4 pp com o turno anterior e 2,1 pp com a conversa inteira, enquanto Kev-4B perdeu 1,9 e 7,0 pp, respectivamente. No MUStARD++, as diferenças foram em geral pequenas: por exemplo, Kev-4B ganhou 2,8 pp com a conversa inteira. Nos comentários irônicos do MUStARD++, Kev-4B e DeBERTa-NLI ganharam, respectivamente, 6,3 e 5,7 pp com a conversa inteira. Esses ganhos vieram acompanhados de mais respostas negativas e, portanto, não demonstram por si só melhor reconhecimento da ironia.
 
-Na coorte fixa de 456 itens do MT-CSD (Figura~\ref{fig:turnos}), entre \(k=0\) e \(k=4\), a acurácia média do Qwen3.5-4B passou de 50,9\% para 57,9\% (+7,0 pp); todo o ganho já aparecia em \(k=1\). A do DeBERTa-NLI caiu de 68,6\% para 46,1\% (-22,5 pp). Twitter-roberta perdeu 5,1 pp, Kev-4B 5,5 pp e Laya 2,5 pp; Mistral-7B terminou 0,8 pp abaixo do início, apesar de subir até \(k=2\). O Kev-4B permaneceu com a maior acurácia e F1 macro em todos os valores de \(k\). Os valores de F1 macro do DeBERTa-NLI caíram de 61,7\% para 45,5\%; os do Qwen subiram de 50,1\% para 56,7\%.
+Na coorte fixa de 456 itens do MT-CSD (Figura~\ref{fig:turnos}), entre \(k=0\) e \(k=4\), a acurácia média do Qwen3.5-4B passou de 50,9\% para 57,9\% (+7,0 pp), todo o ganho já aparecia em \(k=1\). A do DeBERTa-NLI caiu de 68,6\% para 46,1\% (-22,5 pp). Twitter-roberta perdeu 5,1 pp, Kev-4B 5,5 pp e Laya 2,5 pp, Mistral-7B terminou 0,8 pp abaixo do início, apesar de subir até \(k=2\). O Kev-4B permaneceu com a maior acurácia e F1 macro em todos os valores de \(k\). Os valores de F1 macro do DeBERTa-NLI caíram de 61,7\% para 45,5\%, os do Qwen subiram de 50,1\% para 56,7\%.
 
 \begin{figure}[ht]
 \centering
@@ -324,7 +374,7 @@ A matriz de confusão do Qwen3.5-4B indica que, no primeiro turno, a revocação
 \label{fig:qwen-confusao}
 \end{figure}
 
-Para examinar se o modelo passa a seguir o tom da conversa, separamos comentários cuja orientação concorda ou discorda do tom dos turnos anteriores. Nos 126 itens discordantes da coorte pareada, de \(k=0\) a \(k=4\), twitter-roberta passou a acompanhar o tom da conversa em +39,7 pp e perdeu 33,3 pp de acurácia; DeBERTa-NLI mudou +17,5 pp e perdeu 22,2 pp; Kev-4B mudou +17,2 pp e perdeu 13,2 pp. Em contraste, Qwen3.5-4B, Mistral-7B e Laya apresentaram mudanças menores no alinhamento com o tom (+5,8, +9,3 e +3,2 pp, respectivamente). Assim, parte da ausência de ganho médio é compatível com um conflito entre evidência do comentário e evidência contextual: contexto ajuda quando alinhado, mas pode induzir erro quando a postura diverge.
+Para examinar se o modelo passa a seguir o tom da conversa, separamos comentários cuja orientação concorda ou discorda do tom dos turnos anteriores. Nos 126 itens discordantes da coorte pareada, de \(k=0\) a \(k=4\), twitter-roberta passou a acompanhar o tom da conversa em +39,7 pp e perdeu 33,3 pp de acurácia, DeBERTa-NLI mudou +17,5 pp e perdeu 22,2 pp, Kev-4B mudou +17,2 pp e perdeu 13,2 pp. Em contraste, Qwen3.5-4B, Mistral-7B e Laya apresentaram mudanças menores no alinhamento com o tom (+5,8, +9,3 e +3,2 pp, respectivamente). Assim, parte da ausência de ganho médio é compatível com um conflito entre evidência do comentário e evidência contextual: contexto ajuda quando alinhado, mas pode induzir erro quando a postura diverge.
 
 \begin{figure}[ht]
 \centering
@@ -333,7 +383,7 @@ Para examinar se o modelo passa a seguir o tom da conversa, separamos comentári
 \label{fig:tom}
 \end{figure}
 
-O caso do DeBERTa-NLI é especialmente marcado em comentários neutros. Entre os neutros do MT-CSD, sua taxa de acerto caiu de 72\% sem contexto para 18\% com quatro turnos. Em comentários neutros acompanhados por conversa negativa, a resposta neutra caiu de 85\% para 15\%, enquanto “contra” subiu de 8\% para 73\%; com conversa positiva, “neutro” caiu de 61\% para 11\% e “a favor” subiu de 28\% para 78\%. Mesmo em conversas globalmente neutras, a resposta neutra caiu de 79\% para 38\%. Uma explicação plausível é que a hipótese de NLI para neutro (“takes no position on Tesla”) perde para hipóteses polares quando a premissa inclui turnos com postura. Essa interpretação é compatível com os erros, mas não foi testada por uma ablação da hipótese ou da arquitetura.
+O caso do DeBERTa-NLI é especialmente marcado em comentários neutros. Entre os neutros do MT-CSD, sua taxa de acerto caiu de 72\% sem contexto para 18\% com quatro turnos. Em comentários neutros acompanhados por conversa negativa, a resposta neutra caiu de 85\% para 15\%, enquanto “contra” subiu de 8\% para 73\%, com conversa positiva, “neutro” caiu de 61\% para 11\% e “a favor” subiu de 28\% para 78\%. Mesmo em conversas globalmente neutras, a resposta neutra caiu de 79\% para 38\%. Uma explicação plausível é que a hipótese de NLI para neutro (“takes no position on Tesla”) perde para hipóteses polares quando a premissa inclui turnos com postura. Essa interpretação é compatível com os erros, mas não foi testada por uma ablação da hipótese ou da arquitetura.
 
 \begin{figure}[ht]
 \centering
@@ -343,28 +393,28 @@ O caso do DeBERTa-NLI é especialmente marcado em comentários neutros. Entre os
 \end{figure}
 
 \subsection{T3: acurácia alta pode refletir prevalência, não discriminação}
-Os subconjuntos irônicos são desbalanceados: a fração negativa varia de 66\% a 100\%. No MUStARD++, todos os itens irônicos são negativos; nesse subconjunto, acurácia equivale à proporção de respostas negativas e não mede discriminação entre classes ausentes. No Sarcasm\_NLP, 87\% dos irônicos são negativos. No Filatova, 66\% dos irônicos são negativos, enquanto 86\% dos não irônicos são positivos. Como referência, responder sempre à classe majoritária já produz 42--86\% de acurácia em T1 e 66--100\% em T3.
+Os subconjuntos irônicos são desbalanceados: a fração negativa varia de 66\% a 100\%. No MUStARD++, todos os itens irônicos são negativos, nesse subconjunto, acurácia equivale à proporção de respostas negativas e não mede discriminação entre classes ausentes. No Sarcasm\_NLP, 87\% dos irônicos são negativos. No Filatova, 66\% dos irônicos são negativos, enquanto 86\% dos não irônicos são positivos. Como referência, responder sempre à classe majoritária já produz 42--86\% de acurácia em T1 e 66--100\% em T3.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.92\linewidth]{../base_de_conhecimento/img/desbal_gold_semmtcsd.png}
-\caption{Distribuição dos rótulos de referência e acurácia de um classificador que sempre prevê a classe majoritária, por base e condição.}
+\caption{Distribuição dos rótulos de referência e acurácia de um classificador que sempre prevê a classe majoritária, por base de dados e condição.}
 \label{fig:distribuicao-gold}
 \end{figure}
 
-A comparação de métricas (Figura~\ref{fig:balanceada}) confirma o problema: no Filatova, acurácias de 82--94\% caem para 63--76\% quando se calcula acurácia balanceada. A liderança também muda: no Sarcasm\_NLP não irônico, Qwen3.5-4B alcança 73,8\% de acurácia balanceada, contra 69,8\% de Kev-4B; no Filatova, Mistral-7B e Kev-4B ficam perto de 76\%, acima dos 65\% do Qwen. O DeBERTa-NLI passa de 41,0\% de acurácia para 62,4\% balanceada no Sarcasm\_NLP: erra a classe neutra, majoritária, mas acerta melhor as demais. A métrica balanceada não resolve a escassez de exemplos por classe, mas impede que a prevalência determine sozinha o valor agregado.
+A comparação de métricas (Figura~\ref{fig:balanceada}) confirma o problema: no Filatova, acurácias de 82--94\% caem para 63--76\% quando se calcula acurácia balanceada. A liderança também muda: no Sarcasm\_NLP não irônico, Qwen3.5-4B alcança 73,8\% de acurácia balanceada, contra 69,8\% de Kev-4B, no Filatova, Mistral-7B e Kev-4B ficam perto de 76\%, acima dos 65\% do Qwen. O DeBERTa-NLI passa de 41,0\% de acurácia para 62,4\% balanceada no Sarcasm\_NLP: erra a classe neutra, majoritária, mas acerta melhor as demais. A métrica balanceada não resolve a escassez de exemplos por classe, mas impede que a prevalência determine sozinha o valor agregado.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\linewidth]{../base_de_conhecimento/img/desbal_heat_f1_semmtcsd.png}
-\caption{Acurácia balanceada, acurácia e F1 macro em T1 e T3; a mudança de métrica altera a comparação entre modelos.}
+\caption{Acurácia balanceada, acurácia e F1 macro em T1 e T3, a mudança de métrica altera a comparação entre modelos.}
 \label{fig:balanceada}
 \end{figure}
 
 \subsubsection{Investigação do viés negativo}
-Medimos a separação entre ironia e não ironia como a diferença entre a frequência de respostas “negativo” nos irônicos e nos exemplos não irônicos cujo rótulo não é negativo. No Sarcasm\_NLP, a separação do Kev-4B foi 48,9 pp e a do Qwen3.5-4B 47,8 pp; a do DeBERTa-NLI foi somente 4,7 pp (IC 95\%: [2,1; 7,6]), pois respondeu “negativo” em 62\% dos irônicos e em 58\% dos não negativos. No MUStARD++, todos os modelos separaram pouco (7,9--21,5 pp). O DeBERTa-NLI liderou ali, mas também tinha alta propensão a responder negativo. No Filatova, a separação foi maior (72--93 pp); Kev-4B, por exemplo, acertou 95,2\% dos irônicos e 93,8\% dos negativos literais.
+Medimos a separação entre ironia e não ironia como a diferença entre a frequência de respostas “negativo” nos irônicos e nos exemplos não irônicos cujo rótulo não é negativo. No Sarcasm\_NLP, a separação do Kev-4B foi 48,9 pp e a do Qwen3.5-4B 47,8 pp, a do DeBERTa-NLI foi somente 4,7 pp (IC 95\%: [2,1, 7,6]), pois respondeu “negativo” em 62\% dos irônicos e em 58\% dos não negativos. No MUStARD++, todos os modelos separaram pouco (7,9--21,5 pp). O DeBERTa-NLI liderou ali, mas também tinha alta propensão a responder negativo. No Filatova, a separação foi maior (72--93 pp), Kev-4B, por exemplo, acertou 95,2\% dos irônicos e 93,8\% dos negativos literais.
 
-No MUStARD++, a acurácia dos modelos nos irônicos foi de 18--47\%, embora todos os rótulos desse subconjunto sejam negativos. A diferença entre o acerto nos negativos literais e nos irônicos variou de 18,4 pp para twitter-roberta a 27,5 pp para Qwen3.5-4B. Isso mostra que o problema não é apenas reconhecer a classe negativa: o contexto pragmático irônico continua difícil. Com contexto, alguns modelos melhoram nos irônicos, mas aumentam também respostas negativas nos não irônicos; portanto, o ganho observado não é evidência suficiente de uma melhora específica na compreensão da ironia.
+No MUStARD++, a acurácia dos modelos nos irônicos foi de 18--47\%, embora todos os rótulos desse subconjunto sejam negativos. A diferença entre o acerto nos negativos literais e nos irônicos variou de 18,4 pp para twitter-roberta a 27,5 pp para Qwen3.5-4B. Isso mostra que o problema não é apenas reconhecer a classe negativa: o contexto pragmático irônico continua difícil. Com contexto, alguns modelos melhoram nos irônicos, mas aumentam também respostas negativas nos não irônicos, portanto, o ganho observado não é evidência suficiente de uma melhora específica na compreensão da ironia.
 
 \begin{figure}[ht]
 \centering
@@ -381,7 +431,7 @@ No MUStARD++, a acurácia dos modelos nos irônicos foi de 18--47\%, embora todo
 \end{figure}
 
 \subsection{Calibração e comparação dos modelos System One}
-Nos itens sem ironia, Kev-4B e Laya apresentaram ECE entre 0,10 e 0,16, mas essa aparente vantagem deve ser lida junto à distribuição das respostas: ambos responderam “neutro” em 65--81\% dos itens. Nos subconjuntos irônicos, a calibração piorou e nenhum modelo se aproximou do limiar de referência de 0,05; Laya atingiu ECE de 0,32 em uma das avaliações. Mistral-7B apresentou confiança média de 94\% quando acertou e 86\% quando errou. As taxas de erros com confiança acima de 0,9 também dependem da frequência com que cada modelo emite confiança alta; por isso não são diretamente comparáveis sem considerar essa distribuição.
+Nos itens sem ironia, Kev-4B e Laya apresentaram ECE entre 0,10 e 0,16, mas essa aparente vantagem deve ser lida junto à distribuição das respostas: ambos responderam “neutro” em 65--81\% dos itens. Nos subconjuntos irônicos, a calibração piorou e nenhum modelo se aproximou do limiar de referência de 0,05, Laya atingiu ECE de 0,32 em uma das avaliações. Mistral-7B apresentou confiança média de 94\% quando acertou e 86\% quando errou. As taxas de erros com confiança acima de 0,9 também dependem da frequência com que cada modelo emite confiança alta, por isso não são diretamente comparáveis sem considerar essa distribuição.
 
 \begin{figure}[ht]
 \centering
@@ -390,7 +440,7 @@ Nos itens sem ironia, Kev-4B e Laya apresentaram ECE entre 0,10 e 0,16, mas essa
 \label{fig:calibracao}
 \end{figure}
 
-A comparação entre Kev-4B e Qwen3.5-4B é informativa, mas não causal. No MT-CSD, Kev-4B obteve 71,3\% contra 55,3\% do Qwen e previu neutro em 29\% dos itens, abaixo dos 59\% do rótulo de referência. No Sarcasm\_NLP, Kev-4B aproxima melhor a frequência neutra do conjunto. No MUStARD++, Kev-4B previu neutro em 65\% dos itens, frente a 29\% no rótulo; entre os irônicos, nos quais não há neutros, respondeu neutro em 68\%. Nesse subconjunto Qwen3.5-4B obteve 42,9\% de acurácia e Kev-4B 18,0\%. Os modelos compartilham base, mas diferem em pós-treinamento e cabeça de decisão; logo, as diferenças são uma associação observada, não uma estimativa isolada do efeito do treinamento.
+A comparação entre Kev-4B e Qwen3.5-4B é informativa, mas não causal. No MT-CSD, Kev-4B obteve 71,3\% contra 55,3\% do Qwen e previu neutro em 29\% dos itens, abaixo dos 59\% do rótulo de referência. No Sarcasm\_NLP, Kev-4B aproxima melhor a frequência neutra do conjunto. No MUStARD++, Kev-4B previu neutro em 65\% dos itens, frente a 29\% no rótulo, entre os irônicos, nos quais não há neutros, respondeu neutro em 68\%. Nesse subconjunto Qwen3.5-4B obteve 42,9\% de acurácia e Kev-4B 18,0\%. Os modelos compartilham base, mas diferem em pós-treinamento e cabeça de decisão, logo, as diferenças são uma associação observada, não uma estimativa isolada do efeito do treinamento.
 
 \begin{figure}[ht]
 \centering
@@ -399,16 +449,16 @@ A comparação entre Kev-4B e Qwen3.5-4B é informativa, mas não causal. No MT-
 \label{fig:qwen-kev}
 \end{figure}
 
-Parte da calibração do Kev-4B no MUStARD++ está associada à temperatura usada (T=2,41). Aplicar a mesma temperatura ao Qwen reduziu seu ECE de 0,209 para 0,063 nessa avaliação. Isso demonstra que a calibração pode mudar sem alteração das classes previstas, e impede atribuir toda a diferença à família System One. Em conjunto, os modelos System One mostraram maior cautela em certas bases, não superioridade geral de competência ou calibração.
+Parte da calibração do Kev-4B no MUStARD++ está associada à temperatura usada (T=2,41). Aplicar a mesma temperatura ao Qwen reduziu seu ECE de 0,209 para 0,063 nessa avaliação. Isso demonstra que a calibração pode mudar sem alteração das classes previstas, e impede atribuir toda a diferença à família System One. Em conjunto, os modelos System One mostraram maior cautela em certas bases de dados, não superioridade geral de competência ou calibração.
 \section{Conclusão}
 \label{sec:org5902ce0}
 \label{orgc08672f}
 
-Este estudo comparou seis modelos de três famílias em tarefas de sentimento isolado, com contexto e com ironia. A resposta à primeira pergunta de pesquisa é que o contexto não ajuda uniformemente: na coorte pareada do MT-CSD, Qwen3.5-4B ganhou 7,0 pp, mas DeBERTa-NLI perdeu 22,5 pp e Kev-4B também caiu. A análise por classe sugere que os modelos podem seguir o tom conversacional quando ele contradiz o comentário-alvo; a perda acentuada de neutros do DeBERTa-NLI é compatível com competição entre hipóteses do NLI, sem provar esse mecanismo.
+Este estudo comparou seis modelos de três famílias em tarefas de sentimento isolado, com contexto e com ironia. A resposta à primeira pergunta de pesquisa é que o contexto não ajuda uniformemente: na coorte pareada do MT-CSD, Qwen3.5-4B ganhou 7,0 pp, mas DeBERTa-NLI perdeu 22,5 pp e Kev-4B também caiu. A análise por classe sugere que os modelos podem seguir o tom conversacional quando ele contradiz o comentário-alvo, a perda acentuada de neutros do DeBERTa-NLI é compatível com competição entre hipóteses do NLI, sem provar esse mecanismo.
 
-Quanto à ironia, ganhos de acurácia devem ser interpretados à luz da prevalência de negativos e do viés de resposta. A acurácia balanceada alterou a leitura do Filatova e a ordenação de modelos; no Sarcasm\_NLP, DeBERTa-NLI quase não separou ironia de exemplos não negativos. No MUStARD++, em que todos os irônicos são negativos, acertar a classe não equivale a identificar a ironia. A análise de calibração tampouco sustenta uma vantagem geral dos modelos System One: ECE varia por tarefa e temperatura, e nenhum modelo foi bem calibrado nos subconjuntos irônicos. Por fim, a sensibilidade à ordem no Mistral-7B e à redação da pergunta evidencia que escolhas de \emph{prompt} fazem parte do protocolo experimental e devem ser reportadas.
+Quanto à ironia, ganhos de acurácia devem ser interpretados à luz da prevalência de negativos e do viés de resposta. A acurácia balanceada alterou a leitura do Filatova e a ordenação de modelos, no Sarcasm\_NLP, DeBERTa-NLI quase não separou ironia de exemplos não negativos. No MUStARD++, em que todos os irônicos são negativos, acertar a classe não equivale a identificar a ironia. A análise de calibração tampouco sustenta uma vantagem geral dos modelos System One: ECE varia por tarefa e temperatura, e nenhum modelo foi bem calibrado nos subconjuntos irônicos. Por fim, a sensibilidade à ordem no Mistral-7B e à redação da pergunta evidencia que escolhas de \emph{prompt} fazem parte do protocolo experimental e devem ser reportadas.
 
-Há limitações importantes: avaliamos somente modelos de até 7B parâmetros e dados em inglês; usamos poucos formatos de \emph{prompt} e nenhum exemplo; as bases são desbalanceadas e seus rótulos representam construtos distintos; o MT-CSD considera somente Tesla e SpaceX, sem identificação explícita de autores dos turnos, e a ablação mais controlada usa apenas 13 discussões. Além disso, diferenças entre modelos não isolam efeitos de arquitetura ou pós-treinamento. Trabalhos futuros devem incluir bases mais balanceadas, idiomas e modelos adicionais, exemplos no \emph{prompt}, identificação dos falantes, separação explícita entre pergunta e conversa e ajuste de modelos de decisão com exemplos de contexto e ironia.
+Há limitações importantes: avaliamos somente modelos de até 7B parâmetros e dados em inglês, usamos poucos formatos de \emph{prompt} e nenhum exemplo, as bases de dados são desbalanceadas e seus rótulos representam construtos distintos, o MT-CSD considera somente Tesla e SpaceX, sem identificação explícita de autores dos turnos, e a ablação mais controlada usa apenas 13 discussões. Além disso, diferenças entre modelos não isolam efeitos de arquitetura ou pós-treinamento. Trabalhos futuros devem incluir bases mais balanceadas, idiomas e modelos adicionais, exemplos no \emph{prompt}, identificação dos falantes, separação explícita entre pergunta e conversa e ajuste de modelos de decisão com exemplos de contexto e ironia.
 \bibliographystyle{sbc}
 \bibliography{refs}
 \end{document}

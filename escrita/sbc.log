@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.11.26)  26 NOV 2026 12:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.11.26)  26 NOV 2026 17:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -495,58 +495,105 @@ Underfull \hbox (badness 4518) in paragraph at lines 233--244
 -das por pa-res.
  []
 
-[5] [6]
-<../base_de_conhecimento/img/visao_geral_t1.png, id=206, 903.375pt x 602.25pt>
+[5]
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 27
+2.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
+File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
+)
+Underfull \hbox (badness 1939) in paragraph at lines 278--278
+[]\T1/ptm/m/n/10.95 Fonte / do-mí-
+ []
+
+
+Underfull \hbox (badness 4467) in paragraph at lines 280--281
+[]\T1/ptm/m/n/10.95 T1, T2,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 281--281
+[]\T1/ptm/m/n/10.95 Reddit: co-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 281--281
+\T1/ptm/m/n/10.95 men-tá-rios
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 281--281
+[]\T1/ptm/m/n/10.95 Postura so-bre a
+ []
+
+
+Underfull \hbox (badness 1558) in paragraph at lines 282--282
+[]\T1/ptm/m/n/10.95 Twitter: ener-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 311--311
+[]\T1/ptm/m/n/10.95 DeBERTa-
+ []
+
+
+Underfull \hbox (badness 1072) in paragraph at lines 314--315
+[]\T1/ptm/m/n/10.95 Distribuição for-ne-cida di-re-ta-
+ []
+
+
+Underfull \hbox (badness 1072) in paragraph at lines 315--316
+[]\T1/ptm/m/n/10.95 Distribuição for-ne-cida di-re-ta-
+ []
+
+[6] [7]
+<../base_de_conhecimento/img/visao_geral_t1.png, id=216, 903.375pt x 602.25pt>
 File: ../base_de_conhecimento/img/visao_geral_t1.png Graphic file (type png)
 <use ../base_de_conhecimento/img/visao_geral_t1.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/visao_geral_t1.png  used o
-n input line 294.
+n input line 344.
 (pdftex.def)             Requested size: 405.45047pt x 270.30238pt.
-LaTeX Font Info:    Trying to load font information for T1+phv on input line 29
-5.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
-File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
-) [7]
-<../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png, id=216, 1766.
+<../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png, id=220, 1766.
 6pt x 772.8875pt>
 File: ../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png Graphic f
 ile (type png)
 <use ../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/contexto-semsig-semmaj-202
-61123.png  used on input line 306.
+61123.png  used on input line 356.
 (pdftex.def)             Requested size: 405.45047pt x 177.383pt.
-<../base_de_conhecimento/img/turnos_mtcsd_acc_f1.png, id=217, 1505.625pt x 662.
+<../base_de_conhecimento/img/turnos_mtcsd_acc_f1.png, id=221, 1505.625pt x 662.
 475pt>
 File: ../base_de_conhecimento/img/turnos_mtcsd_acc_f1.png Graphic file (type pn
 g)
 <use ../base_de_conhecimento/img/turnos_mtcsd_acc_f1.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/turnos_mtcsd_acc_f1.png  u
-sed on input line 312.
+sed on input line 362.
 (pdftex.def)             Requested size: 405.45047pt x 178.39554pt.
- [8 <../base_de_conhecimento/img/visao_geral_t1.png>]
-<../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen.png, id=226, 1706.375pt
+ [8]
+<../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen.png, id=229, 1706.375pt
  x 501.875pt>
 File: ../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen.png Graphic file (
 type png)
 <use ../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen
-.png  used on input line 322.
+.png  used on input line 372.
 (pdftex.def)             Requested size: 405.45047pt x 119.25015pt.
-<../base_de_conhecimento/img/tom-20261123.png, id=227, 1766.6pt x 662.475pt>
+<../base_de_conhecimento/img/tom-20261123.png, id=230, 1766.6pt x 662.475pt>
 File: ../base_de_conhecimento/img/tom-20261123.png Graphic file (type png)
 <use ../base_de_conhecimento/img/tom-20261123.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/tom-20261123.png  used on 
-input line 331.
+input line 381.
 (pdftex.def)             Requested size: 405.45047pt x 152.04257pt.
- [9 <../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png> <../base_
-de_conhecimento/img/turnos_mtcsd_acc_f1.png>]
+
+Underfull \vbox (badness 6625) has occurred while \output is active []
+
+ [9 <../base_de_conhecimento/img/visao_geral_t1.png>]
 <../base_de_conhecimento/img/deberta_neutro_barras.png, id=236, 1405.25pt x 622
 .325pt>
 File: ../base_de_conhecimento/img/deberta_neutro_barras.png Graphic file (type 
 png)
 <use ../base_de_conhecimento/img/deberta_neutro_barras.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/deberta_neutro_barras.png 
- used on input line 340.
+ used on input line 390.
 (pdftex.def)             Requested size: 375.57846pt x 166.33022pt.
 <../base_de_conhecimento/img/desbal_gold_semmtcsd.png, id=237, 1405.25pt x 602.
 25pt>
@@ -554,34 +601,34 @@ File: ../base_de_conhecimento/img/desbal_gold_semmtcsd.png Graphic file (type p
 ng)
 <use ../base_de_conhecimento/img/desbal_gold_semmtcsd.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/desbal_gold_semmtcsd.png  
-used on input line 350.
+used on input line 400.
 (pdftex.def)             Requested size: 392.64725pt x 168.27963pt.
- [10 <../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen.png> <../base_de_c
-onhecimento/img/tom-20261123.png>]
+ [10 <../base_de_conhecimento/img/contexto-semsig-semmaj-20261123.png> <../base
+_de_conhecimento/img/turnos_mtcsd_acc_f1.png>]
 <../base_de_conhecimento/img/desbal_heat_f1_semmtcsd.png, id=248, 1706.375pt x 
 662.475pt>
 File: ../base_de_conhecimento/img/desbal_heat_f1_semmtcsd.png Graphic file (typ
 e png)
 <use ../base_de_conhecimento/img/desbal_heat_f1_semmtcsd.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/desbal_heat_f1_semmtcsd.pn
-g  used on input line 359.
+g  used on input line 409.
 (pdftex.def)             Requested size: 405.45047pt x 157.4102pt.
- [11 <../base_de_conhecimento/img/deberta_neutro_barras.png> <../base_de_conhec
-imento/img/desbal_gold_semmtcsd.png>]
+ [11 <../base_de_conhecimento/img/turnos_mtcsd_confusao_qwen.png> <../base_de_c
+onhecimento/img/tom-20261123.png>]
 <../base_de_conhecimento/img/distribuicao_semmtcsd.png, id=257, 1706.375pt x 75
 2.8125pt>
 File: ../base_de_conhecimento/img/distribuicao_semmtcsd.png Graphic file (type 
 png)
 <use ../base_de_conhecimento/img/distribuicao_semmtcsd.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/distribuicao_semmtcsd.png 
- used on input line 371.
+ used on input line 421.
 (pdftex.def)             Requested size: 405.45047pt x 178.87523pt.
 <../base_de_conhecimento/img/ironia_discrim.png, id=258, 1606.0pt x 632.3625pt>
 
 File: ../base_de_conhecimento/img/ironia_discrim.png Graphic file (type png)
 <use ../base_de_conhecimento/img/ironia_discrim.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/ironia_discrim.png  used o
-n input line 378.
+n input line 428.
 (pdftex.def)             Requested size: 384.1096pt x 151.2394pt.
 <../base_de_conhecimento/img/calibracao-20261123.png, id=259, 1766.6pt x 607.26
 875pt>
@@ -589,21 +636,25 @@ File: ../base_de_conhecimento/img/calibracao-20261123.png Graphic file (type pn
 g)
 <use ../base_de_conhecimento/img/calibracao-20261123.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/calibracao-20261123.png  u
-sed on input line 388.
+sed on input line 438.
 (pdftex.def)             Requested size: 405.45047pt x 139.37236pt.
- [12 <../base_de_conhecimento/img/desbal_heat_f1_semmtcsd.png> <../base_de_conh
-ecimento/img/distribuicao_semmtcsd.png>]
-<../base_de_conhecimento/img/qwenkev-gold-20261123.png, id=267, 1766.6pt x 993.
+ [12 <../base_de_conhecimento/img/deberta_neutro_barras.png> <../base_de_conhec
+imento/img/desbal_gold_semmtcsd.png>]
+<../base_de_conhecimento/img/qwenkev-gold-20261123.png, id=268, 1766.6pt x 993.
 7125pt>
 File: ../base_de_conhecimento/img/qwenkev-gold-20261123.png Graphic file (type 
 png)
 <use ../base_de_conhecimento/img/qwenkev-gold-20261123.png>
 Package pdftex.def Info: ../base_de_conhecimento/img/qwenkev-gold-20261123.png 
- used on input line 397.
+ used on input line 447.
 (pdftex.def)             Requested size: 405.45047pt x 228.06386pt.
- [13 <../base_de_conhecimento/img/ironia_discrim.png> <../base_de_conhecimento/
-img/calibracao-20261123.png>]
-(./sbc.bbl [14 <../base_de_conhecimento/img/qwenkev-gold-20261123.png>]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13 <../base_de_conhecimento/img/desbal_heat_f1_semmtcsd.png> <../base_de_conh
+ecimento/img/distribuicao_semmtcsd.png>] (./sbc.bbl [14 <../base_de_conheciment
+o/img/ironia_discrim.png> <../base_de_conhecimento/img/calibracao-20261123.png>
+] [15 <../base_de_conhecimento/img/qwenkev-gold-20261123.png>]
 Underfull \hbox (badness 3009) in paragraph at lines 41--46
 []\T1/ptm/m/n/12 Chen, M. (2026).  In-tro-du-cing Clef: our open-source de-ci-s
 ion mo-dels, and
@@ -627,7 +678,10 @@ Underfull \hbox (badness 1552) in paragraph at lines 65--70
 nst LLMs, fine-
  []
 
-[15] [16]
+
+Underfull \vbox (badness 3138) has occurred while \output is active []
+
+ [16]
 Underfull \hbox (badness 2452) in paragraph at lines 182--188
 []\T1/ptm/m/n/12 Nilas, A. and van der Burght, R. (2026).  Jev vs. GPT-6 Luna v
 s. BERT:
@@ -645,7 +699,7 @@ Underfull \hbox (badness 3302) in paragraph at lines 182--188
 \T1/ptm/m/n/12 .  ML6 Blog.
  []
 
-
+[17]
 Underfull \hbox (badness 2828) in paragraph at lines 218--223
 []\T1/ptm/m/n/12 Raschka, S. (2026).  Lan-guage mo-dels for text clas-si-fi-ca-
 tion: From bag-of-
@@ -657,18 +711,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 218--223
 nraschka . com / p /
  []
 
-[17]) [18] (./sbc.aux)
+) [18] (./sbc.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `sbc.out' has not changed.
-(rerunfilecheck)             Checksum: D1B8DBB29861D414B114130A9EBC9370;4421.
+(rerunfilecheck)             Checksum: E1EB12F966A8A2E437418254312335A2;4472.
  ) 
 Here is how much of TeX's memory you used:
- 13596 strings out of 477961
- 218565 string characters out of 5838544
- 1865388 words of memory out of 6000000
- 33511 multiletter control sequences out of 15000+600000
- 549596 words of font info for 83 fonts, out of 8000000 for 9000
+ 13612 strings out of 477961
+ 218803 string characters out of 5838544
+ 1866388 words of memory out of 6000000
+ 33523 multiletter control sequences out of 15000+600000
+ 556714 words of font info for 93 fonts, out of 8000000 for 9000
  16 hyphenation exceptions out of 8191
- 75i,8n,77p,1367b,560s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,10n,77p,1376b,558s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
@@ -679,10 +736,10 @@ w/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb
 8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sbc.pdf (18 pages, 1020175 bytes).
+Output written on sbc.pdf (18 pages, 1021233 bytes).
 PDF statistics:
- 384 PDF objects out of 1000 (max. 8388607)
- 314 compressed objects within 4 object streams
- 93 named destinations out of 1000 (max. 500000)
+ 388 PDF objects out of 1000 (max. 8388607)
+ 318 compressed objects within 4 object streams
+ 95 named destinations out of 1000 (max. 500000)
  229 words of extra memory for PDF output out of 10000 (max. 10000000)
 
