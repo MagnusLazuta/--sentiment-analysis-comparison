@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.8.3)  26 NOV 2026 19:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.8.3)  26 NOV 2026 20:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -594,8 +594,8 @@ Package pdftex.def Info: ../base_de_conhecimento/img/qwenkev-gold-20261123.png
 (pdftex.def)             Requested size: 290.21498pt x 163.24283pt.
  [8 <../base_de_conhecimento/img/distribuicao_semmtcsd.png> <../base_de_conheci
 mento/img/ironia_discrim.png> <../base_de_conhecimento/img/calibracao-20261123.
-png>] (./sbc.bbl [9 <../base_de_conhecimento/img/qwenkev-gold-20261123.png>]) [
-10] (./sbc.aux)
+png>] [9 <../base_de_conhecimento/img/qwenkev-gold-20261123.png>] (./sbc.bbl [1
+0]) [11] (./sbc.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -604,13 +604,13 @@ Package rerunfilecheck Info: File `sbc.out' has not changed.
 (rerunfilecheck)             Checksum: 5B09B4F00A6DC1BA43DA17CFF41DF3ED;2409.
  ) 
 Here is how much of TeX's memory you used:
- 13568 strings out of 467525
- 216025 string characters out of 5418983
+ 13569 strings out of 467525
+ 216032 string characters out of 5418983
  644892 words of memory out of 5000000
  42243 multiletter control sequences out of 15000+600000
  674951 words of font info for 103 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,9n,79p,1305b,563s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,9n,79p,1305b,559s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 ></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
@@ -623,10 +623,10 @@ ive/2026/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/202
 st/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/
 times/utmri8a.pfb>
-Output written on sbc.pdf (10 pages, 880568 bytes).
+Output written on sbc.pdf (11 pages, 881467 bytes).
 PDF statistics:
- 268 PDF objects out of 1000 (max. 8388607)
- 209 compressed objects within 3 object streams
- 55 named destinations out of 1000 (max. 500000)
+ 274 PDF objects out of 1000 (max. 8388607)
+ 214 compressed objects within 3 object streams
+ 56 named destinations out of 1000 (max. 500000)
  163 words of extra memory for PDF output out of 10000 (max. 10000000)
 

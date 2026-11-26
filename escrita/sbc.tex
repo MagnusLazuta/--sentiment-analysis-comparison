@@ -261,6 +261,12 @@ This study compared six models from three families on sentiment tasks with isola
 Regarding irony, accuracy gains must be read in light of the prevalence of negatives and of response bias. Balanced accuracy changed the reading of Filatova and the model ranking, and on Sarcasm\_NLP, DeBERTa-NLI barely separated irony from non-negative examples. On MUStARD++, where all ironic items are negative, getting the class right is not the same as identifying irony. The calibration analysis does not support a general advantage of System One models either: ECE varies with task and temperature, and no model was well calibrated on the ironic subsets. Finally, Mistral-7B's sensitivity to option order and to question wording shows that prompt choices are part of the experimental protocol and must be reported.
 
 There are important limitations: we only evaluated models of up to 7B parameters and English data, we used few prompt formats and no examples, the datasets are imbalanced and their labels represent different constructs, MT-CSD covers only Tesla and SpaceX, without explicit identification of turn authors, and the most controlled ablation uses only 13 discussions. Moreover, differences between models do not isolate effects of architecture or post-training. Future work should include more balanced datasets, additional languages and models, examples in the prompt, speaker identification, explicit separation between question and conversation, and tuning of decision models with context and irony examples.
+\section*{Acknowledgments}
+The experiments in this work used the PCAD infrastructure, \url{http://gppd-hpc.inf.ufrgs.br}, at INF/UFRGS.
+
+\section*{AI Acknowledgment}
+LLMs and AI agents were used in this work to assist in writing and revising the text, including its translation into English, in writing the experiment code, in writing the analysis scripts and producing the figures, in searching the related literature, and in analyzing the data. All outputs were reviewed by the authors, who take full responsibility for the content of this paper.
+
 \bibliographystyle{sbc}
 \bibliography{refs}
 \end{document}
