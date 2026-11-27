@@ -64,7 +64,7 @@ p <- ggplot(cx, aes(model, acc, fill = model, alpha = cond)) +
   labs(x = NULL, y = "Accuracy (%)") + th +
   theme(axis.text.x = element_text(angle = 40, hjust = 1), panel.grid.major.x = element_blank()) +
   guides(alpha = guide_legend(override.aes = list(fill = "grey20")))
-save(p, "contexto", 2.6)
+save(p, "contexto", 2.4)
 
 # 2-3. Fixed MT-CSD cohort (>= 4 turns), k = 0..4, orders pooled -----------------------------------------
 co <- abl |> filter(dataset == "mtcsd") |> group_by(model, variant, id) |> filter(max(k) >= 4) |> ungroup() |>
@@ -83,7 +83,7 @@ p <- ggplot(afl, aes(k, v, colour = m)) + geom_line(linewidth = 0.9) + geom_poin
   scale_colour_manual(values = c("#2B4C7E", "#D95F02"), name = NULL) +
   scale_x_continuous(breaks = 0:4) + scale_y_continuous(limits = c(30, 80), breaks = c(40, 60, 80)) +
   labs(x = "Context turns (k)", y = "%") + th
-save(p, "turnos", 2.7)
+save(p, "turnos", 2.4)
 
 q <- co |> filter(model == "Qwen3.5-4B") |>
   mutate(gold = factor(gold, rev(lv), c("positive", "neutral", "against")), pred = factor(pred, lv, c("against", "neutral", "positive"))) |>
@@ -97,7 +97,7 @@ p <- ggplot(q, aes(pred, gold, fill = pct)) + geom_tile(colour = "white") +
   scale_colour_manual(values = c(`FALSE` = "grey15", `TRUE` = "white"), guide = "none") +
   labs(x = "Qwen3.5-4B answer", y = "Reference") + th +
   theme(panel.grid = element_blank(), axis.text.x = element_text(angle = 40, hjust = 1))
-save(p, "qwen_confusao", 2.5)
+save(p, "qwen_confusao", 2.0)
 
 # 4. Following the conversation tone (tom_discordante.R), orders pooled ---------------------------------
 en <- c(negativo = "negative", neutro = "neutral", positivo = "positive")
@@ -120,7 +120,7 @@ p <- ggplot(rt, aes(k, v, colour = grupo_l)) + geom_line(linewidth = 0.8) + geom
   scale_y_continuous(limits = c(0, 100), breaks = c(0, 50, 100)) + scale_x_continuous(breaks = 0:4) +
   labs(x = "Context turns (k)", y = NULL) + th +
   theme(strip.placement = "outside") + guides(colour = guide_legend(nrow = 1))
-save(p, "tom", 2.8)
+save(p, "tom", 2.5)
 
 # 5. DeBERTa-NLI on neutral MT-CSD comments, k = 0 vs 4 (deberta_neutro.R, third view) -------------------
 dn <- abl |> filter(dataset == "mtcsd", model == "deberta-nli") |> group_by(id) |> filter(max(k) >= 4) |> ungroup() |>
@@ -149,7 +149,7 @@ p <- ggplot(bd, aes(kk, pct, fill = pred)) + geom_col(width = 0.62, colour = "wh
   scale_colour_manual(values = c(`TRUE` = "grey15", `FALSE` = "white"), guide = "none") +
   scale_y_continuous(breaks = c(0, 50, 100), expand = expansion(mult = c(0, 0.02))) +
   labs(x = NULL, y = "% of answers") + thc
-save(p, "deberta", 2.2, w = 6)
+save(p, "deberta", 1.95, w = 6)
 
 # 6-7. Class imbalance and answer distribution, without MT-CSD (desbalanceamento.R, distribuicao.R) ------
 tk <- pr |> filter(dataset %in% c("mustardpp", "sarcasm_nlp", "filatova"), condition == "no_context") |>
@@ -158,17 +158,19 @@ g <- tk |> distinct(tarefa, dataset, id, gold) |> count(tarefa, dataset, gold) |
   group_by(tarefa, dataset) |> mutate(pct = 100 * n / sum(n), N = sum(n)) |> ungroup()
 ml <- g |> group_by(tarefa, dataset) |> summarise(maj = max(pct), N = first(N), .groups = "drop")
 note("ground truth (%) and majority", g |> mutate(pct = round(pct, 1)) |> select(-n) |> pivot_wider(names_from = gold, values_from = pct))
-lvl <- rev(c(paste("T1 ·", ds[-2]), paste("T3 ·", ds[-2])))
-gg <- g |> mutate(col = factor(paste(tarefa, "·", dataset), lvl), gold = factor(gold, lv))
-mm <- ml |> mutate(col = factor(paste(tarefa, "·", dataset), lvl))
-p <- ggplot(gg, aes(pct, col, fill = gold)) + geom_col(width = 0.7) +
-  geom_text(data = mm, aes(x = 102, y = col, label = sprintf("majority %.0f%%  (n = %d)", maj, N)),
-            inherit.aes = FALSE, hjust = 0, size = 3.3) +
-  scale_fill_manual(values = ccol, name = NULL) +
-  scale_x_continuous(breaks = c(0, 50, 100), limits = c(0, 150)) +
-  labs(x = "% of items in the reference labels", y = NULL) + th +
-  theme(panel.grid.major.y = element_blank())
-save(p, "gold", 2.6, w = 6)
+gg <- g |> mutate(tarefa = factor(tarefa, c("T1", "T3"), c("T1 non-ironic", "T3 ironic")),
+                  y = factor(sprintf("%s (n = %d)", dataset, N)), gold = factor(gold, rev(lv)))
+gg <- gg |> mutate(y = factor(as.character(y), rev(unique(as.character(y)[order(tarefa, dataset)]))))
+p <- ggplot(gg, aes(pct, y, fill = gold)) + geom_col(width = 0.75) +
+  geom_text(data = gg |> filter(pct >= 8), aes(label = sprintf("%.0f%%", pct)),
+            position = position_stack(vjust = 0.5), colour = "white", size = 3.2, fontface = "bold") +
+  facet_grid(tarefa ~ ., scales = "free_y", space = "free_y", switch = "y") +
+  scale_fill_manual(values = ccol, name = NULL, breaks = lv) +
+  scale_x_continuous(breaks = c(0, 50, 100), labels = function(x) paste0(x, "%"), expand = expansion(mult = c(0, 0.03))) +
+  labs(x = "Share of items in the reference labels", y = NULL) + th +
+  theme(panel.grid = element_blank(), panel.border = element_blank(), axis.ticks.y = element_blank(),
+        strip.placement = "outside", strip.text.y.left = element_text(angle = 90))
+save(p, "gold", 1.85, w = 6)
 
 gd <- g |> transmute(tarefa, dataset, quem = "reference", classe = gold, pct)
 pd <- tk |> count(tarefa, dataset, model, pred) |> group_by(tarefa, dataset, model) |> mutate(pct = 100 * n / sum(n)) |> ungroup() |>
@@ -183,7 +185,7 @@ p <- ggplot(dd, aes(pct, quem, fill = classe)) + geom_col(width = 0.75) +
   labs(x = "% of answers", y = NULL) + th +
   theme(panel.grid.major.y = element_blank(),
         axis.text.y = element_text(face = ifelse(rev(c("reference", lab)) == "reference", "bold", "plain")))
-save(p, "distribuicao", 3.1)
+save(p, "distribuicao", 2.8)
 
 # 8. Irony separation (ironia_discrim.R), orders pooled ---------------------------------------------------
 ir <- pr |> filter(condition == "no_context", dataset %in% c("mustardpp", "sarcasm_nlp", "filatova")) |>
@@ -200,10 +202,10 @@ p <- ggplot(ir, aes(alarm, hit)) +
   geom_point(aes(colour = model), size = 2.6) +
   facet_wrap(~ dataset) +
   scale_colour_manual(values = mcol, name = NULL) +
-  coord_equal(xlim = c(0, 100), ylim = c(0, 100)) +
+  coord_cartesian(xlim = c(0, 100), ylim = c(0, 100)) + scale_x_continuous(breaks = c(0, 50, 100)) + scale_y_continuous(breaks = c(0, 50, 100)) +
   labs(x = "\"Negative\" on non-ironic, non-negative items (%)", y = "\"Negative\" on ironic items (%)") + th +
   guides(colour = guide_legend(nrow = 1))
-save(p, "ironia", 3.2)
+save(p, "ironia", 2.5)
 
 # 9. Calibration (values from calibracao_erros.R) ------------------------------------------------------------
 cal <- read_csv("calibracao-20261126.csv", show_col_types = FALSE) |>
@@ -220,7 +222,7 @@ p <- ggplot(cal, aes(m, v, fill = m)) + geom_col(width = 0.8) +
   labs(x = NULL, y = NULL) + th +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), panel.grid.major.x = element_blank()) +
   guides(fill = guide_legend(nrow = 1))
-save(p, "calibracao", 2.3)
+save(p, "calibracao", 2.1)
 
 # 10. Qwen3.5-4B vs Kev-4B, order v1 ----------------------------------------------------------------------
 qk <- pr |> filter(variant == "v1", model %in% c("qwen3.5-4b", "kev-4b")) |>
@@ -249,6 +251,6 @@ p <- ggplot(ql, aes(x, v, fill = model)) +
   scale_linetype_manual(values = c(reference = "solid"), name = NULL, labels = "\"neutral\" in the reference") +
   scale_y_continuous(limits = c(0, 100)) +
   labs(x = NULL, y = "%") + th + theme(panel.grid.major.x = element_blank(), axis.text.x = element_text(size = BS - 3))
-save(p, "qwenkev", 2.9)
+save(p, "qwenkev", 2.5)
 
 close(chk)
