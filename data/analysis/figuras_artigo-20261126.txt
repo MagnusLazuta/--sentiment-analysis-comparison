@@ -1,0 +1,209 @@
+== context accuracy (%), order v1
+           model              grp No context Previous turn Whole conversation
+     DeBERTa-NLI           MT-CSD       64.7          61.0               39.7
+     DeBERTa-NLI        MUStARD++       55.3          52.5               50.9
+     DeBERTa-NLI MUStARD++ ironic       65.1          68.6               70.7
+          Kev-4B           MT-CSD       71.3          69.5               64.4
+          Kev-4B        MUStARD++       51.6          51.9               54.4
+          Kev-4B MUStARD++ ironic       18.0          23.0               24.3
+            Laya           MT-CSD       61.6          59.4               58.7
+            Laya        MUStARD++       48.6          48.6               46.5
+            Laya MUStARD++ ironic       20.6          23.1               25.3
+      Mistral-7B           MT-CSD       60.5          61.7               55.7
+      Mistral-7B        MUStARD++       58.1          59.6               58.4
+      Mistral-7B MUStARD++ ironic       50.7          44.6               43.8
+      Qwen3.5-4B           MT-CSD       55.3          60.7               57.4
+      Qwen3.5-4B        MUStARD++       57.9          58.9               59.6
+      Qwen3.5-4B MUStARD++ ironic       42.9          40.4               41.8
+ twitter-roberta           MT-CSD       52.5          50.9               48.7
+ twitter-roberta        MUStARD++       50.7          40.5               37.5
+ twitter-roberta MUStARD++ ironic       25.0          10.1               11.5
+
+== cohort accuracy / macro-F1 by k
+           model k  acc   f1
+ twitter-roberta 0 49.8 47.0
+ twitter-roberta 1 50.2 39.6
+ twitter-roberta 2 46.5 37.2
+ twitter-roberta 3 46.7 38.1
+ twitter-roberta 4 44.7 38.9
+     DeBERTa-NLI 0 68.6 61.7
+     DeBERTa-NLI 1 68.0 61.8
+     DeBERTa-NLI 2 61.2 56.8
+     DeBERTa-NLI 3 54.6 51.3
+     DeBERTa-NLI 4 46.1 45.5
+      Qwen3.5-4B 0 50.9 50.1
+      Qwen3.5-4B 1 57.9 56.5
+      Qwen3.5-4B 2 58.3 56.7
+      Qwen3.5-4B 3 58.3 56.2
+      Qwen3.5-4B 4 57.9 56.7
+      Mistral-7B 0 63.6 58.8
+      Mistral-7B 1 67.4 62.4
+      Mistral-7B 2 68.7 64.2
+      Mistral-7B 3 65.9 62.1
+      Mistral-7B 4 62.8 59.9
+          Kev-4B 0 73.3 65.9
+          Kev-4B 1 71.2 63.3
+          Kev-4B 2 71.4 63.2
+          Kev-4B 3 68.6 61.0
+          Kev-4B 4 67.8 61.7
+            Laya 0 63.5 46.4
+            Laya 1 61.2 42.3
+            Laya 2 62.8 48.3
+            Laya 3 61.7 48.0
+            Laya 4 61.0 47.9
+
+== Qwen confusion (% per gold row)
+ k     gold against neutral positive
+ 0 positive      22      13       65
+ 0  neutral      43      36       20
+ 0  against      81       8       12
+ 1 positive      27      13       60
+ 1  neutral      41      46       13
+ 1  against      86       8        6
+ 2 positive      32      10       58
+ 2  neutral      41      46       13
+ 2  against      91       5        4
+ 3 positive      34      10       56
+ 3  neutral      41      45       15
+ 3  against      94       3        2
+ 4 positive      31       7       62
+ 4  neutral      42      43       15
+ 4  against      93       4        4
+
+== tone: group sizes
+     grupo   n
+    agrees 270
+ disagrees 126
+
+== tone: values
+           model     grupo            medida    0    1    2    3    4
+ twitter-roberta    agrees Follows\ntone (%) 46.3 55.9 54.4 59.3 58.1
+ twitter-roberta    agrees     Accuracy\n(%) 46.3 55.9 54.4 59.3 58.1
+ twitter-roberta disagrees Follows\ntone (%) 23.0 45.2 50.0 57.9 62.7
+ twitter-roberta disagrees     Accuracy\n(%) 55.6 36.5 32.5 25.4 22.2
+     DeBERTa-NLI    agrees Follows\ntone (%) 71.9 72.2 66.3 60.4 46.7
+     DeBERTa-NLI    agrees     Accuracy\n(%) 71.9 72.2 66.3 60.4 46.7
+     DeBERTa-NLI disagrees Follows\ntone (%) 19.0 16.7 27.8 32.5 36.5
+     DeBERTa-NLI disagrees     Accuracy\n(%) 68.3 63.5 53.2 46.0 46.0
+      Qwen3.5-4B    agrees Follows\ntone (%) 47.9 58.9 61.4 61.5 59.4
+      Qwen3.5-4B    agrees     Accuracy\n(%) 47.9 58.9 61.4 61.5 59.4
+      Qwen3.5-4B disagrees Follows\ntone (%) 23.5 27.2 27.8 29.4 29.4
+      Qwen3.5-4B disagrees     Accuracy\n(%) 59.5 57.1 54.2 55.6 55.8
+      Mistral-7B    agrees Follows\ntone (%) 67.4 74.2 75.7 75.2 71.0
+      Mistral-7B    agrees     Accuracy\n(%) 67.4 74.2 75.7 75.2 71.0
+      Mistral-7B disagrees Follows\ntone (%) 24.1 26.5 28.6 32.8 33.3
+      Mistral-7B disagrees     Accuracy\n(%) 60.6 56.3 57.1 50.5 49.5
+          Kev-4B    agrees Follows\ntone (%) 80.9 84.3 85.3 83.7 81.2
+          Kev-4B    agrees     Accuracy\n(%) 80.9 84.3 85.3 83.7 81.2
+          Kev-4B disagrees Follows\ntone (%) 22.2 36.5 37.8 43.4 39.4
+          Kev-4B disagrees     Accuracy\n(%) 63.2 51.9 49.5 44.7 50.0
+            Laya    agrees Follows\ntone (%) 73.6 72.7 73.1 71.7 70.5
+            Laya    agrees     Accuracy\n(%) 73.6 72.7 73.1 71.7 70.5
+            Laya disagrees Follows\ntone (%) 33.6 41.0 36.0 36.0 36.8
+            Laya disagrees     Accuracy\n(%) 48.9 42.3 47.9 45.2 47.4
+
+== DeBERTa neutral comments (% answers)
+      tom   N k negative neutral positive
+ negative  26 0      7.7    84.6      7.7
+ negative  26 4     73.1    15.4     11.5
+  neutral 210 0      9.0    78.6     12.4
+  neutral 210 4     29.5    38.1     32.4
+ positive  18 0     11.1    61.1     27.8
+ positive  18 4     11.1    11.1     77.8
+
+== ground truth (%) and majority
+ tarefa     dataset    N negative neutral positive
+     T1   MUStARD++  570     42.5    29.3     28.2
+     T1 Sarcasm_NLP 3361     27.3    61.7     11.0
+     T1    Filatova  817      9.9     4.3     85.8
+     T3   MUStARD++  601    100.0      NA       NA
+     T3 Sarcasm_NLP 2568     86.8    10.4      2.8
+     T3    Filatova  437     66.1     4.6     29.3
+
+== answer shares (%)
+           painel            quem negative neutral positive
+   T1 · MUStARD++       reference     42.5    29.3     28.2
+ T1 · Sarcasm_NLP       reference     27.3    61.7     11.0
+    T1 · Filatova       reference      9.9     4.3     85.8
+   T3 · MUStARD++       reference    100.0     0.0      0.0
+ T3 · Sarcasm_NLP       reference     86.8    10.4      2.8
+    T3 · Filatova       reference     66.1     4.6     29.3
+   T1 · MUStARD++     DeBERTa-NLI     61.2     1.6     37.2
+   T1 · MUStARD++          Kev-4B     23.6    64.0     12.4
+   T1 · MUStARD++            Laya     22.0    67.5     10.4
+   T1 · MUStARD++      Mistral-7B     30.9    52.1     17.0
+   T1 · MUStARD++      Qwen3.5-4B     47.4    21.5     31.1
+   T1 · MUStARD++ twitter-roberta     24.6    57.7     17.7
+ T1 · Sarcasm_NLP     DeBERTa-NLI     66.8     7.5     25.7
+ T1 · Sarcasm_NLP          Kev-4B     32.3    59.8      8.0
+ T1 · Sarcasm_NLP            Laya     37.2    46.0     16.9
+ T1 · Sarcasm_NLP      Mistral-7B     19.5    72.0      8.5
+ T1 · Sarcasm_NLP      Qwen3.5-4B     32.3    52.6     15.0
+ T1 · Sarcasm_NLP twitter-roberta     34.4    53.9     11.7
+    T1 · Filatova     DeBERTa-NLI     15.4     0.1     84.5
+    T1 · Filatova          Kev-4B     11.7     4.2     84.2
+    T1 · Filatova            Laya     11.8     6.6     81.7
+    T1 · Filatova      Mistral-7B     10.9     6.2     82.9
+    T1 · Filatova      Qwen3.5-4B     13.5     0.7     85.8
+    T1 · Filatova twitter-roberta     10.8    13.7     75.5
+   T3 · MUStARD++     DeBERTa-NLI     65.1     1.0     33.9
+   T3 · MUStARD++          Kev-4B     20.1    64.9     15.0
+   T3 · MUStARD++            Laya     17.7    67.0     15.3
+   T3 · MUStARD++      Mistral-7B     28.3    57.2     14.5
+   T3 · MUStARD++      Qwen3.5-4B     46.6    17.1     36.3
+   T3 · MUStARD++ twitter-roberta     25.0    54.2     20.8
+ T3 · Sarcasm_NLP     DeBERTa-NLI     62.0     1.9     36.1
+ T3 · Sarcasm_NLP          Kev-4B     61.8    26.4     11.7
+ T3 · Sarcasm_NLP            Laya     25.2    40.1     34.7
+ T3 · Sarcasm_NLP      Mistral-7B     39.1    56.8      4.1
+ T3 · Sarcasm_NLP      Qwen3.5-4B     62.6    23.9     13.4
+ T3 · Sarcasm_NLP twitter-roberta     36.8    19.4     43.8
+    T3 · Filatova     DeBERTa-NLI     70.5     0.0     29.5
+    T3 · Filatova          Kev-4B     70.6     3.9     25.6
+    T3 · Filatova            Laya     60.9    10.1     28.9
+    T3 · Filatova      Mistral-7B     68.0     8.2     23.7
+    T3 · Filatova      Qwen3.5-4B     74.6     0.4     25.0
+    T3 · Filatova twitter-roberta     56.1    18.1     25.9
+
+== irony: % negative on ironic (hit) and non-ironic non-negative (alarm)
+           model     dataset alarm  hit  sep
+     DeBERTa-NLI    Filatova   6.8 94.8 88.0
+     DeBERTa-NLI   MUStARD++  43.6 65.1 21.5
+     DeBERTa-NLI Sarcasm_NLP  57.6 62.4  4.7
+          Kev-4B    Filatova   2.6 95.2 92.5
+          Kev-4B   MUStARD++   9.0 20.1 11.1
+          Kev-4B Sarcasm_NLP  16.5 65.4 48.9
+            Laya    Filatova   3.7 83.6 80.0
+            Laya   MUStARD++   9.8 17.7  7.9
+            Laya Sarcasm_NLP  27.2 25.6 -1.6
+      Mistral-7B    Filatova   2.7 90.1 87.4
+      Mistral-7B   MUStARD++  15.1 28.3 13.2
+      Mistral-7B Sarcasm_NLP  10.0 42.2 32.2
+      Qwen3.5-4B    Filatova   4.5 96.3 91.8
+      Qwen3.5-4B   MUStARD++  27.7 46.6 18.9
+      Qwen3.5-4B Sarcasm_NLP  18.6 66.4 47.8
+ twitter-roberta    Filatova   3.7 75.8 72.1
+ twitter-roberta   MUStARD++  10.7 25.0 14.3
+ twitter-roberta Sarcasm_NLP  20.4 37.9 17.4
+
+== Qwen vs Kev, order v1
+ tarefa     dataset      model Accuracy (%) "Neutral" answers (%)  ref
+     T1    filatova     Kev-4B         93.9                   3.9  4.3
+     T1    filatova Qwen3.5-4B         93.8                   0.6  4.3
+     T1       mtcsd     Kev-4B         71.3                  65.3 58.6
+     T1       mtcsd Qwen3.5-4B         55.3                  29.4 58.6
+     T1   mustardpp     Kev-4B         51.6                  64.7 29.3
+     T1   mustardpp Qwen3.5-4B         57.9                  18.1 29.3
+     T1 sarcasm_nlp     Kev-4B         76.2                  66.1 61.7
+     T1 sarcasm_nlp Qwen3.5-4B         70.9                  55.2 61.7
+     T2       mtcsd     Kev-4B         64.4                  53.9 58.6
+     T2       mtcsd Qwen3.5-4B         57.4                  26.2 58.6
+     T2   mustardpp     Kev-4B         54.4                  61.4 29.3
+     T2   mustardpp Qwen3.5-4B         59.6                  26.0 29.3
+     T3    filatova     Kev-4B         87.4                   4.6  4.6
+     T3    filatova Qwen3.5-4B         85.6                   0.2  4.6
+     T3   mustardpp     Kev-4B         18.0                  67.6  0.0
+     T3   mustardpp Qwen3.5-4B         42.9                  13.6  0.0
+     T3 sarcasm_nlp     Kev-4B         54.8                  35.4 10.4
+     T3 sarcasm_nlp Qwen3.5-4B         57.7                  28.2 10.4
+

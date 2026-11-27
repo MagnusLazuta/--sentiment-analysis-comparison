@@ -1,0 +1,39 @@
+metric,m,v
+ECE T1,twitter-roberta,0.208
+ECE T2,twitter-roberta,0.218
+ECE T3 ironic,twitter-roberta,0.32
+ECE T1,DeBERTa-NLI,0.193
+ECE T2,DeBERTa-NLI,0.409
+ECE T3 ironic,DeBERTa-NLI,0.276
+ECE T1,Qwen3.5-4B,0.222
+ECE T2,Qwen3.5-4B,0.223
+ECE T3 ironic,Qwen3.5-4B,0.163
+ECE T1,Mistral-7B,0.308
+ECE T2,Mistral-7B,0.314
+ECE T3 ironic,Mistral-7B,0.238
+ECE T1,Kev-4B,0.101
+ECE T2,Kev-4B,0.115
+ECE T3 ironic,Kev-4B,0.164
+ECE T1,Laya,0.158
+ECE T2,Laya,0.111
+ECE T3 ironic,Laya,0.317
+"Same answer in
+the 3 orders (%)",Kev-4B,87.764
+"Same answer in
+the 3 orders (%)",Laya,82.756
+"Same answer in
+the 3 orders (%)",Mistral-7B,63.506
+"Same answer in
+the 3 orders (%)",Qwen3.5-4B,84.716
+"Confident errors
+(% of errors)",DeBERTa-NLI,55.567805953693494
+"Confident errors
+(% of errors)",Kev-4B,6.453926138400861
+"Confident errors
+(% of errors)",Laya,3.4424379232505644
+"Confident errors
+(% of errors)",Mistral-7B,55.59796437659033
+"Confident errors
+(% of errors)",Qwen3.5-4B,23.28767123287671
+"Confident errors
+(% of errors)",twitter-roberta,17.11934156378601
